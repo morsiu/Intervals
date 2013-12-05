@@ -12,7 +12,7 @@ namespace Walrus.Ranges
     /// The ends may or may not be contained within the range.
     /// </summary>
     /// <typeparam name="T">Type of range ends values.</typeparam>
-    public interface IRange<T>
+    public interface IRange<T> : IEquatable<IRange<T>>
         where T : IComparable<T>
     {
         /// <summary>
