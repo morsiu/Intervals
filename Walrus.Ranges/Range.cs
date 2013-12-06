@@ -9,6 +9,12 @@ namespace Walrus.Ranges
 {
     public static class Range
     {
+        public static IRange<T> Point<T>(T point)
+            where T : IComparable<T>
+        {
+            return new Range<T>(point, point, false, false);
+        }
+
         public static IRange<T> Closed<T>(T start, T end)
             where T : IComparable<T>
         {

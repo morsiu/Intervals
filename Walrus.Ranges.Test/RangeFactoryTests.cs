@@ -243,6 +243,49 @@ namespace Walrus.Ranges.Test
         }
 
         [TestFixture]
+        public class RangeCreatedWithPoint
+        {
+            private readonly int point = 5;
+            private IRange<int> range;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                range = Range.Point(point);
+            }
+
+            [Test]
+            public void ShouldHaveStartEqualToPoint()
+            {
+                Assert.AreEqual(point, range.End);
+            }
+
+            [Test]
+            public void ShouldHaveEndEqualToPoint()
+            {
+                Assert.AreEqual(point, range.Start);
+            }
+
+            [Test]
+            public void ShouldNotBeEmpty()
+            {
+                Assert.IsFalse(range.IsEmpty);
+            }
+
+            [Test]
+            public void ShouldHaveClosedStart()
+            {
+                Assert.IsFalse(range.HasOpenStart);
+            }
+
+            [Test]
+            public void ShouldHaveClosedEnd()
+            {
+                Assert.IsFalse(range.HasOpenEnd);
+            }
+        }
+
+        [TestFixture]
         public class RangeCreatedWithRightOpen
         {
             private readonly int start = 5;
