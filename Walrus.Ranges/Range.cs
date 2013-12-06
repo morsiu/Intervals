@@ -23,5 +23,12 @@ namespace Walrus.Ranges
             RangeValidator.CheckEndGreaterThanStart(start, end);
             return new Range<T>(start, end, true, false);
         }
+
+        public static IRange<T> RightOpen<T>(T start, T end)
+            where T : IComparable<T>
+        {
+            RangeValidator.CheckEndGreaterThanStart(start, end);
+            return new Range<T>(start, end, false, true);
+        }
     }
 }
