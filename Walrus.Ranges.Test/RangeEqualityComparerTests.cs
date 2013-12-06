@@ -1,14 +1,16 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Walrus.Ranges;
 
 namespace Walrus.Ranges.Test
 {
     [TestFixture]
     public class RangeEqualityComparerTests
     {
+        [Test]
+        public void InstanceShouldReturnNonNullReference()
+        {
+            var reference = RangeEqualityComparer<int>.Instance;
+            Assert.IsNotNull(reference);
+        }
     }
 }
