@@ -10,6 +10,12 @@ namespace Walrus.Ranges.Test
 {
     public class EmptyRangeTests
     {
+        [Test]
+        public void InstanceShouldNotReturnNullReference()
+        {
+            Assert.IsNotNull(EmptyRange<int>.Value);
+        }
+
         [TestFixture]
         public class AfterConstruction
         {
@@ -18,7 +24,7 @@ namespace Walrus.Ranges.Test
             [TestFixtureSetUp]
             public void SetUp()
             {
-                emptyRange = new EmptyRange<int>();
+                emptyRange = EmptyRange<int>.Value;
             }
 
             [Test]

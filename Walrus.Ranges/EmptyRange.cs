@@ -10,6 +10,12 @@ namespace Walrus.Ranges
     internal sealed class EmptyRange<T> : IRange<T>
         where T : IComparable<T>
     {
+        public static readonly EmptyRange<T> Value = new EmptyRange<T>();
+
+        private EmptyRange()
+        {
+        }
+
         public bool IsEmpty
         {
             get { return true; }
