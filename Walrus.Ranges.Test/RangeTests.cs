@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 
-namespace Walrus.Ranges.Test
+namespace Walrus.Ranges
 {
     public class RangeTests
     {

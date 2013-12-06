@@ -6,7 +6,7 @@
 using NUnit.Framework;
 using System;
 
-namespace Walrus.Ranges.Test
+namespace Walrus.Ranges
 {
     [TestFixture]
     public class EmptyRangeTests

@@ -6,7 +6,7 @@
 using NUnit.Framework;
 using System;
 
-namespace Walrus.Ranges.Text.Test
+namespace Walrus.Ranges.Text
 {
     [TestFixture]
     internal class PointTypeMatcherTests

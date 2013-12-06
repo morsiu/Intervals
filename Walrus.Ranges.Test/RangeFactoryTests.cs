@@ -6,7 +6,7 @@
 using NUnit.Framework;
 using System;
 
-namespace Walrus.Ranges.Test
+namespace Walrus.Ranges
 {
     // Tests static Range class.
     [TestFixture]
