@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Walrus.Ranges
 {
     public static class Range
