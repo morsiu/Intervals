@@ -60,5 +60,14 @@ namespace Walrus.Ranges
         {
             return EmptyRange<T>.Value;
         }
+
+        public static IRange<T> Create<T>(T start, T end, bool hasOpenStart, bool hasOpenEnd)
+            where T : IComparable<T>
+        {
+            if (!hasOpenStart && !hasOpenEnd) return Closed(start, end);
+            if (!hasOpenStart && hasOpenEnd) return RightOpen(start, end);
+            if (hasOpenStart && !hasOpenEnd) return LeftOpen(start, end);
+            return Open(start, end);
+        }
     }
 }
