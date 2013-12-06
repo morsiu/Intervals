@@ -9,5 +9,12 @@ namespace Walrus.Ranges
             RangeValidator.CheckStartNotGreaterThanEnd(start, end);
             return new Range<T>(start, end, false, false);
         }
+
+        public static IRange<T> Open<T>(T start, T end)
+            where T : IComparable<T>
+        {
+            RangeValidator.CheckEndGreaterThanStart(start, end);
+            return new Range<T>(start, end, true, true);
+        }
     }
 }
