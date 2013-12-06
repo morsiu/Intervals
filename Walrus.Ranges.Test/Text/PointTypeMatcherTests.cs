@@ -52,5 +52,17 @@ namespace Walrus.Ranges.Text.Test
                 default(PointType?),
                 parser.Match('#'));
         }
+
+        [Test]
+        // This test is for character to point type lookup array used inside matcher,
+        // which assumes specific integer values for point types.
+        [TestCase(PointType.Uncovered, ExpectedResult = 0)]
+        [TestCase(PointType.Covered, ExpectedResult = 1)]
+        [TestCase(PointType.ClosedEnd, ExpectedResult = 2)]
+        [TestCase(PointType.OpenEnd, ExpectedResult = 3)]
+        public int PointTypeShouldHaveSpecificIntegerValue(PointType type)
+        {
+            return (int)type;
+        }
     }
 }
