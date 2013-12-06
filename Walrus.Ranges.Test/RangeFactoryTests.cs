@@ -65,6 +65,52 @@ namespace Walrus.Ranges.Test
         }
 
         [TestFixture]
+        public class RangeCreatedWithEmpty
+        {
+            private IRange<int> range;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                range = EmptyRange<int>.Value;
+            }
+
+            [Test]
+            public void ShouldBeEmpty()
+            {
+                Assert.IsTrue(range.IsEmpty);
+            }
+
+            [Test]
+            public void StartShouldThrowInvalidOperationException()
+            {
+                Assert.Throws<InvalidOperationException>(
+                    () => { var foo = range.Start; });
+            }
+
+            [Test]
+            public void EndShouldThrowInvalidOperationException()
+            {
+                Assert.Throws<InvalidOperationException>(
+                    () => { var foo = range.End; });
+            }
+
+            [Test]
+            public void HasOpenStartShouldThrowInvalidOperationException()
+            {
+                Assert.Throws<InvalidOperationException>(
+                    () => { var foo = range.HasOpenStart; });
+            }
+
+            [Test]
+            public void HasOpenEndShouldThrowInvalidOperationException()
+            {
+                Assert.Throws<InvalidOperationException>(
+                    () => { var foo = range.HasOpenEnd; });
+            }
+        }
+
+        [TestFixture]
         public class RangeCreatedWithClosed
         {
             private readonly int start = 5;

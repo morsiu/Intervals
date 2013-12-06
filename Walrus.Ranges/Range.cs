@@ -42,5 +42,11 @@ namespace Walrus.Ranges
         {
             return LeftOpen(start, end);
         }
+
+        public static IRange<T> Empty<T>()
+            where T : IComparable<T>
+        {
+            return EmptyRange<T>.Value;
+        }
     }
 }
