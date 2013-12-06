@@ -18,7 +18,7 @@ namespace Walrus.Ranges
 
         public Range(T start, T end, bool hasOpenStart, bool hasOpenEnd)
         {
-            // Validation is done in Range static class
+            // Validation is done in Range static class factory methods.
             _start = start;
             _end = end;
             _hasOpenStart = hasOpenStart;
@@ -58,6 +58,11 @@ namespace Walrus.Ranges
         public bool Equals(IRange<T> other)
         {
             return RangeEqualityComparer<T>.Instance.Equals(this, other);
+        }
+
+        public override int GetHashCode()
+        {
+            return RangeEqualityComparer<T>.Instance.GetHashCode(this);
         }
     }
 }
