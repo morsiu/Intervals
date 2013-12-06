@@ -28,6 +28,15 @@ namespace Walrus.Ranges.Test
                 () => Range.Open(start, end));
         }
 
+        [Test]
+        [TestCase(5, 5)]
+        [TestCase(10, 5)]
+        public void LeftOpenShouldThrowArgumentExceptionWhenStartIsGreaterThanOrEqualToEnd(int start, int end)
+        {
+            Assert.Throws<ArgumentException>(
+                () => Range.LeftOpen(start, end));
+        }
+
         [TestFixture]
         public class RangeCreatedWithClosed
         {
@@ -113,6 +122,50 @@ namespace Walrus.Ranges.Test
             public void ShouldHaveOpenEnd()
             {
                 Assert.IsTrue(range.HasOpenEnd);
+            }
+        }
+
+        [TestFixture]
+        public class RangeCreatedWithLeftOpen
+        {
+            private readonly int start = 5;
+            private readonly int end = 10;
+            private IRange<int> range;
+
+            [TestFixtureSetUp]
+            public void SetUp()
+            {
+                range = Range.LeftOpen(start, end);
+            }
+
+            [Test]
+            public void ShouldHaveExpectedStart()
+            {
+                Assert.AreEqual(end, range.End);
+            }
+
+            [Test]
+            public void ShouldHaveExpectedEnd()
+            {
+                Assert.AreEqual(start, range.Start);
+            }
+
+            [Test]
+            public void ShouldNotBeEmpty()
+            {
+                Assert.IsFalse(range.IsEmpty);
+            }
+
+            [Test]
+            public void ShouldHaveOpenStart()
+            {
+                Assert.IsTrue(range.HasOpenStart);
+            }
+
+            [Test]
+            public void ShouldHaveClosedEnd()
+            {
+                Assert.IsFalse(range.HasOpenEnd);
             }
         }
     }
