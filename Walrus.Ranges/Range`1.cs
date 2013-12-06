@@ -18,7 +18,7 @@ namespace Walrus.Ranges
 
         public Range(T start, T end, bool hasOpenStart, bool hasOpenEnd)
         {
-            // Validation is done in Range static class factory methods.
+            // Parameter validation is done in Range static class factory methods.
             _start = start;
             _end = end;
             _hasOpenStart = hasOpenStart;
