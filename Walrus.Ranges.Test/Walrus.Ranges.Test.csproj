@@ -6,7 +6,7 @@
     <ProjectGuid>{9E565880-651D-4529-9288-EDE823AD9863}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Walrus.Ranges.Test</RootNamespace>
+    <RootNamespace>Walrus.Ranges</RootNamespace>
     <AssemblyName>Walrus.Ranges.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="EmptyRangeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RangeBuilderTests.cs" />
     <Compile Include="RangeEqualityComparerTests.cs" />
     <Compile Include="RangeFactoryTests.cs" />
     <Compile Include="RangeTests.cs" />
@@ -67,6 +68,7 @@
       <Name>Walrus.Ranges</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
