@@ -30,7 +30,7 @@ namespace Walrus.Ranges
             }
             return x.HasOpenStart == y.HasOpenStart
                 && x.HasOpenEnd == y.HasOpenEnd
-                && x.Start.CompareTo(y.End) == 0
+                && x.Start.CompareTo(y.Start) == 0
                 && x.End.CompareTo(y.End) == 0;
         }
 
