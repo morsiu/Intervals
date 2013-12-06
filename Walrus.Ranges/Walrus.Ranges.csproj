@@ -41,6 +41,8 @@
     <Compile Include="RangeEqualityComparer.cs" />
     <Compile Include="RangeValidator.cs" />
     <Compile Include="Range`1.cs" />
+    <Compile Include="Text\PointType.cs" />
+    <Compile Include="Text\PointTypeMatcher.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
