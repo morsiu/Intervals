@@ -8,6 +8,7 @@ using System;
 
 namespace Walrus.Ranges.Test
 {
+    [TestFixture]
     public class EmptyRangeTests
     {
         [Test]
