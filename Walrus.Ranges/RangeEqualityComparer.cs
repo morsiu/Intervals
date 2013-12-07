@@ -28,7 +28,13 @@ namespace Walrus.Ranges
             {
                 return false;
             }
-            return x.HasOpenStart == y.HasOpenStart
+            if (x.IsEmpty == true && y.IsEmpty == true)
+            {
+                return true;
+            }
+            return x.IsEmpty == false
+                && y.IsEmpty == false
+                && x.HasOpenStart == y.HasOpenStart
                 && x.HasOpenEnd == y.HasOpenEnd
                 && x.Start.CompareTo(y.Start) == 0
                 && x.End.CompareTo(y.End) == 0;
@@ -36,7 +42,7 @@ namespace Walrus.Ranges
 
         public int GetHashCode(IRange<T> obj)
         {
-            if (obj == null)
+            if (obj == null || obj.IsEmpty)
             {
                 return 0;
             }
