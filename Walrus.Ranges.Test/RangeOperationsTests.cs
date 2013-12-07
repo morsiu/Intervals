@@ -43,5 +43,22 @@ namespace Walrus.Ranges
                 testCase.ABIntersection,
                 RangeOperations.Intersect(testCase.A, testCase.B));
         }
+
+        [Test]
+        [TestCaseSource(typeof(RangePairTestCases), "NullRangePairs")]
+        public void CoversShouldThrowGivenNullRange(RangePairTestCases.TestCase testCase)
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => RangeOperations.Covers(testCase.A, testCase.B));
+        }
+
+        [Test]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
+        public void CoversShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        {
+            Assert.AreEqual(
+                testCase.ACoversB,
+                RangeOperations.Covers(testCase.A, testCase.B));
+        }
     }
 }

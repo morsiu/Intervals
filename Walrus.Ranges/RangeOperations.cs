@@ -43,5 +43,17 @@ namespace Walrus.Ranges
                         ? x.HasOpenEnd
                         : y.HasOpenEnd);
         }
+
+        public static bool Covers<T>(IRange<T> x, IRange<T> y)
+            where T : IComparable<T>
+        {
+            if (!IntersectsWith(x, y)) return false;
+
+            var xStartToYStart = x.Start.CompareTo(y.Start);
+            var xEndToYEnd = x.End.CompareTo(y.End);
+
+            return (xStartToYStart < 0 || (xStartToYStart == 0 && (!x.HasOpenStart || (x.HasOpenStart && y.HasOpenStart))))
+                && (xEndToYEnd > 0 || (xEndToYEnd == 0 && (!x.HasOpenEnd || (x.HasOpenEnd && y.HasOpenEnd))));
+        }
     }
 }

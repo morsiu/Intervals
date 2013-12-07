@@ -19,5 +19,11 @@ namespace Walrus.Ranges
         {
             return RangeOperations.Intersect(range, other);
         }
+
+        public static bool Covers<T>(this IRange<T> range, IRange<T> other)
+            where T : IComparable<T>
+        {
+            return RangeOperations.Covers(range, other);
+        }
     }
 }
