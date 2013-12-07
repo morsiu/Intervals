@@ -3,21 +3,23 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Walrus.Ranges.Text
+using System;
+
+namespace Walrus.Ranges.Text.ParserStates
 {
-    internal sealed class Point
+    internal sealed class EndPointState : ITextRangeParserState
     {
-        private PointType? type;
-        private int position;
-
-        public Point(PointType? type, int position)
+        public ITextRangeParserState Advance(Point point, RangeBuilder<int> rangeBuilder)
         {
-            this.type = type;
-            this.position = position;
+            switch (point.Type)
+            {
+                case null:
+                    return new EndState();
+                case PointType.Uncovered:
+                    return new AfterRangeState();
+                default:
+                    throw new ArgumentException(string.Format("Point of type {0} was not expected at position {1}.", point.Type, point.Position));
+            }
         }
-
-        public PointType? Type { get { return type; } }
-
-        public int Position { get { return position; } }
     }
 }

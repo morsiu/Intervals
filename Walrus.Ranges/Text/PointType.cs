@@ -11,6 +11,6 @@ namespace Walrus.Ranges.Text
         Uncovered = 0,
         Covered = 1,
         ClosedEnd = 2,
-        OpenEnd = 3
+        OpenEnd = 3,
     }
 }

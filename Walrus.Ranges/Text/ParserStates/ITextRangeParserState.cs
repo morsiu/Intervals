@@ -7,8 +7,6 @@ namespace Walrus.Ranges.Text.ParserStates
 {
     internal interface ITextRangeParserState
     {
-        ITextRangeParserState Advance(Point point);
-
-        void End(Point lastPoint);
+        ITextRangeParserState Advance(Point point, RangeBuilder<int> rangeBuilder);
     }
 }

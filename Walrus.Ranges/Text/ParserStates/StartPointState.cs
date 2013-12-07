@@ -7,43 +7,26 @@ using System;
 
 namespace Walrus.Ranges.Text.ParserStates
 {
-    internal sealed class InitialState : ITextRangeParserState
+    internal sealed class StartPointState : ITextRangeParserState
     {
-        private readonly RangeBuilder<int> rangeBuilder;
-
-        public InitialState(RangeBuilder<int> rangeBuilder)
-        {
-            this.rangeBuilder = rangeBuilder;
-        }
-
-        public ITextRangeParserState Advance(Point point)
+        public ITextRangeParserState Advance(Point point, RangeBuilder<int> rangeBuilder)
         {
             switch (point.Type)
             {
-                case PointType.Uncovered: return this;
+                case null:
+                    return new EndState();
+                case PointType.Uncovered:
+                    return new AfterRangeState();
+                case PointType.Covered: 
+                    return new InsideRangeState();
                 case PointType.OpenEnd:
-                    rangeBuilder.SetStart(point.Position, true);
                     rangeBuilder.SetEnd(point.Position, true);
-                    return new FirstEndPointState(rangeBuilder);
+                    return new EndPointState();
                 case PointType.ClosedEnd:
-                    rangeBuilder.SetStart(point.Position, false);
                     rangeBuilder.SetEnd(point.Position, false);
-                    return new FirstEndPointState(rangeBuilder);
+                    return new EndPointState();
                 default:
                     throw new ArgumentException(string.Format("Point of type {0} was not expected at position {1}.", point.Type, point.Position));
-            }
-        }
-
-        public void End(Point lastPoint)
-        {
-            switch (lastPoint.Type)
-            {
-                case PointType.OpenEnd:
-                    rangeBuilder.SetEnd(lastPoint.Position, true);
-                    break;
-                case PointType.ClosedEnd:
-                    rangeBuilder.SetEnd(lastPoint.Position, false);
-                    break;
             }
         }
     }

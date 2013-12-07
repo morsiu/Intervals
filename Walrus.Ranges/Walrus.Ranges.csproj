@@ -42,9 +42,12 @@
     <Compile Include="RangeValidator.cs" />
     <Compile Include="Range`1.cs" />
     <Compile Include="RangeBuilder.cs" />
-    <Compile Include="Text\ParserStates\FinalState.cs" />
-    <Compile Include="Text\ParserStates\FirstEndPointState.cs" />
-    <Compile Include="Text\ParserStates\InitialState.cs" />
+    <Compile Include="Text\ParserStates\AfterRangeState.cs" />
+    <Compile Include="Text\ParserStates\EndPointState.cs" />
+    <Compile Include="Text\ParserStates\EndState.cs" />
+    <Compile Include="Text\ParserStates\StartPointState.cs" />
+    <Compile Include="Text\ParserStates\InsideRangeState.cs" />
+    <Compile Include="Text\ParserStates\BeforeRangeState.cs" />
     <Compile Include="Text\ParserStates\ITextRangeParserState.cs" />
     <Compile Include="Text\Point.cs" />
     <Compile Include="Text\PointType.cs" />

@@ -7,16 +7,11 @@ using System;
 
 namespace Walrus.Ranges.Text.ParserStates
 {
-    internal sealed class FinalState : ITextRangeParserState
+    internal sealed class EndState : ITextRangeParserState
     {
-        public ITextRangeParserState Advance(Point point)
+        public ITextRangeParserState Advance(Point point, RangeBuilder<int> rangeBuilder)
         {
-            if (point.Type == PointType.Uncovered) return this;
-            throw new ArgumentException(string.Format("Point of type {0} was not expected at position {1}.", point.Type, point.Position));
-        }
-
-        public void End(Point lastPoint)
-        {
+            return this;
         }
     }
 }

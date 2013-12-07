@@ -7,34 +7,27 @@ using System;
 
 namespace Walrus.Ranges.Text.ParserStates
 {
-    internal sealed class FirstEndPointState : ITextRangeParserState
+    internal sealed class BeforeRangeState : ITextRangeParserState
     {
-        private readonly RangeBuilder<int> rangeBuilder;
-
-        public FirstEndPointState(RangeBuilder<int> rangeBuilder)
-        {
-            this.rangeBuilder = rangeBuilder;
-        }
-
-        public ITextRangeParserState Advance(Point point)
+        public ITextRangeParserState Advance(Point point, RangeBuilder<int> rangeBuilder)
         {
             switch (point.Type)
             {
-                case PointType.Covered: return this;
-                case PointType.Uncovered: return new FinalState();
+                case null:
+                    return new EndState();
+                case PointType.Uncovered:
+                    return this;
                 case PointType.OpenEnd:
+                    rangeBuilder.SetStart(point.Position, true);
                     rangeBuilder.SetEnd(point.Position, true);
-                    return new FinalState();
+                    return new StartPointState();
                 case PointType.ClosedEnd:
+                    rangeBuilder.SetStart(point.Position, false);
                     rangeBuilder.SetEnd(point.Position, false);
-                    return new FinalState();
+                    return new StartPointState();
                 default:
                     throw new ArgumentException(string.Format("Point of type {0} was not expected at position {1}.", point.Type, point.Position));
             }
-        }
-
-        public void End(Point lastPoint)
-        {
         }
     }
 }

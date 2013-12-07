@@ -21,28 +21,19 @@ namespace Walrus.Ranges.Text
         public IRange<int> Parse(string textRange)
         {
             var rangeBuilder = new RangeBuilder<int>();
-            ITextRangeParserState state = new InitialState(rangeBuilder);
+            ITextRangeParserState state = new BeforeRangeState();
             var textRangeEnumerator = textRange.GetEnumerator();
             var atTextRangeEnd = !textRangeEnumerator.MoveNext();
             int pointPosition = 1;
-            while (!atTextRangeEnd)
+            foreach (var character in textRange)
             {
-                var character = textRangeEnumerator.Current;
                 var pointType = pointTypeMatcher.Match(character);
                 if (pointType == null) throw new ArgumentException(string.Format("Character {0} in text range is not assigned to any point type.", character));
                 var point = new Point(pointType.Value, pointPosition);
-                var nextState = state.Advance(point);
-                atTextRangeEnd = !textRangeEnumerator.MoveNext();
-                if (atTextRangeEnd)
-                {
-                    state.End(point);
-                }
-                else
-                {
-                    pointPosition += 1;
-                    state = nextState;
-                }
+                state = state.Advance(point, rangeBuilder);
+                pointPosition += 1;
             }
+            state.Advance(new Point(null, pointPosition), rangeBuilder);
             return rangeBuilder.Build();
         }
     }
