@@ -22,8 +22,6 @@ namespace Walrus.Ranges.Text
         {
             var rangeBuilder = new RangeBuilder<int>();
             ITextRangeParserState state = new BeforeRangeState();
-            var textRangeEnumerator = textRange.GetEnumerator();
-            var atTextRangeEnd = !textRangeEnumerator.MoveNext();
             int pointPosition = 1;
             foreach (var character in textRange)
             {
