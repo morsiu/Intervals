@@ -26,7 +26,24 @@ namespace Walrus.Ranges
         {
             if (x == null) throw new ArgumentNullException("x");
             if (y == null) throw new ArgumentNullException("y");
-            throw new NotImplementedException();
+            if (!x.IntersectsWith(y)) return Range.Empty<T>();
+
+            var xStartToYStart = x.Start.CompareTo(y.Start);
+            var xEndToYEnd = x.End.CompareTo(y.End);
+
+            return Range.Create(
+                xStartToYStart > 0 ? x.Start : y.Start,
+                xEndToYEnd < 0 ? x.End : y.End,
+                xStartToYStart == 0
+                    ? x.HasOpenStart || y.HasOpenStart
+                    : xStartToYStart > 0
+                        ? x.HasOpenStart
+                        : y.HasOpenStart,
+                xEndToYEnd == 0
+                    ? x.HasOpenEnd || y.HasOpenEnd
+                    : xEndToYEnd < 0
+                        ? x.HasOpenEnd
+                        : y.HasOpenEnd);
         }
     }
 }
