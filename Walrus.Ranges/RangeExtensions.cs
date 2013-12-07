@@ -13,5 +13,11 @@ namespace Walrus.Ranges
         {
             return RangeOperations.IntersectsWith(range, other);
         }
+
+        public static IRange<T> Intersect<T>(this IRange<T> range, IRange<T> other)
+            where T : IComparable<T>
+        {
+            return RangeOperations.Intersect(range, other);
+        }
     }
 }

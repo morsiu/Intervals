@@ -21,6 +21,8 @@ namespace Walrus.Ranges
             public bool? AEqualsB { get; set; }
 
             public bool? AIntersectsWithB { get; set; }
+
+            public IRange<int> ABIntersection { get; set; }
         }
 
         public static IEnumerable<TestCase> AllRangePairs
@@ -127,54 +129,63 @@ namespace Walrus.Ranges
                 yield return
                 ForA("     ").
                 AndB("     ").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 AEqualsB();
 
                 yield return
                 ForA("     ").
                 AndB("x===x").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("     ").
                 AndB("o===o").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("     ").
                 AndB("o===x").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("     ").
                 AndB("x===o").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x===x").
                 AndB("     ").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o===o").
                 AndB("     ").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o===x").
                 AndB("     ").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x===o").
                 AndB("     ").
+                SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
             }
@@ -187,78 +198,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===x            ").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===x          ").
                 AndB("      x===x      ").
+                SetN("      x          ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===x        ").
                 AndB("      x===x      ").
+                SetN("      x=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===x      ").
                 AndB("      x===x      ").
+                SetN("      x===x      ").AsABIntersection().
                 AIntersectsWithB().
                 AEqualsB();
 
                 yield return
                 ForA("        x===x    ").
                 AndB("      x===x      ").
+                SetN("        x=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===x  ").
                 AndB("      x===x      ").
+                SetN("          x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===x").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("x==x    ").
+                SetN("x==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("  x==x  ").
+                SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("    x==x").
+                SetN("    x==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==x    ").
                 AndB("x======x").
+                SetN("x==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==x  ").
                 AndB("x======x").
+                SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==x").
                 AndB("x======x").
+                SetN("    x==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -271,78 +295,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===o            ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===o          ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===o        ").
                 AndB("      o===o      ").
+                SetN("      o=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===o      ").
                 AndB("      o===o      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 AEqualsB();
 
                 yield return
                 ForA("        o===o    ").
                 AndB("      o===o      ").
+                SetN("        o=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===o  ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===o").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("o==o    ").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("  o==o  ").
+                SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("    o==o").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==o    ").
                 AndB("o======o").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==o  ").
                 AndB("o======o").
+                SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==o").
                 AndB("o======o").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -355,78 +392,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===x            ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===x          ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===x        ").
                 AndB("      o===x      ").
+                SetN("      o=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===x      ").
                 AndB("      o===x      ").
+                SetN("      o===x      ").AsABIntersection().
                 AIntersectsWithB().
                 AEqualsB();
 
                 yield return
                 ForA("        o===x    ").
                 AndB("      o===x      ").
+                SetN("        o=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===x  ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===x").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("o==x    ").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("  o==x  ").
+                SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("    o==x").
+                SetN("    o==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==x    ").
                 AndB("o======x").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==x  ").
                 AndB("o======x").
+                SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==x").
                 AndB("o======x").
+                SetN("    o==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -439,78 +489,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===o            ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===o          ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===o        ").
                 AndB("      x===o      ").
+                SetN("      x=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===o      ").
                 AndB("      x===o      ").
+                SetN("      x===o      ").AsABIntersection().
                 AIntersectsWithB().
                 AEqualsB();
 
                 yield return
                 ForA("        x===o    ").
                 AndB("      x===o      ").
+                SetN("        x=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===o  ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===o").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("x==o    ").
+                SetN("x==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("  x==o  ").
+                SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("    x==o").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==o    ").
                 AndB("x======o").
+                SetN("x==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==o  ").
                 AndB("x======o").
+                SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==o").
                 AndB("x======o").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -523,78 +586,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===x            ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===x          ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===x        ").
                 AndB("      o===o      ").
+                SetN("      o=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===x      ").
                 AndB("      o===o      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===x    ").
                 AndB("      o===o      ").
+                SetN("        x=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===x  ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===x").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("o==o    ").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("  o==o  ").
+                SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("    o==o").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==x    ").
                 AndB("o======o").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==x  ").
                 AndB("o======o").
+                SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==x").
                 AndB("o======o").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -607,78 +683,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===o            ").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===o          ").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===o        ").
                 AndB("      x===x      ").
+                SetN("      x=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===o      ").
                 AndB("      x===x      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===o    ").
                 AndB("      x===x      ").
+                SetN("        o=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===o  ").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===o").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("x==x    ").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("  x==x  ").
+                SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("    x==x").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==o    ").
                 AndB("x======x").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==o  ").
                 AndB("x======x").
+                SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==o").
                 AndB("x======x").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -691,78 +780,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===x            ").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===x          ").
                 AndB("      x===x      ").
+                SetN("      x          ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===x        ").
                 AndB("      x===x      ").
+                SetN("      x=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===x      ").
                 AndB("      x===x      ").
+                SetN("      o===x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===x    ").
                 AndB("      x===x      ").
+                SetN("        o=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===x  ").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===x").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("x==x    ").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("  x==x  ").
+                SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("    x==x").
+                SetN("    x==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==x    ").
                 AndB("x======x").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==x  ").
                 AndB("x======x").
+                SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==x").
                 AndB("x======x").
+                SetN("    o==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -775,78 +877,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===x            ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===x          ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===x        ").
                 AndB("      o===x      ").
+                SetN("      o=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===x      ").
                 AndB("      o===x      ").
+                SetN("      o===x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===x    ").
                 AndB("      o===x      ").
+                SetN("        x=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===x  ").
                 AndB("      o===x      ").
+                SetN("          x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===x").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("o==x    ").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("  o==x  ").
+                SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("    o==x").
+                SetN("    o==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==x    ").
                 AndB("o======x").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==x  ").
                 AndB("o======x").
+                SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==x").
                 AndB("o======x").
+                SetN("    x==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -859,78 +974,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===o            ").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===o          ").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===o        ").
                 AndB("      x===x      ").
+                SetN("      x=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===o      ").
                 AndB("      x===x      ").
+                SetN("      x===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===o    ").
                 AndB("      x===x      ").
+                SetN("        x=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===o  ").
                 AndB("      x===x      ").
+                SetN("          x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===o").
                 AndB("      x===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("x==x    ").
+                SetN("x==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("  x==x  ").
+                SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("    x==x").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==o    ").
                 AndB("x======x").
+                SetN("x==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==o  ").
                 AndB("x======x").
+                SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==o").
                 AndB("x======x").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -943,78 +1071,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===x            ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===x          ").
                 AndB("      x===o      ").
+                SetN("      x          ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===x        ").
                 AndB("      x===o      ").
+                SetN("      x=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===x      ").
                 AndB("      x===o      ").
+                SetN("      x===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===x    ").
                 AndB("      x===o      ").
+                SetN("        x=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===x  ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===x").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("x==o    ").
+                SetN("x==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("  x==o  ").
+                SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("    x==o").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==x    ").
                 AndB("x======o").
+                SetN("x==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==x  ").
                 AndB("x======o").
+                SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==x").
                 AndB("x======o").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -1027,78 +1168,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===o            ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===o          ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===o        ").
                 AndB("      o===x      ").
+                SetN("      o=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===o      ").
                 AndB("      o===x      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===o    ").
                 AndB("      o===x      ").
+                SetN("        o=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===o  ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===o").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("o==x    ").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("  o==x  ").
+                SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("    o==x").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==o    ").
                 AndB("o======x").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==o  ").
                 AndB("o======x").
+                SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==o").
                 AndB("o======x").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -1111,78 +1265,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===x            ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===x          ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===x        ").
                 AndB("      o===o      ").
+                SetN("      o=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===x      ").
                 AndB("      o===o      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===x    ").
                 AndB("      o===o      ").
+                SetN("        o=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===x  ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===x").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("o==o    ").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("  o==o  ").
+                SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("    o==o").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==x    ").
                 AndB("o======o").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==x  ").
                 AndB("o======o").
+                SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==x").
                 AndB("o======o").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -1195,78 +1362,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===o            ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===o          ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===o        ").
                 AndB("      x===o      ").
+                SetN("      x=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===o      ").
                 AndB("      x===o      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===o    ").
                 AndB("      x===o      ").
+                SetN("        o=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===o  ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===o").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("x==o    ").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("  x==o  ").
+                SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("    x==o").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==o    ").
                 AndB("x======o").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==o  ").
                 AndB("x======o").
+                SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==o").
                 AndB("x======o").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -1279,78 +1459,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===o            ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===o          ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===o        ").
                 AndB("      o===o      ").
+                SetN("      o=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===o      ").
                 AndB("      o===o      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===o    ").
                 AndB("      o===o      ").
+                SetN("        x=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===o  ").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===o").
                 AndB("      o===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("o==o    ").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("  o==o  ").
+                SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("    o==o").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==o    ").
                 AndB("o======o").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==o  ").
                 AndB("o======o").
+                SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==o").
                 AndB("o======o").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -1363,78 +1556,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===x            ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===x          ").
                 AndB("      x===o      ").
+                SetN("      x          ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===x        ").
                 AndB("      x===o      ").
+                SetN("      x=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===x      ").
                 AndB("      x===o      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===x    ").
                 AndB("      x===o      ").
+                SetN("        o=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===x  ").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===x").
                 AndB("      x===o      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("x==o    ").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("  x==o  ").
+                SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("    x==o").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==x    ").
                 AndB("x======o").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==x  ").
                 AndB("x======o").
+                SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==x").
                 AndB("x======o").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -1447,78 +1653,91 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===o            ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===o          ").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===o        ").
                 AndB("      o===x      ").
+                SetN("      o=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===o      ").
                 AndB("      o===x      ").
+                SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===o    ").
                 AndB("      o===x      ").
+                SetN("        x=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===o  ").
                 AndB("      o===x      ").
+                SetN("          x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===o").
                 AndB("      o===x      ").
+                SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("o==x    ").
+                SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("  o==x  ").
+                SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("    o==x").
+                SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==o    ").
                 AndB("o======x").
+                SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==o  ").
                 AndB("o======x").
+                SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==o").
                 AndB("o======x").
+                SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotEqualB();
             }
@@ -1560,6 +1779,12 @@ namespace Walrus.Ranges
                 return this;
             }
 
+            public INRangeTargets SetN(string rangeN)
+            {
+                var n = Parse(rangeN);
+                return new NRangeTargets(n, this);
+            }
+
             public TestCaseBuilder AEqualsB()
             {
                 testCase.AEqualsB = true;
@@ -1572,21 +1797,45 @@ namespace Walrus.Ranges
                 return this;
             }
 
-            public TestCaseBuilder                 AIntersectsWithB()
+            public TestCaseBuilder AIntersectsWithB()
             {
-                testCase.                AIntersectsWithB = true;
+                testCase.AIntersectsWithB = true;
                 return this;
             }
 
             public TestCaseBuilder ADoesNotIntersectWithB()
+
             {
-                testCase.                AIntersectsWithB = false;
+                testCase.AIntersectsWithB = false;
                 return this;
             }
 
             private IRange<int> Parse(string textRange)
             {
                 return textRange == null ? null : parser.Parse(textRange);
+            }
+
+            public interface INRangeTargets
+            {
+                TestCaseBuilder AsABIntersection();
+            }
+
+            private class NRangeTargets : INRangeTargets
+            {
+                private readonly TestCaseBuilder builder;
+                private readonly IRange<int> rangeN;
+
+                public NRangeTargets(IRange<int> rangeN, TestCaseBuilder builder)
+                {
+                    this.builder = builder;
+                    this.rangeN = rangeN;
+                }
+
+                public TestCaseBuilder AsABIntersection()
+                {
+                    builder.testCase.ABIntersection = rangeN;
+                    return builder;
+                }
             }
         }
     }

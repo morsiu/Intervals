@@ -26,5 +26,22 @@ namespace Walrus.Ranges
                 testCase.AIntersectsWithB,
                 RangeOperations.IntersectsWith(testCase.A, testCase.B));
         }
+
+        [Test]
+        [TestCaseSource(typeof(RangePairTestCases), "NullRangePairs")]
+        public void IntersectShouldThrowGivenNullRange(RangePairTestCases.TestCase testCase)
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => RangeOperations.Intersect(testCase.A, testCase.B));
+        }
+
+        [Test]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
+        public void IntersectShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        {
+            Assert.AreEqual(
+                testCase.ABIntersection,
+                RangeOperations.Intersect(testCase.A, testCase.B));
+        }
     }
 }

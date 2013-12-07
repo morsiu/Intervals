@@ -20,5 +20,13 @@ namespace Walrus.Ranges
             if (x.End.CompareTo(y.Start) == 0) return !x.HasOpenEnd && !y.HasOpenStart;
             return true;
         }
+
+        public static IRange<T> Intersect<T>(IRange<T> x, IRange<T> y)
+            where T : IComparable<T>
+        {
+            if (x == null) throw new ArgumentNullException("x");
+            if (y == null) throw new ArgumentNullException("y");
+            throw new NotImplementedException();
+        }
     }
 }
