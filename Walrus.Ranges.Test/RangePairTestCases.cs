@@ -18,7 +18,9 @@ namespace Walrus.Ranges
 
             public IRange<int> B { get; set; }
 
-            public bool AEqualsB { get; set; }
+            public bool? AEqualsB { get; set; }
+
+            public bool? AIntersectsWithB { get; set; }
         }
 
         public static IEnumerable<TestCase> AllRangePairs
@@ -125,46 +127,55 @@ namespace Walrus.Ranges
                 yield return
                 ForA("     ").
                 AndB("     ").
+                ADoesNotIntersectWithB().
                 AEqualsB();
 
                 yield return
                 ForA("     ").
                 AndB("x===x").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("     ").
                 AndB("o===o").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("     ").
                 AndB("o===x").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("     ").
                 AndB("x===o").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x===x").
                 AndB("     ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o===o").
                 AndB("     ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o===x").
                 AndB("     ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x===o").
                 AndB("     ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
             }
         }
@@ -176,66 +187,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===x            ").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===x          ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===x        ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===x      ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 AEqualsB();
 
                 yield return
                 ForA("        x===x    ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===x  ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===x").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("x==x    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("  x==x  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("    x==x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==x    ").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==x  ").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==x").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -247,66 +271,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===o            ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===o          ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===o        ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===o      ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 AEqualsB();
 
                 yield return
                 ForA("        o===o    ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===o  ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===o").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("o==o    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("  o==o  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("    o==o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==o    ").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==o  ").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==o").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -318,66 +355,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===x            ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===x          ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===x        ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===x      ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 AEqualsB();
 
                 yield return
                 ForA("        o===x    ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===x  ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===x").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("o==x    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("  o==x  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("    o==x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==x    ").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==x  ").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==x").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -389,66 +439,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===o            ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===o          ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===o        ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===o      ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 AEqualsB();
 
                 yield return
                 ForA("        x===o    ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===o  ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===o").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("x==o    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("  x==o  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("    x==o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==o    ").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==o  ").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==o").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -460,66 +523,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===x            ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===x          ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===x        ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===x      ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===x    ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===x  ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===x").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("o==o    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("  o==o  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("    o==o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==x    ").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==x  ").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==x").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -531,66 +607,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===o            ").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===o          ").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===o        ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===o      ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===o    ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===o  ").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===o").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("x==x    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("  x==x  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("    x==x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==o    ").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==o  ").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==o").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -602,66 +691,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===x            ").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===x          ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===x        ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===x      ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===x    ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===x  ").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===x").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("x==x    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("  x==x  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("    x==x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==x    ").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==x  ").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==x").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -673,66 +775,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===x            ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===x          ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===x        ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===x      ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===x    ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===x  ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===x").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("o==x    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("  o==x  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("    o==x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==x    ").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==x  ").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==x").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -744,66 +859,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===o            ").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===o          ").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===o        ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===o      ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===o    ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===o  ").
                 AndB("      x===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===o").
                 AndB("      x===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("x==x    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("  x==x  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("    x==x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==o    ").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==o  ").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==o").
                 AndB("x======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -815,66 +943,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===x            ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===x          ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===x        ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===x      ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===x    ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===x  ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===x").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("x==o    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("  x==o  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======x").
                 AndB("    x==o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==x    ").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==x  ").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==x").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -886,66 +1027,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===o            ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===o          ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===o        ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===o      ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===o    ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===o  ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===o").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("o==x    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("  o==x  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("    o==x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==o    ").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==o  ").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==o").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -957,66 +1111,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===x            ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===x          ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===x        ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===x      ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===x    ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===x  ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===x").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("o==o    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("  o==o  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("    o==o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==x    ").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==x  ").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==x").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -1028,66 +1195,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===o            ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===o          ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===o        ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===o      ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===o    ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===o  ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===o").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("x==o    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("  x==o  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======o").
                 AndB("    x==o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==o    ").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==o  ").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==o").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -1099,66 +1279,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===o            ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===o          ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===o        ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===o      ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===o    ").
                 AndB("      o===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===o  ").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===o").
                 AndB("      o===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("o==o    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("  o==o  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("    o==o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==o    ").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==o  ").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==o").
                 AndB("o======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -1170,66 +1363,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("o===x            ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o===x          ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o===x        ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      o===x      ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        o===x    ").
                 AndB("      x===o      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          o===x  ").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            o===x").
                 AndB("      x===o      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("x==o    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("  x==o  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o======x").
                 AndB("    x==o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("o==x    ").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  o==x  ").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    o==x").
                 AndB("x======o").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -1241,66 +1447,79 @@ namespace Walrus.Ranges
                 yield return
                 ForA("x===o            ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x===o          ").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x===o        ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("      x===o      ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("        x===o    ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("          x===o  ").
                 AndB("      o===x      ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("            x===o").
                 AndB("      o===x      ").
+                ADoesNotIntersectWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("o==x    ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("  o==x  ").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x======o").
                 AndB("    o==x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("x==o    ").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("  x==o  ").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
 
                 yield return
                 ForA("    x==o").
                 AndB("o======x").
+                AIntersectsWithB().
                 ADoesNotEqualB();
             }
         }
@@ -1350,6 +1569,18 @@ namespace Walrus.Ranges
             public TestCaseBuilder ADoesNotEqualB()
             {
                 testCase.AEqualsB = false;
+                return this;
+            }
+
+            public TestCaseBuilder                 AIntersectsWithB()
+            {
+                testCase.                AIntersectsWithB = true;
+                return this;
+            }
+
+            public TestCaseBuilder ADoesNotIntersectWithB()
+            {
+                testCase.                AIntersectsWithB = false;
                 return this;
             }
 
