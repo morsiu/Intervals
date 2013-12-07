@@ -55,5 +55,11 @@ namespace Walrus.Ranges
             return (xStartToYStart < 0 || (xStartToYStart == 0 && (!x.HasOpenStart || (x.HasOpenStart && y.HasOpenStart))))
                 && (xEndToYEnd > 0 || (xEndToYEnd == 0 && (!x.HasOpenEnd || (x.HasOpenEnd && y.HasOpenEnd))));
         }
+
+        public static bool IsCoveredBy<T>(IRange<T> x, IRange<T> y)
+            where T : IComparable<T>
+        {
+            return Covers(y, x);
+        }
     }
 }

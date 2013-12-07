@@ -25,5 +25,11 @@ namespace Walrus.Ranges
         {
             return RangeOperations.Covers(range, other);
         }
+
+        public static bool IsCoveredBy<T>(this IRange<T> range, IRange<T> other)
+            where T : IComparable<T>
+        {
+            return RangeOperations.IsCoveredBy(range, other);
+        }
     }
 }

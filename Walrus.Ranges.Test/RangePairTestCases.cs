@@ -24,6 +24,8 @@ namespace Walrus.Ranges
 
             public bool? ACoversB { get; set; }
 
+            public bool? BCoversA { get; set; }
+
             public IRange<int> ABIntersection { get; set; }
         }
 
@@ -134,6 +136,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 AEqualsB();
 
                 yield return
@@ -142,6 +145,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -150,6 +154,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -158,6 +163,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -166,6 +172,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -174,6 +181,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -182,6 +190,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -190,6 +199,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -198,6 +208,7 @@ namespace Walrus.Ranges
                 SetN("     ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
             }
         }
@@ -212,6 +223,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -220,6 +232,7 @@ namespace Walrus.Ranges
                 SetN("      x          ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -228,6 +241,7 @@ namespace Walrus.Ranges
                 SetN("      x=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -236,6 +250,7 @@ namespace Walrus.Ranges
                 SetN("      x===x      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BCoversA().
                 AEqualsB();
 
                 yield return
@@ -244,6 +259,7 @@ namespace Walrus.Ranges
                 SetN("        x=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -252,6 +268,7 @@ namespace Walrus.Ranges
                 SetN("          x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -260,6 +277,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -268,6 +286,7 @@ namespace Walrus.Ranges
                 SetN("x==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -276,6 +295,7 @@ namespace Walrus.Ranges
                 SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -284,6 +304,7 @@ namespace Walrus.Ranges
                 SetN("    x==x").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -292,6 +313,7 @@ namespace Walrus.Ranges
                 SetN("x==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -300,6 +322,7 @@ namespace Walrus.Ranges
                 SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -308,6 +331,7 @@ namespace Walrus.Ranges
                 SetN("    x==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -322,6 +346,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -330,6 +355,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -338,6 +364,7 @@ namespace Walrus.Ranges
                 SetN("      o=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -346,6 +373,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BCoversA().
                 AEqualsB();
 
                 yield return
@@ -354,6 +382,7 @@ namespace Walrus.Ranges
                 SetN("        o=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -362,6 +391,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -370,6 +400,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -378,6 +409,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -386,6 +418,7 @@ namespace Walrus.Ranges
                 SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -394,6 +427,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -402,6 +436,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -410,6 +445,7 @@ namespace Walrus.Ranges
                 SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -418,6 +454,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -432,6 +469,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -440,6 +478,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -448,6 +487,7 @@ namespace Walrus.Ranges
                 SetN("      o=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -456,6 +496,7 @@ namespace Walrus.Ranges
                 SetN("      o===x      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BCoversA().
                 AEqualsB();
 
                 yield return
@@ -464,6 +505,7 @@ namespace Walrus.Ranges
                 SetN("        o=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -472,6 +514,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -480,6 +523,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -488,6 +532,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -496,6 +541,7 @@ namespace Walrus.Ranges
                 SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -504,6 +550,7 @@ namespace Walrus.Ranges
                 SetN("    o==x").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -512,6 +559,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -520,6 +568,7 @@ namespace Walrus.Ranges
                 SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -528,6 +577,7 @@ namespace Walrus.Ranges
                 SetN("    o==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -542,6 +592,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -550,6 +601,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -558,6 +610,7 @@ namespace Walrus.Ranges
                 SetN("      x=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -566,6 +619,7 @@ namespace Walrus.Ranges
                 SetN("      x===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BCoversA().
                 AEqualsB();
 
                 yield return
@@ -574,6 +628,7 @@ namespace Walrus.Ranges
                 SetN("        x=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -582,6 +637,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -590,6 +646,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -598,6 +655,7 @@ namespace Walrus.Ranges
                 SetN("x==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -606,6 +664,7 @@ namespace Walrus.Ranges
                 SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -614,6 +673,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -622,6 +682,7 @@ namespace Walrus.Ranges
                 SetN("x==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -630,6 +691,7 @@ namespace Walrus.Ranges
                 SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -638,6 +700,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -652,6 +715,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -660,6 +724,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -668,6 +733,7 @@ namespace Walrus.Ranges
                 SetN("      o=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -676,6 +742,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -684,6 +751,7 @@ namespace Walrus.Ranges
                 SetN("        x=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -692,6 +760,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -700,6 +769,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -708,6 +778,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -716,6 +787,7 @@ namespace Walrus.Ranges
                 SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -724,6 +796,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -732,6 +805,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -740,6 +814,7 @@ namespace Walrus.Ranges
                 SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -748,6 +823,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
             }
         }
@@ -762,6 +838,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -770,6 +847,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -778,6 +856,7 @@ namespace Walrus.Ranges
                 SetN("      x=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -786,6 +865,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -794,6 +874,7 @@ namespace Walrus.Ranges
                 SetN("        o=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -802,6 +883,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -810,6 +892,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -818,6 +901,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -826,6 +910,7 @@ namespace Walrus.Ranges
                 SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -834,6 +919,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -842,6 +928,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -850,6 +937,7 @@ namespace Walrus.Ranges
                 SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -858,6 +946,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -872,6 +961,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -880,6 +970,7 @@ namespace Walrus.Ranges
                 SetN("      x          ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -888,6 +979,7 @@ namespace Walrus.Ranges
                 SetN("      x=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -896,6 +988,7 @@ namespace Walrus.Ranges
                 SetN("      o===x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -904,6 +997,7 @@ namespace Walrus.Ranges
                 SetN("        o=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -912,6 +1006,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -920,6 +1015,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -928,6 +1024,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -936,6 +1033,7 @@ namespace Walrus.Ranges
                 SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -944,6 +1042,7 @@ namespace Walrus.Ranges
                 SetN("    x==x").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -952,6 +1051,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -960,6 +1060,7 @@ namespace Walrus.Ranges
                 SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -968,6 +1069,7 @@ namespace Walrus.Ranges
                 SetN("    o==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -982,6 +1084,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -990,6 +1093,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -998,6 +1102,7 @@ namespace Walrus.Ranges
                 SetN("      o=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1006,6 +1111,7 @@ namespace Walrus.Ranges
                 SetN("      o===x      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1014,6 +1120,7 @@ namespace Walrus.Ranges
                 SetN("        x=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1022,6 +1129,7 @@ namespace Walrus.Ranges
                 SetN("          x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1030,6 +1138,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1038,6 +1147,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1046,6 +1156,7 @@ namespace Walrus.Ranges
                 SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1054,6 +1165,7 @@ namespace Walrus.Ranges
                 SetN("    o==x").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1062,6 +1174,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1070,6 +1183,7 @@ namespace Walrus.Ranges
                 SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1078,6 +1192,7 @@ namespace Walrus.Ranges
                 SetN("    x==x").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -1092,6 +1207,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1100,6 +1216,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1108,6 +1225,7 @@ namespace Walrus.Ranges
                 SetN("      x=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1116,6 +1234,7 @@ namespace Walrus.Ranges
                 SetN("      x===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1124,6 +1243,7 @@ namespace Walrus.Ranges
                 SetN("        x=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1132,6 +1252,7 @@ namespace Walrus.Ranges
                 SetN("          x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1140,6 +1261,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1148,6 +1270,7 @@ namespace Walrus.Ranges
                 SetN("x==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1156,6 +1279,7 @@ namespace Walrus.Ranges
                 SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1164,6 +1288,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1172,6 +1297,7 @@ namespace Walrus.Ranges
                 SetN("x==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1180,6 +1306,7 @@ namespace Walrus.Ranges
                 SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1188,6 +1315,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -1202,6 +1330,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1210,6 +1339,7 @@ namespace Walrus.Ranges
                 SetN("      x          ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1218,6 +1348,7 @@ namespace Walrus.Ranges
                 SetN("      x=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1226,6 +1357,7 @@ namespace Walrus.Ranges
                 SetN("      x===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1234,6 +1366,7 @@ namespace Walrus.Ranges
                 SetN("        x=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1242,6 +1375,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1250,6 +1384,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1258,6 +1393,7 @@ namespace Walrus.Ranges
                 SetN("x==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1266,6 +1402,7 @@ namespace Walrus.Ranges
                 SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1274,6 +1411,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1282,6 +1420,7 @@ namespace Walrus.Ranges
                 SetN("x==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1290,6 +1429,7 @@ namespace Walrus.Ranges
                 SetN("  x==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1298,6 +1438,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
             }
         }
@@ -1312,6 +1453,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1320,6 +1462,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1328,6 +1471,7 @@ namespace Walrus.Ranges
                 SetN("      o=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1336,6 +1480,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1344,6 +1489,7 @@ namespace Walrus.Ranges
                 SetN("        o=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1352,6 +1498,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1360,6 +1507,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1368,6 +1516,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1376,6 +1525,7 @@ namespace Walrus.Ranges
                 SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1384,6 +1534,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1392,6 +1543,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1400,6 +1552,7 @@ namespace Walrus.Ranges
                 SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1408,6 +1561,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -1422,6 +1576,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1430,6 +1585,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1438,6 +1594,7 @@ namespace Walrus.Ranges
                 SetN("      o=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1446,6 +1603,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1454,6 +1612,7 @@ namespace Walrus.Ranges
                 SetN("        o=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1462,6 +1621,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1470,6 +1630,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1478,6 +1639,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1486,6 +1648,7 @@ namespace Walrus.Ranges
                 SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1494,6 +1657,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1502,6 +1666,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1510,6 +1675,7 @@ namespace Walrus.Ranges
                 SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1518,6 +1684,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
             }
         }
@@ -1532,6 +1699,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1540,6 +1708,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1548,6 +1717,7 @@ namespace Walrus.Ranges
                 SetN("      x=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1556,6 +1726,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1564,6 +1735,7 @@ namespace Walrus.Ranges
                 SetN("        o=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1572,6 +1744,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1580,6 +1753,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1588,6 +1762,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1596,6 +1771,7 @@ namespace Walrus.Ranges
                 SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1604,6 +1780,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1612,6 +1789,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1620,6 +1798,7 @@ namespace Walrus.Ranges
                 SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1628,6 +1807,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -1642,6 +1822,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1650,6 +1831,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1658,6 +1840,7 @@ namespace Walrus.Ranges
                 SetN("      o=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1666,6 +1849,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1674,6 +1858,7 @@ namespace Walrus.Ranges
                 SetN("        x=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1682,6 +1867,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1690,6 +1876,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1698,6 +1885,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1706,6 +1894,7 @@ namespace Walrus.Ranges
                 SetN("  o==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1714,6 +1903,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1722,6 +1912,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1730,6 +1921,7 @@ namespace Walrus.Ranges
                 SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1738,6 +1930,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -1752,6 +1945,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1760,6 +1954,7 @@ namespace Walrus.Ranges
                 SetN("      x          ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1768,6 +1963,7 @@ namespace Walrus.Ranges
                 SetN("      x=x        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1776,6 +1972,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1784,6 +1981,7 @@ namespace Walrus.Ranges
                 SetN("        o=o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1792,6 +1990,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1800,6 +1999,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1808,6 +2008,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1816,6 +2017,7 @@ namespace Walrus.Ranges
                 SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1824,6 +2026,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1832,6 +2035,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1840,6 +2044,7 @@ namespace Walrus.Ranges
                 SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1848,6 +2053,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
             }
         }
@@ -1862,6 +2068,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1870,6 +2077,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1878,6 +2086,7 @@ namespace Walrus.Ranges
                 SetN("      o=o        ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1886,6 +2095,7 @@ namespace Walrus.Ranges
                 SetN("      o===o      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1894,6 +2104,7 @@ namespace Walrus.Ranges
                 SetN("        x=x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1902,6 +2113,7 @@ namespace Walrus.Ranges
                 SetN("          x      ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1910,6 +2122,7 @@ namespace Walrus.Ranges
                 SetN("                 ").AsABIntersection().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1918,6 +2131,7 @@ namespace Walrus.Ranges
                 SetN("o==x    ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1926,6 +2140,7 @@ namespace Walrus.Ranges
                 SetN("  o==x  ").AsABIntersection().
                 AIntersectsWithB().
                 ACoversB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1934,6 +2149,7 @@ namespace Walrus.Ranges
                 SetN("    o==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1942,6 +2158,7 @@ namespace Walrus.Ranges
                 SetN("o==o    ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BDoesNotCoverA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1950,6 +2167,7 @@ namespace Walrus.Ranges
                 SetN("  x==o  ").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
 
                 yield return
@@ -1958,6 +2176,7 @@ namespace Walrus.Ranges
                 SetN("    x==o").AsABIntersection().
                 AIntersectsWithB().
                 ADoesNotCoverB().
+                BCoversA().
                 ADoesNotEqualB();
             }
         }
@@ -2037,6 +2256,18 @@ namespace Walrus.Ranges
             public TestCaseBuilder ADoesNotCoverB()
             {
                 testCase.ACoversB = false;
+                return this;
+            }
+
+            public TestCaseBuilder BCoversA()
+            {
+                testCase.BCoversA = true;
+                return this;
+            }
+
+            public TestCaseBuilder BDoesNotCoverA()
+            {
+                testCase.BCoversA = false;
                 return this;
             }
 

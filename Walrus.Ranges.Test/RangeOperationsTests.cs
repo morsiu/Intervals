@@ -60,5 +60,22 @@ namespace Walrus.Ranges
                 testCase.ACoversB,
                 RangeOperations.Covers(testCase.A, testCase.B));
         }
+
+        [Test]
+        [TestCaseSource(typeof(RangePairTestCases), "NullRangePairs")]
+        public void IsCoveredByShouldThrowGivenNullRange(RangePairTestCases.TestCase testCase)
+        {
+            Assert.Throws<ArgumentNullException>(
+                () => RangeOperations.IsCoveredBy(testCase.A, testCase.B));
+        }
+
+        [Test]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
+        public void IsCoveredByShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        {
+            Assert.AreEqual(
+                testCase.BCoversA,
+                RangeOperations.IsCoveredBy(testCase.A, testCase.B));
+        }
     }
 }
