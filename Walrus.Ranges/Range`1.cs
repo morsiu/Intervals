@@ -11,18 +11,18 @@ namespace Walrus.Ranges
     internal sealed class Range<T> : IRange<T>
         where T : IComparable<T>
     {
-        private readonly T _start;
-        private readonly T _end;
-        private readonly bool _hasOpenStart;
-        private readonly bool _hasOpenEnd;
+        private readonly T start;
+        private readonly T end;
+        private readonly bool hasOpenStart;
+        private readonly bool hasOpenEnd;
 
         public Range(T start, T end, bool hasOpenStart, bool hasOpenEnd)
         {
             // Parameter validation is done in Range static class factory methods.
-            _start = start;
-            _end = end;
-            _hasOpenStart = hasOpenStart;
-            _hasOpenEnd = hasOpenEnd;
+            this.start = start;
+            this.end = end;
+            this.hasOpenStart = hasOpenStart;
+            this.hasOpenEnd = hasOpenEnd;
         }
 
         public bool IsEmpty
@@ -32,22 +32,22 @@ namespace Walrus.Ranges
 
         public T Start
         {
-            get { return _start; }
+            get { return start; }
         }
 
         public T End
         {
-            get { return _end; }
+            get { return end; }
         }
 
         public bool HasOpenStart
         {
-            get { return _hasOpenStart; }
+            get { return hasOpenStart; }
         }
 
         public bool HasOpenEnd
         {
-            get { return _hasOpenEnd; }
+            get { return hasOpenEnd; }
         }
 
         public override bool Equals(object obj)
