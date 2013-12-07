@@ -58,6 +58,7 @@
     <Compile Include="RangeFactoryTests.cs" />
     <Compile Include="RangeTests.cs" />
     <Compile Include="Text\PointTypeMatcherTests.cs" />
+    <Compile Include="Text\TextRangeParserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

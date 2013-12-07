@@ -42,8 +42,16 @@
     <Compile Include="RangeValidator.cs" />
     <Compile Include="Range`1.cs" />
     <Compile Include="RangeBuilder.cs" />
+    <Compile Include="Text\ParserStates\FinalState.cs" />
+    <Compile Include="Text\ParserStates\FirstEndPointState.cs" />
+    <Compile Include="Text\ParserStates\InitialState.cs" />
+    <Compile Include="Text\ParserStates\ITextRangeParserState.cs" />
+    <Compile Include="Text\Point.cs" />
     <Compile Include="Text\PointType.cs" />
     <Compile Include="Text\PointTypeMatcher.cs" />
+    <Compile Include="Text\TextRangeParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
