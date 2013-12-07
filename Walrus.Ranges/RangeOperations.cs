@@ -24,9 +24,7 @@ namespace Walrus.Ranges
         public static IRange<T> Intersect<T>(IRange<T> x, IRange<T> y)
             where T : IComparable<T>
         {
-            if (x == null) throw new ArgumentNullException("x");
-            if (y == null) throw new ArgumentNullException("y");
-            if (!x.IntersectsWith(y)) return Range.Empty<T>();
+            if (!IntersectsWith(x, y)) return Range.Empty<T>();
 
             var xStartToYStart = x.Start.CompareTo(y.Start);
             var xEndToYEnd = x.End.CompareTo(y.End);
