@@ -36,6 +36,7 @@ namespace Walrus.Ranges
             get
             {
                 return Concat(
+                    EmptyRangePairs,
                     ClosedRangePairs,
                     ClosedAndOpenRangePairs,
                     ClosedAndLeftOpenPairs,
@@ -117,14 +118,14 @@ namespace Walrus.Ranges
             }
         }
 
-        public static IEnumerable<TestCase> ClosedRangePairs
+        public static IEnumerable<TestCase> EmptyRangePairs
         {
             get
             {
                 yield return
-                ForA("x===x").
+                ForA("     ").
                 AndB("     ").
-                ADoesNotEqualB();
+                AEqualsB();
 
                 yield return
                 ForA("     ").
@@ -133,9 +134,45 @@ namespace Walrus.Ranges
 
                 yield return
                 ForA("     ").
-                AndB("     ").
-                AEqualsB();
+                AndB("o===o").
+                ADoesNotEqualB();
 
+                yield return
+                ForA("     ").
+                AndB("o===x").
+                ADoesNotEqualB();
+
+                yield return
+                ForA("     ").
+                AndB("x===o").
+                ADoesNotEqualB();
+
+                yield return
+                ForA("x===x").
+                AndB("     ").
+                ADoesNotEqualB();
+
+                yield return
+                ForA("o===o").
+                AndB("     ").
+                ADoesNotEqualB();
+
+                yield return
+                ForA("o===x").
+                AndB("     ").
+                ADoesNotEqualB();
+
+                yield return
+                ForA("x===o").
+                AndB("     ").
+                ADoesNotEqualB();
+            }
+        }
+
+        public static IEnumerable<TestCase> ClosedRangePairs
+        {
+            get
+            {
                 yield return
                 ForA("x===x            ").
                 AndB("      x===x      ").
@@ -208,21 +245,6 @@ namespace Walrus.Ranges
             get
             {
                 yield return
-                ForA("o===o").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("o===o").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
-                yield return
                 ForA("o===o            ").
                 AndB("      o===o      ").
                 ADoesNotEqualB();
@@ -293,21 +315,6 @@ namespace Walrus.Ranges
         {
             get
             {
-                yield return
-                ForA("o===x").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("o===x").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
                 yield return
                 ForA("o===x            ").
                 AndB("      o===x      ").
@@ -380,21 +387,6 @@ namespace Walrus.Ranges
             get
             {
                 yield return
-                ForA("x===o").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("x===o").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
-                yield return
                 ForA("x===o            ").
                 AndB("      x===o      ").
                 ADoesNotEqualB();
@@ -465,21 +457,6 @@ namespace Walrus.Ranges
         {
             get
             {
-                yield return
-                ForA("x===x").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("o===o").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
                 yield return
                 ForA("x===x            ").
                 AndB("      o===o      ").
@@ -552,21 +529,6 @@ namespace Walrus.Ranges
             get
             {
                 yield return
-                ForA("o===o").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("x===x").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
-                yield return
                 ForA("o===o            ").
                 AndB("      x===x      ").
                 ADoesNotEqualB();
@@ -637,21 +599,6 @@ namespace Walrus.Ranges
         {
             get
             {
-                yield return
-                ForA("o===x").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("x===x").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
                 yield return
                 ForA("o===x            ").
                 AndB("      x===x      ").
@@ -724,21 +671,6 @@ namespace Walrus.Ranges
             get
             {
                 yield return
-                ForA("x===x").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("o===x").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
-                yield return
                 ForA("x===x            ").
                 AndB("      o===x      ").
                 ADoesNotEqualB();
@@ -809,21 +741,6 @@ namespace Walrus.Ranges
         {
             get
             {
-                yield return
-                ForA("x===o").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("x===x").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
                 yield return
                 ForA("x===o            ").
                 AndB("      x===x      ").
@@ -896,21 +813,6 @@ namespace Walrus.Ranges
             get
             {
                 yield return
-                ForA("x===x").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("x===o").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
-                yield return
                 ForA("x===x            ").
                 AndB("      x===o      ").
                 ADoesNotEqualB();
@@ -981,21 +883,6 @@ namespace Walrus.Ranges
         {
             get
             {
-                yield return
-                ForA("o===o").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("o===x").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
                 yield return
                 ForA("o===o            ").
                 AndB("      o===x      ").
@@ -1068,21 +955,6 @@ namespace Walrus.Ranges
             get
             {
                 yield return
-                ForA("o===x").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("o===o").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
-                yield return
                 ForA("o===x            ").
                 AndB("      o===o      ").
                 ADoesNotEqualB();
@@ -1153,21 +1025,6 @@ namespace Walrus.Ranges
         {
             get
             {
-                yield return
-                ForA("o===o").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("x===o").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
                 yield return
                 ForA("o===o            ").
                 AndB("      x===o      ").
@@ -1240,21 +1097,6 @@ namespace Walrus.Ranges
             get
             {
                 yield return
-                ForA("x===o").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("o===o").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
-                yield return
                 ForA("x===o            ").
                 AndB("      o===o      ").
                 ADoesNotEqualB();
@@ -1326,21 +1168,6 @@ namespace Walrus.Ranges
             get
             {
                 yield return
-                ForA("o===x").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("x===o").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
-                yield return
                 ForA("o===x            ").
                 AndB("      x===o      ").
                 ADoesNotEqualB();
@@ -1411,21 +1238,6 @@ namespace Walrus.Ranges
         {
             get
             {
-                yield return
-                ForA("x===o").
-                AndB("     ").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("o===x").
-                ADoesNotEqualB();
-
-                yield return
-                ForA("     ").
-                AndB("     ").
-                AEqualsB();
-
                 yield return
                 ForA("x===o            ").
                 AndB("      o===x      ").
