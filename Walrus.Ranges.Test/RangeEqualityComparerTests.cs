@@ -16,5 +16,14 @@ namespace Walrus.Ranges
             var reference = RangeEqualityComparer<int>.Instance;
             Assert.IsNotNull(reference);
         }
+
+        [Test]
+        [TestCaseSource(typeof(RangePairTestCases), "AllRangePairs")]
+        public void EqualsShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        {
+            Assert.AreEqual(
+                testCase.AEqualsB,
+                RangeEqualityComparer<int>.Instance.Equals(testCase.A, testCase.B));
+        }
     }
 }
