@@ -55,5 +55,10 @@ namespace Walrus.Ranges
         {
             return RangeEqualityComparer<T>.Instance.GetHashCode(this);
         }
+
+        public override string ToString()
+        {
+            return "empty range";
+        }
     }
 }

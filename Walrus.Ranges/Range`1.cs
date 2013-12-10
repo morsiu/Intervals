@@ -64,5 +64,15 @@ namespace Walrus.Ranges
         {
             return RangeEqualityComparer<T>.Instance.GetHashCode(this);
         }
+
+        public override string ToString()
+        {
+            return string.Format(
+                "{0}{1}; {2}{3}",
+                hasOpenStart ? "(" : "<",
+                start,
+                end,
+                HasOpenEnd ? ")" : ">");
+        }
     }
 }
