@@ -27,6 +27,8 @@ namespace Walrus.Ranges
             public bool? BCoversA { get; set; }
 
             public IRange<int> ABIntersection { get; set; }
+
+            public IRange<int> ABSpan { get; set; }
         }
 
         public static IEnumerable<TestCase> AllRangePairs
@@ -134,6 +136,7 @@ namespace Walrus.Ranges
                 ForA("     ").
                 AndB("     ").
                 SetN("     ").AsABIntersection().
+                SetN("     ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -143,6 +146,7 @@ namespace Walrus.Ranges
                 ForA("     ").
                 AndB("x===x").
                 SetN("     ").AsABIntersection().
+                SetN("x===x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -152,6 +156,7 @@ namespace Walrus.Ranges
                 ForA("     ").
                 AndB("o===o").
                 SetN("     ").AsABIntersection().
+                SetN("o===o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -161,6 +166,7 @@ namespace Walrus.Ranges
                 ForA("     ").
                 AndB("o===x").
                 SetN("     ").AsABIntersection().
+                SetN("o===x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -170,6 +176,7 @@ namespace Walrus.Ranges
                 ForA("     ").
                 AndB("x===o").
                 SetN("     ").AsABIntersection().
+                SetN("x===o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -179,6 +186,7 @@ namespace Walrus.Ranges
                 ForA("x===x").
                 AndB("     ").
                 SetN("     ").AsABIntersection().
+                SetN("x===x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -188,6 +196,7 @@ namespace Walrus.Ranges
                 ForA("o===o").
                 AndB("     ").
                 SetN("     ").AsABIntersection().
+                SetN("o===o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -197,6 +206,7 @@ namespace Walrus.Ranges
                 ForA("o===x").
                 AndB("     ").
                 SetN("     ").AsABIntersection().
+                SetN("o===x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -206,6 +216,7 @@ namespace Walrus.Ranges
                 ForA("x===o").
                 AndB("     ").
                 SetN("     ").AsABIntersection().
+                SetN("x===o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -221,6 +232,7 @@ namespace Walrus.Ranges
                 ForA("x===x            ").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("x=========x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -230,6 +242,7 @@ namespace Walrus.Ranges
                 ForA("  x===x          ").
                 AndB("      x===x      ").
                 SetN("      x          ").AsABIntersection().
+                SetN("  x=======x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -239,6 +252,7 @@ namespace Walrus.Ranges
                 ForA("    x===x        ").
                 AndB("      x===x      ").
                 SetN("      x=x        ").AsABIntersection().
+                SetN("    x=====x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -248,6 +262,7 @@ namespace Walrus.Ranges
                 ForA("      x===x      ").
                 AndB("      x===x      ").
                 SetN("      x===x      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BCoversA().
@@ -257,6 +272,7 @@ namespace Walrus.Ranges
                 ForA("        x===x    ").
                 AndB("      x===x      ").
                 SetN("        x=x      ").AsABIntersection().
+                SetN("      x=====x    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -266,6 +282,7 @@ namespace Walrus.Ranges
                 ForA("          x===x  ").
                 AndB("      x===x      ").
                 SetN("          x      ").AsABIntersection().
+                SetN("      x=======x  ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -275,6 +292,7 @@ namespace Walrus.Ranges
                 ForA("            x===x").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -284,6 +302,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("x==x    ").
                 SetN("x==x    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -293,6 +312,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("  x==x  ").
                 SetN("  x==x  ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -302,6 +322,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("    x==x").
                 SetN("    x==x").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -311,6 +332,7 @@ namespace Walrus.Ranges
                 ForA("x==x    ").
                 AndB("x======x").
                 SetN("x==x    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -320,6 +342,7 @@ namespace Walrus.Ranges
                 ForA("  x==x  ").
                 AndB("x======x").
                 SetN("  x==x  ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -329,6 +352,7 @@ namespace Walrus.Ranges
                 ForA("    x==x").
                 AndB("x======x").
                 SetN("    x==x").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -344,6 +368,7 @@ namespace Walrus.Ranges
                 ForA("o===o            ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("o=========o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -353,6 +378,7 @@ namespace Walrus.Ranges
                 ForA("  o===o          ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  o=======o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -362,6 +388,7 @@ namespace Walrus.Ranges
                 ForA("    o===o        ").
                 AndB("      o===o      ").
                 SetN("      o=o        ").AsABIntersection().
+                SetN("    o=====o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -371,6 +398,7 @@ namespace Walrus.Ranges
                 ForA("      o===o      ").
                 AndB("      o===o      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      o===o      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BCoversA().
@@ -380,6 +408,7 @@ namespace Walrus.Ranges
                 ForA("        o===o    ").
                 AndB("      o===o      ").
                 SetN("        o=o      ").AsABIntersection().
+                SetN("      o=====o    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -389,6 +418,7 @@ namespace Walrus.Ranges
                 ForA("          o===o  ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=======o  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -398,6 +428,7 @@ namespace Walrus.Ranges
                 ForA("            o===o").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=========o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -407,6 +438,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("o==o    ").
                 SetN("o==o    ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -416,6 +448,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("  o==o  ").
                 SetN("  o==o  ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -425,6 +458,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("    o==o").
                 SetN("    o==o").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -434,6 +468,7 @@ namespace Walrus.Ranges
                 ForA("o==o    ").
                 AndB("o======o").
                 SetN("o==o    ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -443,6 +478,7 @@ namespace Walrus.Ranges
                 ForA("  o==o  ").
                 AndB("o======o").
                 SetN("  o==o  ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -452,6 +488,7 @@ namespace Walrus.Ranges
                 ForA("    o==o").
                 AndB("o======o").
                 SetN("    o==o").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -467,6 +504,7 @@ namespace Walrus.Ranges
                 ForA("o===x            ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("o=========x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -476,6 +514,7 @@ namespace Walrus.Ranges
                 ForA("  o===x          ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  o=======x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -485,6 +524,7 @@ namespace Walrus.Ranges
                 ForA("    o===x        ").
                 AndB("      o===x      ").
                 SetN("      o=x        ").AsABIntersection().
+                SetN("    o=====x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -494,6 +534,7 @@ namespace Walrus.Ranges
                 ForA("      o===x      ").
                 AndB("      o===x      ").
                 SetN("      o===x      ").AsABIntersection().
+                SetN("      o===x      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BCoversA().
@@ -503,6 +544,7 @@ namespace Walrus.Ranges
                 ForA("        o===x    ").
                 AndB("      o===x      ").
                 SetN("        o=x      ").AsABIntersection().
+                SetN("      o=====x    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -512,6 +554,7 @@ namespace Walrus.Ranges
                 ForA("          o===x  ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=======x  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -521,6 +564,7 @@ namespace Walrus.Ranges
                 ForA("            o===x").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -530,6 +574,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("o==x    ").
                 SetN("o==x    ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -539,6 +584,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("  o==x  ").
                 SetN("  o==x  ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -548,6 +594,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("    o==x").
                 SetN("    o==x").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -557,6 +604,7 @@ namespace Walrus.Ranges
                 ForA("o==x    ").
                 AndB("o======x").
                 SetN("o==x    ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -566,6 +614,7 @@ namespace Walrus.Ranges
                 ForA("  o==x  ").
                 AndB("o======x").
                 SetN("  o==x  ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -575,6 +624,7 @@ namespace Walrus.Ranges
                 ForA("    o==x").
                 AndB("o======x").
                 SetN("    o==x").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -590,6 +640,7 @@ namespace Walrus.Ranges
                 ForA("x===o            ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("x=========o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -599,6 +650,7 @@ namespace Walrus.Ranges
                 ForA("  x===o          ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  x=======o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -608,6 +660,7 @@ namespace Walrus.Ranges
                 ForA("    x===o        ").
                 AndB("      x===o      ").
                 SetN("      x=o        ").AsABIntersection().
+                SetN("    x=====o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -617,6 +670,7 @@ namespace Walrus.Ranges
                 ForA("      x===o      ").
                 AndB("      x===o      ").
                 SetN("      x===o      ").AsABIntersection().
+                SetN("      x===o      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BCoversA().
@@ -626,6 +680,7 @@ namespace Walrus.Ranges
                 ForA("        x===o    ").
                 AndB("      x===o      ").
                 SetN("        x=o      ").AsABIntersection().
+                SetN("      x=====o    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -635,6 +690,7 @@ namespace Walrus.Ranges
                 ForA("          x===o  ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=======o  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -644,6 +700,7 @@ namespace Walrus.Ranges
                 ForA("            x===o").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=========o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -653,6 +710,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("x==o    ").
                 SetN("x==o    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -662,6 +720,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("  x==o  ").
                 SetN("  x==o  ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -671,6 +730,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("    x==o").
                 SetN("    x==o").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -680,6 +740,7 @@ namespace Walrus.Ranges
                 ForA("x==o    ").
                 AndB("x======o").
                 SetN("x==o    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -689,6 +750,7 @@ namespace Walrus.Ranges
                 ForA("  x==o  ").
                 AndB("x======o").
                 SetN("  x==o  ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -698,6 +760,7 @@ namespace Walrus.Ranges
                 ForA("    x==o").
                 AndB("x======o").
                 SetN("    x==o").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -713,6 +776,7 @@ namespace Walrus.Ranges
                 ForA("x===x            ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("x=========o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -722,6 +786,7 @@ namespace Walrus.Ranges
                 ForA("  x===x          ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  x=======o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -731,6 +796,7 @@ namespace Walrus.Ranges
                 ForA("    x===x        ").
                 AndB("      o===o      ").
                 SetN("      o=x        ").AsABIntersection().
+                SetN("    x=====o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -740,6 +806,7 @@ namespace Walrus.Ranges
                 ForA("      x===x      ").
                 AndB("      o===o      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -749,6 +816,7 @@ namespace Walrus.Ranges
                 ForA("        x===x    ").
                 AndB("      o===o      ").
                 SetN("        x=o      ").AsABIntersection().
+                SetN("      o=====x    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -758,6 +826,7 @@ namespace Walrus.Ranges
                 ForA("          x===x  ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=======x  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -767,6 +836,7 @@ namespace Walrus.Ranges
                 ForA("            x===x").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -776,6 +846,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("o==o    ").
                 SetN("o==o    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -785,6 +856,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("  o==o  ").
                 SetN("  o==o  ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -794,6 +866,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("    o==o").
                 SetN("    o==o").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -803,6 +876,7 @@ namespace Walrus.Ranges
                 ForA("x==x    ").
                 AndB("o======o").
                 SetN("o==x    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -812,6 +886,7 @@ namespace Walrus.Ranges
                 ForA("  x==x  ").
                 AndB("o======o").
                 SetN("  x==x  ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -821,6 +896,7 @@ namespace Walrus.Ranges
                 ForA("    x==x").
                 AndB("o======o").
                 SetN("    x==o").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -836,6 +912,7 @@ namespace Walrus.Ranges
                 ForA("o===o            ").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("o=========x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -845,6 +922,7 @@ namespace Walrus.Ranges
                 ForA("  o===o          ").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  o=======x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -854,6 +932,7 @@ namespace Walrus.Ranges
                 ForA("    o===o        ").
                 AndB("      x===x      ").
                 SetN("      x=o        ").AsABIntersection().
+                SetN("    o=====x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -863,6 +942,7 @@ namespace Walrus.Ranges
                 ForA("      o===o      ").
                 AndB("      x===x      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -872,6 +952,7 @@ namespace Walrus.Ranges
                 ForA("        o===o    ").
                 AndB("      x===x      ").
                 SetN("        o=x      ").AsABIntersection().
+                SetN("      x=====o    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -881,6 +962,7 @@ namespace Walrus.Ranges
                 ForA("          o===o  ").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=======o  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -890,6 +972,7 @@ namespace Walrus.Ranges
                 ForA("            o===o").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=========o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -899,6 +982,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("x==x    ").
                 SetN("o==x    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -908,6 +992,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("  x==x  ").
                 SetN("  x==x  ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -917,6 +1002,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("    x==x").
                 SetN("    x==o").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -926,6 +1012,7 @@ namespace Walrus.Ranges
                 ForA("o==o    ").
                 AndB("x======x").
                 SetN("o==o    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -935,6 +1022,7 @@ namespace Walrus.Ranges
                 ForA("  o==o  ").
                 AndB("x======x").
                 SetN("  o==o  ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -944,6 +1032,7 @@ namespace Walrus.Ranges
                 ForA("    o==o").
                 AndB("x======x").
                 SetN("    o==o").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -959,6 +1048,7 @@ namespace Walrus.Ranges
                 ForA("o===x            ").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("o=========x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -968,6 +1058,7 @@ namespace Walrus.Ranges
                 ForA("  o===x          ").
                 AndB("      x===x      ").
                 SetN("      x          ").AsABIntersection().
+                SetN("  o=======x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -977,6 +1068,7 @@ namespace Walrus.Ranges
                 ForA("    o===x        ").
                 AndB("      x===x      ").
                 SetN("      x=x        ").AsABIntersection().
+                SetN("    o=====x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -986,6 +1078,7 @@ namespace Walrus.Ranges
                 ForA("      o===x      ").
                 AndB("      x===x      ").
                 SetN("      o===x      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -995,6 +1088,7 @@ namespace Walrus.Ranges
                 ForA("        o===x    ").
                 AndB("      x===x      ").
                 SetN("        o=x      ").AsABIntersection().
+                SetN("      x=====x    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1004,6 +1098,7 @@ namespace Walrus.Ranges
                 ForA("          o===x  ").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=======x  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1013,6 +1108,7 @@ namespace Walrus.Ranges
                 ForA("            o===x").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1022,6 +1118,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("x==x    ").
                 SetN("o==x    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1031,6 +1128,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("  x==x  ").
                 SetN("  x==x  ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1040,6 +1138,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("    x==x").
                 SetN("    x==x").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1049,6 +1148,7 @@ namespace Walrus.Ranges
                 ForA("o==x    ").
                 AndB("x======x").
                 SetN("o==x    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1058,6 +1158,7 @@ namespace Walrus.Ranges
                 ForA("  o==x  ").
                 AndB("x======x").
                 SetN("  o==x  ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1067,6 +1168,7 @@ namespace Walrus.Ranges
                 ForA("    o==x").
                 AndB("x======x").
                 SetN("    o==x").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1082,6 +1184,7 @@ namespace Walrus.Ranges
                 ForA("x===x            ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("x=========x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1091,6 +1194,7 @@ namespace Walrus.Ranges
                 ForA("  x===x          ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  x=======x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1100,6 +1204,7 @@ namespace Walrus.Ranges
                 ForA("    x===x        ").
                 AndB("      o===x      ").
                 SetN("      o=x        ").AsABIntersection().
+                SetN("    x=====x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1109,6 +1214,7 @@ namespace Walrus.Ranges
                 ForA("      x===x      ").
                 AndB("      o===x      ").
                 SetN("      o===x      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1118,6 +1224,7 @@ namespace Walrus.Ranges
                 ForA("        x===x    ").
                 AndB("      o===x      ").
                 SetN("        x=x      ").AsABIntersection().
+                SetN("      o=====x    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1127,6 +1234,7 @@ namespace Walrus.Ranges
                 ForA("          x===x  ").
                 AndB("      o===x      ").
                 SetN("          x      ").AsABIntersection().
+                SetN("      o=======x  ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1135,7 +1243,8 @@ namespace Walrus.Ranges
                 yield return
                 ForA("            x===x").
                 AndB("      o===x      ").
-                SetN("                 ").AsABIntersection().
+                SetN("      o=========x").AsABIntersection().
+                SetN("      o=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1145,6 +1254,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("o==x    ").
                 SetN("o==x    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1154,6 +1264,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("  o==x  ").
                 SetN("  o==x  ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1163,6 +1274,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("    o==x").
                 SetN("    o==x").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1172,6 +1284,7 @@ namespace Walrus.Ranges
                 ForA("x==x    ").
                 AndB("o======x").
                 SetN("o==x    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1181,6 +1294,7 @@ namespace Walrus.Ranges
                 ForA("  x==x  ").
                 AndB("o======x").
                 SetN("  x==x  ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1190,6 +1304,7 @@ namespace Walrus.Ranges
                 ForA("    x==x").
                 AndB("o======x").
                 SetN("    x==x").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1205,6 +1320,7 @@ namespace Walrus.Ranges
                 ForA("x===o            ").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("x=========x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1214,6 +1330,7 @@ namespace Walrus.Ranges
                 ForA("  x===o          ").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  x=======x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1223,6 +1340,7 @@ namespace Walrus.Ranges
                 ForA("    x===o        ").
                 AndB("      x===x      ").
                 SetN("      x=o        ").AsABIntersection().
+                SetN("    x=====x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1232,6 +1350,7 @@ namespace Walrus.Ranges
                 ForA("      x===o      ").
                 AndB("      x===x      ").
                 SetN("      x===o      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1241,6 +1360,7 @@ namespace Walrus.Ranges
                 ForA("        x===o    ").
                 AndB("      x===x      ").
                 SetN("        x=x      ").AsABIntersection().
+                SetN("      x=====o    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1250,6 +1370,7 @@ namespace Walrus.Ranges
                 ForA("          x===o  ").
                 AndB("      x===x      ").
                 SetN("          x      ").AsABIntersection().
+                SetN("      x=======o  ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1259,6 +1380,7 @@ namespace Walrus.Ranges
                 ForA("            x===o").
                 AndB("      x===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=========o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1268,6 +1390,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("x==x    ").
                 SetN("x==x    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1277,6 +1400,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("  x==x  ").
                 SetN("  x==x  ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1286,6 +1410,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("    x==x").
                 SetN("    x==o").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1295,6 +1420,7 @@ namespace Walrus.Ranges
                 ForA("x==o    ").
                 AndB("x======x").
                 SetN("x==o    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1304,6 +1430,7 @@ namespace Walrus.Ranges
                 ForA("  x==o  ").
                 AndB("x======x").
                 SetN("  x==o  ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1313,6 +1440,7 @@ namespace Walrus.Ranges
                 ForA("    x==o").
                 AndB("x======x").
                 SetN("    x==o").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1328,6 +1456,7 @@ namespace Walrus.Ranges
                 ForA("x===x            ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("x=========o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1337,6 +1466,7 @@ namespace Walrus.Ranges
                 ForA("  x===x          ").
                 AndB("      x===o      ").
                 SetN("      x          ").AsABIntersection().
+                SetN("  x=======o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1346,6 +1476,7 @@ namespace Walrus.Ranges
                 ForA("    x===x        ").
                 AndB("      x===o      ").
                 SetN("      x=x        ").AsABIntersection().
+                SetN("    x=====o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1355,6 +1486,7 @@ namespace Walrus.Ranges
                 ForA("      x===x      ").
                 AndB("      x===o      ").
                 SetN("      x===o      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1364,6 +1496,7 @@ namespace Walrus.Ranges
                 ForA("        x===x    ").
                 AndB("      x===o      ").
                 SetN("        x=o      ").AsABIntersection().
+                SetN("      x=====x    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1373,6 +1506,7 @@ namespace Walrus.Ranges
                 ForA("          x===x  ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=======x  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1382,6 +1516,7 @@ namespace Walrus.Ranges
                 ForA("            x===x").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1391,6 +1526,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("x==o    ").
                 SetN("x==o    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1400,6 +1536,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("  x==o  ").
                 SetN("  x==o  ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1409,6 +1546,7 @@ namespace Walrus.Ranges
                 ForA("x======x").
                 AndB("    x==o").
                 SetN("    x==o").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1418,6 +1556,7 @@ namespace Walrus.Ranges
                 ForA("x==x    ").
                 AndB("x======o").
                 SetN("x==x    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1427,6 +1566,7 @@ namespace Walrus.Ranges
                 ForA("  x==x  ").
                 AndB("x======o").
                 SetN("  x==x  ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1436,6 +1576,7 @@ namespace Walrus.Ranges
                 ForA("    x==x").
                 AndB("x======o").
                 SetN("    x==o").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1451,6 +1592,7 @@ namespace Walrus.Ranges
                 ForA("o===o            ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("o=========x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1460,6 +1602,7 @@ namespace Walrus.Ranges
                 ForA("  o===o          ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  o=======x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1469,6 +1612,7 @@ namespace Walrus.Ranges
                 ForA("    o===o        ").
                 AndB("      o===x      ").
                 SetN("      o=o        ").AsABIntersection().
+                SetN("    o=====x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1478,6 +1622,7 @@ namespace Walrus.Ranges
                 ForA("      o===o      ").
                 AndB("      o===x      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      o===x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1487,6 +1632,7 @@ namespace Walrus.Ranges
                 ForA("        o===o    ").
                 AndB("      o===x      ").
                 SetN("        o=x      ").AsABIntersection().
+                SetN("      o=====o    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1496,6 +1642,7 @@ namespace Walrus.Ranges
                 ForA("          o===o  ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=======o  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1505,6 +1652,7 @@ namespace Walrus.Ranges
                 ForA("            o===o").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=========o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1514,6 +1662,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("o==x    ").
                 SetN("o==x    ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1523,6 +1672,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("  o==x  ").
                 SetN("  o==x  ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1532,6 +1682,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("    o==x").
                 SetN("    o==o").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1541,6 +1692,7 @@ namespace Walrus.Ranges
                 ForA("o==o    ").
                 AndB("o======x").
                 SetN("o==o    ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1550,6 +1702,7 @@ namespace Walrus.Ranges
                 ForA("  o==o  ").
                 AndB("o======x").
                 SetN("  o==o  ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1559,6 +1712,7 @@ namespace Walrus.Ranges
                 ForA("    o==o").
                 AndB("o======x").
                 SetN("    o==o").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1574,6 +1728,7 @@ namespace Walrus.Ranges
                 ForA("o===x            ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("o=========o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1583,6 +1738,7 @@ namespace Walrus.Ranges
                 ForA("  o===x          ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  o=======o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1592,6 +1748,7 @@ namespace Walrus.Ranges
                 ForA("    o===x        ").
                 AndB("      o===o      ").
                 SetN("      o=x        ").AsABIntersection().
+                SetN("    o=====o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1601,6 +1758,7 @@ namespace Walrus.Ranges
                 ForA("      o===x      ").
                 AndB("      o===o      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      o===x      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1610,6 +1768,7 @@ namespace Walrus.Ranges
                 ForA("        o===x    ").
                 AndB("      o===o      ").
                 SetN("        o=o      ").AsABIntersection().
+                SetN("      o=====x    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1619,6 +1778,7 @@ namespace Walrus.Ranges
                 ForA("          o===x  ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=======x  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1628,6 +1788,7 @@ namespace Walrus.Ranges
                 ForA("            o===x").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1637,6 +1798,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("o==o    ").
                 SetN("o==o    ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1646,6 +1808,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("  o==o  ").
                 SetN("  o==o  ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1655,6 +1818,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("    o==o").
                 SetN("    o==o").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1664,6 +1828,7 @@ namespace Walrus.Ranges
                 ForA("o==x    ").
                 AndB("o======o").
                 SetN("o==x    ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1673,6 +1838,7 @@ namespace Walrus.Ranges
                 ForA("  o==x  ").
                 AndB("o======o").
                 SetN("  o==x  ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1682,6 +1848,7 @@ namespace Walrus.Ranges
                 ForA("    o==x").
                 AndB("o======o").
                 SetN("    o==o").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1697,6 +1864,7 @@ namespace Walrus.Ranges
                 ForA("o===o            ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("o=========o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1706,6 +1874,7 @@ namespace Walrus.Ranges
                 ForA("  o===o          ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  o=======o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1715,6 +1884,7 @@ namespace Walrus.Ranges
                 ForA("    o===o        ").
                 AndB("      x===o      ").
                 SetN("      x=o        ").AsABIntersection().
+                SetN("    o=====o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1724,6 +1894,7 @@ namespace Walrus.Ranges
                 ForA("      o===o      ").
                 AndB("      x===o      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      x===o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1733,6 +1904,7 @@ namespace Walrus.Ranges
                 ForA("        o===o    ").
                 AndB("      x===o      ").
                 SetN("        o=o      ").AsABIntersection().
+                SetN("      x=====o    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1742,6 +1914,7 @@ namespace Walrus.Ranges
                 ForA("          o===o  ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=======o  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1751,6 +1924,7 @@ namespace Walrus.Ranges
                 ForA("            o===o").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=========o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1760,6 +1934,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("x==o    ").
                 SetN("o==o    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1769,6 +1944,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("  x==o  ").
                 SetN("  x==o  ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1778,6 +1954,7 @@ namespace Walrus.Ranges
                 ForA("o======o").
                 AndB("    x==o").
                 SetN("    x==o").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1787,6 +1964,7 @@ namespace Walrus.Ranges
                 ForA("o==o    ").
                 AndB("x======o").
                 SetN("o==o    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1796,6 +1974,7 @@ namespace Walrus.Ranges
                 ForA("  o==o  ").
                 AndB("x======o").
                 SetN("  o==o  ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1805,6 +1984,7 @@ namespace Walrus.Ranges
                 ForA("    o==o").
                 AndB("x======o").
                 SetN("    o==o").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1820,6 +2000,7 @@ namespace Walrus.Ranges
                 ForA("x===o            ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("x=========o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1829,6 +2010,7 @@ namespace Walrus.Ranges
                 ForA("  x===o          ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  x=======o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1838,6 +2020,7 @@ namespace Walrus.Ranges
                 ForA("    x===o        ").
                 AndB("      o===o      ").
                 SetN("      o=o        ").AsABIntersection().
+                SetN("    x=====o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1847,6 +2030,7 @@ namespace Walrus.Ranges
                 ForA("      x===o      ").
                 AndB("      o===o      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      x===o      ").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1856,6 +2040,7 @@ namespace Walrus.Ranges
                 ForA("        x===o    ").
                 AndB("      o===o      ").
                 SetN("        x=o      ").AsABIntersection().
+                SetN("      o=====o    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1865,6 +2050,7 @@ namespace Walrus.Ranges
                 ForA("          x===o  ").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=======o  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1874,6 +2060,7 @@ namespace Walrus.Ranges
                 ForA("            x===o").
                 AndB("      o===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=========o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1883,6 +2070,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("o==o    ").
                 SetN("o==o    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1892,6 +2080,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("  o==o  ").
                 SetN("  o==o  ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1901,6 +2090,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("    o==o").
                 SetN("    o==o").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -1910,6 +2100,7 @@ namespace Walrus.Ranges
                 ForA("x==o    ").
                 AndB("o======o").
                 SetN("o==o    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1919,6 +2110,7 @@ namespace Walrus.Ranges
                 ForA("  x==o  ").
                 AndB("o======o").
                 SetN("  x==o  ").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1928,6 +2120,7 @@ namespace Walrus.Ranges
                 ForA("    x==o").
                 AndB("o======o").
                 SetN("    x==o").AsABIntersection().
+                SetN("o======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -1943,6 +2136,7 @@ namespace Walrus.Ranges
                 ForA("o===x            ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("o=========o      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1952,6 +2146,7 @@ namespace Walrus.Ranges
                 ForA("  o===x          ").
                 AndB("      x===o      ").
                 SetN("      x          ").AsABIntersection().
+                SetN("  o=======o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1961,6 +2156,7 @@ namespace Walrus.Ranges
                 ForA("    o===x        ").
                 AndB("      x===o      ").
                 SetN("      x=x        ").AsABIntersection().
+                SetN("    o=====o      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1970,6 +2166,7 @@ namespace Walrus.Ranges
                 ForA("      o===x      ").
                 AndB("      x===o      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1979,6 +2176,7 @@ namespace Walrus.Ranges
                 ForA("        o===x    ").
                 AndB("      x===o      ").
                 SetN("        o=o      ").AsABIntersection().
+                SetN("      x=====x    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1988,6 +2186,7 @@ namespace Walrus.Ranges
                 ForA("          o===x  ").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=======x  ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -1997,6 +2196,7 @@ namespace Walrus.Ranges
                 ForA("            o===x").
                 AndB("      x===o      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      x=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2006,6 +2206,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("x==o    ").
                 SetN("o==o    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2015,6 +2216,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("  x==o  ").
                 SetN("  x==o  ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -2024,6 +2226,7 @@ namespace Walrus.Ranges
                 ForA("o======x").
                 AndB("    x==o").
                 SetN("    x==o").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -2033,6 +2236,7 @@ namespace Walrus.Ranges
                 ForA("o==x    ").
                 AndB("x======o").
                 SetN("o==x    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -2042,6 +2246,7 @@ namespace Walrus.Ranges
                 ForA("  o==x  ").
                 AndB("x======o").
                 SetN("  o==x  ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -2051,6 +2256,7 @@ namespace Walrus.Ranges
                 ForA("    o==x").
                 AndB("x======o").
                 SetN("    o==o").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2066,6 +2272,7 @@ namespace Walrus.Ranges
                 ForA("x===o            ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("x=========x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2075,6 +2282,7 @@ namespace Walrus.Ranges
                 ForA("  x===o          ").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("  x=======x      ").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2084,6 +2292,7 @@ namespace Walrus.Ranges
                 ForA("    x===o        ").
                 AndB("      o===x      ").
                 SetN("      o=o        ").AsABIntersection().
+                SetN("    x=====x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2093,6 +2302,7 @@ namespace Walrus.Ranges
                 ForA("      x===o      ").
                 AndB("      o===x      ").
                 SetN("      o===o      ").AsABIntersection().
+                SetN("      x===x      ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2102,6 +2312,7 @@ namespace Walrus.Ranges
                 ForA("        x===o    ").
                 AndB("      o===x      ").
                 SetN("        x=x      ").AsABIntersection().
+                SetN("      o=====o    ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2111,6 +2322,7 @@ namespace Walrus.Ranges
                 ForA("          x===o  ").
                 AndB("      o===x      ").
                 SetN("          x      ").AsABIntersection().
+                SetN("      o=======o  ").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2120,6 +2332,7 @@ namespace Walrus.Ranges
                 ForA("            x===o").
                 AndB("      o===x      ").
                 SetN("                 ").AsABIntersection().
+                SetN("      o=========o").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2129,6 +2342,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("o==x    ").
                 SetN("o==x    ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -2138,6 +2352,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("  o==x  ").
                 SetN("  o==x  ").AsABIntersection().
+                SetN("x======o").AsABSpan().
                 AIntersectsWithB().
                 ACoversB().
                 BDoesNotCoverA().
@@ -2147,6 +2362,7 @@ namespace Walrus.Ranges
                 ForA("x======o").
                 AndB("    o==x").
                 SetN("    o==o").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2156,6 +2372,7 @@ namespace Walrus.Ranges
                 ForA("x==o    ").
                 AndB("o======x").
                 SetN("o==o    ").AsABIntersection().
+                SetN("x======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BDoesNotCoverA().
@@ -2165,6 +2382,7 @@ namespace Walrus.Ranges
                 ForA("  x==o  ").
                 AndB("o======x").
                 SetN("  x==o  ").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -2174,6 +2392,7 @@ namespace Walrus.Ranges
                 ForA("    x==o").
                 AndB("o======x").
                 SetN("    x==o").AsABIntersection().
+                SetN("o======x").AsABSpan().
                 AIntersectsWithB().
                 ADoesNotCoverB().
                 BCoversA().
@@ -2279,6 +2498,8 @@ namespace Walrus.Ranges
             public interface INRangeTargets
             {
                 TestCaseBuilder AsABIntersection();
+
+                TestCaseBuilder AsABSpan();
             }
 
             private class NRangeTargets : INRangeTargets
@@ -2295,6 +2516,12 @@ namespace Walrus.Ranges
                 public TestCaseBuilder AsABIntersection()
                 {
                     builder.testCase.ABIntersection = rangeN;
+                    return builder;
+                }
+
+                public TestCaseBuilder AsABSpan()
+                {
+                    builder.testCase.ABSpan = rangeN;
                     return builder;
                 }
             }

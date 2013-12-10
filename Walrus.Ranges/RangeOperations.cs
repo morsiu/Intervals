@@ -61,5 +61,27 @@ namespace Walrus.Ranges
         {
             return Covers(y, x);
         }
+
+        public static IRange<T> Span<T>(IRange<T> x, IRange<T> y)
+            where T : IComparable<T>
+        {
+            if (x == null) throw new ArgumentNullException("x");
+            if (y == null) throw new ArgumentNullException("y");
+            if (x.IsEmpty) return y;
+            if (y.IsEmpty) return x;
+
+            var xStartToYStart = x.Start.CompareTo(y.Start);
+            var xEndToYEnd = x.End.CompareTo(y.End);
+
+            return Range.Create(
+                xStartToYStart < 0 ? x.Start : y.Start,
+                xEndToYEnd > 0 ? x.End : y.End,
+                xStartToYStart == 0 
+                    ? x.HasOpenStart && y.HasOpenStart
+                    : xStartToYStart < 0 ? x.HasOpenStart : y.HasOpenStart,
+                xEndToYEnd == 0
+                    ? x.HasOpenEnd && y.HasOpenEnd
+                    : xEndToYEnd > 0 ? x.HasOpenEnd : y.HasOpenEnd);
+        }
     }
 }

@@ -31,5 +31,11 @@ namespace Walrus.Ranges
         {
             return RangeOperations.IsCoveredBy(range, other);
         }
+
+        public static IRange<T> Span<T>(this IRange<T> range, IRange<T> other)
+            where T : IComparable<T>
+        {
+            return RangeOperations.Span(range, other);
+        }
     }
 }
