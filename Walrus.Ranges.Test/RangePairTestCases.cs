@@ -29,6 +29,14 @@ namespace Walrus.Ranges
             public IRange<int> ABIntersection { get; set; }
 
             public IRange<int> ABSpan { get; set; }
+
+            public override string ToString()
+            {
+                return string.Format(
+                    "Pair of {0} and {1}.",
+                    A == null ? "null" : A.ToString(),
+                    B == null ? "null" : B.ToString());
+            }
         }
 
         public static IEnumerable<TestCase> AllRangePairs
@@ -1243,7 +1251,7 @@ namespace Walrus.Ranges
                 yield return
                 ForA("            x===x").
                 AndB("      o===x      ").
-                SetN("      o=========x").AsABIntersection().
+                SetN("                 ").AsABIntersection().
                 SetN("      o=========x").AsABSpan().
                 ADoesNotIntersectWithB().
                 ADoesNotCoverB().
