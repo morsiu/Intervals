@@ -35,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmptyRange.cs" />
+    <Compile Include="EmptyRangeUnion.cs" />
     <Compile Include="IRange.cs" />
     <Compile Include="IRangeUnion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -42,6 +43,8 @@
     <Compile Include="RangeEqualityComparer.cs" />
     <Compile Include="RangeExtensions.cs" />
     <Compile Include="RangeOperations.cs" />
+    <Compile Include="RangeUnion.cs" />
+    <Compile Include="RangeUnion`1.cs" />
     <Compile Include="RangeValidator.cs" />
     <Compile Include="Range`1.cs" />
     <Compile Include="RangeBuilder.cs" />
