@@ -44,6 +44,7 @@
     <Compile Include="RangeExtensions.cs" />
     <Compile Include="RangeOperations.cs" />
     <Compile Include="RangeUnion.cs" />
+    <Compile Include="RangeUnionOperations.cs" />
     <Compile Include="RangeUnion`1.cs" />
     <Compile Include="RangeValidator.cs" />
     <Compile Include="Range`1.cs" />
