@@ -11,6 +11,15 @@ namespace Walrus.Ranges
 {
     public static class RangeUnionOperations
     {
+        /// <summary>
+        /// Normalizes sequence of ranges.
+        /// This consists of:
+        /// - removing empty ranges;
+        /// - spanning intersecting ranges into one;
+        /// - ordering ranges in increasing Start value.
+        /// </summary>
+        /// <typeparam name="T">Type of range ends.</typeparam>
+        /// <param name="ranges">Sequence of ranges to normalize.</param>
         public static IEnumerable<IRange<T>> Normalize<T>(IEnumerable<IRange<T>> ranges)
             where T : IComparable<T>
         {
