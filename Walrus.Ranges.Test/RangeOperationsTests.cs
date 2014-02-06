@@ -1,9 +1,12 @@
-﻿using NUnit.Framework;
+﻿// Copyright (C) 2013 Łukasz Mrozek
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Walrus.Ranges.Test.Cases.Generation;
+using Walrus.Ranges.Test.Cases.Generation.Operations;
 
 namespace Walrus.Ranges
 {
@@ -36,12 +39,13 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
-        public void IntersectShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        public void IntersectShouldReturnExpectedResult(RangePair testCase)
         {
+            var expected = IntersectOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                testCase.ABIntersection,
-                RangeOperations.Intersect(testCase.A, testCase.B));
+                expected,
+                RangeOperations.Intersect(testCase.RangeA, testCase.RangeB));
         }
 
         [Test]
