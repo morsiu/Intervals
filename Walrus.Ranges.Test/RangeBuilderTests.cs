@@ -17,6 +17,8 @@ namespace Walrus.Ranges
         public void BuildAfterConstructionShouldReturnEmptyRange()
         {
             var builder = new RangeBuilder<int>();
+            var range = builder.Build();
+            Assert.AreEqual(Range.Empty<int>(), range);
         }
 
         [Test]
