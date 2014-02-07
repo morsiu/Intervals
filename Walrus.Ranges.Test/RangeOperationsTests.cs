@@ -58,12 +58,13 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
-        public void CoversShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        public void CoversShouldReturnExpectedResult(RangePair testCase)
         {
+            var expected = CoversOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                testCase.ACoversB,
-                RangeOperations.Covers(testCase.A, testCase.B));
+                expected,
+                RangeOperations.Covers(testCase.RangeA, testCase.RangeB));
         }
 
         [Test]
@@ -75,12 +76,13 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
-        public void IsCoveredByShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        public void IsCoveredByShouldReturnExpectedResult(RangePair testCase)
         {
+            var expected = IsCoveredByOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                testCase.BCoversA,
-                RangeOperations.IsCoveredBy(testCase.A, testCase.B));
+                expected,
+                RangeOperations.IsCoveredBy(testCase.RangeA, testCase.RangeB));
         }
 
         [Test]

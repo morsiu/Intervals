@@ -76,9 +76,9 @@ namespace Walrus.Ranges.Test.Cases.Generation
 
         private static IRange<int> GenerateRange(int start, int end, RangeEnds ends)
         {
-            var rangeHasOpenStart = ends == RangeEnds.LeftOpen;
-            var rangeHasOpenEnd = ends == RangeEnds.RightOpen;
-            var range = Range.Create(start, end, rangeHasOpenStart, rangeHasOpenEnd);
+            var hasOpenStart = ends == RangeEnds.LeftOpen;
+            var hasOpenEnd = ends == RangeEnds.RightOpen;
+            var range = Range.Create(start, end, hasOpenStart, hasOpenEnd);
             return range;
         }
     }

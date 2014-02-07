@@ -79,6 +79,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Cases\Generation\IRangePairOperation.cs" />
+    <Compile Include="Cases\Generation\Operations\CoversOperation.cs" />
+    <Compile Include="Cases\Generation\Operations\IsCoveredByOperation.cs" />
     <Compile Include="Cases\Generation\Operations\IntersectOperation.cs" />
     <Compile Include="Cases\Generation\Operations\IntersectsWithOperation.cs" />
     <Compile Include="Cases\Generation\Operations\Parsers\BoolParser.cs" />
