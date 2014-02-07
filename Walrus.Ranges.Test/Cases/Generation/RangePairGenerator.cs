@@ -56,6 +56,10 @@ namespace Walrus.Ranges.Test.Cases.Generation
                     return GeneratePair(3, 6, rangeAEnds, 1, 8, rangeBEnds);
                 case RangeRelations.AInsideBTouchingRight:
                     return GeneratePair(5, 8, rangeAEnds, 1, 8, rangeBEnds);
+                case RangeRelations.AIsEmpty:
+                    return new RangePair(Range.Empty<int>(), GenerateRange(1, 3, rangeBEnds));
+                case RangeRelations.BIsEmpty:
+                    return new RangePair(GenerateRange(1, 3, rangeAEnds), Range.Empty<int>());
                 default:
                     throw new ArgumentOutOfRangeException("abRangesRelation");
             }
@@ -65,13 +69,17 @@ namespace Walrus.Ranges.Test.Cases.Generation
             int rangeAStart, int rangeAEnd, RangeEnds rangeAEnds,
             int rangeBStart, int rangeBEnd, RangeEnds rangeBEnds)
         {
-            var rangeAHasOpenStart = rangeAEnds == RangeEnds.LeftOpen;
-            var rangeAHasOpenEnd = rangeAEnds == RangeEnds.RightOpen;
-            var rangeA = Range.Create(rangeAStart, rangeAEnd, rangeAHasOpenStart, rangeAHasOpenEnd);
-            var rangeBHasOpenStart = rangeBEnds == RangeEnds.LeftOpen;
-            var rangeBHasOpenEnd = rangeBEnds == RangeEnds.RightOpen;
-            var rangeB = Range.Create(rangeBStart, rangeBEnd, rangeBHasOpenStart, rangeBHasOpenEnd);
+            var rangeA = GenerateRange(rangeAStart, rangeAEnd, rangeAEnds);
+            var rangeB = GenerateRange(rangeBStart, rangeBEnd, rangeBEnds);
             return new RangePair(rangeA, rangeB);
+        }
+
+        private static IRange<int> GenerateRange(int start, int end, RangeEnds ends)
+        {
+            var rangeHasOpenStart = ends == RangeEnds.LeftOpen;
+            var rangeHasOpenEnd = ends == RangeEnds.RightOpen;
+            var range = Range.Create(start, end, rangeHasOpenStart, rangeHasOpenEnd);
+            return range;
         }
     }
 }

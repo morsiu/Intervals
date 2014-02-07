@@ -3,6 +3,7 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Walrus.Ranges.Text;
@@ -11,13 +12,23 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 {
     internal static class StateMachine
     {
-        public static IRange<int> Execute(IRange<int> rangeA, IRange<int> rangeB, StateTable<PointTypePair, PointType> stateTable)
+        public static IRange<int> Zip(IRange<int> rangeA, IRange<int> rangeB, StateTable<PointTypePair, PointType> stateTable)
         {
             var rangePair = new PointSequencePair(
                 PointSequence.FromRange(rangeA),
                 PointSequence.FromRange(rangeB));
             var output = rangePair.Zip(stateTable.Match);
             return output.ToRange();
+        }
+
+        public static bool Any<TValue>(IRange<int> rangeA, IRange<int> rangeB, Func<TValue, bool> predicate, StateTable<PointTypePair, TValue> stateTable)
+        {
+            var rangePair = new PointSequencePair(
+                PointSequence.FromRange(rangeA),
+                PointSequence.FromRange(rangeB));
+            var output = rangePair.Zip<TValue>(stateTable.Match);
+            return output.Any(predicate);
+
         }
     }
 }

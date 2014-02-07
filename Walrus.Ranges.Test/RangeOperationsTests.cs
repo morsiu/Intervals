@@ -22,12 +22,13 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
-        public void IntersectsWithShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        public void IntersectsWithShouldReturnExpectedResult(RangePair testCase)
         {
+            var expected = IntersectsWithOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                testCase.AIntersectsWithB,
-                RangeOperations.IntersectsWith(testCase.A, testCase.B));
+                expected,
+                RangeOperations.IntersectsWith(testCase.RangeA, testCase.RangeB));
         }
 
         [Test]

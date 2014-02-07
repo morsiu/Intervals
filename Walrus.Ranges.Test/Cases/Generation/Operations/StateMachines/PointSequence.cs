@@ -75,6 +75,12 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
                 _offset);
         }
 
+        public IEnumerable<TValue> Zip<TValue>(PointSequence second, Func<PointTypePair, TValue> zipper)
+        {
+            if (_offset != second._offset && _points.Length != second._points.Length) throw new ArgumentException("Second sequence must have identical offset and number count.", "second");
+            return _points.Zip(second._points, PointTypePair.Create).Select(zipper);
+        }
+
         private static IEnumerable<PointType> Enumerate(IRange<int> range)
         {
             yield return range.HasOpenStart

@@ -4,6 +4,7 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using Walrus.Ranges.Text;
 
 namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
@@ -21,6 +22,15 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
         }
 
         public PointSequence Zip(Func<PointTypePair, PointType> zipper)
+        {
+            var first = _sequenceA.Pad(_sequenceB);
+            var second = _sequenceB.Pad(_sequenceA);
+
+            var points = first.Zip(second, zipper);
+            return points;
+        }
+
+        public IEnumerable<TValue> Zip<TValue>(Func<PointTypePair, TValue> zipper)
         {
             var first = _sequenceA.Pad(_sequenceB);
             var second = _sequenceB.Pad(_sequenceA);
