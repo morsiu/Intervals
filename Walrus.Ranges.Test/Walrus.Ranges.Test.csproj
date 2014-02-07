@@ -80,9 +80,11 @@
   <ItemGroup>
     <Compile Include="Cases\Generation\IRangePairOperation.cs" />
     <Compile Include="Cases\Generation\Operations\IntersectOperation.cs" />
+    <Compile Include="Cases\Generation\Operations\StateMachines\PointTypeParser.cs" />
     <Compile Include="Cases\Generation\Operations\StateMachines\PointSequence.cs" />
     <Compile Include="Cases\Generation\Operations\StateMachines\PointSequencePair.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\State.cs" />
+    <Compile Include="Cases\Generation\Operations\StateMachines\PointTypePair.cs" />
+    <Compile Include="Cases\Generation\Operations\StateMachines\StateTableBuilder.cs" />
     <Compile Include="Cases\Generation\Operations\StateMachines\StateMachine.cs" />
     <Compile Include="Cases\Generation\Operations\StateMachines\StateTable.cs" />
     <Compile Include="Cases\Generation\RangePair.cs" />

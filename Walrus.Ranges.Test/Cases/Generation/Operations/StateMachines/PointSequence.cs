@@ -67,16 +67,11 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
                 hasLeftPadding ? _offset - leftPadLength : _offset);
         }
 
-        private IEnumerable<PointType> Pad(int length)
-        {
-            return Enumerable.Repeat(PointType.Uncovered, length);
-        }
-
-        public PointSequence Zip(PointSequence second, Func<PointType, PointType, PointType> zipper)
+        public PointSequence Zip(PointSequence second, Func<PointTypePair, PointType> zipper)
         {
             if (_offset != second._offset && _points.Length != second._points.Length) throw new ArgumentException("Second sequence must have identical offset and number count.", "second");
             return new PointSequence(
-                _points.Zip(second._points, zipper),
+                _points.Zip(second._points, PointTypePair.Create).Select(zipper),
                 _offset);
         }
 
@@ -91,6 +86,11 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 
             if (range.End != range.Start)
                 yield return range.HasOpenEnd ? PointType.OpenEnd : PointType.ClosedEnd;
+        }
+
+        private static IEnumerable<PointType> Pad(int length)
+        {
+            return Enumerable.Repeat(PointType.Uncovered, length);
         }
     }
 }

@@ -11,20 +11,13 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 {
     internal static class StateMachine
     {
-        public static IRange<int> Execute(IRange<int> rangeA, IRange<int> rangeB, IReadOnlyCollection<State> states)
+        public static IRange<int> Execute(IRange<int> rangeA, IRange<int> rangeB, StateTable<PointTypePair, PointType> stateTable)
         {
             var rangePair = new PointSequencePair(
                 PointSequence.FromRange(rangeA),
                 PointSequence.FromRange(rangeB));
-            var output = rangePair.Zip((pointA, pointB) => Execute(pointA, pointB, states));
+            var output = rangePair.Zip(stateTable.Match);
             return output.ToRange();
-        }
-
-        private static PointType Execute(PointType pointA, PointType pointB, IReadOnlyCollection<State> states)
-        {
-            // TODO: Use StateCollection to do (inputA, intputB) => output
-            var matchingState = states.First(state => state.Matches(pointA, pointB));
-            return matchingState.Output;
         }
     }
 }

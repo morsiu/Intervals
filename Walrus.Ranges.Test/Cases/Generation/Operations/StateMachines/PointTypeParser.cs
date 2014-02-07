@@ -7,41 +7,20 @@ using Walrus.Ranges.Text;
 
 namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 {
-    internal struct State
+    internal static class PointTypeParser
     {
-        private PointType _inputA;
-        private PointType _inputB;
-        private PointType _output;
+        private static readonly PointTypeMatcher _matcher = new PointTypeMatcher('-', '=', 'x', 'o');
 
-        public State(PointType inputA, PointType inputB, PointType output)
-            : this()
+        public static PointTypePair ToPointPair(char pointAChar, char pointBChar)
         {
-            _inputA = inputA;
-            _inputB = inputB;
-            _output = output;
+            var pointA = _matcher.Match(pointAChar).Value;
+            var pointB = _matcher.Match(pointBChar).Value;
+            return new PointTypePair(pointA, pointB);
         }
 
-        public PointType Output { get { return _output; } }
-        
-        public bool Matches(PointType pointA, PointType pointB)
+        public static PointType ToPoint(char point)
         {
-            return pointA == _inputA && pointB == _inputB;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is State
-                && Equals((State)obj);
-        }
-
-        private bool Equals(State state)
-        {
-            return _inputA == state._inputA && _inputB == state._inputB;
-        }
-
-        public override int GetHashCode()
-        {
-            return unchecked((_inputA.GetHashCode() * 137) ^ _inputB.GetHashCode());
+            return _matcher.Match(point).Value;
         }
     }
 }

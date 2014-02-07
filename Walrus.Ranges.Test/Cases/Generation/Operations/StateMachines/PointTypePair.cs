@@ -3,27 +3,25 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Collections.Generic;
-using Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines;
 using Walrus.Ranges.Text;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations
+namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 {
-    internal static class IntersectOperation
+    internal struct PointTypePair
     {
-        private static readonly StateTable<PointTypePair, PointType> _states =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', '=', 'x', 'o', '-')
-            .AppendRow('x', 'x', 'x', 'o', '-')
-            .AppendRow('o', 'o', 'o', 'o', '-')
-            .AppendRow('-', '-', '-', '-', '-')
-            .Build(PointTypeParser.ToPointPair, PointTypeParser.ToPoint);
+        private readonly PointType _pointA;
+        private readonly PointType _pointB;
 
-        public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public PointTypePair(PointType pointA, PointType pointB)
+            : this()
         {
-            var output = StateMachine.Execute(rangeA, rangeB, _states);
-            return output;
+            _pointA = pointA;
+            _pointB = pointB;
+        }
+
+        public static PointTypePair Create(PointType pointA, PointType pointB)
+        {
+            return new PointTypePair(pointA, pointB);
         }
     }
 }
