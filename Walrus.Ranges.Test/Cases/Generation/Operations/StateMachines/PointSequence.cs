@@ -44,7 +44,7 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
             var endIndex = Array.FindLastIndex(_points, point => point == PointType.ClosedEnd || point == PointType.OpenEnd);
 
             if (startIndex == -1) return Range.Empty<int>();
-            if (startIndex == endIndex && _points[startIndex] == PointType.OpenEnd) return Range.Empty<int>(); // HACK: Workaround for non-lookahead state machines generating degenerate ranges
+            if (startIndex == endIndex && _points[startIndex] == PointType.OpenEnd) return Range.Empty<int>(); // HACK: Workaround for non-lookahead state machines generating degenerate ranges (like '--o---')
 
             var start = _points[startIndex];
             var end = _points[endIndex];
