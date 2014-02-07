@@ -57,8 +57,8 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 
         public PointSequence Pad(PointSequence other)
         {
-            var leftPadLength = _offset - other._offset;
-            var rightPadLength = other._offset - _offset;
+            var leftPadLength = Math.Max(0, _offset - other._offset);
+            var rightPadLength = Math.Max(0, other._offset - _offset);
             var hasLeftPadding = leftPadLength > 0;
             var hasRightPadding = rightPadLength > 0;
             if (!hasLeftPadding && !hasRightPadding) return this;
@@ -69,9 +69,7 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 
         private IEnumerable<PointType> Pad(int length)
         {
-            return length > 0
-                ? Enumerable.Repeat(PointType.Uncovered, length)
-                : Enumerable.Empty<PointType>();
+            return Enumerable.Repeat(PointType.Uncovered, length);
         }
 
         public PointSequence Zip(PointSequence second, Func<PointType, PointType, PointType> zipper)
