@@ -58,7 +58,7 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
         public PointSequence Pad(PointSequence other)
         {
             var leftPadLength = Math.Max(0, _offset - other._offset);
-            var rightPadLength = Math.Max(0, other._offset - _offset);
+            var rightPadLength = Math.Max(0, other._offset + other._points.Length - _offset - _points.Length);
             var hasLeftPadding = leftPadLength > 0;
             var hasRightPadding = rightPadLength > 0;
             if (!hasLeftPadding && !hasRightPadding) return this;
@@ -69,7 +69,7 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 
         public PointSequence Zip(PointSequence second, Func<PointTypePair, PointType> zipper)
         {
-            if (_offset != second._offset && _points.Length != second._points.Length) throw new ArgumentException("Second sequence must have identical offset and number count.", "second");
+            if (_offset != second._offset || _points.Length != second._points.Length) throw new ArgumentException("Second sequence must have identical offset and number count.", "second");
             return new PointSequence(
                 _points.Zip(second._points, PointTypePair.Create).Select(zipper),
                 _offset);
@@ -77,7 +77,7 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 
         public IEnumerable<TValue> Zip<TValue>(PointSequence second, Func<PointTypePair, TValue> zipper)
         {
-            if (_offset != second._offset && _points.Length != second._points.Length) throw new ArgumentException("Second sequence must have identical offset and number count.", "second");
+            if (_offset != second._offset || _points.Length != second._points.Length) throw new ArgumentException("Second sequence must have identical offset and number count.", "second");
             return _points.Zip(second._points, PointTypePair.Create).Select(zipper);
         }
 
