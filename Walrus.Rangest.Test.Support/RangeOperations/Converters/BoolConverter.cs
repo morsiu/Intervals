@@ -3,25 +3,13 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines;
-using Walrus.Ranges.Text;
-
-namespace Walrus.Ranges.Test.Cases.Generation.Operations.Parsers
+namespace Walrus.Ranges.Test.Support.RangeOperations.Converters
 {
-    internal static class PointTypeParser
+    internal static class BoolConverter
     {
-        private static readonly PointTypeMatcher _matcher = new PointTypeMatcher('-', '=', 'x', 'o');
-
-        public static PointTypePair ToPointPair(char pointAChar, char pointBChar)
+        public static bool ToBool(char value)
         {
-            var pointA = _matcher.Match(pointAChar).Value;
-            var pointB = _matcher.Match(pointBChar).Value;
-            return new PointTypePair(pointA, pointB);
-        }
-
-        public static PointType ToPoint(char point)
-        {
-            return _matcher.Match(point).Value;
+            return value == 't';
         }
     }
 }

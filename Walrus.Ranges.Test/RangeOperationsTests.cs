@@ -5,8 +5,8 @@
 
 using NUnit.Framework;
 using System;
-using Walrus.Ranges.Test.Cases.Generation.Operations;
 using Walrus.Ranges.Test.Support.RangeGeneration;
+using Walrus.Ranges.Test.Support.RangeOperations;
 
 namespace Walrus.Ranges
 {

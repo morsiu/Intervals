@@ -3,26 +3,25 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Walrus.Ranges.Test.Cases.Generation.Operations.Parsers;
-using Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines;
+using Walrus.Ranges.Text;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations
+namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
 {
-    internal static class IntersectsWithOperation
+    internal struct PointTypePair
     {
-        private static readonly StateTable<PointTypePair, bool> _states =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', 't', 't', 'f', 'f')
-            .AppendRow('x', 't', 't', 'f', 'f')
-            .AppendRow('o', 'f', 'f', 'f', 'f')
-            .AppendRow('-', 'f', 'f', 'f', 'f')
-            .Build(PointTypeParser.ToPointPair, BoolParser.ToBool);
+        private readonly PointType _pointA;
+        private readonly PointType _pointB;
 
-        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public PointTypePair(PointType pointA, PointType pointB)
+            : this()
         {
-            var anyIntersection = StateMachine.Any(rangeA, rangeB, output => output == true, _states);
-            return anyIntersection;
+            _pointA = pointA;
+            _pointB = pointB;
+        }
+
+        public static PointTypePair Create(PointType pointA, PointType pointB)
+        {
+            return new PointTypePair(pointA, pointB);
         }
     }
 }

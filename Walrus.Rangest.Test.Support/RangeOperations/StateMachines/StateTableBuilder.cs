@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
+namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
 {
     internal sealed class StateTableBuilder<TRowInput, TColumnInput, TOutput>
     {

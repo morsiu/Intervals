@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Walrus.Ranges.Text;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
+namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
 {
     internal sealed class PointSequence
     {

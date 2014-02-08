@@ -3,27 +3,26 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Walrus.Ranges.Test.Cases.Generation.Operations.Parsers;
-using Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines;
+using Walrus.Ranges.Test.Support.RangeOperations.StateMachines;
 using Walrus.Ranges.Text;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations
+namespace Walrus.Ranges.Test.Support.RangeOperations.Converters
 {
-    internal static class SpanOperation
+    internal static class PointTypeConverter
     {
-        private static readonly StateTable<PointTypePair, PointType> _states =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', '=', '=', '=', '=')
-            .AppendRow('x', '=', 'x', 'x', 'x')
-            .AppendRow('o', '=', 'x', 'o', 'o')
-            .AppendRow('-', '=', 'x', 'o', '-')
-            .Build(PointTypeParser.ToPointPair, PointTypeParser.ToPoint);
+        private static readonly PointTypeMatcher _matcher = new PointTypeMatcher('-', '=', 'x', 'o');
 
-        public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public static PointTypePair ToPointPair(char pointAChar, char pointBChar)
         {
-            var output = StateMachine.Zip(rangeA, rangeB, _states);
-            return output;
+            var pointA = _matcher.Match(pointAChar).Value;
+            var pointB = _matcher.Match(pointBChar).Value;
+            return new PointTypePair(pointA, pointB);
+        }
+
+        public static PointType ToPoint(char pointChar)
+        {
+            var point = _matcher.Match(pointChar).Value;
+            return point;
         }
     }
 }

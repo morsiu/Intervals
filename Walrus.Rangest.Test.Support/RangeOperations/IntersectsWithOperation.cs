@@ -3,25 +3,26 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Walrus.Ranges.Text;
+using Walrus.Ranges.Test.Support.RangeOperations.Converters;
+using Walrus.Ranges.Test.Support.RangeOperations.StateMachines;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
+namespace Walrus.Ranges.Test.Support.RangeOperations
 {
-    internal struct PointTypePair
+    public static class IntersectsWithOperation
     {
-        private readonly PointType _pointA;
-        private readonly PointType _pointB;
+        private static readonly StateTable<PointTypePair, bool> _states =
+            new StateTableBuilder<char, char, char>()
+            .AssumingHeader('=', 'x', 'o', '-')
+            .AppendRow('=', 't', 't', 'f', 'f')
+            .AppendRow('x', 't', 't', 'f', 'f')
+            .AppendRow('o', 'f', 'f', 'f', 'f')
+            .AppendRow('-', 'f', 'f', 'f', 'f')
+            .Build(PointTypeConverter.ToPointPair, BoolConverter.ToBool);
 
-        public PointTypePair(PointType pointA, PointType pointB)
-            : this()
+        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            _pointA = pointA;
-            _pointB = pointB;
-        }
-
-        public static PointTypePair Create(PointType pointA, PointType pointB)
-        {
-            return new PointTypePair(pointA, pointB);
+            var anyIntersection = StateMachine.Any(rangeA, rangeB, output => output == true, _states);
+            return anyIntersection;
         }
     }
 }

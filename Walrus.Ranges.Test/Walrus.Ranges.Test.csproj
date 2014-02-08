@@ -78,23 +78,6 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
-    <Compile Include="Cases\Generation\Operations\CoversOperation.cs" />
-    <Compile Include="Cases\Generation\Operations\EqualsOperation.cs" />
-    <Compile Include="Cases\Generation\Operations\IsCoveredByOperation.cs" />
-    <Compile Include="Cases\Generation\Operations\IntersectOperation.cs" />
-    <Compile Include="Cases\Generation\Operations\IntersectsWithOperation.cs" />
-    <Compile Include="Cases\Generation\Operations\Parsers\BoolParser.cs" />
-    <Compile Include="Cases\Generation\Operations\Parsers\EnumParser.cs" />
-    <Compile Include="Cases\Generation\Operations\Parsers\PointTypeParser.cs" />
-    <Compile Include="Cases\Generation\Operations\SpanOperation.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\ValueWithState.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\PointSequence.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\PointSequencePair.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\PointTypePair.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\StateTableBuilder.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\StateMachine.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\StateTable`2.cs" />
-    <Compile Include="Cases\Generation\Operations\StateMachines\StateTable`3.cs" />
     <Compile Include="EmptyRangeTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -120,7 +103,9 @@
       <Name>Walrus.Ranges</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Cases\Generation\" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

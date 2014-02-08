@@ -3,40 +3,27 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Collections.Generic;
+using Walrus.Ranges.Test.Support.RangeOperations.Converters;
+using Walrus.Ranges.Test.Support.RangeOperations.StateMachines;
 using Walrus.Ranges.Text;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
+namespace Walrus.Ranges.Test.Support.RangeOperations
 {
-    internal struct PointSequencePair
+    public static class IntersectOperation
     {
-        private PointSequence _sequenceB;
-        private PointSequence _sequenceA;
+        private static readonly StateTable<PointTypePair, PointType> _states =
+            new StateTableBuilder<char, char, char>()
+            .AssumingHeader('=', 'x', 'o', '-')
+            .AppendRow('=', '=', 'x', 'o', '-')
+            .AppendRow('x', 'x', 'x', 'o', '-')
+            .AppendRow('o', 'o', 'o', 'o', '-')
+            .AppendRow('-', '-', '-', '-', '-')
+            .Build(PointTypeConverter.ToPointPair, PointTypeConverter.ToPoint);
 
-        public PointSequencePair(PointSequence sequenceA, PointSequence sequenceB)
-            : this()
+        public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            _sequenceA = sequenceA;
-            _sequenceB = sequenceB;
-        }
-
-        public PointSequence Zip(Func<PointTypePair, PointType> zipper)
-        {
-            var first = _sequenceA.Pad(_sequenceB);
-            var second = _sequenceB.Pad(_sequenceA);
-
-            var points = first.Zip(second, zipper);
-            return points;
-        }
-
-        public IEnumerable<TValue> Zip<TValue>(Func<PointTypePair, TValue> zipper)
-        {
-            var first = _sequenceA.Pad(_sequenceB);
-            var second = _sequenceB.Pad(_sequenceA);
-
-            var points = first.Zip(second, zipper);
-            return points;
+            var output = StateMachine.Zip(rangeA, rangeB, _states);
+            return output;
         }
     }
 }

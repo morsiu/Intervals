@@ -3,45 +3,28 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
 using System.Collections.Generic;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
+namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
 {
-    internal struct ValueWithState<TValue, TState> : IEquatable<ValueWithState<TValue, TState>>
+    internal sealed class StateTable<TInput, TOutput>
     {
-        private readonly TState _state;
-        private readonly TValue _value;
+        private readonly IReadOnlyDictionary<TInput, TOutput> _states;
 
-        public ValueWithState(TValue value, TState state)
+        public StateTable(IReadOnlyDictionary<TInput, TOutput> states)
         {
-            _value = value;
-            _state = state;
+            _states = states;
         }
 
-        public TState State { get { return _state; } }
-
-        public TValue Value { get { return _value; } }
-
-        public override int GetHashCode()
+        public int Count
         {
-            unchecked
-            {
-                return (ReferenceEquals(_value, null) ? 0 : (_value.GetHashCode() * 137))
-                    ^ (ReferenceEquals(_state, null) ? 0 : _state.GetHashCode());
-            }
+            get { return _states.Count; }
         }
 
-        public override bool Equals(object obj)
+        public TOutput Match(TInput input)
         {
-            return obj is ValueWithState<TValue, TState>
-                && Equals((ValueWithState<TValue, TState>)obj);
+            var output = _states[input];
+            return output;
         }
-
-        public bool Equals(ValueWithState<TValue, TState> other)
-            {
-                return EqualityComparer<TValue>.Default.Equals(_value, other._value)
-                    && EqualityComparer<TState>.Default.Equals(_state, other._state);
-            }
     }
 }

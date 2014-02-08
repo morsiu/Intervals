@@ -3,28 +3,40 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System;
 using System.Collections.Generic;
+using Walrus.Ranges.Text;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
+namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
 {
-    internal sealed class StateTable<TInput, TOutput>
+    internal struct PointSequencePair
     {
-        private readonly IReadOnlyDictionary<TInput, TOutput> _states;
+        private PointSequence _sequenceB;
+        private PointSequence _sequenceA;
 
-        public StateTable(IReadOnlyDictionary<TInput, TOutput> states)
+        public PointSequencePair(PointSequence sequenceA, PointSequence sequenceB)
+            : this()
         {
-            _states = states;
+            _sequenceA = sequenceA;
+            _sequenceB = sequenceB;
         }
 
-        public int Count
+        public PointSequence Zip(Func<PointTypePair, PointType> zipper)
         {
-            get { return _states.Count; }
+            var first = _sequenceA.Pad(_sequenceB);
+            var second = _sequenceB.Pad(_sequenceA);
+
+            var points = first.Zip(second, zipper);
+            return points;
         }
 
-        public TOutput Match(TInput input)
+        public IEnumerable<TValue> Zip<TValue>(Func<PointTypePair, TValue> zipper)
         {
-            var output = _states[input];
-            return output;
+            var first = _sequenceA.Pad(_sequenceB);
+            var second = _sequenceB.Pad(_sequenceA);
+
+            var points = first.Zip(second, zipper);
+            return points;
         }
     }
 }

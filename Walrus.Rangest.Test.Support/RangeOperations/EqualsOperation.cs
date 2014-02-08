@@ -3,29 +3,27 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Collections.Generic;
+using Walrus.Ranges.Test.Support.RangeOperations.Converters;
+using Walrus.Ranges.Test.Support.RangeOperations.StateMachines;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
+namespace Walrus.Ranges.Test.Support.RangeOperations
 {
-    internal sealed class StateTable<TInput, TState, TOutput>
+    public static class EqualsOperation
     {
-        private readonly IReadOnlyDictionary<ValueWithState<TInput, TState>, ValueWithState<TOutput, TState>> _states;
+        private static readonly StateTable<PointTypePair, bool> _states =
+            new StateTableBuilder<char, char, char>()
+            .AssumingHeader('=', 'x', 'o', '-')
+            .AppendRow('=', 't', 'f', 'f', 'f')
+            .AppendRow('x', 'f', 't', 'f', 'f')
+            .AppendRow('o', 'f', 'f', 't', 'f')
+            .AppendRow('-', 'f', 'f', 'f', 't')
+            .Build(PointTypeConverter.ToPointPair, BoolConverter.ToBool);
 
-        public StateTable(IReadOnlyDictionary<ValueWithState<TInput, TState>, ValueWithState<TOutput, TState>> states)
+        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            _states = states;
-        }
-
-        public int Count
-        {
-            get { return _states.Count; }
-        }
-
-        public ValueWithState<TOutput, TState> Match(TInput input, TState state)
-        {
-            var outputWithState = _states[new ValueWithState<TInput, TState>(input, state)];
-            return outputWithState;
+            if (rangeA == null || rangeB == null) return rangeA == rangeB;
+            var notEquals = StateMachine.Any(rangeA, rangeB, output => output == false, _states);
+            return !notEquals;
         }
     }
 }
