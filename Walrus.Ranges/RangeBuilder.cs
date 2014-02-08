@@ -7,7 +7,7 @@ using System;
 
 namespace Walrus.Ranges
 {
-    internal sealed class RangeBuilder<T>
+    public sealed class RangeBuilder<T>
         where T : IComparable<T>
     {
         private RangeCompletion completion = RangeCompletion.HasNothing;
