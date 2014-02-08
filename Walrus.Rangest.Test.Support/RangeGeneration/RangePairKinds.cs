@@ -6,10 +6,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Walrus.Ranges.Test.Support.RangeGeneration.Options;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Options
+namespace Walrus.Ranges.Test.Support.RangeGeneration
 {
-    internal struct RangePairKinds : IEnumerable<Tuple<RangeKind, RangeKind>>
+    public struct RangePairKinds : IEnumerable<Tuple<RangeKind, RangeKind>>
     {
         private readonly Tuple<RangeKind, RangeKind>[] _rangeKindPairs;
 
@@ -47,6 +48,7 @@ namespace Walrus.Ranges.Test.Cases.Generation.Options
         }
 
         public RangePairKinds(params Tuple<RangeKind, RangeKind>[] rangeKindPairs)
+            : this()
         {
             _rangeKindPairs = rangeKindPairs;
         }

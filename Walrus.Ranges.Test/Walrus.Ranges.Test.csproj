@@ -95,21 +95,13 @@
     <Compile Include="Cases\Generation\Operations\StateMachines\StateMachine.cs" />
     <Compile Include="Cases\Generation\Operations\StateMachines\StateTable`2.cs" />
     <Compile Include="Cases\Generation\Operations\StateMachines\StateTable`3.cs" />
-    <Compile Include="Cases\Generation\Options\RangeKind.cs" />
-    <Compile Include="Cases\Generation\Options\RangePairKinds.cs" />
-    <Compile Include="Cases\Generation\RangeGenerator.cs" />
-    <Compile Include="Cases\Generation\RangePair.cs" />
-    <Compile Include="Cases\Generation\Options\RangeEnds.cs" />
-    <Compile Include="Cases\Generation\Options\RangeRelations.cs" />
     <Compile Include="EmptyRangeTests.cs" />
-    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RangeBuilderTests.cs" />
     <Compile Include="RangeEqualityComparerTests.cs" />
     <Compile Include="RangeFactoryTests.cs" />
     <Compile Include="RangeOperationsTests.cs" />
-    <Compile Include="Cases\Generation\RangePairGenerator.cs" />
     <Compile Include="RangePairTestCases.cs" />
     <Compile Include="RangeTests.cs" />
     <Compile Include="Text\PointTypeMatcherTests.cs" />
@@ -119,6 +111,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Walrus.Rangest.Test.Support\Walrus.Rangest.Test.Support.csproj">
+      <Project>{157ad3aa-90ca-48c9-b54e-1671cc4597a9}</Project>
+      <Name>Walrus.Rangest.Test.Support</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Walrus.Ranges\Walrus.Ranges.csproj">
       <Project>{466840e5-50bf-4f37-bda3-9ba1b5277a5e}</Project>
       <Name>Walrus.Ranges</Name>

@@ -5,10 +5,10 @@
 
 using System;
 using System.Collections.Generic;
-using Walrus.Ranges.Test.Cases.Generation.Options;
-using Walrus.Ranges.Test.Extensions;
+using Walrus.Ranges.Test.Support.Extensions;
+using Walrus.Ranges.Test.Support.RangeGeneration.Options;
 
-namespace Walrus.Ranges.Test.Cases.Generation
+namespace Walrus.Ranges.Test.Support.RangeGeneration
 {
     internal static class RangeGenerator
     {

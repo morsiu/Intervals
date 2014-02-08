@@ -5,13 +5,18 @@
 
 using System;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Options
+namespace Walrus.Ranges.Test.Support.RangeGeneration.Options
 {
     [Flags]
-    internal enum RangeKind
+    internal enum RangeEnds
     {
-        NonEmpty,
-        Empty,
-        Null
+        None = 0,
+        Open = 1,
+        Closed = 2,
+        RightClosed = 4,
+        LeftOpen = 4,
+        RightOpen = 8,
+        LeftClosed = 8,
+        All = Open | Closed | LeftOpen | RightOpen
     }
 }

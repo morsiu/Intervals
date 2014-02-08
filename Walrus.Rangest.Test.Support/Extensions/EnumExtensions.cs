@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Walrus.Ranges.Test.Extensions
+namespace Walrus.Ranges.Test.Support.Extensions
 {
     internal static class EnumExtensions
     {

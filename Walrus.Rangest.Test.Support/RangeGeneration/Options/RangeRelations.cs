@@ -5,18 +5,25 @@
 
 using System;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Options
+namespace Walrus.Ranges.Test.Support.RangeGeneration.Options
 {
     [Flags]
-    internal enum RangeEnds
+    internal enum RangeRelations
     {
         None = 0,
-        Open = 1,
-        Closed = 2,
-        RightClosed = 4,
-        LeftOpen = 4,
-        RightOpen = 8,
-        LeftClosed = 8,
-        All = Open | Closed | LeftOpen | RightOpen
+        ABeforeB = 1,
+        ABeforeBTouching = 2,
+        ABeforeBIntersecting = 4,
+        ASpanningB = 8,
+        AAfterBIntersecting = 16,
+        AAfterBTouching = 32,
+        AAfterB = 64,
+        ACoversBTouchingLeft = 128,
+        ACoversB = 256,
+        ACoversBTouchingRight = 512,
+        AInsideBTouchingLeft = 1024,
+        AInsideB = 2048,
+        AInsideBTouchingRight = 4096,
+        All = 8191
     }
 }
