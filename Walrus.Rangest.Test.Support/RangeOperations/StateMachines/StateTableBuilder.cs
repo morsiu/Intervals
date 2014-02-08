@@ -39,14 +39,6 @@ namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
             return new StateTable<TInput, TOutput2>(states);
         }
 
-        public StateTable<TInput, TState, TOutput2> Build<TInput, TOutput2, TState>(
-            Func<TRowInput, TColumnInput, ValueWithState<TInput, TState>> inputMerger,
-            Func<TOutput, ValueWithState<TOutput2, TState>> outputConverter)
-        {
-            var states = MergeInputsAndConvertOutputs(inputMerger, outputConverter);
-            return new StateTable<TInput, TState, TOutput2>(states);
-        }
-
         private Dictionary<TInput, TOutput2> MergeInputsAndConvertOutputs<TInput, TOutput2>(
             Func<TRowInput, TColumnInput, TInput> inputMerger,
             Func<TOutput, TOutput2> outputConverter)

@@ -49,8 +49,6 @@
     <Compile Include="RangeOperations\StateMachines\StateMachine.cs" />
     <Compile Include="RangeOperations\StateMachines\StateTableBuilder.cs" />
     <Compile Include="RangeOperations\StateMachines\StateTable`2.cs" />
-    <Compile Include="RangeOperations\StateMachines\StateTable`3.cs" />
-    <Compile Include="RangeOperations\StateMachines\ValueWithState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RangeGeneration\Options\RangeEnds.cs" />
     <Compile Include="RangeGeneration\Options\RangeKind.cs" />
