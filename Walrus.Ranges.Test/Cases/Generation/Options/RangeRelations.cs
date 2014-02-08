@@ -24,8 +24,6 @@ namespace Walrus.Ranges.Test.Cases.Generation.Options
         AInsideBTouchingLeft = 1024,
         AInsideB = 2048,
         AInsideBTouchingRight = 4096,
-        AIsEmpty = 8192,
-        BIsEmpty = 16384,
-        All = 32767
+        All = 8191
     }
 }

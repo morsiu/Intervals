@@ -30,5 +30,46 @@ namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
             return output.Any(predicate);
 
         }
+
+        public static IRange<int> Zip<TState>(IRange<int> rangeA, IRange<int> rangeB, TState initialState, StateTable<PointTypePair, TState, PointType> stateTable)
+        {
+            var rangePair = new PointSequencePair(
+                PointSequence.FromRange(rangeA),
+                PointSequence.FromRange(rangeB));
+            var state = new State<TState, PointType>(initialState, stateTable);
+            var output = rangePair.Zip(state.Match);
+            return output.ToRange();
+        }
+
+        public static bool Any<TValue, TState>(IRange<int> rangeA, IRange<int> rangeB, Func<TValue, bool> predicate, TState initialState, StateTable<PointTypePair, TState, TValue> stateTable)
+        {
+            var rangePair = new PointSequencePair(
+                PointSequence.FromRange(rangeA),
+                PointSequence.FromRange(rangeB));
+            var state = new State<TState, TValue>(initialState, stateTable);
+            var output = rangePair.Zip<TValue>(state.Match);
+            return output.Any(predicate);
+
+        }
+
+        private class State<TState, TOutput>
+        {
+            private readonly StateTable<PointTypePair, TState, TOutput> _stateTable;
+            private TState _state;
+
+            public State(TState initial, StateTable<PointTypePair, TState, TOutput> stateTable)
+            {
+                _state = initial;
+                _stateTable = stateTable;
+            }
+
+            public TOutput Match(PointTypePair input)
+            {
+                var outputWithState = _stateTable.Match(input, _state);
+                _state = outputWithState.State;
+                var output = outputWithState.Value;
+                return output;
+            }
+        }
     }
 }

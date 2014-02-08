@@ -3,25 +3,15 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Walrus.Ranges.Test.Cases.Generation.Operations.Parsers;
-using Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines;
+using System;
 
-namespace Walrus.Ranges.Test.Cases.Generation.Operations
+namespace Walrus.Ranges.Test.Cases.Generation.Options
 {
-    internal static class IsCoveredByOperation
+    [Flags]
+    internal enum RangeKind
     {
-        private static readonly StateTable<PointTypePair, bool> _states =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', 'f', 't', 't', 't')
-            .AppendRow('x', 'f', 'f', 't', 't')
-            .AppendRow('o', 'f', 'f', 'f', 't')
-            .AppendRow('-', 'f', 'f', 'f', 'f')
-            .Build(PointTypeParser.ToPointPair, BoolParser.ToBool);
-
-        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
-        {
-            return CoversOperation.Calculate(rangeB, rangeA);
-        }
+        NonEmpty,
+        Empty,
+        Null
     }
 }

@@ -3,16 +3,29 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Walrus.Ranges.Test.Cases.Generation.Options;
+using System;
+using System.Collections.Generic;
 
-namespace Walrus.Ranges.Test.Cases.Generation
+namespace Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines
 {
-    internal struct RangePairGeneratorOptions
+    internal sealed class StateTable<TInput, TState, TOutput>
     {
-        public RangeEnds RangeAEnds { get; set; }
+        private readonly IReadOnlyDictionary<ValueWithState<TInput, TState>, ValueWithState<TOutput, TState>> _states;
 
-        public RangeEnds RangeBEnds { get; set; }
+        public StateTable(IReadOnlyDictionary<ValueWithState<TInput, TState>, ValueWithState<TOutput, TState>> states)
+        {
+            _states = states;
+        }
 
-        public RangeRelations ABRangesRelations { get; set; }
+        public int Count
+        {
+            get { return _states.Count; }
+        }
+
+        public ValueWithState<TOutput, TState> Match(TInput input, TState state)
+        {
+            var outputWithState = _states[new ValueWithState<TInput, TState>(input, state)];
+            return outputWithState;
+        }
     }
 }

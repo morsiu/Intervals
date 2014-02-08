@@ -40,6 +40,16 @@ namespace Walrus.Ranges
             }
         }
 
+        public static IEnumerable<RangePair> AllRangePairs2
+        {
+            get
+            {
+                var pairs = RangePairGenerator.GeneratePairs(RangePairKinds.All());
+                return pairs;
+            }
+        }
+
+
         public static IEnumerable<TestCase> AllRangePairs
         {
             get
@@ -54,13 +64,7 @@ namespace Walrus.Ranges
         {
             get
             {
-                var pairs = RangePairGenerator.GeneratePairs(
-                    new RangePairGeneratorOptions
-                    {
-                        ABRangesRelations = RangeRelations.All,
-                        RangeAEnds = RangeEnds.All,
-                        RangeBEnds = RangeEnds.All
-                    });
+                var pairs = RangePairGenerator.GeneratePairs(RangePairKinds.AllNonNull());
                 return pairs;
             }
         }
@@ -88,6 +92,15 @@ namespace Walrus.Ranges
                     RightOpenAndOpenRangePairs,
                     RightOpenAndLeftOpenRangePairs
                 );
+            }
+        }
+
+        public static IEnumerable<RangePair> AllNullRangePairs2
+        {
+            get
+            {
+                var pairs = RangePairGenerator.GeneratePairs(RangePairKinds.AllNull());
+                return pairs;
             }
         }
 

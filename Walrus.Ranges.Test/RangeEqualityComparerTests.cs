@@ -4,6 +4,9 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using NUnit.Framework;
+using System.Collections.Generic;
+using Walrus.Ranges.Test.Cases.Generation;
+using Walrus.Ranges.Test.Cases.Generation.Operations;
 
 namespace Walrus.Ranges
 {
@@ -18,12 +21,13 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllRangePairs")]
-        public void EqualsShouldReturnExpectedResult(RangePairTestCases.TestCase testCase)
+        [TestCaseSource(typeof(RangePairTestCases), "AllRangePairs2")]
+        public void EqualsShouldReturnExpectedResult(RangePair testCase)
         {
+            var expected = EqualsOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                testCase.AEqualsB,
-                RangeEqualityComparer<int>.Instance.Equals(testCase.A, testCase.B));
+                expected,
+                RangeEqualityComparer<int>.Instance.Equals(testCase.RangeA, testCase.RangeB));
         }
     }
 }

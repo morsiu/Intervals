@@ -12,69 +12,124 @@ namespace Walrus.Ranges.Test.Cases.Generation
 {
     internal static class RangePairGenerator
     {
-        public static IEnumerable<RangePair> GeneratePairs(RangePairGeneratorOptions options)
+        public static IEnumerable<RangePair> GeneratePairs(RangePairKinds pairKinds)
         {
-            foreach (var abRangesRelation in options.ABRangesRelations.EnumerateFlags())
+            foreach (var pairKind in pairKinds)
             {
-                foreach (var rangeAEnds in options.RangeAEnds.EnumerateFlags())
+                var rangeAKind = pairKind.Item1;
+                var rangeBKind = pairKind.Item2;
+                foreach (var pair in GeneratePairs(rangeAKind, rangeBKind))
                 {
-                    foreach (var rangeBEnds in options.RangeBEnds.EnumerateFlags())
+                    yield return pair;
+                }
+            }
+        }
+
+        private static IEnumerable<RangePair> GeneratePairs(RangeKind rangeAKind, RangeKind rangeBKind)
+        {
+            if (rangeAKind == RangeKind.NonEmpty && rangeBKind == RangeKind.NonEmpty)
+                return GenerateNonEmptyPairs();
+            return GenerateMixedPairs(rangeAKind, rangeBKind);
+        }
+
+        private static IEnumerable<RangePair> GenerateMixedPairs(RangeKind rangeAKind, RangeKind rangeBKind)
+        {
+            var aRanges = GenerateRanges(rangeAKind);
+            var bRanges = GenerateRanges(rangeBKind);
+            foreach (var rangeA in aRanges)
+            {
+                foreach (var rangeB in bRanges)
+                {
+                    yield return new RangePair(rangeA, rangeB);
+                }
+            }
+        }
+
+        private static IEnumerable<IRange<int>> GenerateRanges(RangeKind rangeKind)
+        {
+            switch (rangeKind)
+            {
+                case RangeKind.NonEmpty:
+                    foreach (var range in GenerateNonEmptyRanges()) yield return range;
+                    break;
+                case RangeKind.Empty:
+                    yield return Range.Empty<int>();
+                    break;
+                case RangeKind.Null:
+                    yield return null;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("rangeType");
+            }
+        }
+
+        private static IEnumerable<IRange<int>> GenerateNonEmptyRanges()
+        {
+            foreach (var rangeEnd in RangeEnds.All.EnumerateFlags())
+            {
+                yield return GenerateNonEmptyRange(1, 3, rangeEnd);
+            }
+        }
+
+        private static IEnumerable<RangePair> GenerateNonEmptyPairs()
+        {
+            foreach (var abRangesRelation in RangeRelations.All.EnumerateFlags())
+            {
+                foreach (var rangeAEnds in RangeEnds.All.EnumerateFlags())
+                {
+                    foreach (var rangeBEnds in RangeEnds.All.EnumerateFlags())
                     {
-                        yield return GeneratePair(abRangesRelation, rangeAEnds, rangeBEnds);
+                        yield return GenerateNonEmptyPair(abRangesRelation, rangeAEnds, rangeBEnds);
                     }
                 }
             }
         }
 
-        private static RangePair GeneratePair(RangeRelations abRangesRelation, RangeEnds rangeAEnds, RangeEnds rangeBEnds)
+        private static RangePair GenerateNonEmptyPair(RangeRelations abRangesRelation, RangeEnds rangeAEnds, RangeEnds rangeBEnds)
         {
             switch (abRangesRelation)
             {
                 case RangeRelations.ABeforeB:
-                    return GeneratePair(1, 5, rangeAEnds, 7, 11, rangeBEnds);
+                    return GenerateNonEmptyPair(1, 5, rangeAEnds, 7, 11, rangeBEnds);
                 case RangeRelations.ABeforeBTouching:
-                    return GeneratePair(2, 7, rangeAEnds, 7, 11, rangeBEnds);
+                    return GenerateNonEmptyPair(2, 7, rangeAEnds, 7, 11, rangeBEnds);
                 case RangeRelations.ABeforeBIntersecting:
-                    return GeneratePair(5, 9, rangeAEnds, 7, 11, rangeBEnds);
+                    return GenerateNonEmptyPair(5, 9, rangeAEnds, 7, 11, rangeBEnds);
                 case RangeRelations.ASpanningB:
-                    return GeneratePair(7, 11, rangeAEnds, 7, 11, rangeBEnds);
+                    return GenerateNonEmptyPair(7, 11, rangeAEnds, 7, 11, rangeBEnds);
                 case RangeRelations.AAfterBIntersecting:
-                    return GeneratePair(9, 13, rangeAEnds, 7, 11, rangeBEnds);
+                    return GenerateNonEmptyPair(9, 13, rangeAEnds, 7, 11, rangeBEnds);
                 case RangeRelations.AAfterBTouching:
-                    return GeneratePair(11, 15, rangeAEnds, 7, 11, rangeBEnds);
+                    return GenerateNonEmptyPair(11, 15, rangeAEnds, 7, 11, rangeBEnds);
                 case RangeRelations.AAfterB:
-                    return GeneratePair(13, 18, rangeAEnds, 7, 11, rangeBEnds);
+                    return GenerateNonEmptyPair(13, 18, rangeAEnds, 7, 11, rangeBEnds);
                 case RangeRelations.ACoversBTouchingLeft:
-                    return GeneratePair(1, 8, rangeAEnds, 1, 4, rangeBEnds);
+                    return GenerateNonEmptyPair(1, 8, rangeAEnds, 1, 4, rangeBEnds);
                 case RangeRelations.ACoversB:
-                    return GeneratePair(1, 8, rangeAEnds, 3, 6, rangeBEnds);
+                    return GenerateNonEmptyPair(1, 8, rangeAEnds, 3, 6, rangeBEnds);
                 case RangeRelations.ACoversBTouchingRight:
-                    return GeneratePair(1, 8, rangeAEnds, 5, 8, rangeBEnds);
+                    return GenerateNonEmptyPair(1, 8, rangeAEnds, 5, 8, rangeBEnds);
                 case RangeRelations.AInsideBTouchingLeft:
-                    return GeneratePair(1, 4, rangeAEnds, 1, 8, rangeBEnds);
+                    return GenerateNonEmptyPair(1, 4, rangeAEnds, 1, 8, rangeBEnds);
                 case RangeRelations.AInsideB:
-                    return GeneratePair(3, 6, rangeAEnds, 1, 8, rangeBEnds);
+                    return GenerateNonEmptyPair(3, 6, rangeAEnds, 1, 8, rangeBEnds);
                 case RangeRelations.AInsideBTouchingRight:
-                    return GeneratePair(5, 8, rangeAEnds, 1, 8, rangeBEnds);
-                case RangeRelations.AIsEmpty:
-                    return new RangePair(Range.Empty<int>(), GenerateRange(1, 3, rangeBEnds));
-                case RangeRelations.BIsEmpty:
-                    return new RangePair(GenerateRange(1, 3, rangeAEnds), Range.Empty<int>());
+                    return GenerateNonEmptyPair(5, 8, rangeAEnds, 1, 8, rangeBEnds);
                 default:
                     throw new ArgumentOutOfRangeException("abRangesRelation");
             }
         }
 
-        private static RangePair GeneratePair(
+        private static RangePair GenerateNonEmptyPair(
             int rangeAStart, int rangeAEnd, RangeEnds rangeAEnds,
             int rangeBStart, int rangeBEnd, RangeEnds rangeBEnds)
         {
-            var rangeA = GenerateRange(rangeAStart, rangeAEnd, rangeAEnds);
-            var rangeB = GenerateRange(rangeBStart, rangeBEnd, rangeBEnds);
+            var rangeA = GenerateNonEmptyRange(rangeAStart, rangeAEnd, rangeAEnds);
+            var rangeB = GenerateNonEmptyRange(rangeBStart, rangeBEnd, rangeBEnds);
             return new RangePair(rangeA, rangeB);
         }
 
-        private static IRange<int> GenerateRange(int start, int end, RangeEnds ends)
+        private static IRange<int> GenerateNonEmptyRange(int start, int end, RangeEnds ends)
         {
             var hasOpenStart = ends == RangeEnds.LeftOpen;
             var hasOpenEnd = ends == RangeEnds.RightOpen;

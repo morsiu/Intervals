@@ -8,20 +8,22 @@ using Walrus.Ranges.Test.Cases.Generation.Operations.StateMachines;
 
 namespace Walrus.Ranges.Test.Cases.Generation.Operations
 {
-    internal static class IsCoveredByOperation
+    internal static class EqualsOperation
     {
         private static readonly StateTable<PointTypePair, bool> _states =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', 'f', 't', 't', 't')
-            .AppendRow('x', 'f', 'f', 't', 't')
-            .AppendRow('o', 'f', 'f', 'f', 't')
-            .AppendRow('-', 'f', 'f', 'f', 'f')
+            .AppendRow('=', 't', 'f', 'f', 'f')
+            .AppendRow('x', 'f', 't', 'f', 'f')
+            .AppendRow('o', 'f', 'f', 't', 'f')
+            .AppendRow('-', 'f', 'f', 'f', 't')
             .Build(PointTypeParser.ToPointPair, BoolParser.ToBool);
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            return CoversOperation.Calculate(rangeB, rangeA);
+            if (rangeA == null || rangeB == null) return rangeA == rangeB;
+            var notEquals = StateMachine.Any(rangeA, rangeB, output => output == false, _states);
+            return !notEquals;
         }
     }
 }
