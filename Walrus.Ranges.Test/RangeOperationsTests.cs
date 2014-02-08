@@ -14,7 +14,7 @@ namespace Walrus.Ranges
     public class RangeOperationsTests
     {
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs")]
         public void IntersectsWithShouldThrowGivenNullRange(RangePair testCase)
         {
             Assert.Throws<ArgumentNullException>(
@@ -22,7 +22,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
         public void IntersectsWithShouldReturnExpectedResult(RangePair testCase)
         {
             var expected = IntersectsWithOperation.Calculate(testCase.RangeA, testCase.RangeB);
@@ -32,7 +32,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs")]
         public void IntersectShouldThrowGivenNullRange(RangePair testCase)
         {
             Assert.Throws<ArgumentNullException>(
@@ -40,7 +40,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
         public void IntersectShouldReturnExpectedResult(RangePair testCase)
         {
             var expected = IntersectOperation.Calculate(testCase.RangeA, testCase.RangeB);
@@ -50,7 +50,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs")]
         public void CoversShouldThrowGivenNullRange(RangePair testCase)
         {
             Assert.Throws<ArgumentNullException>(
@@ -58,7 +58,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
         public void CoversShouldReturnExpectedResult(RangePair testCase)
         {
             var expected = CoversOperation.Calculate(testCase.RangeA, testCase.RangeB);
@@ -68,7 +68,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs")]
         public void IsCoveredByShouldThrowGivenNullRange(RangePair testCase)
         {
             Assert.Throws<ArgumentNullException>(
@@ -76,7 +76,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
         public void IsCoveredByShouldReturnExpectedResult(RangePair testCase)
         {
             var expected = IsCoveredByOperation.Calculate(testCase.RangeA, testCase.RangeB);
@@ -86,7 +86,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNullRangePairs")]
         public void SpanShouldThrowGivenNullRange(RangePair testCase)
         {
             Assert.Throws<ArgumentNullException>(
@@ -94,7 +94,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllNonNullRangePairs")]
         public void SpanShouldReturnExpectedResult(RangePair testCase)
         {
             var expected = SpanOperation.Calculate(testCase.RangeA, testCase.RangeB);

@@ -21,7 +21,7 @@ namespace Walrus.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllRangePairs2")]
+        [TestCaseSource(typeof(RangePairTestCases), "AllRangePairs")]
         public void EqualsShouldReturnExpectedResult(RangePair testCase)
         {
             var expected = EqualsOperation.Calculate(testCase.RangeA, testCase.RangeB);
