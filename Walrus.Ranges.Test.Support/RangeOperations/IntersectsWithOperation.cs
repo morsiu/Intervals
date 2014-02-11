@@ -8,22 +8,21 @@ using Walrus.Ranges.Test.Support.RangeOperations.StateMachines;
 
 namespace Walrus.Ranges.Test.Support.RangeOperations
 {
-    public static class EqualsOperation
+    public static class IntersectsWithOperation
     {
         private static readonly StateTable<PointTypePair, bool> _states =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', 't', 'f', 'f', 'f')
-            .AppendRow('x', 'f', 't', 'f', 'f')
-            .AppendRow('o', 'f', 'f', 't', 'f')
-            .AppendRow('-', 'f', 'f', 'f', 't')
+            .AppendRow('=', 't', 't', 'f', 'f')
+            .AppendRow('x', 't', 't', 'f', 'f')
+            .AppendRow('o', 'f', 'f', 'f', 'f')
+            .AppendRow('-', 'f', 'f', 'f', 'f')
             .Build(PointTypeConverter.ToPointPair, BoolConverter.ToBool);
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            if (rangeA == null || rangeB == null) return rangeA == rangeB;
-            var notEquals = StateMachine.Any(rangeA, rangeB, output => output == false, _states);
-            return !notEquals;
+            var anyIntersection = RangeOperations.Any(rangeA, rangeB, output => output == true, _states);
+            return anyIntersection;
         }
     }
 }

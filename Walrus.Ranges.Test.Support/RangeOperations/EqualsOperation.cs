@@ -5,25 +5,25 @@
 
 using Walrus.Ranges.Test.Support.RangeOperations.Converters;
 using Walrus.Ranges.Test.Support.RangeOperations.StateMachines;
-using Walrus.Ranges.Text;
 
 namespace Walrus.Ranges.Test.Support.RangeOperations
 {
-    public static class SpanOperation
+    public static class EqualsOperation
     {
-        private static readonly StateTable<PointTypePair, PointType> _states =
+        private static readonly StateTable<PointTypePair, bool> _states =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', '=', '=', '=', '=')
-            .AppendRow('x', '=', 'x', 'x', 'x')
-            .AppendRow('o', '=', 'x', 'o', 'o')
-            .AppendRow('-', '=', 'x', 'o', '-')
-            .Build(PointTypeConverter.ToPointPair, PointTypeConverter.ToPoint);
+            .AppendRow('=', 't', 'f', 'f', 'f')
+            .AppendRow('x', 'f', 't', 'f', 'f')
+            .AppendRow('o', 'f', 'f', 't', 'f')
+            .AppendRow('-', 'f', 'f', 'f', 't')
+            .Build(PointTypeConverter.ToPointPair, BoolConverter.ToBool);
 
-        public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            var output = StateMachine.Zip(rangeA, rangeB, _states);
-            return output;
+            if (rangeA == null || rangeB == null) return rangeA == rangeB;
+            var notEquals = RangeOperations.Any(rangeA, rangeB, output => output == false, _states);
+            return !notEquals;
         }
     }
 }

@@ -3,26 +3,28 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Walrus.Ranges.Test.Support.RangeOperations.Converters;
-using Walrus.Ranges.Test.Support.RangeOperations.StateMachines;
+using Walrus.Ranges.Text;
 
-namespace Walrus.Ranges.Test.Support.RangeOperations
+namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
 {
-    public static class IntersectsWithOperation
+    internal struct StateMachine<TOutput>
     {
-        private static readonly StateTable<PointTypePair, bool> _states =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', 't', 't', 'f', 'f')
-            .AppendRow('x', 't', 't', 'f', 'f')
-            .AppendRow('o', 'f', 'f', 'f', 'f')
-            .AppendRow('-', 'f', 'f', 'f', 'f')
-            .Build(PointTypeConverter.ToPointPair, BoolConverter.ToBool);
+        private readonly StateTable<PointTypePair, TOutput> _stateTable;
 
-        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public StateMachine(StateTable<PointTypePair, TOutput> stateTable)
+            : this()
         {
-            var anyIntersection = StateMachine.Any(rangeA, rangeB, output => output == true, _states);
-            return anyIntersection;
+            _stateTable = stateTable;
+        }
+
+        public TOutput Run(PointTypePair points)
+        {
+            return _stateTable.Match(points);
+        }
+
+        public TOutput Run(PointType pointA, PointType pointB)
+        {
+            return _stateTable.Match(new PointTypePair(pointA, pointB));
         }
     }
 }

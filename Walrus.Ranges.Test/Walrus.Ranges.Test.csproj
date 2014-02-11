@@ -94,9 +94,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Walrus.Rangest.Test.Support\Walrus.Rangest.Test.Support.csproj">
+    <ProjectReference Include="..\Walrus.Ranges.Test.Support\Walrus.Ranges.Test.Support.csproj">
       <Project>{157ad3aa-90ca-48c9-b54e-1671cc4597a9}</Project>
-      <Name>Walrus.Rangest.Test.Support</Name>
+      <Name>Walrus.Ranges.Test.Support</Name>
     </ProjectReference>
     <ProjectReference Include="..\Walrus.Ranges\Walrus.Ranges.csproj">
       <Project>{466840e5-50bf-4f37-bda3-9ba1b5277a5e}</Project>

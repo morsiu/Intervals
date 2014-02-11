@@ -7,8 +7,8 @@
     <ProjectGuid>{157AD3AA-90CA-48C9-B54E-1671CC4597A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Walrus.Rangest.Test.Support</RootNamespace>
-    <AssemblyName>Walrus.Rangest.Test.Support</AssemblyName>
+    <RootNamespace>Walrus.Ranges.Test.Support</RootNamespace>
+    <AssemblyName>Walrus.Ranges.Test.Support</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,6 +42,7 @@
     <Compile Include="RangeOperations\Converters\BoolConverter.cs" />
     <Compile Include="RangeOperations\Converters\EnumConverter.cs" />
     <Compile Include="RangeOperations\Converters\PointTypeConverter.cs" />
+    <Compile Include="RangeOperations\RangeOperation.cs" />
     <Compile Include="RangeOperations\SpanOperation.cs" />
     <Compile Include="RangeOperations\StateMachines\PointSequence.cs" />
     <Compile Include="RangeOperations\StateMachines\PointSequencePair.cs" />

@@ -3,27 +3,33 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Walrus.Ranges.Test.Support.RangeOperations.Converters;
+using System;
+using System.Linq;
 using Walrus.Ranges.Test.Support.RangeOperations.StateMachines;
 using Walrus.Ranges.Text;
 
 namespace Walrus.Ranges.Test.Support.RangeOperations
 {
-    public static class IntersectOperation
+    internal static class RangeOperations
     {
-        private static readonly StateTable<PointTypePair, PointType> _states =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', '=', 'x', 'o', '-')
-            .AppendRow('x', 'x', 'x', 'o', '-')
-            .AppendRow('o', 'o', 'o', 'o', '-')
-            .AppendRow('-', '-', '-', '-', '-')
-            .Build(PointTypeConverter.ToPointPair, PointTypeConverter.ToPoint);
-
-        public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public static IRange<int> Zip(IRange<int> rangeA, IRange<int> rangeB, StateTable<PointTypePair, PointType> stateTable)
         {
-            var output = StateMachine.Zip(rangeA, rangeB, _states);
-            return output;
+            var rangePair = new PointSequencePair(
+                PointSequence.FromRange(rangeA),
+                PointSequence.FromRange(rangeB));
+            var stateMachine = new StateMachine<PointType>(stateTable);
+            var output = rangePair.Zip(stateMachine.Run);
+            return output.ToRange();
+        }
+
+        public static bool Any<TValue>(IRange<int> rangeA, IRange<int> rangeB, Func<TValue, bool> predicate, StateTable<PointTypePair, TValue> stateTable)
+        {
+            var rangePair = new PointSequencePair(
+                PointSequence.FromRange(rangeA),
+                PointSequence.FromRange(rangeB));
+            var stateMachine = new StateMachine<TValue>(stateTable);
+            var output = rangePair.Zip<TValue>(stateMachine.Run);
+            return output.Any(predicate);
         }
     }
 }

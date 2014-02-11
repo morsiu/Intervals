@@ -10,11 +10,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Walrus.Rangest.Test.Support")]
+[assembly: AssemblyTitle("Walrus.Ranges.Test.Support")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Walrus.Rangest.Test.Support")]
+[assembly: AssemblyProduct("Walrus.Ranges.Test.Support")]
 [assembly: AssemblyCopyright("Copyright © Łukasz Mrozek 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

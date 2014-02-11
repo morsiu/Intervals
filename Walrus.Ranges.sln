@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{993375
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Walrus.Rangest.Test.Support", "Walrus.Rangest.Test.Support\Walrus.Rangest.Test.Support.csproj", "{157AD3AA-90CA-48C9-B54E-1671CC4597A9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Walrus.Ranges.Test.Support", "Walrus.Ranges.Test.Support\Walrus.Ranges.Test.Support.csproj", "{157AD3AA-90CA-48C9-B54E-1671CC4597A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
