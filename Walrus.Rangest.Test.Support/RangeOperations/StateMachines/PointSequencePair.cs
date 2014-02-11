@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Walrus.Ranges.Text;
 
 namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
@@ -17,26 +18,21 @@ namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
         public PointSequencePair(PointSequence sequenceA, PointSequence sequenceB)
             : this()
         {
-            _sequenceA = sequenceA;
-            _sequenceB = sequenceB;
+            _sequenceA = sequenceA.Pad(sequenceB);
+            _sequenceB = sequenceB.Pad(sequenceA);
         }
+
 
         public PointSequence Zip(Func<PointTypePair, PointType> zipper)
         {
-            var first = _sequenceA.Pad(_sequenceB);
-            var second = _sequenceB.Pad(_sequenceA);
-
-            var points = first.Zip(second, zipper);
-            return points;
+            return new PointSequence(
+                Zip<PointType>(zipper),
+                _sequenceA.Offset);
         }
 
         public IEnumerable<TValue> Zip<TValue>(Func<PointTypePair, TValue> zipper)
         {
-            var first = _sequenceA.Pad(_sequenceB);
-            var second = _sequenceB.Pad(_sequenceA);
-
-            var points = first.Zip(second, zipper);
-            return points;
+            return _sequenceA.Zip(_sequenceB, PointTypePair.Create).Select(zipper);
         }
     }
 }

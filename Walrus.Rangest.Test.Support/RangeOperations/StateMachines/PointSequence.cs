@@ -4,13 +4,14 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Walrus.Ranges.Text;
 
 namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
 {
-    internal sealed class PointSequence
+    internal sealed class PointSequence : IEnumerable<PointType>
     {
         private readonly PointType[] _points;
         private readonly int _offset;
@@ -67,20 +68,6 @@ namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
                 hasLeftPadding ? _offset - leftPadLength : _offset);
         }
 
-        public PointSequence Zip(PointSequence second, Func<PointTypePair, PointType> zipper)
-        {
-            if (_offset != second._offset || _points.Length != second._points.Length) throw new ArgumentException("Second sequence must have identical offset and number count.", "second");
-            return new PointSequence(
-                _points.Zip(second._points, PointTypePair.Create).Select(zipper),
-                _offset);
-        }
-
-        public IEnumerable<TValue> Zip<TValue>(PointSequence second, Func<PointTypePair, TValue> zipper)
-        {
-            if (_offset != second._offset || _points.Length != second._points.Length) throw new ArgumentException("Second sequence must have identical offset and number count.", "second");
-            return _points.Zip(second._points, PointTypePair.Create).Select(zipper);
-        }
-
         private static IEnumerable<PointType> Enumerate(IRange<int> range)
         {
             yield return range.HasOpenStart
@@ -98,5 +85,17 @@ namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
         {
             return Enumerable.Repeat(PointType.Uncovered, length);
         }
+
+        public IEnumerator<PointType> GetEnumerator()
+        {
+            foreach (var point in _points) yield return point;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int Offset { get { return _offset; } }
     }
 }
