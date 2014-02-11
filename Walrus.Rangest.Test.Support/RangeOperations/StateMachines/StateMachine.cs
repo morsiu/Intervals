@@ -27,7 +27,6 @@ namespace Walrus.Ranges.Test.Support.RangeOperations.StateMachines
                 PointSequence.FromRange(rangeB));
             var output = rangePair.Zip<TValue>(stateTable.Match);
             return output.Any(predicate);
-
         }
     }
 }

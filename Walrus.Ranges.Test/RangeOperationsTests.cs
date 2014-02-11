@@ -102,6 +102,5 @@ namespace Walrus.Ranges
                 expected,
                 RangeOperations.Span(testCase.RangeA, testCase.RangeB));
         }
-
     }
 }
