@@ -7,7 +7,6 @@ using System;
 
 namespace Walrus.Ranges.Test.Support.RangeGeneration.Options
 {
-    [Flags]
     public enum RangeKind
     {
         NonEmpty,
