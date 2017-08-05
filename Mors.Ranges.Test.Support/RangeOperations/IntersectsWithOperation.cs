@@ -10,7 +10,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 {
     public static class IntersectsWithOperation
     {
-        private static readonly StateTable<PointTypePair, bool> _states =
+        private static readonly StateTable<PointTypePair, bool> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
             .AppendRow('=', 't', 't', 'f', 'f')
@@ -21,7 +21,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            var anyIntersection = RangeOperations.Any(rangeA, rangeB, output => output == true, _states);
+            var anyIntersection = RangeOperations.Any(rangeA, rangeB, output => output == true, States);
             return anyIntersection;
         }
     }

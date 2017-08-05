@@ -10,7 +10,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 {
     public static class EqualsOperation
     {
-        private static readonly StateTable<PointTypePair, bool> _states =
+        private static readonly StateTable<PointTypePair, bool> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
             .AppendRow('=', 't', 'f', 'f', 'f')
@@ -22,7 +22,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
             if (rangeA == null || rangeB == null) return rangeA == rangeB;
-            var notEquals = RangeOperations.Any(rangeA, rangeB, output => output == false, _states);
+            var notEquals = RangeOperations.Any(rangeA, rangeB, output => output == false, States);
             return !notEquals;
         }
     }

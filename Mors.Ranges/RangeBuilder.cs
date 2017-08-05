@@ -10,23 +10,23 @@ namespace Mors.Ranges
     public sealed class RangeBuilder<T>
         where T : IComparable<T>
     {
-        private RangeCompletion completion = RangeCompletion.HasNothing;
-        private T start;
-        private bool hasOpenStart;
-        private bool hasOpenEnd;
-        private T end;
+        private RangeCompletion _completion = RangeCompletion.HasNothing;
+        private T _start;
+        private bool _hasOpenStart;
+        private bool _hasOpenEnd;
+        private T _end;
 
         public IRange<T> Build()
         {
-            if (completion == RangeCompletion.HasNothing)
+            if (_completion == RangeCompletion.HasNothing)
             {
                 return Range.Empty<T>();
             }
-            if (completion.HasFlag(RangeCompletion.HasStart | RangeCompletion.HasEnd))
+            if (_completion.HasFlag(RangeCompletion.HasStart | RangeCompletion.HasEnd))
             {
-                return Range.Create(start, end, hasOpenStart, hasOpenEnd);
+                return Range.Create(_start, _end, _hasOpenStart, _hasOpenEnd);
             }
-            if (completion == RangeCompletion.HasStart)
+            if (_completion == RangeCompletion.HasStart)
             {
                 throw new InvalidOperationException("Cannot create range without having its end set.");
             }
@@ -38,23 +38,23 @@ namespace Mors.Ranges
 
         public void SetStart(T value, bool isOpen)
         {
-            start = value;
-            hasOpenStart = isOpen;
-            completion |= RangeCompletion.HasStart;
+            _start = value;
+            _hasOpenStart = isOpen;
+            _completion |= RangeCompletion.HasStart;
         }
 
         public void SetEnd(T value, bool isOpen)
         {
-            end = value;
-            hasOpenEnd = isOpen;
-            completion |= RangeCompletion.HasEnd;
+            _end = value;
+            _hasOpenEnd = isOpen;
+            _completion |= RangeCompletion.HasEnd;
         }
 
         public void Clear()
         {
-            start = default(T);
-            end = default(T);
-            completion = RangeCompletion.HasNothing;
+            _start = default(T);
+            _end = default(T);
+            _completion = RangeCompletion.HasNothing;
         }
 
         [Flags]

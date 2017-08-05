@@ -11,16 +11,16 @@ namespace Mors.Ranges
     internal sealed class RangeUnion<T> : IRangeUnion<T>
         where T : IComparable<T>
     {
-        private readonly IReadOnlyCollection<IRange<T>> ranges;
+        private readonly IReadOnlyCollection<IRange<T>> _ranges;
 
         public IEnumerable<IRange<T>> Ranges
         {
-            get { return ranges; }
+            get { return _ranges; }
         }
 
         public RangeUnion(IReadOnlyCollection<IRange<T>> ranges)
         {
-            this.ranges = ranges;
+            this._ranges = ranges;
         }
 
         public bool IsEmpty

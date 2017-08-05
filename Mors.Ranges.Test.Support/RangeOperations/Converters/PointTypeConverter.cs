@@ -10,18 +10,18 @@ namespace Mors.Ranges.Test.Support.RangeOperations.Converters
 {
     internal static class PointTypeConverter
     {
-        private static readonly PointTypeMatcher _matcher = new PointTypeMatcher('-', '=', 'x', 'o');
+        private static readonly PointTypeMatcher Matcher = new PointTypeMatcher('-', '=', 'x', 'o');
 
         public static PointTypePair ToPointPair(char pointAChar, char pointBChar)
         {
-            var pointA = _matcher.Match(pointAChar).Value;
-            var pointB = _matcher.Match(pointBChar).Value;
+            var pointA = Matcher.Match(pointAChar).Value;
+            var pointB = Matcher.Match(pointBChar).Value;
             return new PointTypePair(pointA, pointB);
         }
 
         public static PointType ToPoint(char pointChar)
         {
-            var point = _matcher.Match(pointChar).Value;
+            var point = Matcher.Match(pointChar).Value;
             return point;
         }
     }

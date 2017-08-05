@@ -67,353 +67,353 @@ namespace Mors.Ranges
         [TestFixture]
         public class RangeCreatedWithEmpty
         {
-            private IRange<int> range;
+            private IRange<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = EmptyRange<int>.Value;
+                _range = EmptyRange<int>.Value;
             }
 
             [Test]
             public void ShouldBeEmpty()
             {
-                Assert.IsTrue(range.IsEmpty);
+                Assert.IsTrue(_range.IsEmpty);
             }
 
             [Test]
             public void StartShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = range.Start; });
+                    () => { var foo = _range.Start; });
             }
 
             [Test]
             public void EndShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = range.End; });
+                    () => { var foo = _range.End; });
             }
 
             [Test]
             public void HasOpenStartShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = range.HasOpenStart; });
+                    () => { var foo = _range.HasOpenStart; });
             }
 
             [Test]
             public void HasOpenEndShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = range.HasOpenEnd; });
+                    () => { var foo = _range.HasOpenEnd; });
             }
         }
 
         [TestFixture]
         public class RangeCreatedWithClosed
         {
-            private readonly int start = 5;
-            private readonly int end = 10;
-            private IRange<int> range;
+            private readonly int _start = 5;
+            private readonly int _end = 10;
+            private IRange<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = Range.Closed(start, end);
+                _range = Range.Closed(_start, _end);
             }
 
             [Test]
             public void ShouldHaveExpectedStart()
             {
-                Assert.AreEqual(end, range.End);
+                Assert.AreEqual(_end, _range.End);
             }
 
             [Test]
             public void ShouldHaveExpectedEnd()
             {
-                Assert.AreEqual(start, range.Start);
+                Assert.AreEqual(_start, _range.Start);
             }
 
             [Test]
             public void ShouldNotBeEmpty()
             {
-                Assert.IsFalse(range.IsEmpty);
+                Assert.IsFalse(_range.IsEmpty);
             }
 
             [Test]
             public void ShouldHaveClosedStart()
             {
-                Assert.IsFalse(range.HasOpenStart);
+                Assert.IsFalse(_range.HasOpenStart);
             }
 
             [Test]
             public void ShouldHaveClosedEnd()
             {
-                Assert.IsFalse(range.HasOpenEnd);
+                Assert.IsFalse(_range.HasOpenEnd);
             }
         }
 
         [TestFixture]
         public class RangeCreatedWithOpen
         {
-            private readonly int start = 5;
-            private readonly int end = 10;
-            private IRange<int> range;
+            private readonly int _start = 5;
+            private readonly int _end = 10;
+            private IRange<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = Range.Open(start, end);
+                _range = Range.Open(_start, _end);
             }
 
             [Test]
             public void ShouldHaveExpectedStart()
             {
-                Assert.AreEqual(end, range.End);
+                Assert.AreEqual(_end, _range.End);
             }
 
             [Test]
             public void ShouldHaveExpectedEnd()
             {
-                Assert.AreEqual(start, range.Start);
+                Assert.AreEqual(_start, _range.Start);
             }
 
             [Test]
             public void ShouldNotBeEmpty()
             {
-                Assert.IsFalse(range.IsEmpty);
+                Assert.IsFalse(_range.IsEmpty);
             }
 
             [Test]
             public void ShouldHaveOpenStart()
             {
-                Assert.IsTrue(range.HasOpenStart);
+                Assert.IsTrue(_range.HasOpenStart);
             }
 
             [Test]
             public void ShouldHaveOpenEnd()
             {
-                Assert.IsTrue(range.HasOpenEnd);
+                Assert.IsTrue(_range.HasOpenEnd);
             }
         }
 
         [TestFixture]
         public class RangeCreatedWithLeftOpen
         {
-            private readonly int start = 5;
-            private readonly int end = 10;
-            private IRange<int> range;
+            private readonly int _start = 5;
+            private readonly int _end = 10;
+            private IRange<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = Range.LeftOpen(start, end);
+                _range = Range.LeftOpen(_start, _end);
             }
 
             [Test]
             public void ShouldHaveExpectedStart()
             {
-                Assert.AreEqual(end, range.End);
+                Assert.AreEqual(_end, _range.End);
             }
 
             [Test]
             public void ShouldHaveExpectedEnd()
             {
-                Assert.AreEqual(start, range.Start);
+                Assert.AreEqual(_start, _range.Start);
             }
 
             [Test]
             public void ShouldNotBeEmpty()
             {
-                Assert.IsFalse(range.IsEmpty);
+                Assert.IsFalse(_range.IsEmpty);
             }
 
             [Test]
             public void ShouldHaveOpenStart()
             {
-                Assert.IsTrue(range.HasOpenStart);
+                Assert.IsTrue(_range.HasOpenStart);
             }
 
             [Test]
             public void ShouldHaveClosedEnd()
             {
-                Assert.IsFalse(range.HasOpenEnd);
+                Assert.IsFalse(_range.HasOpenEnd);
             }
         }
 
         [TestFixture]
         public class RangeCreatedWithPoint
         {
-            private readonly int point = 5;
-            private IRange<int> range;
+            private readonly int _point = 5;
+            private IRange<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = Range.Point(point);
+                _range = Range.Point(_point);
             }
 
             [Test]
             public void ShouldHaveStartEqualToPoint()
             {
-                Assert.AreEqual(point, range.End);
+                Assert.AreEqual(_point, _range.End);
             }
 
             [Test]
             public void ShouldHaveEndEqualToPoint()
             {
-                Assert.AreEqual(point, range.Start);
+                Assert.AreEqual(_point, _range.Start);
             }
 
             [Test]
             public void ShouldNotBeEmpty()
             {
-                Assert.IsFalse(range.IsEmpty);
+                Assert.IsFalse(_range.IsEmpty);
             }
 
             [Test]
             public void ShouldHaveClosedStart()
             {
-                Assert.IsFalse(range.HasOpenStart);
+                Assert.IsFalse(_range.HasOpenStart);
             }
 
             [Test]
             public void ShouldHaveClosedEnd()
             {
-                Assert.IsFalse(range.HasOpenEnd);
+                Assert.IsFalse(_range.HasOpenEnd);
             }
         }
 
         [TestFixture]
         public class RangeCreatedWithRightOpen
         {
-            private readonly int start = 5;
-            private readonly int end = 10;
-            private IRange<int> range;
+            private readonly int _start = 5;
+            private readonly int _end = 10;
+            private IRange<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = Range.RightOpen(start, end);
+                _range = Range.RightOpen(_start, _end);
             }
 
             [Test]
             public void ShouldHaveExpectedStart()
             {
-                Assert.AreEqual(end, range.End);
+                Assert.AreEqual(_end, _range.End);
             }
 
             [Test]
             public void ShouldHaveExpectedEnd()
             {
-                Assert.AreEqual(start, range.Start);
+                Assert.AreEqual(_start, _range.Start);
             }
 
             [Test]
             public void ShouldNotBeEmpty()
             {
-                Assert.IsFalse(range.IsEmpty);
+                Assert.IsFalse(_range.IsEmpty);
             }
 
             [Test]
             public void ShouldHaveClosedStart()
             {
-                Assert.IsFalse(range.HasOpenStart);
+                Assert.IsFalse(_range.HasOpenStart);
             }
 
             [Test]
             public void ShouldHaveOpenEnd()
             {
-                Assert.IsTrue(range.HasOpenEnd);
+                Assert.IsTrue(_range.HasOpenEnd);
             }
         }
 
         [TestFixture]
         public class RangeCreatedWithLeftClosed
         {
-            private readonly int start = 5;
-            private readonly int end = 10;
-            private IRange<int> range;
+            private readonly int _start = 5;
+            private readonly int _end = 10;
+            private IRange<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = Range.LeftClosed(start, end);
+                _range = Range.LeftClosed(_start, _end);
             }
 
             [Test]
             public void ShouldHaveExpectedStart()
             {
-                Assert.AreEqual(end, range.End);
+                Assert.AreEqual(_end, _range.End);
             }
 
             [Test]
             public void ShouldHaveExpectedEnd()
             {
-                Assert.AreEqual(start, range.Start);
+                Assert.AreEqual(_start, _range.Start);
             }
 
             [Test]
             public void ShouldNotBeEmpty()
             {
-                Assert.IsFalse(range.IsEmpty);
+                Assert.IsFalse(_range.IsEmpty);
             }
 
             [Test]
             public void ShouldHaveClosedStart()
             {
-                Assert.IsFalse(range.HasOpenStart);
+                Assert.IsFalse(_range.HasOpenStart);
             }
 
             [Test]
             public void ShouldHaveOpenEnd()
             {
-                Assert.IsTrue(range.HasOpenEnd);
+                Assert.IsTrue(_range.HasOpenEnd);
             }
         }
 
         [TestFixture]
         public class RangeCreatedWithRightClosed
         {
-            private readonly int start = 5;
-            private readonly int end = 10;
-            private IRange<int> range;
+            private readonly int _start = 5;
+            private readonly int _end = 10;
+            private IRange<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = Range.RightClosed(start, end);
+                _range = Range.RightClosed(_start, _end);
             }
 
             [Test]
             public void ShouldHaveExpectedStart()
             {
-                Assert.AreEqual(end, range.End);
+                Assert.AreEqual(_end, _range.End);
             }
 
             [Test]
             public void ShouldHaveExpectedEnd()
             {
-                Assert.AreEqual(start, range.Start);
+                Assert.AreEqual(_start, _range.Start);
             }
 
             [Test]
             public void ShouldNotBeEmpty()
             {
-                Assert.IsFalse(range.IsEmpty);
+                Assert.IsFalse(_range.IsEmpty);
             }
 
             [Test]
             public void ShouldHaveOpenStart()
             {
-                Assert.IsTrue(range.HasOpenStart);
+                Assert.IsTrue(_range.HasOpenStart);
             }
 
             [Test]
             public void ShouldHaveClosedEnd()
             {
-                Assert.IsFalse(range.HasOpenEnd);
+                Assert.IsFalse(_range.HasOpenEnd);
             }
         }
     }

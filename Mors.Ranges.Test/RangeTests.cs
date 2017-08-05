@@ -12,46 +12,46 @@ namespace Mors.Ranges
         [TestFixture]
         public class AfterConstruction
         {
-            private readonly int start = 5;
-            private readonly bool hasOpenStart = false;
-            private readonly int end = 10;
-            private readonly bool hasOpenEnd = true;
-            private Range<int> range;
+            private readonly int _start = 5;
+            private readonly bool _hasOpenStart = false;
+            private readonly int _end = 10;
+            private readonly bool _hasOpenEnd = true;
+            private Range<int> _range;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                range = new Range<int>(start, end, hasOpenStart, hasOpenEnd);
+                _range = new Range<int>(_start, _end, _hasOpenStart, _hasOpenEnd);
             }
 
             [Test]
             public void ShouldNotBeEmpty()
             {
-                Assert.IsFalse(range.IsEmpty);
+                Assert.IsFalse(_range.IsEmpty);
             }
 
             [Test]
             public void ShouldHaveClosedStart()
             {
-                Assert.IsFalse(range.HasOpenStart);
+                Assert.IsFalse(_range.HasOpenStart);
             }
 
             [Test]
             public void ShouldHaveOpenEnd()
             {
-                Assert.IsTrue(range.HasOpenEnd);
+                Assert.IsTrue(_range.HasOpenEnd);
             }
 
             [Test]
             public void ShouldHaveExpectedStart()
             {
-                Assert.AreEqual(end, range.End);
+                Assert.AreEqual(_end, _range.End);
             }
 
             [Test]
             public void ShouldHaveExpectedEnd()
             {
-                Assert.AreEqual(start, range.Start);
+                Assert.AreEqual(_start, _range.Start);
             }
         }
     }

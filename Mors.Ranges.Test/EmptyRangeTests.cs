@@ -20,46 +20,46 @@ namespace Mors.Ranges
         [TestFixture]
         public class AfterConstruction
         {
-            private EmptyRange<int> emptyRange;
+            private EmptyRange<int> _emptyRange;
 
             [TestFixtureSetUp]
             public void SetUp()
             {
-                emptyRange = EmptyRange<int>.Value;
+                _emptyRange = EmptyRange<int>.Value;
             }
 
             [Test]
             public void ShouldBeEmpty()
             {
-                Assert.IsTrue(emptyRange.IsEmpty);
+                Assert.IsTrue(_emptyRange.IsEmpty);
             }
 
             [Test]
             public void StartShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = emptyRange.Start; });
+                    () => { var foo = _emptyRange.Start; });
             }
 
             [Test]
             public void EndShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = emptyRange.End; });
+                    () => { var foo = _emptyRange.End; });
             }
 
             [Test]
             public void HasOpenStartShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = emptyRange.HasOpenStart; });
+                    () => { var foo = _emptyRange.HasOpenStart; });
             }
 
             [Test]
             public void HasOpenEndShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = emptyRange.HasOpenEnd; });
+                    () => { var foo = _emptyRange.HasOpenEnd; });
             }
         }
     }

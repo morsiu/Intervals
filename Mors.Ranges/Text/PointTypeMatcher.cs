@@ -12,7 +12,7 @@ namespace Mors.Ranges.Text
     public sealed class PointTypeMatcher
     {
         // Index values corresponds to PointType enumeration values.
-        private readonly char[] characterToPointTypeLookup;
+        private readonly char[] _characterToPointTypeLookup;
 
         public PointTypeMatcher(
             char uncoveredPoint,
@@ -20,7 +20,7 @@ namespace Mors.Ranges.Text
             char closedEndPoint,
             char openEndPoint)
         {
-            characterToPointTypeLookup = new[]
+            _characterToPointTypeLookup = new[]
             {
                 uncoveredPoint,
                 coveredPoint,
@@ -42,7 +42,7 @@ namespace Mors.Ranges.Text
 
         private PointType? LookupPointType(char character)
         {
-            var pointType = Array.IndexOf(characterToPointTypeLookup, character);
+            var pointType = Array.IndexOf(_characterToPointTypeLookup, character);
             if (pointType == -1)
             {
                 return null;
@@ -52,7 +52,7 @@ namespace Mors.Ranges.Text
 
         private void CheckPointTypesHaveDifferentCharacters()
         {
-            if (characterToPointTypeLookup.Distinct().Count() != characterToPointTypeLookup.Length)
+            if (_characterToPointTypeLookup.Distinct().Count() != _characterToPointTypeLookup.Length)
             {
                 throw new ArgumentException("There are at least two identical characters for different point types.");
             }

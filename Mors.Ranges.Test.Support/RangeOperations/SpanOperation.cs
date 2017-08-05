@@ -11,7 +11,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 {
     public static class SpanOperation
     {
-        private static readonly StateTable<PointTypePair, PointType> _states =
+        private static readonly StateTable<PointTypePair, PointType> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
             .AppendRow('=', '=', '=', '=', '=')
@@ -22,7 +22,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 
         public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            var output = RangeOperations.Zip(rangeA, rangeB, _states);
+            var output = RangeOperations.Zip(rangeA, rangeB, States);
             return output;
         }
     }

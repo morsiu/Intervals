@@ -10,7 +10,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 {
     public static class IsCoveredByOperation
     {
-        private static readonly StateTable<PointTypePair, bool> _states =
+        private static readonly StateTable<PointTypePair, bool> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
             .AppendRow('=', 'f', 't', 't', 't')
