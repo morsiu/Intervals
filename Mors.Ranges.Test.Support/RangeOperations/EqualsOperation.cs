@@ -21,7 +21,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            if (rangeA == null || rangeB == null) return rangeA == rangeB;
+            if (rangeA == null || rangeB == null) return rangeA == null && rangeB == null;
             var notEquals = RangeOperations.Any(rangeA, rangeB, output => output == false, States);
             return !notEquals;
         }
