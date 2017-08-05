@@ -12,8 +12,8 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
 {
     internal struct PointSequencePair
     {
-        private PointSequence _sequenceB;
-        private PointSequence _sequenceA;
+        private readonly PointSequence _sequenceB;
+        private readonly PointSequence _sequenceA;
 
         public PointSequencePair(PointSequence sequenceA, PointSequence sequenceB)
             : this()
