@@ -69,7 +69,7 @@ namespace Mors.Ranges
         {
             private IRange<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = EmptyRange<int>.Value;
@@ -117,7 +117,7 @@ namespace Mors.Ranges
             private readonly int _end = 10;
             private IRange<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = Range.Closed(_start, _end);
@@ -161,7 +161,7 @@ namespace Mors.Ranges
             private readonly int _end = 10;
             private IRange<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = Range.Open(_start, _end);
@@ -205,7 +205,7 @@ namespace Mors.Ranges
             private readonly int _end = 10;
             private IRange<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = Range.LeftOpen(_start, _end);
@@ -248,7 +248,7 @@ namespace Mors.Ranges
             private readonly int _point = 5;
             private IRange<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = Range.Point(_point);
@@ -292,7 +292,7 @@ namespace Mors.Ranges
             private readonly int _end = 10;
             private IRange<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = Range.RightOpen(_start, _end);
@@ -336,7 +336,7 @@ namespace Mors.Ranges
             private readonly int _end = 10;
             private IRange<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = Range.LeftClosed(_start, _end);
@@ -380,7 +380,7 @@ namespace Mors.Ranges
             private readonly int _end = 10;
             private IRange<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = Range.RightClosed(_start, _end);

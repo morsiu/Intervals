@@ -22,7 +22,7 @@ namespace Mors.Ranges
         {
             private EmptyRange<int> _emptyRange;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _emptyRange = EmptyRange<int>.Value;

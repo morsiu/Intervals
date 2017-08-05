@@ -18,7 +18,7 @@ namespace Mors.Ranges
             private readonly bool _hasOpenEnd = true;
             private Range<int> _range;
 
-            [TestFixtureSetUp]
+            [OneTimeSetUp]
             public void SetUp()
             {
                 _range = new Range<int>(_start, _end, _hasOpenStart, _hasOpenEnd);
