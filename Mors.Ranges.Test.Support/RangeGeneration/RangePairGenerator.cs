@@ -35,9 +35,9 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
         private static IEnumerable<RangePair> GenerateMixedPairs(RangeKind rangeAKind, RangeKind rangeBKind)
         {
             var aRanges = GenerateRanges(rangeAKind);
-            var bRanges = GenerateRanges(rangeBKind);
             foreach (var rangeA in aRanges)
             {
+                var bRanges = GenerateRanges(rangeBKind);
                 foreach (var rangeB in bRanges)
                 {
                     yield return new RangePair(rangeA, rangeB);
