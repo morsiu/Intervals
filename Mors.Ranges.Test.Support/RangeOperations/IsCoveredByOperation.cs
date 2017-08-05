@@ -10,6 +10,8 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 {
     public static class IsCoveredByOperation
     {
+        // ReSharper disable once UnusedMember.Local
+        // Left for documentation purposes
         private static readonly StateTable<PointTypePair, bool> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
