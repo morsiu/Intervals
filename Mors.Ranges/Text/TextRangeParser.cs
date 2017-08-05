@@ -21,7 +21,7 @@ namespace Mors.Ranges.Text
         {
             var rangeBuilder = new RangeBuilder<int>();
             ITextRangeParserState state = new BeforeRangeState();
-            int pointPosition = 1;
+            var pointPosition = 1;
             foreach (var character in textRange)
             {
                 var pointType = _pointTypeMatcher.Match(character);
