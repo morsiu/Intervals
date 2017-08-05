@@ -7,19 +7,16 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
 {
     public struct RangePair
     {
-        private readonly IRange<int> _rangeA;
-        private readonly IRange<int> _rangeB;
-
         public RangePair(IRange<int> rangeA, IRange<int> rangeB)
             : this()
         {
-            _rangeA = rangeA;
-            _rangeB = rangeB;
+            RangeA = rangeA;
+            RangeB = rangeB;
         }
 
-        public IRange<int> RangeA => _rangeA;
+        public IRange<int> RangeA { get; }
 
-        public IRange<int> RangeB => _rangeB;
+        public IRange<int> RangeB { get; }
 
         public override string ToString()
         {

@@ -14,12 +14,11 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
     internal sealed class PointSequence : IEnumerable<PointType>
     {
         private readonly PointType[] _points;
-        private readonly int _offset;
 
         public PointSequence()
         {
             _points = new PointType[0];
-            _offset = 0;
+            Offset = 0;
         }
 
         public static PointSequence FromRange(IRange<int> range)
@@ -36,7 +35,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
         public PointSequence(IEnumerable<PointType> points, int offset)
         {
             _points = points.ToArray();
-            _offset = offset;
+            Offset = offset;
         }
 
         public IRange<int> ToRange()
@@ -51,21 +50,21 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
             var end = _points[endIndex];
 
             var builder = new RangeBuilder<int>();
-            builder.SetStart(startIndex + _offset, start == PointType.OpenEnd);
-            builder.SetEnd(endIndex + _offset, end == PointType.OpenEnd);
+            builder.SetStart(startIndex + Offset, start == PointType.OpenEnd);
+            builder.SetEnd(endIndex + Offset, end == PointType.OpenEnd);
             return builder.Build();
         }
 
         public PointSequence Pad(PointSequence other)
         {
-            var leftPadLength = Math.Max(0, _offset - other._offset);
-            var rightPadLength = Math.Max(0, other._offset + other._points.Length - _offset - _points.Length);
+            var leftPadLength = Math.Max(0, Offset - other.Offset);
+            var rightPadLength = Math.Max(0, other.Offset + other._points.Length - Offset - _points.Length);
             var hasLeftPadding = leftPadLength > 0;
             var hasRightPadding = rightPadLength > 0;
             if (!hasLeftPadding && !hasRightPadding) return this;
             return new PointSequence(
                 Pad(leftPadLength).Concat(_points).Concat(Pad(rightPadLength)),
-                hasLeftPadding ? _offset - leftPadLength : _offset);
+                hasLeftPadding ? Offset - leftPadLength : Offset);
         }
 
         private static IEnumerable<PointType> Enumerate(IRange<int> range)
@@ -96,6 +95,6 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
             return GetEnumerator();
         }
 
-        public int Offset => _offset;
+        public int Offset { get; }
     }
 }

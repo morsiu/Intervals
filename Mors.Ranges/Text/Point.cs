@@ -7,17 +7,14 @@ namespace Mors.Ranges.Text
 {
     internal sealed class Point
     {
-        private PointType? _type;
-        private int _position;
-
         public Point(PointType? type, int position)
         {
-            this._type = type;
-            this._position = position;
+            this.Type = type;
+            this.Position = position;
         }
 
-        public PointType? Type => _type;
+        public PointType? Type { get; }
 
-        public int Position => _position;
+        public int Position { get; }
     }
 }

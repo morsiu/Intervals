@@ -11,29 +11,24 @@ namespace Mors.Ranges
     internal sealed class Range<T> : IRange<T>
         where T : IComparable<T>
     {
-        private readonly T _start;
-        private readonly T _end;
-        private readonly bool _hasOpenStart;
-        private readonly bool _hasOpenEnd;
-
         public Range(T start, T end, bool hasOpenStart, bool hasOpenEnd)
         {
             // Parameter validation is done in Range static class factory methods.
-            this._start = start;
-            this._end = end;
-            this._hasOpenStart = hasOpenStart;
-            this._hasOpenEnd = hasOpenEnd;
+            this.Start = start;
+            this.End = end;
+            this.HasOpenStart = hasOpenStart;
+            this.HasOpenEnd = hasOpenEnd;
         }
 
         public bool IsEmpty => false;
 
-        public T Start => _start;
+        public T Start { get; }
 
-        public T End => _end;
+        public T End { get; }
 
-        public bool HasOpenStart => _hasOpenStart;
+        public bool HasOpenStart { get; }
 
-        public bool HasOpenEnd => _hasOpenEnd;
+        public bool HasOpenEnd { get; }
 
         public override bool Equals(object obj)
         {
@@ -54,9 +49,9 @@ namespace Mors.Ranges
         {
             return string.Format(
                 "{0}{1}; {2}{3}",
-                _hasOpenStart ? "(" : "<",
-                _start,
-                _end,
+                HasOpenStart ? "(" : "<",
+                Start,
+                End,
                 HasOpenEnd ? ")" : ">");
         }
     }
