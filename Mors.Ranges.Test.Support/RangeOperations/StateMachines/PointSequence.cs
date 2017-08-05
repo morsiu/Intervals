@@ -96,6 +96,6 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
             return GetEnumerator();
         }
 
-        public int Offset { get { return _offset; } }
+        public int Offset => _offset;
     }
 }

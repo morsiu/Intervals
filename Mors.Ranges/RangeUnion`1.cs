@@ -13,19 +13,13 @@ namespace Mors.Ranges
     {
         private readonly IReadOnlyCollection<IRange<T>> _ranges;
 
-        public IEnumerable<IRange<T>> Ranges
-        {
-            get { return _ranges; }
-        }
+        public IEnumerable<IRange<T>> Ranges => _ranges;
 
         public RangeUnion(IReadOnlyCollection<IRange<T>> ranges)
         {
             this._ranges = ranges;
         }
 
-        public bool IsEmpty
-        {
-            get { return false; }
-        }
+        public bool IsEmpty => false;
     }
 }

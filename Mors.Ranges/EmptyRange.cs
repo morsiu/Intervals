@@ -16,30 +16,15 @@ namespace Mors.Ranges
         {
         }
 
-        public bool IsEmpty
-        {
-            get { return true; }
-        }
+        public bool IsEmpty => true;
 
-        public T Start
-        {
-            get { throw new InvalidOperationException(); }
-        }
+        public T Start => throw new InvalidOperationException();
 
-        public T End
-        {
-            get { throw new InvalidOperationException(); }
-        }
+        public T End => throw new InvalidOperationException();
 
-        public bool HasOpenStart
-        {
-            get { throw new InvalidOperationException(); }
-        }
+        public bool HasOpenStart => throw new InvalidOperationException();
 
-        public bool HasOpenEnd
-        {
-            get { throw new InvalidOperationException(); }
-        }
+        public bool HasOpenEnd => throw new InvalidOperationException();
 
         public bool Equals(IRange<T> other)
         {

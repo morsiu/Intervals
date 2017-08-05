@@ -16,8 +16,8 @@ namespace Mors.Ranges.Text
             this._position = position;
         }
 
-        public PointType? Type { get { return _type; } }
+        public PointType? Type => _type;
 
-        public int Position { get { return _position; } }
+        public int Position => _position;
     }
 }

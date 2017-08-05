@@ -18,14 +18,8 @@ namespace Mors.Ranges
         {
         }
 
-        public IEnumerable<IRange<T>> Ranges
-        {
-            get { return Enumerable.Empty<IRange<T>>(); }
-        }
+        public IEnumerable<IRange<T>> Ranges => Enumerable.Empty<IRange<T>>();
 
-        public bool IsEmpty
-        {
-            get { return true; }
-        }
+        public bool IsEmpty => true;
     }
 }

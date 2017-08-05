@@ -25,30 +25,15 @@ namespace Mors.Ranges
             this._hasOpenEnd = hasOpenEnd;
         }
 
-        public bool IsEmpty
-        {
-            get { return false; }
-        }
+        public bool IsEmpty => false;
 
-        public T Start
-        {
-            get { return _start; }
-        }
+        public T Start => _start;
 
-        public T End
-        {
-            get { return _end; }
-        }
+        public T End => _end;
 
-        public bool HasOpenStart
-        {
-            get { return _hasOpenStart; }
-        }
+        public bool HasOpenStart => _hasOpenStart;
 
-        public bool HasOpenEnd
-        {
-            get { return _hasOpenEnd; }
-        }
+        public bool HasOpenEnd => _hasOpenEnd;
 
         public override bool Equals(object obj)
         {

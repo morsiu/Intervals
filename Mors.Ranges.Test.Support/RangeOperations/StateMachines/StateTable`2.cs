@@ -16,10 +16,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
             _states = states;
         }
 
-        public int Count
-        {
-            get { return _states.Count; }
-        }
+        public int Count => _states.Count;
 
         public TOutput Match(TInput input)
         {

@@ -17,9 +17,9 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
             _rangeB = rangeB;
         }
 
-        public IRange<int> RangeA { get { return _rangeA; } }
+        public IRange<int> RangeA => _rangeA;
 
-        public IRange<int> RangeB { get { return _rangeB; } }
+        public IRange<int> RangeB => _rangeB;
 
         public override string ToString()
         {
