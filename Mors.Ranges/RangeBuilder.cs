@@ -58,7 +58,7 @@ namespace Mors.Ranges
         }
 
         [Flags]
-        enum RangeCompletion
+        private enum RangeCompletion
         {
             HasNothing = 0,
             HasStart = 1,
