@@ -20,7 +20,7 @@ namespace Mors.Ranges
         }
 
         [Test]
-        [TestCaseSource(typeof(RangePairTestCases), "AllRangePairs")]
+        [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllRangePairs))]
         public void EqualsShouldReturnExpectedResult(RangePair testCase)
         {
             var expected = EqualsOperation.Calculate(testCase.RangeA, testCase.RangeB);

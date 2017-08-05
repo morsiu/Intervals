@@ -26,7 +26,7 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
                     yield return null;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("rangeType");
+                    throw new ArgumentOutOfRangeException(nameof(rangeType));
             }
         }
 

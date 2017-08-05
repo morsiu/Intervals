@@ -116,7 +116,7 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
                 case RangeRelations.AInsideBTouchingRight:
                     return GenerateNonEmptyPair(5, 8, rangeAEnds, 1, 8, rangeBEnds);
                 default:
-                    throw new ArgumentOutOfRangeException("abRangesRelation");
+                    throw new ArgumentOutOfRangeException(nameof(abRangesRelation));
             }
         }
 

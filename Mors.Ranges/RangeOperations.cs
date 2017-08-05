@@ -12,8 +12,8 @@ namespace Mors.Ranges
         public static bool IntersectsWith<T>(IRange<T> x, IRange<T> y)
             where T : IComparable<T>
         {
-            if (x == null) throw new ArgumentNullException("x");
-            if (y == null) throw new ArgumentNullException("y");
+            if (x == null) throw new ArgumentNullException(nameof(x));
+            if (y == null) throw new ArgumentNullException(nameof(y));
             if (x.IsEmpty || y.IsEmpty) return false;
             if (x.Start.CompareTo(y.End) > 0) return false;
             if (x.End.CompareTo(y.Start) < 0) return false;
@@ -66,8 +66,8 @@ namespace Mors.Ranges
         public static IRange<T> Span<T>(IRange<T> x, IRange<T> y)
             where T : IComparable<T>
         {
-            if (x == null) throw new ArgumentNullException("x");
-            if (y == null) throw new ArgumentNullException("y");
+            if (x == null) throw new ArgumentNullException(nameof(x));
+            if (y == null) throw new ArgumentNullException(nameof(y));
             if (x.IsEmpty) return y;
             if (y.IsEmpty) return x;
 
