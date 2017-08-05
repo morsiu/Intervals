@@ -76,7 +76,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
             {
                 unchecked
                 {
-                    return (ReferenceEquals(_columnInput, null) ? 0 : (_columnInput.GetHashCode() * 137))
+                    return (ReferenceEquals(_columnInput, null) ? 0 : _columnInput.GetHashCode() * 137)
                         ^ (ReferenceEquals(_rowInput, null) ? 0 : _rowInput.GetHashCode());
                 }
             }
