@@ -20,10 +20,7 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
 
         public override string ToString()
         {
-            return string.Format(
-                "Range A: {0}; Range B: {1}",
-                RangeA,
-                RangeB);
+            return $"Range A: {RangeA}; Range B: {RangeB}";
         }
     }
 }

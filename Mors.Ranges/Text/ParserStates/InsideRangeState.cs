@@ -24,7 +24,8 @@ namespace Mors.Ranges.Text.ParserStates
                 case null:
                     throw new ArgumentException("The text range ended unexpectedly.");
                 default:
-                    throw new ArgumentException(string.Format("Point of type {0} was not expected at position {1}.", point.Type, point.Position));
+                    throw new ArgumentException(
+                        $"Point of type {point.Type} was not expected at position {point.Position}.");
             }
         }
     }

@@ -25,7 +25,9 @@ namespace Mors.Ranges.Text
             foreach (var character in textRange)
             {
                 var pointType = _pointTypeMatcher.Match(character);
-                if (pointType == null) throw new ArgumentException(string.Format("Character {0} in text range is not assigned to any point type.", character));
+                if (pointType == null)
+                    throw new ArgumentException(
+                        $"Character {character} in text range is not assigned to any point type.");
                 var point = new Point(pointType.Value, pointPosition);
                 state = state.Advance(point, rangeBuilder);
                 pointPosition += 1;
