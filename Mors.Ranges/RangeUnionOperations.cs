@@ -23,23 +23,25 @@ namespace Mors.Ranges
         public static IEnumerable<IRange<T>> Normalize<T>(IEnumerable<IRange<T>> ranges)
             where T : IComparable<T>
         {
-            var enumerator = ranges.Where(r => !r.IsEmpty).OrderBy(r => r.Start).GetEnumerator();
-            if (!enumerator.MoveNext()) yield break;
-            var current = enumerator.Current;
-            while (enumerator.MoveNext())
+            using (var enumerator = ranges.Where(r => !r.IsEmpty).OrderBy(r => r.Start).GetEnumerator())
             {
-                var next = enumerator.Current;
-                if (current.IntersectsWith(next))
+                if (!enumerator.MoveNext()) yield break;
+                var current = enumerator.Current;
+                while (enumerator.MoveNext())
                 {
-                    current = current.Span(next);
+                    var next = enumerator.Current;
+                    if (current.IntersectsWith(next))
+                    {
+                        current = current.Span(next);
+                    }
+                    else
+                    {
+                        yield return current;
+                        current = next;
+                    }
                 }
-                else
-                {
-                    yield return current;
-                    current = next;
-                }
+                yield return current;
             }
-            yield return current;
         }
     }
 }
