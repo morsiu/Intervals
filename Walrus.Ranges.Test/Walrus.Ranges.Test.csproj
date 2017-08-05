@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9E565880-651D-4529-9288-EDE823AD9863}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Walrus.Ranges</RootNamespace>
     <AssemblyName>Walrus.Ranges.Test</AssemblyName>
@@ -37,36 +37,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>Walrus.Ranges.Test.Program</StartupObject>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit-console-runner, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit-console-runner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit-gui-runner, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit-gui-runner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.core.interfaces.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework, Version=3.7.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb">
       <HintPath>..\packages\NUnit.3.7.1\lib\net45\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.uiexception, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.uiexception.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.uikit, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.uikit.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -80,7 +53,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EmptyRangeTests.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RangeBuilderTests.cs" />
     <Compile Include="RangeEqualityComparerTests.cs" />
