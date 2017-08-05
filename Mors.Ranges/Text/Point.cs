@@ -9,8 +9,8 @@ namespace Mors.Ranges.Text
     {
         public Point(PointType? type, int position)
         {
-            this.Type = type;
-            this.Position = position;
+            Type = type;
+            Position = position;
         }
 
         public PointType? Type { get; }

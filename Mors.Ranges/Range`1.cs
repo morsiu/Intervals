@@ -14,10 +14,10 @@ namespace Mors.Ranges
         public Range(T start, T end, bool hasOpenStart, bool hasOpenEnd)
         {
             // Parameter validation is done in Range static class factory methods.
-            this.Start = start;
-            this.End = end;
-            this.HasOpenStart = hasOpenStart;
-            this.HasOpenEnd = hasOpenEnd;
+            Start = start;
+            End = end;
+            HasOpenStart = hasOpenStart;
+            HasOpenEnd = hasOpenEnd;
         }
 
         public bool IsEmpty => false;

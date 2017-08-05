@@ -15,7 +15,7 @@ namespace Mors.Ranges.Text
         public TextRangeParser(PointTypeMatcher pointTypeMatcher)
         {
             if (pointTypeMatcher == null) throw new ArgumentNullException(nameof(pointTypeMatcher));
-            this._pointTypeMatcher = pointTypeMatcher;
+            _pointTypeMatcher = pointTypeMatcher;
         }
 
         public IRange<int> Parse(string textRange)

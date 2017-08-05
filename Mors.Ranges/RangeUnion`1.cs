@@ -17,7 +17,7 @@ namespace Mors.Ranges
 
         public RangeUnion(IReadOnlyCollection<IRange<T>> ranges)
         {
-            this._ranges = ranges;
+            _ranges = ranges;
         }
 
         public bool IsEmpty => false;
