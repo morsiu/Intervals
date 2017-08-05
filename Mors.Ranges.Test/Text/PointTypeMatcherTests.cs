@@ -30,7 +30,7 @@ namespace Mors.Ranges.Text
             char openEndPoint)
         {
             Assert.Throws<ArgumentException>(
-                () => new PointTypeMatcher(uncoveredPoint, coveredPoint, closedEndPoint, openEndPoint));
+                () => { var unused = new PointTypeMatcher(uncoveredPoint, coveredPoint, closedEndPoint, openEndPoint); });
         }
 
         [Test]
