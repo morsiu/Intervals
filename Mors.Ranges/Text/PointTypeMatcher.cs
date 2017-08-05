@@ -32,11 +32,7 @@ namespace Mors.Ranges.Text
         public PointType? Match(char character)
         {
             var pointType = LookupPointType(character);
-            if (pointType == null)
-            {
-                return null;
-            }
-            return pointType.Value;
+            return pointType;
         }
 
         private PointType? LookupPointType(char character)
