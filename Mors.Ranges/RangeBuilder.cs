@@ -22,7 +22,7 @@ namespace Mors.Ranges
             {
                 return Range.Empty<T>();
             }
-            if (_completion.HasFlag(RangeCompletion.HasStart | RangeCompletion.HasEnd))
+            if (_completion == RangeCompletion.HasStart && _completion == RangeCompletion.HasEnd)
             {
                 return Range.Create(_start, _end, _hasOpenStart, _hasOpenEnd);
             }

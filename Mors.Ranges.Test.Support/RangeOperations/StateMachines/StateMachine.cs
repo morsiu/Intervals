@@ -7,12 +7,11 @@ using Mors.Ranges.Text;
 
 namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
 {
-    internal struct StateMachine<TOutput>
+    internal sealed class StateMachine<TOutput>
     {
         private readonly StateTable<PointTypePair, TOutput> _stateTable;
 
         public StateMachine(StateTable<PointTypePair, TOutput> stateTable)
-            : this()
         {
             _stateTable = stateTable;
         }
