@@ -38,28 +38,28 @@ namespace Mors.Ranges
             public void StartShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = _emptyRange.Start; });
+                    () => { var unused = _emptyRange.Start; });
             }
 
             [Test]
             public void EndShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = _emptyRange.End; });
+                    () => { var unused = _emptyRange.End; });
             }
 
             [Test]
             public void HasOpenStartShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = _emptyRange.HasOpenStart; });
+                    () => { var unused = _emptyRange.HasOpenStart; });
             }
 
             [Test]
             public void HasOpenEndShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = _emptyRange.HasOpenEnd; });
+                    () => { var unused = _emptyRange.HasOpenEnd; });
             }
         }
     }

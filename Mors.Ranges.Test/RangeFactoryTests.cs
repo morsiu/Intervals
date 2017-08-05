@@ -85,28 +85,28 @@ namespace Mors.Ranges
             public void StartShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = _range.Start; });
+                    () => { var unused = _range.Start; });
             }
 
             [Test]
             public void EndShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = _range.End; });
+                    () => { var unused = _range.End; });
             }
 
             [Test]
             public void HasOpenStartShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = _range.HasOpenStart; });
+                    () => { var unused = _range.HasOpenStart; });
             }
 
             [Test]
             public void HasOpenEndShouldThrowInvalidOperationException()
             {
                 Assert.Throws<InvalidOperationException>(
-                    () => { var foo = _range.HasOpenEnd; });
+                    () => { var unused = _range.HasOpenEnd; });
             }
         }
 
