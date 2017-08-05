@@ -40,32 +40,32 @@
     <StartupObject>Walrus.Ranges.Test.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.3.20131019\lib\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821">
+      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="nunit-console-runner">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.3.20131019\lib\nunit-console-runner.dll</HintPath>
+    <Reference Include="nunit-console-runner, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit-console-runner.dll</HintPath>
     </Reference>
-    <Reference Include="nunit-gui-runner">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.3.20131019\lib\nunit-gui-runner.dll</HintPath>
+    <Reference Include="nunit-gui-runner, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit-gui-runner.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.core">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.3.20131019\lib\nunit.core.dll</HintPath>
+    <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.core.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.core.interfaces">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.3.20131019\lib\nunit.core.interfaces.dll</HintPath>
+    <Reference Include="nunit.core.interfaces, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.core.interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
+    <Reference Include="nunit.framework, Version=3.6.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.6.0\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.uiexception">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.3.20131019\lib\nunit.uiexception.dll</HintPath>
+    <Reference Include="nunit.uiexception, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.uiexception.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.uikit">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.3.20131019\lib\nunit.uikit.dll</HintPath>
+    <Reference Include="nunit.uikit, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.uikit.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.util">
-      <HintPath>..\packages\NUnit.Runners.lite.2.6.3.20131019\lib\nunit.util.dll</HintPath>
+    <Reference Include="nunit.util, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.Runners.lite.2.6.4.20150512\lib\nunit.util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
