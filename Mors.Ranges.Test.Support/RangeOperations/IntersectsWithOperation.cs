@@ -21,7 +21,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            var anyIntersection = RangeOperations.Any(rangeA, rangeB, output => output == true, States);
+            var anyIntersection = RangeOperations.Any(rangeA, rangeB, output => output, States);
             return anyIntersection;
         }
     }

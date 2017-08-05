@@ -28,7 +28,7 @@ namespace Mors.Ranges
             {
                 return false;
             }
-            if (x.IsEmpty == true && y.IsEmpty == true)
+            if (x.IsEmpty && y.IsEmpty)
             {
                 return true;
             }
