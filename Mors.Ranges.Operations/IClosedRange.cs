@@ -7,11 +7,26 @@ using System;
 
 namespace Mors.Ranges.Operations
 {
+    /// <summary>
+    /// Defines a closed range.
+    /// </summary>
+    /// <typeparam name="T">The type of values of the ranges' ends.</typeparam>
     public interface IClosedRange<out T>
         where T : IComparable<T>
     {
+        /// <summary>
+        /// Gets a value indicating whether the instance represents an empty range.
+        /// </summary>
         bool Empty { get; }
+        
+        /// <summary>
+        /// Gets the value of the start end.
+        /// </summary>
         T Start { get; }
+        
+        /// <summary>
+        /// Gets the value of the ending end.
+        /// </summary>
         T End { get; }
     }
 }

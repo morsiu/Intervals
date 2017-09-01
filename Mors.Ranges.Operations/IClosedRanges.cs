@@ -7,11 +7,32 @@ using System;
 
 namespace Mors.Ranges.Operations
 {
+    /// <summary>
+    /// Provides methods to create instances of closed ranges.
+    /// </summary>
+    /// <typeparam name="T">The type of values of the ranges' ends.</typeparam>
+    /// <typeparam name="TRange">The type of the ranges.</typeparam>
     public interface IClosedRanges<in T, out TRange>
         where T : IComparable<T>
         where TRange : IClosedRange<T>
     {
+        /// <summary>
+        /// Creates a closed range.
+        /// </summary>
+        /// <param name="start">A value of the range's start end.</param>
+        /// <param name="end">A value of the range's ending end.</param>
+        /// <returns>Returns a closed range.</returns>
+        /// <remarks>
+        /// The returned range is never empty.
+        /// </remarks>
         TRange NonEmpty(T start, T end);
+        
+        /// <summary>
+        /// Creates an empty closed range.
+        /// </summary>
+        /// <returns>
+        /// Returns an empty closed range.
+        /// </returns>
         TRange Empty();
     }
 }
