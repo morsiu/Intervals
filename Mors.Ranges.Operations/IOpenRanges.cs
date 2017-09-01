@@ -7,10 +7,26 @@ using System;
 
 namespace Mors.Ranges.Operations
 {
+    /// <summary>
+    /// Provides methods to create instances of open ranges.
+    /// </summary>
+    /// <typeparam name="T">The type of value of open ranges' ends.</typeparam>
+    /// <typeparam name="TRange">The type of crated open rages.</typeparam>
     public interface IOpenRanges<in T, out TRange>
         where T : IComparable<T>
         where TRange : IOpenRange<T>
     {
+        /// <summary>
+        /// Creates an open range.
+        /// </summary>
+        /// <param name="start">A value of the range's start end.</param>
+        /// <param name="end">A value of the range's ending end.</param>
+        /// <param name="openStart">A value indicating whether the start end is included in the range.</param>
+        /// <param name="openEnd">A value indicating whether the ending end is included in the range.</param>
+        /// <returns>Returns an open range.</returns>
+        /// <remarks>
+        /// When the start and end values are equal, and either or both of the ends are open, the returned range is empty.
+        /// </remarks>
         TRange Range(T start, T end, bool openStart, bool openEnd);
         TRange Empty();
     }

@@ -7,13 +7,46 @@ using System;
 
 namespace Mors.Ranges.Operations
 {
+    /// <summary>
+    /// Defines an open range.
+    /// </summary>
+    /// <remarks>
+    /// An open range is defined as a set of values between two ends.
+    /// Each of the two ends may, or may not, belong to the set.
+    /// </remarks>
+    /// <typeparam name="T">The type of values of open ranges' ends.</typeparam>
     public interface IOpenRange<out T>
         where T : IComparable<T>
     {
+        /// <summary>
+        /// Gets the value of start end.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// The Empty condition is true.
+        /// </exception>>
         T Start { get; }
+        
+        /// <summary>
+        /// Gets the value of ending end.
+        /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// The Empty condition is true.
+        /// </exception>
         T End { get; }
+        
+        /// <summary>
+        /// Gets a value indicating whether the instance represents an empty range. 
+        /// </summary>
         bool Empty { get; }
+        
+        /// <summary>
+        /// Gets a value indicating whether the start end of the range belongs to the range.
+        /// </summary>
         bool OpenStart { get; }
+        
+        /// <summary>
+        /// Gets a value indicating whether the ending end of the range belongs to the range.
+        /// </summary>
         bool OpenEnd { get; }
     }
 }
