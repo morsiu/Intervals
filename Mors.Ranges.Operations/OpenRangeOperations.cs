@@ -51,7 +51,7 @@ namespace Mors.Ranges.Operations
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
             var leftEndToRightEnd = left.End.CompareTo(right.End);
             
-            result = default(TRanges).NonEmpty(
+            result = default(TRanges).Range(
                 leftStartToRightStart > 0 ? left.Start : right.Start,
                 leftEndToRightEnd < 0 ? left.End : right.End,
                 leftStartToRightStart == 0
@@ -97,7 +97,7 @@ namespace Mors.Ranges.Operations
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
             var leftEndToRightEnd = left.End.CompareTo(right.End);
             
-            result = default(TRanges).NonEmpty(
+            result = default(TRanges).Range(
                 leftStartToRightStart < 0 ? left.Start : right.Start,
                 leftEndToRightEnd > 0 ? left.End : right.End,
                 leftStartToRightStart == 0

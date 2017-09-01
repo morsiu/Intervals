@@ -11,7 +11,7 @@ namespace Mors.Ranges.Operations
         where T : IComparable<T>
         where TRange : IOpenRange<T>
     {
-        TRange NonEmpty(T start, T end, bool openStart, bool openEnd);
+        TRange Range(T start, T end, bool openStart, bool openEnd);
         TRange Empty();
     }
 }
