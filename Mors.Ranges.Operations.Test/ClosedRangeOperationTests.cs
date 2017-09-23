@@ -22,5 +22,49 @@ namespace Mors.Ranges.Operations
             var actual = ClosedRangeOperations.IntersectsWith<int, ClosedRange>(ref rangeA, ref rangeB);
             Assert.AreEqual(expected, actual);
         }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        public void IntersectReturnsExpectedResult(RangePair pairOfRanges)
+        {
+            var expected = IntersectOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
+            var rangeA = new ClosedRange(pairOfRanges.RangeA);
+            var rangeB = new ClosedRange(pairOfRanges.RangeB);
+            ClosedRangeOperations.Intersect<int, ClosedRange, ClosedRanges>(ref rangeA, ref rangeB, out var actual);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        public void CoversReturnsExpectedResult(RangePair pairOfRanges)
+        {
+            var expected = CoversOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
+            var rangeA = new ClosedRange(pairOfRanges.RangeA);
+            var rangeB = new ClosedRange(pairOfRanges.RangeB);
+            var actual = ClosedRangeOperations.Covers<int, ClosedRange>(ref rangeA, ref rangeB);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        public void IsCoveredByReturnsExpectedResult(RangePair pairOfRanges)
+        {
+            var expected = IsCoveredByOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
+            var rangeA = new ClosedRange(pairOfRanges.RangeA);
+            var rangeB = new ClosedRange(pairOfRanges.RangeB);
+            var actual = ClosedRangeOperations.IsCoveredBy<int, ClosedRange>(ref rangeA, ref rangeB);
+            Assert.AreEqual(actual, expected);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        public void SpanReturnsExpectedResult(RangePair pairOfRanges)
+        {
+            var expected = SpanOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
+            var rangeA = new ClosedRange(pairOfRanges.RangeA);
+            var rangeB = new ClosedRange(pairOfRanges.RangeB);
+            ClosedRangeOperations.Span<int, ClosedRange, ClosedRanges>(ref rangeA, ref rangeB, out var actual);
+            Assert.AreEqual(actual, expected);
+        }
     }
 }
