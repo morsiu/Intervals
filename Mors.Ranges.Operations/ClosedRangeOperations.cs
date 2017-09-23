@@ -74,9 +74,15 @@ namespace Mors.Ranges.Operations
             where TRange : IClosedRange<T>
             where TRanges : struct, IClosedRanges<T, TRange>
         {
-            if (left.Empty || right.Empty)
+            if (left.Empty)
             {
-                result = default(TRanges).Empty();
+                result = right;
+                return;
+            }
+
+            if (right.Empty)
+            {
+                result = left;
                 return;
             }
 
