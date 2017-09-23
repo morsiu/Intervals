@@ -30,5 +30,10 @@ namespace Mors.Ranges.Operations
         {
             return _range.Equals(other);
         }
+
+        public override string ToString()
+        {
+            return _range.ToString();
+        }
     }
 }
