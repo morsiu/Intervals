@@ -32,9 +32,9 @@ namespace Mors.Ranges.Operations
             where TRange : IClosedRange<T>
         {
             if (left.Empty || right.Empty) return false;
-            if (left.Start.CompareTo(right.End) <= 0) return true;
-            if (left.End.CompareTo(right.Start) >= 0) return true;
-            return false;
+            if (left.Start.CompareTo(right.End) > 0) return false;
+            if (left.End.CompareTo(right.Start) < 0) return false;
+            return true;
         }
         
         public static void Intersect<T, TRange, TRanges>(
