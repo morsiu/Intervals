@@ -63,7 +63,7 @@ namespace Mors.Ranges.Operations
             where T : IComparable<T>
             where TRange : IClosedRange<T>
         {
-            return Covers<T, TRange>(ref left, ref right);
+            return Covers<T, TRange>(ref right, ref left);
         }
         
         public static void Span<T, TRange, TRanges>(
