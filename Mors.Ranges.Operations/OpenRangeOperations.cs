@@ -31,7 +31,7 @@ namespace Mors.Ranges.Operations
             where T : IComparable<T>
             where TRange : IOpenRange<T>
         {
-            return Covers<T, TRange>(ref left, ref right);
+            return Covers<T, TRange>(ref right, ref left);
         }
         
         public static void Intersect<T, TRange, TRanges>(
@@ -94,6 +94,18 @@ namespace Mors.Ranges.Operations
             where TRange : IOpenRange<T>
             where TRanges : struct, IOpenRanges<T, TRange>
         {
+            if (left.Empty)
+            {
+                result = right;
+                return;
+            }
+
+            if (right.Empty)
+            {
+                result = left;
+                return;
+            }
+
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
             var leftEndToRightEnd = left.End.CompareTo(right.End);
             
