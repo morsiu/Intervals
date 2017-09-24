@@ -34,9 +34,13 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OpenRanges.cs" />
+    <Compile Include="OpenRange.cs" />
     <Compile Include="ClosedRange.cs" />
+    <Compile Include="OpenRangeOperationTests.cs" />
     <Compile Include="ClosedRangeOperationTests.cs" />
     <Compile Include="ClosedRanges.cs" />
+    <Compile Include="PairsOfOpenRanges.cs" />
     <Compile Include="PairsOfClosedRanges.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
