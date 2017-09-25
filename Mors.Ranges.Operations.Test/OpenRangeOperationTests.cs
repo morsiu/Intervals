@@ -16,55 +16,50 @@ namespace Mors.Ranges.Operations
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
         public void IntersectsWithReturnsExpectedResult(RangePair pairOfRanges)
         {
-            var expected = IntersectsWithOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new OpenRange(pairOfRanges.RangeA);
-            var rangeB = new OpenRange(pairOfRanges.RangeB);
-            var actual = OpenRangeOperations.IntersectsWith<int, OpenRange>(ref rangeA, ref rangeB);
-            Assert.AreEqual(expected, actual);
+            new ReferenceImplementationTest<bool>(
+                    IntersectsWithOperation.Calculate,
+                    new OpenRangeOperationReturningBool(OpenRangeOperations.IntersectsWith<int, OpenRange>))
+                .Run(pairOfRanges);
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
         public void IntersectReturnsExpectedResult(RangePair pairOfRanges)
         {
-            var expected = IntersectOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new OpenRange(pairOfRanges.RangeA);
-            var rangeB = new OpenRange(pairOfRanges.RangeB);
-            OpenRangeOperations.Intersect<int, OpenRange, OpenRanges>(ref rangeA, ref rangeB, out var actual);
-            Assert.AreEqual(expected, actual);
+            new ReferenceImplementationTest<IRange<int>>(
+                    IntersectOperation.Calculate,
+                    new OpenRangeOperationReturningRange(OpenRangeOperations.Intersect<int, OpenRange, OpenRanges>))
+                .Run(pairOfRanges);
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
         public void CoversReturnsExpectedResult(RangePair pairOfRanges)
         {
-            var expected = CoversOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new OpenRange(pairOfRanges.RangeA);
-            var rangeB = new OpenRange(pairOfRanges.RangeB);
-            var actual = OpenRangeOperations.Covers<int, OpenRange>(ref rangeA, ref rangeB);
-            Assert.AreEqual(expected, actual);
+            new ReferenceImplementationTest<bool>(
+                    CoversOperation.Calculate,
+                    new OpenRangeOperationReturningBool(OpenRangeOperations.Covers<int, OpenRange>))
+                .Run(pairOfRanges);
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
         public void IsCoveredByReturnsExpectedResult(RangePair pairOfRanges)
         {
-            var expected = IsCoveredByOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new OpenRange(pairOfRanges.RangeA);
-            var rangeB = new OpenRange(pairOfRanges.RangeB);
-            var actual = OpenRangeOperations.IsCoveredBy<int, OpenRange>(ref rangeA, ref rangeB);
-            Assert.AreEqual(actual, expected);
+            new ReferenceImplementationTest<bool>(
+                    IsCoveredByOperation.Calculate,
+                    new OpenRangeOperationReturningBool(OpenRangeOperations.IsCoveredBy<int, OpenRange>))
+                .Run(pairOfRanges);
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
         public void SpanReturnsExpectedResult(RangePair pairOfRanges)
         {
-            var expected = SpanOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new OpenRange(pairOfRanges.RangeA);
-            var rangeB = new OpenRange(pairOfRanges.RangeB);
-            OpenRangeOperations.Span<int, OpenRange, OpenRanges>(ref rangeA, ref rangeB, out var actual);
-            Assert.AreEqual(actual, expected);
+            new ReferenceImplementationTest<IRange<int>>(
+                    SpanOperation.Calculate,
+                    new OpenRangeOperationReturningRange(OpenRangeOperations.Span<int, OpenRange, OpenRanges>))
+                .Run(pairOfRanges);
         }
     }
 }

@@ -34,6 +34,8 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OpenRangeOperationReturningBool.cs" />
+    <Compile Include="OpenRangeOperationReturningRange.cs" />
     <Compile Include="OpenRanges.cs" />
     <Compile Include="OpenRange.cs" />
     <Compile Include="ClosedRange.cs" />
@@ -43,6 +45,7 @@
     <Compile Include="PairsOfOpenRanges.cs" />
     <Compile Include="PairsOfClosedRanges.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReferenceImplementationTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.Ranges.Operations\Mors.Ranges.Operations.csproj">
