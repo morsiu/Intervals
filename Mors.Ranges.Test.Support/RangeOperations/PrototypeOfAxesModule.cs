@@ -15,93 +15,101 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 
         public struct AxisPosition
         {
+            private readonly int _startPosition;
+
+            public AxisPosition(int startPosition)
+                => _startPosition = startPosition;
+
             public AxisVector Subtract(AxisPosition other)
-            {
-                throw new NotImplementedException();
-            }
+                => new AxisVector(_startPosition - other._startPosition);
 
             public AxisPosition Add(AxisVector other)
             {
-                throw new NotImplementedException();
+                var otherMagnitude = other.Distance().Magnitude();
+                return new AxisPosition(
+                    _startPosition + (other.Left() ? -otherMagnitude : otherMagnitude));
             }
         }
 
         public struct AxisVector
         {
+            private readonly int _magnitudeAndDirection;
+
+            public AxisVector(int magnitudeAndDirection)
+                => _magnitudeAndDirection = magnitudeAndDirection;
+
             public AxisDistance Distance()
-            {
-                throw new NotImplementedException();
-            }
+                => new AxisDistance(Math.Abs(_magnitudeAndDirection));
 
             public bool Left()
-            {
-                throw new NotImplementedException();
-            }
+                => _magnitudeAndDirection < 0;
 
             public bool Zero()
-            {
-                throw new NotImplementedException();
-            }
+                => _magnitudeAndDirection == 0;
         }
 
         public struct AxisDistance
         {
-            public int Magnitude() => 0;
+            private readonly int _magnitude;
 
-            public AxisVector Subtract(AxisDistance other)
+            public AxisDistance(int magnitude)
             {
-                throw new NotImplementedException();
+                if (magnitude < 0)
+                    throw new ArgumentOutOfRangeException(nameof(magnitude), $"The argument {nameof(magnitude)} must be greater than or equal to zero.");
+                _magnitude = magnitude;
             }
+
+            public int Magnitude() => _magnitude;
+
+            public AxisVector Difference(AxisDistance other)
+                => new AxisVector(_magnitude - other._magnitude);
+
+            public bool Zero()
+                => _magnitude == 0;
         }
 
         public sealed class EmptyAxis : IAxisSegment
         {
             public IEnumerator<AxisPoint> GetEnumerator()
             {
-                throw new NotImplementedException();
+                yield break;
             }
 
             public AxisDistance Length()
-            {
-                throw new NotImplementedException();
-            }
+                => new AxisDistance();
 
             public AxisPosition Start()
-            {
-                throw new NotImplementedException();
-            }
+                => new AxisPosition();
 
             IEnumerator IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+                => GetEnumerator();
+
         }
 
         public sealed class RangeOnAxis : IAxisSegment
         {
+            private readonly int _endPosition;
+            private readonly int _startPosition;
+
             public RangeOnAxis(int startPosition, int endPosition)
             {
+                if (endPosition < startPosition)
+                    throw new ArgumentException($"The argument {nameof(endPosition)} must be greater than or equal to the argument {nameof(startPosition)}.");
+                _endPosition = endPosition;
+                _startPosition = startPosition;
             }
 
             public IEnumerator<AxisPoint> GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+                => Enumerable.Repeat(AxisPoint.InsideRange, _endPosition - _startPosition + 1).GetEnumerator();
 
             public AxisDistance Length()
-            {
-                throw new NotImplementedException();
-            }
+                => new AxisDistance(_endPosition - _startPosition);
 
             public AxisPosition Start()
-            {
-                throw new NotImplementedException();
-            }
+                => new AxisPosition(_startPosition);
 
             IEnumerator IEnumerable.GetEnumerator()
-            {
-                throw new NotImplementedException();
-            }
+                => GetEnumerator();
         }
 
         public sealed class LeftPaddingOfAxisSegment : IAxisSegment
@@ -213,8 +221,10 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 
             public IEnumerator<PairOfAxisPoints> GetEnumerator()
             {
+                // TODO zero-length optimization
+
                 var differenceBetweenStarts = _left.Start().Subtract(_right.Start());
-                var differenceBetweenLengths = _left.Length().Subtract(_right.Length());
+                var differenceBetweenLengths = _left.Length().Difference(_right.Length());
                 var leftEnumerator = Left(differenceBetweenStarts, differenceBetweenLengths).GetEnumerator();
                 var rightEnumerator = Right(differenceBetweenStarts, differenceBetweenLengths).GetEnumerator();
                 // Assumption: Left().Distance() == Right().Distance() => leftEnumerator.MoveNext() == rightEnumerator.MoveNext();
