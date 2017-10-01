@@ -44,7 +44,6 @@
     <Compile Include="RangeOperations\Converters\EnumConverter.cs" />
     <Compile Include="RangeOperations\Converters\PointTypeConverter.cs" />
     <Compile Include="RangeOperations\RangeOperation.cs" />
-    <Compile Include="RangeOperations\PrototypeOfAxesModule.cs" />
     <Compile Include="RangeOperations\SpanOperation.cs" />
     <Compile Include="RangeOperations\StateMachines\PointSequence.cs" />
     <Compile Include="RangeOperations\StateMachines\PointSequencePair.cs" />
