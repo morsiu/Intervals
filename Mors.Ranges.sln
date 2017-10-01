@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Operations", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Operations.Test", "Mors.Ranges.Operations.Test\Mors.Ranges.Operations.Test.csproj", "{47230097-1F50-405E-83FF-E52B6AA6FD89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Axes", "Mors.Axes\Mors.Axes.csproj", "{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Axes.Test", "Mors.Axes.Test\Mors.Axes.Test.csproj", "{490D66A4-3722-41B2-BDC0-A3FD938F80F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{47230097-1F50-405E-83FF-E52B6AA6FD89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47230097-1F50-405E-83FF-E52B6AA6FD89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47230097-1F50-405E-83FF-E52B6AA6FD89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{490D66A4-3722-41B2-BDC0-A3FD938F80F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{490D66A4-3722-41B2-BDC0-A3FD938F80F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{490D66A4-3722-41B2-BDC0-A3FD938F80F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{490D66A4-3722-41B2-BDC0-A3FD938F80F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
