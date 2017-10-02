@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Mors.Ranges.Test.Support.RangeOperations
 {
