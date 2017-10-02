@@ -9,7 +9,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
         public AxisVector(int magnitudeAndDirection)
             => _magnitudeAndDirection = magnitudeAndDirection;
 
-        public AxisDistance Distance()
+        public AxisDistance Length()
             => new AxisDistance(Math.Abs(_magnitudeAndDirection));
 
         public bool Left()

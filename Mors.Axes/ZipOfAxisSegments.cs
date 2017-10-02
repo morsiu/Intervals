@@ -35,8 +35,8 @@ namespace Mors.Ranges.Test.Support.RangeOperations
                 new RightPaddingOfAxisSegment(
                     new LeftPaddingOfAxisSegment(
                         _left,
-                        differenceBetweenStarts.Zero() || !differenceBetweenStarts.Left() ? new AxisDistance() : differenceBetweenStarts.Distance()),
-                    differenceBetweenLengths.Zero() || differenceBetweenLengths.Left() ? new AxisDistance() : differenceBetweenLengths.Distance());
+                        differenceBetweenStarts.Zero() || !differenceBetweenStarts.Left() ? new AxisDistance() : differenceBetweenStarts.Length()),
+                    differenceBetweenLengths.Zero() || differenceBetweenLengths.Left() ? new AxisDistance() : differenceBetweenLengths.Length());
         }
 
         private IAxisSegment Right(AxisVector differenceBetweenStarts, AxisVector differenceBetweenLengths)
@@ -45,8 +45,8 @@ namespace Mors.Ranges.Test.Support.RangeOperations
                 new RightPaddingOfAxisSegment(
                     new LeftPaddingOfAxisSegment(
                         _right,
-                        differenceBetweenStarts.Zero() || differenceBetweenStarts.Left() ? new AxisDistance() : differenceBetweenStarts.Distance()),
-                    differenceBetweenLengths.Zero() || !differenceBetweenLengths.Left() ? new AxisDistance() : differenceBetweenLengths.Distance());
+                        differenceBetweenStarts.Zero() || differenceBetweenStarts.Left() ? new AxisDistance() : differenceBetweenStarts.Length()),
+                    differenceBetweenLengths.Zero() || !differenceBetweenLengths.Left() ? new AxisDistance() : differenceBetweenLengths.Length());
         }
 
         IEnumerator IEnumerable.GetEnumerator()

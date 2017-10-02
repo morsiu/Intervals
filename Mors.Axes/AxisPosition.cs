@@ -12,7 +12,7 @@
 
         public AxisPosition Add(AxisVector other)
         {
-            var otherMagnitude = other.Distance().Magnitude();
+            var otherMagnitude = other.Length().Magnitude();
             return new AxisPosition(
                 _startPosition + (other.Left() ? -otherMagnitude : otherMagnitude));
         }
