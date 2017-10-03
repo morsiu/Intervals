@@ -21,7 +21,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
         }
 
         public bool Equals(AxisPosition other)
-            => _startPosition.Equals(-other._startPosition);
+            => _startPosition.Equals(other._startPosition);
 
         public override bool Equals(object obj)
             => obj is AxisPosition && Equals((AxisPosition)obj);
