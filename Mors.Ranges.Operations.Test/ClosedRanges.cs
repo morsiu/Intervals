@@ -5,7 +5,7 @@
 
 namespace Mors.Ranges.Operations
 {
-    internal struct ClosedRanges : IClosedRanges<int, ClosedRange>
+    internal readonly struct ClosedRanges : IClosedRanges<int, ClosedRange>
     {
         public ClosedRange Empty()
         {

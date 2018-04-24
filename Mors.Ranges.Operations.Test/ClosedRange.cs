@@ -5,9 +5,9 @@
 
 namespace Mors.Ranges.Operations
 {
-    internal struct ClosedRange : IClosedRange<int>, IRange<int>
+    internal readonly struct ClosedRange : IClosedRange<int>, IRange<int>
     {
-        private IRange<int> _range;
+        private readonly IRange<int> _range;
 
         public ClosedRange(IRange<int> range)
         {
