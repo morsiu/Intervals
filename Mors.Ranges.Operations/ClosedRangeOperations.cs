@@ -10,12 +10,12 @@ namespace Mors.Ranges.Operations
     public class ClosedRangeOperations
     {
         public static bool Covers<T, TRange>(
-            ref TRange left,
-            ref TRange right)
+            in TRange left,
+            in TRange right)
             where T : IComparable<T>
             where TRange : IClosedRange<T>
         {
-            if (!IntersectsWith<T, TRange>(ref left, ref right))
+            if (!IntersectsWith<T, TRange>(left, right))
                 return false;
 
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
@@ -26,8 +26,8 @@ namespace Mors.Ranges.Operations
         }
         
         public static bool IntersectsWith<T, TRange>(
-            ref TRange left,
-            ref TRange right)
+            in TRange left,
+            in TRange right)
             where T : IComparable<T>
             where TRange : IClosedRange<T>
         {
@@ -38,14 +38,14 @@ namespace Mors.Ranges.Operations
         }
         
         public static void Intersect<T, TRange, TRanges>(
-            ref TRange left,
-            ref TRange right,
+            in TRange left,
+            in TRange right,
             out TRange result)
             where T : IComparable<T>
             where TRange : IClosedRange<T>
             where TRanges : struct, IClosedRanges<T, TRange>
         {
-            if (!IntersectsWith<T, TRange>(ref left, ref right))
+            if (!IntersectsWith<T, TRange>(left, right))
             {
                 result = default(TRanges).Empty();
                 return;
@@ -58,17 +58,17 @@ namespace Mors.Ranges.Operations
         }
         
         public static bool IsCoveredBy<T, TRange>(
-            ref TRange left,
-            ref TRange right)
+            in TRange left,
+            in TRange right)
             where T : IComparable<T>
             where TRange : IClosedRange<T>
         {
-            return Covers<T, TRange>(ref right, ref left);
+            return Covers<T, TRange>(right, left);
         }
         
         public static void Span<T, TRange, TRanges>(
-            ref TRange left,
-            ref TRange right,
+            in TRange left,
+            in TRange right,
             out TRange result)
             where T : IComparable<T>
             where TRange : IClosedRange<T>
