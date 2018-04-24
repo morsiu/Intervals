@@ -7,7 +7,7 @@ using System;
 
 namespace Mors.Ranges.Operations
 {
-    public class ClosedRangeOperations
+    public static class ClosedRangeOperations
     {
         public static bool Covers<T, TRange>(
             in TRange left,
