@@ -19,7 +19,7 @@ namespace Mors.Ranges.Operations
             var expected = IntersectsWithOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
             var rangeA = new ClosedRange(pairOfRanges.RangeA);
             var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            var actual = ClosedRangeOperations.IntersectsWith<int, ClosedRange>(ref rangeA, ref rangeB);
+            var actual = ClosedRangeOperations.IntersectsWith<int, ClosedRange>(rangeA, rangeB);
             Assert.AreEqual(expected, actual);
         }
 
@@ -30,7 +30,7 @@ namespace Mors.Ranges.Operations
             var expected = IntersectOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
             var rangeA = new ClosedRange(pairOfRanges.RangeA);
             var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            ClosedRangeOperations.Intersect<int, ClosedRange, ClosedRanges>(ref rangeA, ref rangeB, out var actual);
+            ClosedRangeOperations.Intersect<int, ClosedRange, ClosedRanges>(rangeA, rangeB, out var actual);
             Assert.AreEqual(expected, actual);
         }
 
@@ -41,7 +41,7 @@ namespace Mors.Ranges.Operations
             var expected = CoversOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
             var rangeA = new ClosedRange(pairOfRanges.RangeA);
             var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            var actual = ClosedRangeOperations.Covers<int, ClosedRange>(ref rangeA, ref rangeB);
+            var actual = ClosedRangeOperations.Covers<int, ClosedRange>(rangeA, rangeB);
             Assert.AreEqual(expected, actual);
         }
 
@@ -52,7 +52,7 @@ namespace Mors.Ranges.Operations
             var expected = IsCoveredByOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
             var rangeA = new ClosedRange(pairOfRanges.RangeA);
             var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            var actual = ClosedRangeOperations.IsCoveredBy<int, ClosedRange>(ref rangeA, ref rangeB);
+            var actual = ClosedRangeOperations.IsCoveredBy<int, ClosedRange>(rangeA, rangeB);
             Assert.AreEqual(actual, expected);
         }
 
@@ -63,7 +63,7 @@ namespace Mors.Ranges.Operations
             var expected = SpanOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
             var rangeA = new ClosedRange(pairOfRanges.RangeA);
             var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            ClosedRangeOperations.Span<int, ClosedRange, ClosedRanges>(ref rangeA, ref rangeB, out var actual);
+            ClosedRangeOperations.Span<int, ClosedRange, ClosedRanges>(rangeA, rangeB, out var actual);
             Assert.AreEqual(actual, expected);
         }
     }

@@ -4,7 +4,7 @@ namespace Mors.Ranges.Operations
 {
     internal sealed class OpenRangeOperationReturningRange
     {
-        public delegate void Operation(ref OpenRange first, ref OpenRange second, out OpenRange result);
+        public delegate void Operation(in OpenRange first, in OpenRange second, out OpenRange result);
 
         private readonly Operation _operation;
 
@@ -22,7 +22,7 @@ namespace Mors.Ranges.Operations
         {
             var first_ = new OpenRange(first);
             var second_ = new OpenRange(second);
-            _operation(ref first_, ref second_, out var result);
+            _operation(first_, second_, out var result);
             return result;
         }
     }

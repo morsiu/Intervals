@@ -5,6 +5,9 @@
     <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
     <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.Ranges.Operations\Mors.Ranges.Operations.csproj" />
     <ProjectReference Include="..\Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj" />
