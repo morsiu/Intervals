@@ -1,56 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mors.Axes</RootNamespace>
-    <AssemblyName>Mors.Axes</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>net45</TargetFramework>
+    <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
+    <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
+    <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="AxisDistance.cs" />
-    <Compile Include="AxisPoint.cs" />
-    <Compile Include="AxisPosition.cs" />
-    <Compile Include="AxisVector.cs" />
-    <Compile Include="EmptyAxis.cs" />
-    <Compile Include="IAxisOperation.cs" />
-    <Compile Include="IAxisOperationState.cs" />
-    <Compile Include="IAxisSegment.cs" />
-    <Compile Include="LeftPaddingOfAxisSegment.cs" />
-    <Compile Include="PairOfAxisPoints.cs" />
-    <Compile Include="PairOfAxisSegments.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RangeOnAxis.cs" />
-    <Compile Include="RightPaddingOfAxisSegment.cs" />
-    <Compile Include="TransformationOfPairsOfAxisSegments.cs" />
-    <Compile Include="ZipOfAxisSegments.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,76 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{47230097-1F50-405E-83FF-E52B6AA6FD89}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mors.Ranges.Operations</RootNamespace>
-    <AssemblyName>Mors.Ranges.Operations.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>net45</TargetFramework>
+    <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
+    <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
+    <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <ProjectReference Include="..\Mors.Ranges.Operations\Mors.Ranges.Operations.csproj" />
+    <ProjectReference Include="..\Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj" />
+    <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OpenRangeOperationReturningBool.cs" />
-    <Compile Include="OpenRangeOperationReturningRange.cs" />
-    <Compile Include="OpenRanges.cs" />
-    <Compile Include="OpenRange.cs" />
-    <Compile Include="ClosedRange.cs" />
-    <Compile Include="OpenRangeOperationTests.cs" />
-    <Compile Include="ClosedRangeOperationTests.cs" />
-    <Compile Include="ClosedRanges.cs" />
-    <Compile Include="PairsOfOpenRanges.cs" />
-    <Compile Include="PairsOfClosedRanges.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReferenceImplementationTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Mors.Ranges.Operations\Mors.Ranges.Operations.csproj">
-      <Project>{f81b5682-fef3-4bf6-8ce3-d5a8e255610d}</Project>
-      <Name>Mors.Ranges.Operations</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj">
-      <Project>{157ad3aa-90ca-48c9-b54e-1671cc4597a9}</Project>
-      <Name>Mors.Ranges.Test.Support</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj">
-      <Project>{466840e5-50bf-4f37-bda3-9ba1b5277a5e}</Project>
-      <Name>Mors.Ranges</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit">
-      <Version>3.8.1</Version>
-    </PackageReference>
-    <PackageReference Include="NUnit3TestAdapter">
-      <Version>3.8.0</Version>
-    </PackageReference>
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

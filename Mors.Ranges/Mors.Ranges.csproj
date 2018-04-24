@@ -1,74 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{466840E5-50BF-4F37-BDA3-9BA1B5277A5E}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Mors.Ranges</RootNamespace>
-    <AssemblyName>Mors.Ranges</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net45</TargetFramework>
+    <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
+    <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
+    <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="EmptyRange.cs" />
-    <Compile Include="EmptyRangeUnion.cs" />
-    <Compile Include="IRange.cs" />
-    <Compile Include="IRangeUnion.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Range.cs" />
-    <Compile Include="RangeEqualityComparer.cs" />
-    <Compile Include="RangeExtensions.cs" />
-    <Compile Include="RangeOperations.cs" />
-    <Compile Include="RangeUnion.cs" />
-    <Compile Include="RangeUnionOperations.cs" />
-    <Compile Include="RangeUnion`1.cs" />
-    <Compile Include="RangeValidator.cs" />
-    <Compile Include="Range`1.cs" />
-    <Compile Include="RangeBuilder.cs" />
-    <Compile Include="Text\ParserStates\AfterRangeState.cs" />
-    <Compile Include="Text\ParserStates\EndPointState.cs" />
-    <Compile Include="Text\ParserStates\EndState.cs" />
-    <Compile Include="Text\ParserStates\StartPointState.cs" />
-    <Compile Include="Text\ParserStates\InsideRangeState.cs" />
-    <Compile Include="Text\ParserStates\BeforeRangeState.cs" />
-    <Compile Include="Text\ParserStates\ITextRangeParserState.cs" />
-    <Compile Include="Text\Point.cs" />
-    <Compile Include="Text\PointType.cs" />
-    <Compile Include="Text\PointTypeMatcher.cs" />
-    <Compile Include="Text\TextRangeParser.cs">
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
