@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace Mors.Ranges.Test.Support.RangeOperations
 {
-    public struct AxisPosition : IEquatable<AxisPosition>
+    public readonly struct AxisPosition : IEquatable<AxisPosition>
     {
         private readonly int _startPosition;
 

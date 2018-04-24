@@ -3,8 +3,8 @@ using System.Linq;
 
 namespace Mors.Ranges.Test.Support.RangeOperations
 {
-    public struct TransformationOfPairsOfAxisSegments<TState, TResult>
-            where TState : IAxisOperationState<TState, TResult>
+    public readonly struct TransformationOfPairsOfAxisSegments<TState, TResult>
+        where TState : IAxisOperationState<TState, TResult>
     {
         private readonly IEnumerable<PairOfAxisPoints> _pairsOfPoints;
         private readonly IAxisOperation<TState, TResult> _operation;

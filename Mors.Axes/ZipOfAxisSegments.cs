@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Test.Support.RangeOperations
 {
-    public struct ZipOfAxisSegments : IEnumerable<PairOfAxisPoints>
+    public readonly struct ZipOfAxisSegments : IEnumerable<PairOfAxisPoints>
     {
         private readonly IAxisSegment _left;
         private readonly IAxisSegment _right;

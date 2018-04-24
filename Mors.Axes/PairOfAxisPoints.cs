@@ -1,6 +1,6 @@
 ﻿namespace Mors.Ranges.Test.Support.RangeOperations
 {
-    public struct PairOfAxisPoints
+    public readonly struct PairOfAxisPoints
     {
         private readonly AxisPoint _left;
         private readonly AxisPoint _right;

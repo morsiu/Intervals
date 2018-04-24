@@ -2,7 +2,7 @@
 
 namespace Mors.Ranges.Test.Support.RangeOperations
 {
-    public struct AxisDistance
+    public readonly struct AxisDistance
     {
         private readonly int _magnitude;
 
