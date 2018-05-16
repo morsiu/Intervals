@@ -1,21 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net47</TargetFramework>
     <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
     <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
     <Authors>Łukasz Mrozek</Authors>
+    <RootNamespace>Mors.Ranges.Operations</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Mors.Ranges.Operations\Mors.Ranges.Operations.csproj" />
     <ProjectReference Include="..\Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj" />
     <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="NUnit" Version="3.10.1" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

@@ -3,18 +3,19 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Mors.Ranges.Test.Support.RangeGeneration;
 using System.Collections.Generic;
 using System.Linq;
+using Mors.Ranges.Test.Support.RangeGeneration;
 
 namespace Mors.Ranges.Operations
 {
     public static class PairsOfClosedRanges
     {
-        public static IEnumerable<RangePair> OfAllPossibleRelations()
+        public static IEnumerable<(ClosedRange, ClosedRange)> OfAllPossibleRelations()
         {
             return RangePairGenerator.GeneratePairs(RangePairKinds.AllNonNull())
-                .Where(x => IsClosedOrEmpty(x.RangeA) && IsClosedOrEmpty(x.RangeB));
+                .Where(x => IsClosedOrEmpty(x.RangeA) && IsClosedOrEmpty(x.RangeB))
+                .Select(x => (new ClosedRange(x.RangeA), new ClosedRange(x.RangeB)));
         }
 
         private static bool IsClosedOrEmpty(IRange<int> x)

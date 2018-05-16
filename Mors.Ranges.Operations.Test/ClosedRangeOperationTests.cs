@@ -3,8 +3,6 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Mors.Ranges.Test.Support.RangeGeneration;
-using Mors.Ranges.Test.Support.RangeOperations;
 using NUnit.Framework;
 
 namespace Mors.Ranges.Operations
@@ -14,57 +12,49 @@ namespace Mors.Ranges.Operations
     {
         [Test]
         [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
-        public void IntersectsWithReturnsExpectedResult(RangePair pairOfRanges)
+        public void IntersectsWithReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
-            var expected = IntersectsWithOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new ClosedRange(pairOfRanges.RangeA);
-            var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            var actual = ClosedRangeOperations.IntersectsWith<int, ClosedRange>(rangeA, rangeB);
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(
+                ReferenceClosedRangeOperations.IntersectsWith(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                ClosedRangeOperations.IntersectsWith<int, ClosedRange>(pairOfRanges.RangeA, pairOfRanges.RangeB));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
-        public void IntersectReturnsExpectedResult(RangePair pairOfRanges)
+        public void IntersectReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
-            var expected = IntersectOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new ClosedRange(pairOfRanges.RangeA);
-            var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            ClosedRangeOperations.Intersect<int, ClosedRange, ClosedRanges>(rangeA, rangeB, out var actual);
-            Assert.AreEqual(expected, actual);
+            ClosedRangeOperations.Intersect<int, ClosedRange, ClosedRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);
+            Assert.AreEqual(
+                ReferenceClosedRangeOperations.Intersect(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                actual);
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
-        public void CoversReturnsExpectedResult(RangePair pairOfRanges)
+        public void CoversReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
-            var expected = CoversOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new ClosedRange(pairOfRanges.RangeA);
-            var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            var actual = ClosedRangeOperations.Covers<int, ClosedRange>(rangeA, rangeB);
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(
+                ReferenceClosedRangeOperations.Covers(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                ClosedRangeOperations.Covers<int, ClosedRange>(pairOfRanges.RangeA, pairOfRanges.RangeB));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
-        public void IsCoveredByReturnsExpectedResult(RangePair pairOfRanges)
+        public void IsCoveredByReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
-            var expected = IsCoveredByOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new ClosedRange(pairOfRanges.RangeA);
-            var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            var actual = ClosedRangeOperations.IsCoveredBy<int, ClosedRange>(rangeA, rangeB);
-            Assert.AreEqual(actual, expected);
+            Assert.AreEqual(
+                ReferenceClosedRangeOperations.IsCoveredBy(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                ClosedRangeOperations.IsCoveredBy<int, ClosedRange>(pairOfRanges.RangeA, pairOfRanges.RangeB));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
-        public void SpanReturnsExpectedResult(RangePair pairOfRanges)
+        public void SpanReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
-            var expected = SpanOperation.Calculate(pairOfRanges.RangeA, pairOfRanges.RangeB);
-            var rangeA = new ClosedRange(pairOfRanges.RangeA);
-            var rangeB = new ClosedRange(pairOfRanges.RangeB);
-            ClosedRangeOperations.Span<int, ClosedRange, ClosedRanges>(rangeA, rangeB, out var actual);
-            Assert.AreEqual(actual, expected);
+            ClosedRangeOperations.Span<int, ClosedRange, ClosedRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);
+            Assert.AreEqual(
+                ReferenceClosedRangeOperations.Span(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                actual);
         }
     }
 }

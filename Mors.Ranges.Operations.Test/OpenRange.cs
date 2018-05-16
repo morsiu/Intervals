@@ -3,9 +3,11 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System;
+
 namespace Mors.Ranges.Operations
 {
-    internal readonly struct OpenRange : IOpenRange<int>, IRange<int>
+    public readonly struct OpenRange : IOpenRange<int>, IRange<int>, IEquatable<OpenRange>
     {
         private readonly IRange<int> _range;
 
@@ -30,14 +32,14 @@ namespace Mors.Ranges.Operations
 
         public bool OpenEnd => _range.HasOpenEnd;
 
-        public bool Equals(IRange<int> other)
-        {
-            return _range.Equals(other);
-        }
+        public bool Equals(IRange<int> other) => _range.Equals(other);
 
-        public override string ToString()
-        {
-            return _range.ToString();
-        }
+        public bool Equals(OpenRange other) => _range.Equals(other._range);
+
+        public override bool Equals(object obj) => obj is OpenRange other && Equals(other);
+
+        public override int GetHashCode() => _range.GetHashCode();
+
+        public override string ToString() => _range.ToString();
     }
 }

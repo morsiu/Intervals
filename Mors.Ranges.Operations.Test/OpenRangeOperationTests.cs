@@ -3,8 +3,6 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Mors.Ranges.Test.Support.RangeGeneration;
-using Mors.Ranges.Test.Support.RangeOperations;
 using NUnit.Framework;
 
 namespace Mors.Ranges.Operations
@@ -14,52 +12,49 @@ namespace Mors.Ranges.Operations
     {
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
-        public void IntersectsWithReturnsExpectedResult(RangePair pairOfRanges)
+        public void IntersectsWithReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
-            new ReferenceImplementationTest<bool>(
-                    IntersectsWithOperation.Calculate,
-                    new OpenRangeOperationReturningBool(OpenRangeOperations.IntersectsWith<int, OpenRange>))
-                .Run(pairOfRanges);
+            Assert.AreEqual(
+                ReferenceOpenRangeOperations.IntersectsWith(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                OpenRangeOperations.IntersectsWith<int, OpenRange>(pairOfRanges.RangeA, pairOfRanges.RangeB));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
-        public void IntersectReturnsExpectedResult(RangePair pairOfRanges)
+        public void IntersectReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
-            new ReferenceImplementationTest<IRange<int>>(
-                    IntersectOperation.Calculate,
-                    new OpenRangeOperationReturningRange(OpenRangeOperations.Intersect<int, OpenRange, OpenRanges>))
-                .Run(pairOfRanges);
+            OpenRangeOperations.Intersect<int, OpenRange, OpenRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);
+            Assert.AreEqual(
+                ReferenceOpenRangeOperations.Intersect(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                actual);
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
-        public void CoversReturnsExpectedResult(RangePair pairOfRanges)
+        public void CoversReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
-            new ReferenceImplementationTest<bool>(
-                    CoversOperation.Calculate,
-                    new OpenRangeOperationReturningBool(OpenRangeOperations.Covers<int, OpenRange>))
-                .Run(pairOfRanges);
+            Assert.AreEqual(
+                ReferenceOpenRangeOperations.Covers(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                OpenRangeOperations.Covers<int, OpenRange>(pairOfRanges.RangeA, pairOfRanges.RangeB));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
-        public void IsCoveredByReturnsExpectedResult(RangePair pairOfRanges)
+        public void IsCoveredByReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
-            new ReferenceImplementationTest<bool>(
-                    IsCoveredByOperation.Calculate,
-                    new OpenRangeOperationReturningBool(OpenRangeOperations.IsCoveredBy<int, OpenRange>))
-                .Run(pairOfRanges);
+            Assert.AreEqual(
+                ReferenceOpenRangeOperations.IsCoveredBy(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                OpenRangeOperations.IsCoveredBy<int, OpenRange>(pairOfRanges.RangeA, pairOfRanges.RangeB));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
-        public void SpanReturnsExpectedResult(RangePair pairOfRanges)
+        public void SpanReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
-            new ReferenceImplementationTest<IRange<int>>(
-                    SpanOperation.Calculate,
-                    new OpenRangeOperationReturningRange(OpenRangeOperations.Span<int, OpenRange, OpenRanges>))
-                .Run(pairOfRanges);
+            OpenRangeOperations.Span<int, OpenRange, OpenRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);
+            Assert.AreEqual(
+                ReferenceOpenRangeOperations.Span(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                actual);
         }
     }
 }
