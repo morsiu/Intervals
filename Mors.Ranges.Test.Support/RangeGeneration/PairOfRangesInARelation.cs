@@ -3,7 +3,7 @@ using Mors.Ranges.Test.Support.RangeGeneration.Options;
 
 namespace Mors.Ranges.Test.Support.RangeGeneration
 {
-    internal sealed class PairOfRangesInARelation
+    internal struct PairOfRangesInARelation
     {
         private readonly RangeRelation _rangeRelation;
 

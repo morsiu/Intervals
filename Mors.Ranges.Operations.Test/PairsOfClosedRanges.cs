@@ -13,7 +13,7 @@ namespace Mors.Ranges.Operations
     {
         public static IEnumerable<(ClosedRange, ClosedRange)> OfAllPossibleRelations()
         {
-            return RangePairGenerator.GeneratePairs(RangePairKinds.AllNonNull())
+            return new PairsOfRangesOfKinds(new AllNonNullPairsOfRangeKinds())
                 .Where(x => IsClosedOrEmpty(x.RangeA) && IsClosedOrEmpty(x.RangeB))
                 .Select(x => (new ClosedRange(x.RangeA), new ClosedRange(x.RangeB)));
         }

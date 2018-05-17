@@ -13,7 +13,7 @@ namespace Mors.Ranges.Operations
     {
         public static IEnumerable<(OpenRange, OpenRange)> OfAllPossibleRelations()
         {
-            return RangePairGenerator.GeneratePairs(RangePairKinds.AllNonNull())
+            return new PairsOfRangesOfKinds(new AllNonNullPairsOfRangeKinds())
                 .Select(x => (new OpenRange(x.RangeA), new OpenRange(x.RangeB)));
         }
     }

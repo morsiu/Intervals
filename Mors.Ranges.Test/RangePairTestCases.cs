@@ -14,7 +14,7 @@ namespace Mors.Ranges
         {
             get
             {
-                var pairs = RangePairGenerator.GeneratePairs(RangePairKinds.All());
+                var pairs = new PairsOfRangesOfKinds(new AllPairsOfRangeKinds());
                 return pairs;
             }
         }
@@ -23,7 +23,7 @@ namespace Mors.Ranges
         {
             get
             {
-                var pairs = RangePairGenerator.GeneratePairs(RangePairKinds.AllNonNull());
+                var pairs = new PairsOfRangesOfKinds(new AllNonNullPairsOfRangeKinds());
                 return pairs;
             }
         }
@@ -32,7 +32,7 @@ namespace Mors.Ranges
         {
             get
             {
-                var pairs = RangePairGenerator.GeneratePairs(RangePairKinds.AllNull());
+                var pairs = new PairsOfRangesOfKinds(new AllNullPairsOfRangeKinds());
                 return pairs;
             }
         }
