@@ -3,27 +3,20 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Mors.Ranges.Text;
-
 namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
 {
-    internal sealed class StateMachine<TOutput>
+    internal sealed class StateMachine<TInput, TOutput>
     {
-        private readonly StateTable<PointTypePair, TOutput> _stateTable;
+        private readonly StateTable<TInput, TOutput> _stateTable;
 
-        public StateMachine(StateTable<PointTypePair, TOutput> stateTable)
+        public StateMachine(StateTable<TInput, TOutput> stateTable)
         {
             _stateTable = stateTable;
         }
 
-        public TOutput Run(PointTypePair points)
+        public TOutput Run(TInput points)
         {
             return _stateTable.Match(points);
-        }
-
-        public TOutput Run(PointType pointA, PointType pointB)
-        {
-            return _stateTable.Match(new PointTypePair(pointA, pointB));
         }
     }
 }

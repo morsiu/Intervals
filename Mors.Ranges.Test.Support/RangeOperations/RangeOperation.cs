@@ -17,7 +17,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
             var rangePair = new PointSequencePair(
                 PointSequence.FromRange(rangeA),
                 PointSequence.FromRange(rangeB));
-            var stateMachine = new StateMachine<PointType>(stateTable);
+            var stateMachine = new StateMachine<PointTypePair, PointType>(stateTable);
             var output = rangePair.Zip(stateMachine.Run);
             return output.ToRange();
         }
@@ -27,7 +27,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
             var rangePair = new PointSequencePair(
                 PointSequence.FromRange(rangeA),
                 PointSequence.FromRange(rangeB));
-            var stateMachine = new StateMachine<TValue>(stateTable);
+            var stateMachine = new StateMachine<PointTypePair, TValue>(stateTable);
             var output = rangePair.Zip<TValue>(stateMachine.Run);
             return output.Any(predicate);
         }
