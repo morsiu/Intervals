@@ -3,19 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges", "Mors.Ranges\Mors.Ranges.csproj", "{466840E5-50BF-4F37-BDA3-9BA1B5277A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges", "Mors.Ranges\Mors.Ranges.csproj", "{466840E5-50BF-4F37-BDA3-9BA1B5277A5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Test", "Mors.Ranges.Test\Mors.Ranges.Test.csproj", "{9E565880-651D-4529-9288-EDE823AD9863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Test", "Mors.Ranges.Test\Mors.Ranges.Test.csproj", "{9E565880-651D-4529-9288-EDE823AD9863}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Test.Support", "Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj", "{157AD3AA-90CA-48C9-B54E-1671CC4597A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Test.Support", "Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj", "{157AD3AA-90CA-48C9-B54E-1671CC4597A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Operations", "Mors.Ranges.Operations\Mors.Ranges.Operations.csproj", "{F81B5682-FEF3-4BF6-8CE3-D5A8E255610D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Operations", "Mors.Ranges.Operations\Mors.Ranges.Operations.csproj", "{F81B5682-FEF3-4BF6-8CE3-D5A8E255610D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Operations.Test", "Mors.Ranges.Operations.Test\Mors.Ranges.Operations.Test.csproj", "{47230097-1F50-405E-83FF-E52B6AA6FD89}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Axes", "Mors.Axes\Mors.Axes.csproj", "{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Axes.Test", "Mors.Axes.Test\Mors.Axes.Test.csproj", "{490D66A4-3722-41B2-BDC0-A3FD938F80F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Operations.Test", "Mors.Ranges.Operations.Test\Mors.Ranges.Operations.Test.csproj", "{47230097-1F50-405E-83FF-E52B6AA6FD89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,14 +39,6 @@ Global
 		{47230097-1F50-405E-83FF-E52B6AA6FD89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47230097-1F50-405E-83FF-E52B6AA6FD89}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47230097-1F50-405E-83FF-E52B6AA6FD89}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AC61DFC-7719-4D0E-ABED-F3A1EF071472}.Release|Any CPU.Build.0 = Release|Any CPU
-		{490D66A4-3722-41B2-BDC0-A3FD938F80F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{490D66A4-3722-41B2-BDC0-A3FD938F80F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{490D66A4-3722-41B2-BDC0-A3FD938F80F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{490D66A4-3722-41B2-BDC0-A3FD938F80F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
