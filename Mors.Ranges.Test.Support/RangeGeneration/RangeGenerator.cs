@@ -32,7 +32,7 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
 
         private static IEnumerable<IRange<int>> GenerateNonEmptyRanges()
         {
-            foreach (var rangeEnd in RangeEnds.All.EnumerateFlags())
+            foreach (var rangeEnd in new AllRangeEnds())
             {
                 yield return GenerateNonEmptyRange(1, 3, rangeEnd);
             }

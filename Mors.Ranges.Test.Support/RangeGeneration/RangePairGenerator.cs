@@ -65,7 +65,7 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
 
         private static IEnumerable<IRange<int>> GenerateNonEmptyRanges()
         {
-            foreach (var rangeEnd in RangeEnds.All.EnumerateFlags())
+            foreach (var rangeEnd in new AllRangeEnds())
             {
                 yield return GenerateNonEmptyRange(1, 3, rangeEnd);
             }
@@ -75,9 +75,9 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
         {
             foreach (var abRangesRelation in new AllRangeRelations())
             {
-                foreach (var rangeAEnds in RangeEnds.All.EnumerateFlags())
+                foreach (var rangeAEnds in new AllRangeEnds())
                 {
-                    foreach (var rangeBEnds in RangeEnds.All.EnumerateFlags())
+                    foreach (var rangeBEnds in new AllRangeEnds())
                     {
                         yield return GenerateNonEmptyPair(abRangesRelation, rangeAEnds, rangeBEnds);
                     }
