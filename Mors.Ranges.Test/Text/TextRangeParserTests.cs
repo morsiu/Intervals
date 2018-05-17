@@ -16,8 +16,8 @@ namespace Mors.Ranges.Text
         [TestCaseSource(nameof(ValidTextRangeCases))]
         public IRange<int> ParseShouldReturnExpectedRangeForValidTextRange(string textRange)
         {
-            var pointTypeMatcher = new PointTypeMatcher('-', '=', 'x', 'o');
-            var parser = new TextRangeParser(pointTypeMatcher);
+            var characters = new PointTypeCharacters('-', '=', 'x', 'o');
+            var parser = new TextRangeParser(characters);
             return parser.Parse(textRange);
         }
 
@@ -25,8 +25,8 @@ namespace Mors.Ranges.Text
         [TestCaseSource(nameof(InvalidTextRanges))]
         public void ParseShouldThrowArgumentExceptionForInvalidTextRange(string textRange)
         {
-            var pointTypeMatcher = new PointTypeMatcher('-', '=', 'x', 'o');
-            var parser = new TextRangeParser(pointTypeMatcher);
+            var characters = new PointTypeCharacters('-', '=', 'x', 'o');
+            var parser = new TextRangeParser(characters);
             Assert.Throws<ArgumentException>(
                 () => parser.Parse(textRange));
         }

@@ -11,21 +11,21 @@ namespace Mors.Ranges.Test.Support.RangeOperations.Converters
 {
     internal static class PointTypeConverter
     {
-        private static readonly PointTypeMatcher Matcher = new PointTypeMatcher('-', '=', 'x', 'o');
+        private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
 
-        public static PointTypePair ToPointPair(char pointAChar, char pointBChar)
+        public static PointTypePair ToPointPair(char pointACharacter, char pointBCharacter)
         {
-            var pointA = Matcher.Match(pointAChar);
-            var pointB = Matcher.Match(pointBChar);
+            var pointA = Characters.PointType(pointACharacter);
+            var pointB = Characters.PointType(pointBCharacter);
             return new PointTypePair(
-                pointA ?? throw new ArgumentException("The character does not represent a valid point.", nameof(pointAChar)),
-                pointB ?? throw new ArgumentException("The characted does not represent a valid point.", nameof(pointBChar)));
+                pointA ?? throw new ArgumentException("The character does not represent a valid point.", nameof(pointACharacter)),
+                pointB ?? throw new ArgumentException("The characted does not represent a valid point.", nameof(pointBCharacter)));
         }
 
-        public static PointType ToPoint(char pointChar)
+        public static PointType ToPoint(char pointCharacter)
         {
-            var point = Matcher.Match(pointChar);
-            return point ?? throw new ArgumentException("The character does not represent a valid point.", nameof(pointChar));
+            var point = Characters.PointType(pointCharacter);
+            return point ?? throw new ArgumentException("The character does not represent a valid point.", nameof(pointCharacter));
         }
     }
 }

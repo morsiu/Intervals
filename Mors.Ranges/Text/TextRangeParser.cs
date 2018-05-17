@@ -10,11 +10,11 @@ namespace Mors.Ranges.Text
 {
     public sealed class TextRangeParser
     {
-        private readonly PointTypeMatcher _pointTypeMatcher;
+        private readonly PointTypeCharacters _characters;
 
-        public TextRangeParser(PointTypeMatcher pointTypeMatcher)
+        public TextRangeParser(PointTypeCharacters characters)
         {
-            _pointTypeMatcher = pointTypeMatcher ?? throw new ArgumentNullException(nameof(pointTypeMatcher));
+            _characters = characters ?? throw new ArgumentNullException(nameof(characters));
         }
 
         public IRange<int> Parse(string textRange)
@@ -24,7 +24,7 @@ namespace Mors.Ranges.Text
             var pointPosition = 1;
             foreach (var character in textRange)
             {
-                var pointType = _pointTypeMatcher.Match(character);
+                var pointType = _characters.PointType(character);
                 if (pointType == null)
                     throw new ArgumentException(
                         $"Character {character} in text range is not assigned to any point type.");

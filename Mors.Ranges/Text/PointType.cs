@@ -7,7 +7,6 @@ namespace Mors.Ranges.Text
 {
     public enum PointType
     {
-        // Order of values is depended upon
         Uncovered = 0,
         Covered = 1,
         ClosedEnd = 2,

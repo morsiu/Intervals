@@ -9,7 +9,7 @@ using System;
 namespace Mors.Ranges.Text
 {
     [TestFixture]
-    internal class PointTypeMatcherTests
+    internal class PointTypeCharactersTests
     {
         [Test]
         [TestCase('#', '#', '3', '4')]
@@ -30,7 +30,7 @@ namespace Mors.Ranges.Text
             char openEndPoint)
         {
             Assert.Throws<ArgumentException>(
-                () => { var unused = new PointTypeMatcher(uncoveredPoint, coveredPoint, closedEndPoint, openEndPoint); });
+                () => { var unused = new PointTypeCharacters(uncoveredPoint, coveredPoint, closedEndPoint, openEndPoint); });
         }
 
         [Test]
@@ -38,19 +38,19 @@ namespace Mors.Ranges.Text
         [TestCase('b', ExpectedResult = PointType.Covered)]
         [TestCase('c', ExpectedResult = PointType.ClosedEnd)]
         [TestCase('d', ExpectedResult = PointType.OpenEnd)]
-        public PointType? MatchShouldReturnCorrespondingPointTypeGivenCharacterWithAssignedPointType(char character)
+        public PointType? PointTypeShouldReturnCorrespondingPointTypeGivenCharacterWithAssignedPointType(char character)
         {
-            var parser = new PointTypeMatcher('a', 'b', 'c', 'd');
-            return parser.Match(character);
+            var characters = new PointTypeCharacters('a', 'b', 'c', 'd');
+            return characters.PointType(character);
         }
 
         [Test]
-        public void MatchShouldReturnNullGivenCharacterWithoutAssignedPointType()
+        public void PointTypeShouldReturnNullGivenCharacterWithoutAssignedPointType()
         {
-            var parser = new PointTypeMatcher('a', 'b', 'c', 'd');
+            var characters = new PointTypeCharacters('a', 'b', 'c', 'd');
             Assert.AreEqual(
                 default(PointType?),
-                parser.Match('#'));
+                characters.PointType('#'));
         }
 
         [Test]

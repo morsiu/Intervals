@@ -4,53 +4,40 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Mors.Ranges.Text
 {
-    public sealed class PointTypeMatcher
+    public sealed class PointTypeCharacters
     {
-        // Index values corresponds to PointType enumeration values.
-        private readonly char[] _characterToPointTypeLookup;
+        private readonly IReadOnlyDictionary<char, PointType> _characters;
 
-        public PointTypeMatcher(
+        public PointTypeCharacters(
             char uncoveredPoint,
             char coveredPoint,
             char closedEndPoint,
             char openEndPoint)
         {
-            _characterToPointTypeLookup = new[]
-            {
-                uncoveredPoint,
-                coveredPoint,
-                closedEndPoint,
-                openEndPoint
-            };
-            CheckPointTypesHaveDifferentCharacters();
-        }
-
-        public PointType? Match(char character)
-        {
-            var pointType = LookupPointType(character);
-            return pointType;
-        }
-
-        private PointType? LookupPointType(char character)
-        {
-            var pointType = Array.IndexOf(_characterToPointTypeLookup, character);
-            if (pointType == -1)
-            {
-                return null;
-            }
-            return (PointType)pointType;
-        }
-
-        private void CheckPointTypesHaveDifferentCharacters()
-        {
-            if (_characterToPointTypeLookup.Distinct().Count() != _characterToPointTypeLookup.Length)
+            var characters =
+                new Dictionary<char, PointType>
+                {
+                    { uncoveredPoint, Text.PointType.Uncovered },
+                    { coveredPoint, Text.PointType.Covered },
+                    { closedEndPoint, Text.PointType.ClosedEnd },
+                    { openEndPoint, Text.PointType.OpenEnd }
+                };
+            if (characters.Count < 4)
             {
                 throw new ArgumentException("There are at least two identical characters for different point types.");
             }
+            _characters = characters;
+        }
+
+        public PointType? PointType(char character)
+        {
+            return _characters.TryGetValue(character, out var pointType)
+                ? pointType
+                : default(PointType?);
         }
     }
 }

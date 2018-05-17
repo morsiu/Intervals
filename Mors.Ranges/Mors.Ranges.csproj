@@ -5,4 +5,7 @@
     <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
     <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
 </Project>
