@@ -73,7 +73,7 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
 
         private static IEnumerable<RangePair> GenerateNonEmptyPairs()
         {
-            foreach (var abRangesRelation in RangeRelations.All.EnumerateFlags())
+            foreach (var abRangesRelation in new AllRangeRelations())
             {
                 foreach (var rangeAEnds in RangeEnds.All.EnumerateFlags())
                 {
@@ -85,35 +85,35 @@ namespace Mors.Ranges.Test.Support.RangeGeneration
             }
         }
 
-        private static RangePair GenerateNonEmptyPair(RangeRelations abRangesRelation, RangeEnds rangeAEnds, RangeEnds rangeBEnds)
+        private static RangePair GenerateNonEmptyPair(RangeRelation abRangesRelation, RangeEnds rangeAEnds, RangeEnds rangeBEnds)
         {
             switch (abRangesRelation)
             {
-                case RangeRelations.ABeforeB:
+                case RangeRelation.ABeforeB:
                     return GenerateNonEmptyPair(1, 5, rangeAEnds, 7, 11, rangeBEnds);
-                case RangeRelations.ABeforeBTouching:
+                case RangeRelation.ABeforeBTouching:
                     return GenerateNonEmptyPair(2, 7, rangeAEnds, 7, 11, rangeBEnds);
-                case RangeRelations.ABeforeBIntersecting:
+                case RangeRelation.ABeforeBIntersecting:
                     return GenerateNonEmptyPair(5, 9, rangeAEnds, 7, 11, rangeBEnds);
-                case RangeRelations.ASpanningB:
+                case RangeRelation.ASpanningB:
                     return GenerateNonEmptyPair(7, 11, rangeAEnds, 7, 11, rangeBEnds);
-                case RangeRelations.AAfterBIntersecting:
+                case RangeRelation.AAfterBIntersecting:
                     return GenerateNonEmptyPair(9, 13, rangeAEnds, 7, 11, rangeBEnds);
-                case RangeRelations.AAfterBTouching:
+                case RangeRelation.AAfterBTouching:
                     return GenerateNonEmptyPair(11, 15, rangeAEnds, 7, 11, rangeBEnds);
-                case RangeRelations.AAfterB:
+                case RangeRelation.AAfterB:
                     return GenerateNonEmptyPair(13, 18, rangeAEnds, 7, 11, rangeBEnds);
-                case RangeRelations.ACoversBTouchingLeft:
+                case RangeRelation.ACoversBTouchingLeft:
                     return GenerateNonEmptyPair(1, 8, rangeAEnds, 1, 4, rangeBEnds);
-                case RangeRelations.ACoversB:
+                case RangeRelation.ACoversB:
                     return GenerateNonEmptyPair(1, 8, rangeAEnds, 3, 6, rangeBEnds);
-                case RangeRelations.ACoversBTouchingRight:
+                case RangeRelation.ACoversBTouchingRight:
                     return GenerateNonEmptyPair(1, 8, rangeAEnds, 5, 8, rangeBEnds);
-                case RangeRelations.AInsideBTouchingLeft:
+                case RangeRelation.AInsideBTouchingLeft:
                     return GenerateNonEmptyPair(1, 4, rangeAEnds, 1, 8, rangeBEnds);
-                case RangeRelations.AInsideB:
+                case RangeRelation.AInsideB:
                     return GenerateNonEmptyPair(3, 6, rangeAEnds, 1, 8, rangeBEnds);
-                case RangeRelations.AInsideBTouchingRight:
+                case RangeRelation.AInsideBTouchingRight:
                     return GenerateNonEmptyPair(5, 8, rangeAEnds, 1, 8, rangeBEnds);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(abRangesRelation));
