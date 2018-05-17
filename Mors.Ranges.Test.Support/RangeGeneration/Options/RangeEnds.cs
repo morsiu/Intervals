@@ -9,9 +9,7 @@ namespace Mors.Ranges.Test.Support.RangeGeneration.Options
     {
         Open,
         Closed,
-        RightClosed,
         LeftOpen,
-        RightOpen,
-        LeftClosed,
+        RightOpen
     }
 }

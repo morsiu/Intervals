@@ -10,10 +10,8 @@ namespace Mors.Ranges.Test.Support.RangeGeneration.Options
         {
             yield return RangeEnds.Open;
             yield return RangeEnds.Closed;
-            yield return RangeEnds.RightClosed;
             yield return RangeEnds.LeftOpen;
             yield return RangeEnds.RightOpen;
-            yield return RangeEnds.LeftClosed;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
