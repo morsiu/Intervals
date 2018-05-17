@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Mors.Ranges.Test.Support.RangeGeneration.Options;
 
 namespace Mors.Ranges.Test.Support.RangeGeneration
 {

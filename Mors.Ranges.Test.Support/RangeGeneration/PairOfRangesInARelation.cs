@@ -1,5 +1,4 @@
 ﻿using System;
-using Mors.Ranges.Test.Support.RangeGeneration.Options;
 
 namespace Mors.Ranges.Test.Support.RangeGeneration
 {
