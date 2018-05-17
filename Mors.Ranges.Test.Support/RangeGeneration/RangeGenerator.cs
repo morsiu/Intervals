@@ -5,7 +5,6 @@
 
 using System;
 using System.Collections.Generic;
-using Mors.Ranges.Test.Support.Extensions;
 using Mors.Ranges.Test.Support.RangeGeneration.Options;
 
 namespace Mors.Ranges.Test.Support.RangeGeneration
