@@ -11,15 +11,15 @@ namespace Mors.Ranges.Test.Support.RangeOperations
     public static class EqualsOperation
     {
         private static readonly PointTypeCharacters PointTypeCharacters = new PointTypeCharacters('-', '=', 'x', 'o');
-        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('t', 'f');
+        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
 
         private static readonly StateTable<PointTypePair, bool> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', 't', 'f', 'f', 'f')
-            .AppendRow('x', 'f', 't', 'f', 'f')
-            .AppendRow('o', 'f', 'f', 't', 'f')
-            .AppendRow('-', 'f', 'f', 'f', 't')
+            .AppendRow('=', '#', ' ', ' ', ' ')
+            .AppendRow('x', ' ', '#', ' ', ' ')
+            .AppendRow('o', ' ', ' ', '#', ' ')
+            .AppendRow('-', ' ', ' ', ' ', '#')
             .Build(PointTypeCharacters.PointTypePair, BoolCharacters.Bool);
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)

@@ -11,17 +11,17 @@ namespace Mors.Ranges.Test.Support.RangeOperations
     public static class IsCoveredByOperation
     {
         private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
-        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('t', 'f');
+        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
 
         // ReSharper disable once UnusedMember.Local
         // Left for documentation purposes
         private static readonly StateTable<PointTypePair, bool> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', 'f', 't', 't', 't')
-            .AppendRow('x', 'f', 'f', 't', 't')
-            .AppendRow('o', 'f', 'f', 'f', 't')
-            .AppendRow('-', 'f', 'f', 'f', 'f')
+            .AppendRow('=', ' ', '#', '#', '#')
+            .AppendRow('x', ' ', ' ', '#', '#')
+            .AppendRow('o', ' ', ' ', ' ', '#')
+            .AppendRow('-', ' ', ' ', ' ', ' ')
             .Build(Characters.PointTypePair, BoolCharacters.Bool);
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)

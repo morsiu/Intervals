@@ -11,15 +11,15 @@ namespace Mors.Ranges.Test.Support.RangeOperations
     public static class IntersectsWithOperation
     {
         private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
-        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('t', 'f');
+        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
 
         private static readonly StateTable<PointTypePair, bool> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', 't', 't', 'f', 'f')
-            .AppendRow('x', 't', 't', 'f', 'f')
-            .AppendRow('o', 'f', 'f', 'f', 'f')
-            .AppendRow('-', 'f', 'f', 'f', 'f')
+            .AppendRow('=', '#', '#', ' ', ' ')
+            .AppendRow('x', '#', '#', ' ', ' ')
+            .AppendRow('o', ' ', ' ', ' ', ' ')
+            .AppendRow('-', ' ', ' ', ' ', ' ')
             .Build(Characters.PointTypePair, BoolCharacters.Bool);
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
