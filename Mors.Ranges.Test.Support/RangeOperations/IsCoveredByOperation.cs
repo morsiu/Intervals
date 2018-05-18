@@ -3,7 +3,6 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Mors.Ranges.Test.Support.RangeOperations.Converters;
 using Mors.Ranges.Test.Support.RangeOperations.StateMachines;
 using Mors.Ranges.Text;
 
@@ -12,7 +11,8 @@ namespace Mors.Ranges.Test.Support.RangeOperations
     public static class IsCoveredByOperation
     {
         private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
-     
+        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('t', 'f');
+
         // ReSharper disable once UnusedMember.Local
         // Left for documentation purposes
         private static readonly StateTable<PointTypePair, bool> States =
@@ -22,7 +22,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
             .AppendRow('x', 'f', 'f', 't', 't')
             .AppendRow('o', 'f', 'f', 'f', 't')
             .AppendRow('-', 'f', 'f', 'f', 'f')
-            .Build(Characters.PointTypePair, BoolConverter.ToBool);
+            .Build(Characters.PointTypePair, BoolCharacters.Bool);
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {

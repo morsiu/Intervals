@@ -3,13 +3,38 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Mors.Ranges.Test.Support.RangeOperations.Converters
+using System;
+
+namespace Mors.Ranges.Test.Support.RangeOperations
 {
-    internal static class BoolConverter
+    internal sealed class BoolCharacters
     {
-        public static bool ToBool(char value)
+        private readonly char _trueCharacter;
+        private readonly char _falseCharacter;
+
+        public BoolCharacters(
+            char trueCharacter,
+            char falseCharacter)
         {
-            return value == 't';
+            if (trueCharacter == falseCharacter)
+            {
+                throw new ArgumentException("The characters for true and false are identical.");
+            }
+            _trueCharacter = trueCharacter;
+            _falseCharacter = falseCharacter;
+        }
+
+        public bool Bool(char character)
+        {
+            switch (character)
+            {
+                case char x when x == _trueCharacter:
+                    return true;
+                case char x when x == _falseCharacter:
+                    return false;
+                default:
+                    throw new ArgumentException("The character does not represent any boolean value.", nameof(character));
+            }
         }
     }
 }
