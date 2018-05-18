@@ -5,6 +5,7 @@
 
 using Mors.Ranges.Test.Support.RangeOperations.Converters;
 using Mors.Ranges.Test.Support.RangeOperations.StateMachines;
+using Mors.Ranges.Text;
 
 namespace Mors.Ranges.Test.Support.RangeOperations
 {

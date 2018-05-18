@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Mors.Ranges.Text;
 
-namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
+namespace Mors.Ranges.Text
 {
-    internal sealed class PointSequence : IEnumerable<PointType>
+    public sealed class PointSequence : IEnumerable<PointType>
     {
         private readonly PointType[] _points;
 

@@ -33,11 +33,26 @@ namespace Mors.Ranges.Text
             _characters = characters;
         }
 
-        public PointType? PointType(char character)
+        public PointType? MaybePointType(char character)
         {
             return _characters.TryGetValue(character, out var pointType)
                 ? pointType
                 : default(PointType?);
+        }
+
+        public PointTypePair PointTypePair(char pointACharacter, char pointBCharacter)
+        {
+            var pointA = MaybePointType(pointACharacter);
+            var pointB = MaybePointType(pointBCharacter);
+            return new PointTypePair(
+                pointA ?? throw new ArgumentException("The character does not represent a valid point.", nameof(pointACharacter)),
+                pointB ?? throw new ArgumentException("The characted does not represent a valid point.", nameof(pointBCharacter)));
+        }
+
+        public PointType PointType(char pointCharacter)
+        {
+            var point = MaybePointType(pointCharacter);
+            return point ?? throw new ArgumentException("The character does not represent a valid point.", nameof(pointCharacter));
         }
     }
 }

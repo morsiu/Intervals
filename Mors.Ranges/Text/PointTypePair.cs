@@ -4,11 +4,10 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using Mors.Ranges.Text;
 
-namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
+namespace Mors.Ranges.Text
 {
-    internal struct PointTypePair : IEquatable<PointTypePair>
+    public struct PointTypePair : IEquatable<PointTypePair>
     {
         private readonly PointType _pointA;
         private readonly PointType _pointB;
@@ -32,7 +31,6 @@ namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
             return obj is PointTypePair && Equals((PointTypePair) obj);
         }
 

@@ -6,11 +6,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Mors.Ranges.Text;
 
-namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
+namespace Mors.Ranges.Text
 {
-    internal struct PointSequencePair
+    public struct PointSequencePair
     {
         private readonly PointSequence _sequenceB;
         private readonly PointSequence _sequenceA;

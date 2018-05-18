@@ -41,7 +41,7 @@ namespace Mors.Ranges.Text
         public PointType? PointTypeShouldReturnCorrespondingPointTypeGivenCharacterWithAssignedPointType(char character)
         {
             var characters = new PointTypeCharacters('a', 'b', 'c', 'd');
-            return characters.PointType(character);
+            return characters.MaybePointType(character);
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace Mors.Ranges.Text
             var characters = new PointTypeCharacters('a', 'b', 'c', 'd');
             Assert.AreEqual(
                 default(PointType?),
-                characters.PointType('#'));
+                characters.MaybePointType('#'));
         }
 
         [Test]
