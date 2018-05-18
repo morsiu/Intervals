@@ -26,15 +26,9 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 
         public bool Bool(char character)
         {
-            switch (character)
-            {
-                case char x when x == _trueCharacter:
-                    return true;
-                case char x when x == _falseCharacter:
-                    return false;
-                default:
-                    throw new ArgumentException("The character does not represent any boolean value.", nameof(character));
-            }
+            if (character == _trueCharacter) return true;
+            if (character == _falseCharacter) return false;
+            throw new ArgumentException("The character does not represent any boolean value.", nameof(character));
         }
     }
 }
