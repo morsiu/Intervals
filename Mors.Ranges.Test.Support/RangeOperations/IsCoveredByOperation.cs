@@ -10,7 +10,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
 {
     public static class IsCoveredByOperation
     {
-        private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
+        private static readonly PointTypeCharacters PointTypeCharacters = new PointTypeCharacters('-', '=', 'x', 'o');
         private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
 
         // ReSharper disable once UnusedMember.Local
@@ -22,7 +22,7 @@ namespace Mors.Ranges.Test.Support.RangeOperations
             .AppendRow('x', ' ', ' ', '#', '#')
             .AppendRow('o', ' ', ' ', ' ', '#')
             .AppendRow('-', ' ', ' ', ' ', ' ')
-            .Build(Characters.PointTypePair, BoolCharacters.Bool);
+            .Build(PointTypeCharacters.PointTypePair, BoolCharacters.Bool);
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
