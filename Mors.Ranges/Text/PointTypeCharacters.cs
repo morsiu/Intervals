@@ -4,13 +4,15 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 
 namespace Mors.Ranges.Text
 {
     public sealed class PointTypeCharacters
     {
-        private readonly IReadOnlyDictionary<char, PointType> _characters;
+        private readonly char _uncoveredPoint;
+        private readonly char _coveredPoint;
+        private readonly char _closedEndPoint;
+        private readonly char _openEndPoint;
 
         public PointTypeCharacters(
             char uncoveredPoint,
@@ -18,26 +20,28 @@ namespace Mors.Ranges.Text
             char closedEndPoint,
             char openEndPoint)
         {
-            var characters =
-                new Dictionary<char, PointType>
-                {
-                    { uncoveredPoint, Text.PointType.Uncovered },
-                    { coveredPoint, Text.PointType.Covered },
-                    { closedEndPoint, Text.PointType.ClosedEnd },
-                    { openEndPoint, Text.PointType.OpenEnd }
-                };
-            if (characters.Count < 4)
+            if (uncoveredPoint == coveredPoint ||
+                uncoveredPoint == closedEndPoint ||
+                uncoveredPoint == openEndPoint ||
+                coveredPoint == closedEndPoint ||
+                coveredPoint == openEndPoint ||
+                closedEndPoint == openEndPoint)
             {
                 throw new ArgumentException("There are at least two identical characters for different point types.");
             }
-            _characters = characters;
+            _uncoveredPoint = uncoveredPoint;
+            _coveredPoint = coveredPoint;
+            _closedEndPoint = closedEndPoint;
+            _openEndPoint = openEndPoint;
         }
 
         public PointType? MaybePointType(char character)
         {
-            return _characters.TryGetValue(character, out var pointType)
-                ? pointType
-                : default(PointType?);
+            if (character == _uncoveredPoint) return Text.PointType.Uncovered;
+            if (character == _coveredPoint) return Text.PointType.Covered;
+            if (character == _openEndPoint) return Text.PointType.OpenEnd;
+            if (character == _closedEndPoint) return Text.PointType.ClosedEnd;
+            return null;
         }
 
         public PointTypePair PointTypePair(char pointACharacter, char pointBCharacter)
