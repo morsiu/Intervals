@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net47</TargetFramework>
     <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
     <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
     <Authors>Łukasz Mrozek</Authors>
