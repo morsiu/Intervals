@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net47</TargetFramework>
+    <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
+    <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
+    <Authors>Łukasz Mrozek</Authors>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
+    <ProjectReference Include="..\Mors.Ranges.Text\Mors.Ranges.Text.csproj" />
+  </ItemGroup>
+</Project>
