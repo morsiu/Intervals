@@ -2,7 +2,7 @@
   <PropertyGroup>
     <TargetFramework>net45</TargetFramework>
     <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
-    <Copyright>Copyright © Łukasz Mrozek 2018</Copyright>
+    <Copyright>Copyright © 2018 Łukasz Mrozek</Copyright>
     <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
