@@ -3,17 +3,25 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Mors.Ranges.Test.Support.RangeGeneration
+namespace Mors.Ranges.Generation
 {
-    internal sealed class EmptyRanges : IEnumerable<IRange<int>>
+    internal sealed class PairsOfNonEmptyRanges : IEnumerable<RangePair>
     {
-        public IEnumerator<IRange<int>> GetEnumerator()
+        public IEnumerator<RangePair> GetEnumerator()
         {
-            yield return Range.Empty<int>();
+            foreach (var abRangesRelation in new AllRangeRelations())
+            {
+                foreach (var rangeAEnds in new AllRangeEnds())
+                {
+                    foreach (var rangeBEnds in new AllRangeEnds())
+                    {
+                        yield return new PairOfRangesInARelation(abRangesRelation).RangePair(rangeAEnds, rangeBEnds);
+                    }
+                }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

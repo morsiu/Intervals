@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Mors.Ranges.Test.Support.RangeGeneration
+namespace Mors.Ranges.Generation
 {
     internal struct PairOfRangesInARelation
     {

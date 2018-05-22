@@ -6,7 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Mors.Ranges.Test.Support.RangeGeneration
+namespace Mors.Ranges.Generation
 {
     internal sealed class NullRanges : IEnumerable<IRange<int>>
     {

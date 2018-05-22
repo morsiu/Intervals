@@ -7,30 +7,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Mors.Ranges.Test.Support.RangeGeneration
+namespace Mors.Ranges.Generation
 {
-    internal sealed class RangesOfAKind : IEnumerable<IRange<int>>
+    public sealed class AllNonNullPairsOfRangeKinds : IEnumerable<Tuple<RangeKind, RangeKind>>
     {
-        private readonly RangeKind _rangeKind;
-
-        public RangesOfAKind(RangeKind rangeKind)
+        public IEnumerator<Tuple<RangeKind, RangeKind>> GetEnumerator()
         {
-            _rangeKind = rangeKind;
-        }
-
-        public IEnumerator<IRange<int>> GetEnumerator()
-        {
-            switch (_rangeKind)
-            {
-                case RangeKind.NonEmpty:
-                    return new NonEmptyRanges().GetEnumerator();
-                case RangeKind.Empty:
-                    return new EmptyRanges().GetEnumerator();
-                case RangeKind.Null:
-                    return new NullRanges().GetEnumerator();
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            yield return Tuple.Create(RangeKind.Empty, RangeKind.Empty);
+            yield return Tuple.Create(RangeKind.NonEmpty, RangeKind.Empty);
+            yield return Tuple.Create(RangeKind.Empty, RangeKind.NonEmpty);
+            yield return Tuple.Create(RangeKind.NonEmpty, RangeKind.NonEmpty);
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -6,25 +6,30 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Mors.Ranges.Test.Support.RangeGeneration
+namespace Mors.Ranges.Generation
 {
-    internal sealed class AllRangeRelations : IEnumerable<RangeRelation>
+    internal sealed class PairsOfMixedRanges : IEnumerable<RangePair>
     {
-        public IEnumerator<RangeRelation> GetEnumerator()
+        private readonly RangeKind _rangeAKind;
+        private readonly RangeKind _rangeBKind;
+
+        public PairsOfMixedRanges(RangeKind rangeAKind, RangeKind rangeBKind)
         {
-            yield return RangeRelation.ABeforeB;
-            yield return RangeRelation.ABeforeBTouching;
-            yield return RangeRelation.ABeforeBIntersecting;
-            yield return RangeRelation.ASpanningB;
-            yield return RangeRelation.AAfterBIntersecting;
-            yield return RangeRelation.AAfterBTouching;
-            yield return RangeRelation.AAfterB;
-            yield return RangeRelation.ACoversBTouchingLeft;
-            yield return RangeRelation.ACoversB;
-            yield return RangeRelation.ACoversBTouchingRight;
-            yield return RangeRelation.AInsideBTouchingLeft;
-            yield return RangeRelation.AInsideB;
-            yield return RangeRelation.AInsideBTouchingRight;
+            _rangeAKind = rangeAKind;
+            _rangeBKind = rangeBKind;
+        }
+
+        public IEnumerator<RangePair> GetEnumerator()
+        {
+            var aRanges = new RangesOfAKind(_rangeAKind);
+            foreach (var rangeA in aRanges)
+            {
+                var bRanges = new RangesOfAKind(_rangeBKind);
+                foreach (var rangeB in bRanges)
+                {
+                    yield return new RangePair(rangeA, rangeB);
+                }
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

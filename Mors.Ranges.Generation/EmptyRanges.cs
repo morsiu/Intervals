@@ -7,17 +7,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Mors.Ranges.Test.Support.RangeGeneration
+namespace Mors.Ranges.Generation
 {
-    public sealed class AllNullPairsOfRangeKinds : IEnumerable<Tuple<RangeKind, RangeKind>>
+    internal sealed class EmptyRanges : IEnumerable<IRange<int>>
     {
-        public IEnumerator<Tuple<RangeKind, RangeKind>> GetEnumerator()
+        public IEnumerator<IRange<int>> GetEnumerator()
         {
-            yield return Tuple.Create(RangeKind.Null, RangeKind.Null);
-            yield return Tuple.Create(RangeKind.Null, RangeKind.Empty);
-            yield return Tuple.Create(RangeKind.Empty, RangeKind.Null);
-            yield return Tuple.Create(RangeKind.Null, RangeKind.NonEmpty);
-            yield return Tuple.Create(RangeKind.NonEmpty, RangeKind.Null);
+            yield return Range.Empty<int>();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

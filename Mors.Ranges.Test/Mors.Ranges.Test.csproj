@@ -11,6 +11,7 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mors.Ranges.Generation\Mors.Ranges.Generation.csproj" />
     <ProjectReference Include="..\Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj" />
     <ProjectReference Include="..\Mors.Ranges.Sequences\Mors.Ranges.Sequences.csproj" />
     <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />

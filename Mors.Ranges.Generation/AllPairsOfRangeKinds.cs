@@ -3,33 +3,25 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Mors.Ranges.Test.Support.RangeGeneration
+namespace Mors.Ranges.Generation
 {
-    internal sealed class PairsOfMixedRanges : IEnumerable<RangePair>
+    public sealed class AllPairsOfRangeKinds : IEnumerable<Tuple<RangeKind, RangeKind>>
     {
-        private readonly RangeKind _rangeAKind;
-        private readonly RangeKind _rangeBKind;
-
-        public PairsOfMixedRanges(RangeKind rangeAKind, RangeKind rangeBKind)
+        public IEnumerator<Tuple<RangeKind, RangeKind>> GetEnumerator()
         {
-            _rangeAKind = rangeAKind;
-            _rangeBKind = rangeBKind;
-        }
-
-        public IEnumerator<RangePair> GetEnumerator()
-        {
-            var aRanges = new RangesOfAKind(_rangeAKind);
-            foreach (var rangeA in aRanges)
-            {
-                var bRanges = new RangesOfAKind(_rangeBKind);
-                foreach (var rangeB in bRanges)
-                {
-                    yield return new RangePair(rangeA, rangeB);
-                }
-            }
+            yield return Tuple.Create(RangeKind.Empty, RangeKind.Empty);
+            yield return Tuple.Create(RangeKind.NonEmpty, RangeKind.Empty);
+            yield return Tuple.Create(RangeKind.Empty, RangeKind.NonEmpty);
+            yield return Tuple.Create(RangeKind.NonEmpty, RangeKind.NonEmpty);
+            yield return Tuple.Create(RangeKind.Null, RangeKind.Null);
+            yield return Tuple.Create(RangeKind.Null, RangeKind.Empty);
+            yield return Tuple.Create(RangeKind.Empty, RangeKind.Null);
+            yield return Tuple.Create(RangeKind.Null, RangeKind.NonEmpty);
+            yield return Tuple.Create(RangeKind.NonEmpty, RangeKind.Null);
         }
 
         IEnumerator IEnumerable.GetEnumerator()
