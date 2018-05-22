@@ -3,16 +3,32 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Mors.Ranges.Test.Support.RangeOperations
+using System;
+
+namespace Mors.Ranges.Operations.Reference
 {
-    public static class CoversOperation
+    internal sealed class BoolCharacters
     {
-        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        private readonly char _trueCharacter;
+        private readonly char _falseCharacter;
+
+        public BoolCharacters(
+            char trueCharacter,
+            char falseCharacter)
         {
-            if (rangeA.IsEmpty || rangeB.IsEmpty) return false;
-            var intersection = IntersectOperation.Calculate(rangeA, rangeB);
-            var bEqualsIntersection = EqualsOperation.Calculate(intersection, rangeB);
-            return bEqualsIntersection;
+            if (trueCharacter == falseCharacter)
+            {
+                throw new ArgumentException("The characters for true and false are identical.");
+            }
+            _trueCharacter = trueCharacter;
+            _falseCharacter = falseCharacter;
+        }
+
+        public bool Bool(char character)
+        {
+            if (character == _trueCharacter) return true;
+            if (character == _falseCharacter) return false;
+            throw new ArgumentException("The character does not represent any boolean value.", nameof(character));
         }
     }
 }

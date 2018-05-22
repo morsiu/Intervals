@@ -6,7 +6,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
+namespace Mors.Ranges.Operations.Reference
 {
     internal sealed class StateTableBuilder<TRowInput, TColumnInput, TOutput>
     {

@@ -3,28 +3,20 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Mors.Ranges.Test.Support.RangeOperations.StateMachines;
-using Mors.Ranges.Sequences;
-
-namespace Mors.Ranges.Test.Support.RangeOperations
+namespace Mors.Ranges.Operations.Reference
 {
-    public static class SpanOperation
+    internal sealed class StateMachine<TInput, TOutput>
     {
-        private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
+        private readonly StateTable<TInput, TOutput> _stateTable;
 
-        private static readonly StateTable<PointTypePair, PointType> States =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', '=', '=', '=', '=')
-            .AppendRow('x', '=', 'x', 'x', 'x')
-            .AppendRow('o', '=', 'x', 'o', 'o')
-            .AppendRow('-', '=', 'x', 'o', '-')
-            .Build(Characters.PointTypePair, Characters.PointType);
-
-        public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public StateMachine(StateTable<TInput, TOutput> stateTable)
         {
-            var output = RangeOperations.Zip(rangeA, rangeB, States);
-            return output;
+            _stateTable = stateTable;
+        }
+
+        public TOutput Run(TInput points)
+        {
+            return _stateTable.Match(points);
         }
     }
 }

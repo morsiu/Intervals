@@ -5,10 +5,9 @@
 
 using System;
 using System.Linq;
-using Mors.Ranges.Test.Support.RangeOperations.StateMachines;
 using Mors.Ranges.Sequences;
 
-namespace Mors.Ranges.Test.Support.RangeOperations
+namespace Mors.Ranges.Operations.Reference
 {
     internal static class RangeOperations
     {

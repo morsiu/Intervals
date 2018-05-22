@@ -3,25 +3,28 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Collections.Generic;
+using Mors.Ranges.Sequences;
 
-namespace Mors.Ranges.Test.Support.RangeOperations.StateMachines
+namespace Mors.Ranges.Operations.Reference
 {
-    internal sealed class StateTable<TInput, TOutput>
+    public static class IntersectsWithOperation
     {
-        private readonly IReadOnlyDictionary<TInput, TOutput> _states;
+        private static readonly PointTypeCharacters PointTypeCharacters = new PointTypeCharacters('-', '=', 'x', 'o');
+        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
 
-        public StateTable(IReadOnlyDictionary<TInput, TOutput> states)
+        private static readonly StateTable<PointTypePair, bool> States =
+            new StateTableBuilder<char, char, char>()
+            .AssumingHeader('=', 'x', 'o', '-')
+            .AppendRow('=', '#', '#', ' ', ' ')
+            .AppendRow('x', '#', '#', ' ', ' ')
+            .AppendRow('o', ' ', ' ', ' ', ' ')
+            .AppendRow('-', ' ', ' ', ' ', ' ')
+            .Build(PointTypeCharacters.PointTypePair, BoolCharacters.Bool);
+
+        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            _states = states;
-        }
-
-        public int Count => _states.Count;
-
-        public TOutput Match(TInput input)
-        {
-            var output = _states[input];
-            return output;
+            var anyIntersection = RangeOperations.Any(rangeA, rangeB, output => output, States);
+            return anyIntersection;
         }
     }
 }

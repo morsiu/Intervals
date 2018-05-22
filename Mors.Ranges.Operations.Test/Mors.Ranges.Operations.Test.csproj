@@ -18,7 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Mors.Ranges.Generation\Mors.Ranges.Generation.csproj" />
     <ProjectReference Include="..\Mors.Ranges.Operations\Mors.Ranges.Operations.csproj" />
-    <ProjectReference Include="..\Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj" />
+    <ProjectReference Include="..\Mors.Ranges.Operations.Reference\Mors.Ranges.Operations.Reference.csproj" />
     <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
   </ItemGroup>
   <ItemGroup>

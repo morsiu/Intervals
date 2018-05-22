@@ -6,7 +6,7 @@
 using NUnit.Framework;
 using System;
 using Mors.Ranges.Generation;
-using Mors.Ranges.Test.Support.RangeOperations;
+using Mors.Ranges.Operations.Reference;
 
 namespace Mors.Ranges
 {

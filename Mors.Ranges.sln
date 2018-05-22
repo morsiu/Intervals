@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges", "Mors.Ranges\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Test", "Mors.Ranges.Test\Mors.Ranges.Test.csproj", "{9E565880-651D-4529-9288-EDE823AD9863}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Test.Support", "Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj", "{157AD3AA-90CA-48C9-B54E-1671CC4597A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Operations.Reference", "Mors.Ranges.Operations.Reference\Mors.Ranges.Operations.Reference.csproj", "{157AD3AA-90CA-48C9-B54E-1671CC4597A9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Operations", "Mors.Ranges.Operations\Mors.Ranges.Operations.csproj", "{F81B5682-FEF3-4BF6-8CE3-D5A8E255610D}"
 EndProject
