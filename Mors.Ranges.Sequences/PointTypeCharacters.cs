@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Mors.Ranges.Text
+namespace Mors.Ranges.Sequences
 {
     public sealed class PointTypeCharacters
     {
@@ -37,10 +37,10 @@ namespace Mors.Ranges.Text
 
         public PointType? MaybePointType(char character)
         {
-            if (character == _uncoveredPoint) return Text.PointType.Uncovered;
-            if (character == _coveredPoint) return Text.PointType.Covered;
-            if (character == _openEndPoint) return Text.PointType.OpenEnd;
-            if (character == _closedEndPoint) return Text.PointType.ClosedEnd;
+            if (character == _uncoveredPoint) return Sequences.PointType.Uncovered;
+            if (character == _coveredPoint) return Sequences.PointType.Covered;
+            if (character == _openEndPoint) return Sequences.PointType.OpenEnd;
+            if (character == _closedEndPoint) return Sequences.PointType.ClosedEnd;
             return null;
         }
 

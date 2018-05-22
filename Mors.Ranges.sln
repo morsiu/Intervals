@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Operations", "M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Operations.Test", "Mors.Ranges.Operations.Test\Mors.Ranges.Operations.Test.csproj", "{47230097-1F50-405E-83FF-E52B6AA6FD89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Text", "Mors.Ranges.Text\Mors.Ranges.Text.csproj", "{A7054041-D6BD-4E1A-BFD5-4C077FEEA933}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Sequences", "Mors.Ranges.Sequences\Mors.Ranges.Sequences.csproj", "{A7054041-D6BD-4E1A-BFD5-4C077FEEA933}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Text.Tests", "Mors.Ranges.Text.Tests\Mors.Ranges.Text.Tests.csproj", "{D5266733-971E-48D9-A3DB-5D73EC054DCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Sequences.Tests", "Mors.Ranges.Sequences.Tests\Mors.Ranges.Sequences.Tests.csproj", "{D5266733-971E-48D9-A3DB-5D73EC054DCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

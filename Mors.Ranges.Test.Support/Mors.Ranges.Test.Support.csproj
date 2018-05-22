@@ -6,7 +6,7 @@
     <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mors.Ranges.Sequences\Mors.Ranges.Sequences.csproj" />
     <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
-    <ProjectReference Include="..\Mors.Ranges.Text\Mors.Ranges.Text.csproj" />
   </ItemGroup>
 </Project>

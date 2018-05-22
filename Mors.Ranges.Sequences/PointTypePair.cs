@@ -5,7 +5,7 @@
 
 using System;
 
-namespace Mors.Ranges.Text
+namespace Mors.Ranges.Sequences
 {
     public struct PointTypePair : IEquatable<PointTypePair>
     {

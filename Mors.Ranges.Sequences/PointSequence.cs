@@ -8,7 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Mors.Ranges.Text
+namespace Mors.Ranges.Sequences
 {
     public sealed class PointSequence : IEnumerable<PointType>
     {

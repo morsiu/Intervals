@@ -12,8 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.Ranges.Test.Support\Mors.Ranges.Test.Support.csproj" />
+    <ProjectReference Include="..\Mors.Ranges.Sequences\Mors.Ranges.Sequences.csproj" />
     <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
-    <ProjectReference Include="..\Mors.Ranges.Text\Mors.Ranges.Text.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />

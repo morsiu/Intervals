@@ -6,7 +6,7 @@
 using NUnit.Framework;
 using System;
 
-namespace Mors.Ranges.Text
+namespace Mors.Ranges.Sequences
 {
     [TestFixture]
     internal class PointTypeCharactersTests
