@@ -15,7 +15,7 @@ namespace Mors.Ranges.Sequences.Tests
         [TestCaseSource(nameof(ValidRangeCases))]
         public Range ShouldReturnExpectedRangeForValidString(string @string)
         {
-            var parser = new RangesInSequence(new TestablePointSequence(@string, 1));
+            var parser = new RangesInPointSequence(new TestablePointSequence(@string, 1));
             return parser.SingleOrDefault();
         }
 
@@ -23,8 +23,8 @@ namespace Mors.Ranges.Sequences.Tests
         [TestCaseSource(nameof(TextRangesWithUnexpectedInput))]
         public void ShouldThrowExceptionForUnexpectedInput(string @string)
         {
-            var parser = new RangesInSequence(new TestablePointSequence(@string, 1));
-            Assert.Throws<RangesInSequence.UnexpectedInputException>(
+            var parser = new RangesInPointSequence(new TestablePointSequence(@string, 1));
+            Assert.Throws<RangesInPointSequence.UnexpectedInputException>(
                 () => parser.LastOrDefault());
         }
 
@@ -32,8 +32,8 @@ namespace Mors.Ranges.Sequences.Tests
         [TestCaseSource(nameof(TextRangesWithUnexpectedEndOfInput))]
         public void ShouldThrowExceptionForUnexpectedEndOfInput(string @string)
         {
-            var parser = new RangesInSequence(new TestablePointSequence(@string, 1));
-            Assert.Throws<RangesInSequence.UnexpectedEndOfInputException>(
+            var parser = new RangesInPointSequence(new TestablePointSequence(@string, 1));
+            Assert.Throws<RangesInPointSequence.UnexpectedEndOfInputException>(
                 () => parser.LastOrDefault());
         }
 
