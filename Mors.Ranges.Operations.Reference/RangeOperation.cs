@@ -11,24 +11,44 @@ namespace Mors.Ranges.Operations.Reference
 {
     internal static class RangeOperations
     {
-        public static IRange<int> Zip(IRange<int> rangeA, IRange<int> rangeB, StateTable<PointTypePair, PointType> stateTable)
+        public static IRange<int> Zip(
+            IRange<int> rangeA,
+            IRange<int> rangeB,
+            StateTable<PointTypePair, PointType> stateTable)
         {
-            var rangePair = new PointSequencePair(
-                PointSequence.FromRange(rangeA),
-                PointSequence.FromRange(rangeB));
-            var stateMachine = new StateMachine<PointTypePair, PointType>(stateTable);
-            var output = rangePair.Zip(stateMachine.Run);
-            return output.ToRange();
+            var result =
+                new RangesInSequence(
+                        new PointSequenceWithoutSingleOpenPoints(
+                            new ZippedPointSequence(
+                                !rangeA.IsEmpty
+                                    ? new PointSequenceFromRange(rangeA.Start, rangeA.End, rangeA.HasOpenStart, rangeA.HasOpenEnd)
+                                    : (IPointSequence)new EmptyPointSequence(),
+                                !rangeB.IsEmpty
+                                    ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
+                                    : (IPointSequence)new EmptyPointSequence(),
+                                new StateMachine<PointTypePair, PointType>(stateTable).Run)))
+                    .FirstOrDefault();
+            return result == null
+                ? Range.Empty<int>()
+                : Range.Create(result.Start, result.End, result.HasOpenStart, result.HasOpenEnd);
         }
 
-        public static bool Any<TValue>(IRange<int> rangeA, IRange<int> rangeB, Func<TValue, bool> predicate, StateTable<PointTypePair, TValue> stateTable)
+        public static bool Any<TValue>(
+            IRange<int> rangeA,
+            IRange<int> rangeB,
+            Func<TValue, bool> predicate,
+            StateTable<PointTypePair, TValue> stateTable)
         {
-            var rangePair = new PointSequencePair(
-                PointSequence.FromRange(rangeA),
-                PointSequence.FromRange(rangeB));
-            var stateMachine = new StateMachine<PointTypePair, TValue>(stateTable);
-            var output = rangePair.Zip<TValue>(stateMachine.Run);
-            return output.Any(predicate);
+            var result =
+                new ZipOfPointSequences<TValue>(
+                    !rangeA.IsEmpty
+                        ? new PointSequenceFromRange(rangeA.Start, rangeA.End, rangeA.HasOpenStart, rangeA.HasOpenEnd)
+                        : (IPointSequence)new EmptyPointSequence(),
+                    !rangeB.IsEmpty
+                        ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
+                        : (IPointSequence)new EmptyPointSequence(),
+                    new StateMachine<PointTypePair, TValue>(stateTable).Run);
+            return result.Any(predicate);
         }
     }
 }
