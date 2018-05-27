@@ -10,11 +10,11 @@ using System.Linq;
 
 namespace Mors.Ranges.Sequences
 {
-    public sealed class RangesInSequence : IEnumerable<Range>
+    public sealed class RangesInPointSequence : IEnumerable<Range>
     {
         private readonly IPointSequence _sequence;
 
-        public RangesInSequence(IPointSequence sequence)
+        public RangesInPointSequence(IPointSequence sequence)
         {
             _sequence = sequence;
         }
