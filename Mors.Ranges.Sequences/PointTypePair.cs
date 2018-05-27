@@ -51,5 +51,7 @@ namespace Mors.Ranges.Sequences
         {
             return !left.Equals(right);
         }
+
+        public override string ToString() => $"{_pointA}, {_pointB}";
     }
 }
