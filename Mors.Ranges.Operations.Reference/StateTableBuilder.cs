@@ -5,12 +5,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mors.Ranges.Operations.Reference
 {
     internal sealed class StateTableBuilder<TRowInput, TColumnInput, TOutput>
     {
-        private readonly Dictionary<Input, TOutput> _states = new Dictionary<Input, TOutput>();
+        private readonly Dictionary<(TRowInput Row, TColumnInput Column), TOutput> _states = new Dictionary<(TRowInput, TColumnInput), TOutput>();
         private TColumnInput[] _columns;
 
         public StateTableBuilder<TRowInput, TColumnInput, TOutput> AssumingHeader(params TColumnInput[] columns)
@@ -25,7 +26,7 @@ namespace Mors.Ranges.Operations.Reference
             foreach (var output in outputs)
             {
                 var column = _columns[index];
-                _states.Add(new Input(row, column), output);
+                _states.Add((row, column), output);
                 ++index;
             }
             return this;
@@ -35,62 +36,10 @@ namespace Mors.Ranges.Operations.Reference
             Func<TRowInput, TColumnInput, TInput> inputMerger,
             Func<TOutput, TOutput2> outputConverter)
         {
-            var states = MergeInputsAndConvertOutputs(inputMerger, outputConverter);
-            return new StateTable<TInput, TOutput2>(states);
-        }
-
-        private Dictionary<TInput, TOutput2> MergeInputsAndConvertOutputs<TInput, TOutput2>(
-            Func<TRowInput, TColumnInput, TInput> inputMerger,
-            Func<TOutput, TOutput2> outputConverter)
-        {
-            var states = new Dictionary<TInput, TOutput2>();
-            foreach (var state in _states)
-            {
-                var input = state.Key;
-                var output = state.Value;
-                var mergedInput = input.Merge(inputMerger);
-                var convertedOutput = outputConverter(output);
-                states.Add(mergedInput, convertedOutput);
-            }
-            return states;
-        }
-
-        private struct Input
-        {
-            private readonly TColumnInput _columnInput;
-            private readonly TRowInput _rowInput;
-
-            public Input(TRowInput rowInput, TColumnInput columnInput)
-                : this()
-            {
-                _rowInput = rowInput;
-                _columnInput = columnInput;
-            }
-
-            public TState Merge<TState>(Func<TRowInput, TColumnInput, TState> merger)
-            {
-                return merger(_rowInput, _columnInput);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    return (ReferenceEquals(_columnInput, null) ? 0 : _columnInput.GetHashCode() * 137)
-                        ^ (ReferenceEquals(_rowInput, null) ? 0 : _rowInput.GetHashCode());
-                }
-            }
-
-            public override bool Equals(object obj)
-            {
-                return obj is Input
-                    && Equals((Input)obj);
-            }
-
-            private bool Equals(Input other)
-            {
-                return Equals(other._rowInput, _rowInput) && Equals(other._columnInput, _columnInput);
-            }
+            return new StateTable<TInput, TOutput2>(
+                _states.ToDictionary(
+                    x => inputMerger(x.Key.Row, x.Key.Column),
+                    x => outputConverter(x.Value)));
         }
     }
 }
