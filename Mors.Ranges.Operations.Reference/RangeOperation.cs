@@ -26,7 +26,7 @@ namespace Mors.Ranges.Operations.Reference
                                 !rangeB.IsEmpty
                                     ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
                                     : (IPointSequence)new EmptyPointSequence(),
-                                new StateMachine<PointTypePair, PointType>(stateTable).Run)))
+                                stateTable.Match)))
                     .FirstOrDefault();
             return result == null
                 ? Range.Empty<int>()
@@ -47,7 +47,7 @@ namespace Mors.Ranges.Operations.Reference
                     !rangeB.IsEmpty
                         ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
                         : (IPointSequence)new EmptyPointSequence(),
-                    new StateMachine<PointTypePair, TValue>(stateTable).Run);
+                    stateTable.Match);
             return result.Any(predicate);
         }
     }
