@@ -49,7 +49,6 @@ namespace Mors.Ranges.Sequences
             }
 
             public PointType Type { get; }
-            public Index Index => Position.Index();
             public Position Position { get; }
         }
 
@@ -57,17 +56,8 @@ namespace Mors.Ranges.Sequences
         {
             private readonly int _position;
             public Position(int position) => _position = position;
-            public Index Index() => new Index(_position + 1);
             public override string ToString() => _position.ToString();
             public static implicit operator int(Position x) => x._position;
-        }
-
-        public readonly struct Index
-        {
-            private readonly int _index;
-            public Index(int index) => _index = index;
-            public Position Position() => new Position(_index + 1);
-            public override string ToString() => _index.ToString();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -205,7 +195,7 @@ namespace Mors.Ranges.Sequences
             }
 
             public override string Message =>
-                $"Unexpected point type {_point.Type} at index {_point.Index} in state {_stateName}";
+                $"Unexpected point type {_point.Type} at position {_point.Position} in state {_stateName}";
         }
 
         public sealed class UnexpectedEndOfInputException : Exception
