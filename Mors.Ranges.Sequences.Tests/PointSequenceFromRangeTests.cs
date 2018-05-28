@@ -15,15 +15,15 @@ namespace Mors.Ranges.Sequences.Tests
             yield return new TestCaseData(new Range(0, 0, true, true)).Returns(new TestablePointSequence("-", 0));
             yield return new TestCaseData(new Range(0, 0, false, true)).Returns(new TestablePointSequence("-", 0));
             yield return new TestCaseData(new Range(0, 0, true, false)).Returns(new TestablePointSequence("-", 0));
-            yield return new TestCaseData(new Range(0, 0, false, false)).Returns(new TestablePointSequence("x", 0));
-            yield return new TestCaseData(new Range(0, 1, false, false)).Returns(new TestablePointSequence("xx", 0));
-            yield return new TestCaseData(new Range(0, 1, true, false)).Returns(new TestablePointSequence("ox", 0));
-            yield return new TestCaseData(new Range(0, 1, false, true)).Returns(new TestablePointSequence("xo", 0));
-            yield return new TestCaseData(new Range(0, 1, true, true)).Returns(new TestablePointSequence("oo", 0));
-            yield return new TestCaseData(new Range(0, 2, false, false)).Returns(new TestablePointSequence("x=x", 0));
-            yield return new TestCaseData(new Range(0, 2, true, false)).Returns(new TestablePointSequence("o=x", 0));
-            yield return new TestCaseData(new Range(0, 2, false, true)).Returns(new TestablePointSequence("x=o", 0));
-            yield return new TestCaseData(new Range(0, 2, true, true)).Returns(new TestablePointSequence("o=o", 0));
+            yield return new TestCaseData(new Range(0, 0, false, false)).Returns(new TestablePointSequence("#", 0));
+            yield return new TestCaseData(new Range(0, 1, false, false)).Returns(new TestablePointSequence("[]", 0));
+            yield return new TestCaseData(new Range(0, 1, true, false)).Returns(new TestablePointSequence("(]", 0));
+            yield return new TestCaseData(new Range(0, 1, false, true)).Returns(new TestablePointSequence("[)", 0));
+            yield return new TestCaseData(new Range(0, 1, true, true)).Returns(new TestablePointSequence("()", 0));
+            yield return new TestCaseData(new Range(0, 2, false, false)).Returns(new TestablePointSequence("[=]", 0));
+            yield return new TestCaseData(new Range(0, 2, true, false)).Returns(new TestablePointSequence("(=]", 0));
+            yield return new TestCaseData(new Range(0, 2, false, true)).Returns(new TestablePointSequence("[=)", 0));
+            yield return new TestCaseData(new Range(0, 2, true, true)).Returns(new TestablePointSequence("(=)", 0));
         }
 
         [Test]
@@ -33,6 +33,5 @@ namespace Mors.Ranges.Sequences.Tests
             return new TestablePointSequence(
                 new PointSequenceFromRange(input.Start, input.End, input.HasOpenStart, input.HasOpenEnd));
         }
-
     }
 }

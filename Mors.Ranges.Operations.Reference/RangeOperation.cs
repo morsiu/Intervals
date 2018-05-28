@@ -18,15 +18,14 @@ namespace Mors.Ranges.Operations.Reference
         {
             var result =
                 new RangesInPointSequence(
-                        new PointSequenceWithoutSingleOpenPoints(
-                            new ZippedPointSequence(
-                                !rangeA.IsEmpty
-                                    ? new PointSequenceFromRange(rangeA.Start, rangeA.End, rangeA.HasOpenStart, rangeA.HasOpenEnd)
-                                    : (IPointSequence)new EmptyPointSequence(),
-                                !rangeB.IsEmpty
-                                    ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
-                                    : (IPointSequence)new EmptyPointSequence(),
-                                stateTable.Match)))
+                        new ZippedPointSequence(
+                            !rangeA.IsEmpty
+                                ? new PointSequenceFromRange(rangeA.Start, rangeA.End, rangeA.HasOpenStart, rangeA.HasOpenEnd)
+                                : (IPointSequence)new EmptyPointSequence(),
+                            !rangeB.IsEmpty
+                                ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
+                                : (IPointSequence)new EmptyPointSequence(),
+                            stateTable.Match))
                     .FirstOrDefault();
             return result == null
                 ? Range.Empty<int>()

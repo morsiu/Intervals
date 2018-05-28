@@ -7,14 +7,6 @@ namespace Mors.Ranges.Sequences
 {
     public enum PointType
     {
-        Uncovered = 0,
-        Covered = 1,
-        ClosedEnd = 2,
-        OpenEnd = 3
-    }
-
-    public enum PointType2
-    {
         Outside,
         OpenStart,
         ClosedStart,

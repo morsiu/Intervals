@@ -33,8 +33,7 @@ namespace Mors.Ranges.Sequences
                     },
                     x =>
                     {
-                        var result = x.State.Last();
-                        if (result != null) x.Results.Add(result);
+                        x.State.Last();
                         return x.Results;
                     })
                 .GetEnumerator();
@@ -69,84 +68,71 @@ namespace Mors.Ranges.Sequences
         {
             (IState State, Range Result) Next(in Point point);
 
-            Range Last();
+            void Last();
         }
 
         private sealed class Outside : IState
         {
-            public Range Last()
+            public void Last()
             {
-                return null;
             }
 
             public (IState State, Range Result) Next(in Point point)
             {
                 switch (point.Type)
                 {
-                    case PointType.Uncovered:
+                    case PointType.Outside:
                         return (this, null);
-                    case PointType.OpenEnd:
-                        return (new OpenStart(point.Position), null);
-                    case PointType.ClosedEnd:
-                        return (new ClosedStart(point.Position), null);
+                    case PointType.ClosedStart:
+                        return (new Inside(point.Position, false), null);
+                    case PointType.OpenStart:
+                        return (new Inside(point.Position, true), null);
+                    case PointType.ClosedStartAndEnd:
+                        return (new OutsideAfterOnePointRange(), new Range(point.Position, point.Position, false, false));
                     default:
                         throw new UnexpectedInputException(point, "Outside");
                 }
             }
         }
-
-        private sealed class OpenStart : IState
+        
+        private sealed class OutsideAfterClosedEnd : IState
         {
-            private readonly Position _start;
-
-            public OpenStart(Position start) => _start = start;
-
-            public Range Last()
+            public void Last()
             {
-                throw new UnexpectedEndOfInputException("OpenStart");
             }
 
             public (IState State, Range Result) Next(in Point point)
             {
                 switch (point.Type)
                 {
-                    case PointType.Covered:
-                        return (new Inside(_start, true), null);
-                    case PointType.ClosedEnd:
-                        return (new Outside(), new Range(_start, point.Position, true, false));
-                    case PointType.OpenEnd:
-                        return (new Outside(), new Range(_start, point.Position, true, true));
+                    case PointType.Outside:
+                        return (new Outside(), null);
+                    case PointType.ClosedStart:
+                        return (new Inside(point.Position, false), null);
+                    case PointType.OpenStart:
+                        return (new Inside(point.Position, true), null);
                     default:
-                        throw new UnexpectedInputException(point, "OpenStart");
+                        throw new UnexpectedInputException(point, "Outside");
                 }
             }
         }
-
-        private sealed class ClosedStart : IState
+        
+        private sealed class OutsideAfterOnePointRange : IState
         {
-            private readonly Position _start;
-
-            public ClosedStart(Position start) => _start = start;
-
-            public Range Last()
+            public void Last()
             {
-                return new Range(_start, _start, false, false);
             }
 
             public (IState State, Range Result) Next(in Point point)
             {
                 switch (point.Type)
                 {
-                    case PointType.Uncovered:
-                        return (new Outside(), new Range(_start, _start, false, false));
-                    case PointType.Covered:
-                        return (new Inside(_start, false), null);
-                    case PointType.ClosedEnd:
-                        return (new Outside(), new Range(_start, point.Position, false, false));
-                    case PointType.OpenEnd:
-                        return (new Outside(), new Range(_start, point.Position, false, true));
+                    case PointType.Outside:
+                        return (new Outside(), null);
+                    case PointType.OpenStart:
+                        return (new Inside(point.Position, true), null);
                     default:
-                        throw new UnexpectedInputException(point, "Start");
+                        throw new UnexpectedInputException(point, "Outside");
                 }
             }
         }
@@ -162,7 +148,7 @@ namespace Mors.Ranges.Sequences
                 _hasOpenStart = hasOpenStart;
             }
 
-            public Range Last()
+            public void Last()
             {
                 throw new UnexpectedEndOfInputException("Inside");
             }
@@ -171,12 +157,12 @@ namespace Mors.Ranges.Sequences
             {
                 switch (point.Type)
                 {
-                    case PointType.Covered:
-                        return (this, null);
                     case PointType.OpenEnd:
                         return (new Outside(), new Range(_start, point.Position, _hasOpenStart, true));
                     case PointType.ClosedEnd:
-                        return (new Outside(), new Range(_start, point.Position, _hasOpenStart, false));
+                        return (new OutsideAfterClosedEnd(), new Range(_start, point.Position, _hasOpenStart, false));
+                    case PointType.Inside:
+                        return (this, null);
                     default:
                         throw new UnexpectedInputException(point, "Inside");
                 }

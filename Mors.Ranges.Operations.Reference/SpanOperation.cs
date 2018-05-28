@@ -9,16 +9,17 @@ namespace Mors.Ranges.Operations.Reference
 {
     public static class SpanOperation
     {
-        private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
-
         private static readonly StateTable<PointTypePair, PointType> States =
             new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', '=', '=', '=', '=')
-            .AppendRow('x', '=', 'x', 'x', 'x')
-            .AppendRow('o', '=', 'x', 'o', 'o')
-            .AppendRow('-', '=', 'x', 'o', '-')
-            .Build(Characters.PointTypePair, Characters.PointType);
+            .AssumingHeader('-', '(', '[', '#', '=', ')', ']')
+            .AppendRow('-', '-', '(', '[', '#', '=', ')', ']')
+            .AppendRow('(', '(', '(', '[', '[', '=', '=', '=')
+            .AppendRow('[', '[', '[', '[', '[', '=', '=', '=')
+            .AppendRow('#', '#', '[', '[', '#', '=', ']', ']')
+            .AppendRow('=', '=', '=', '=', '=', '=', '=', '=')
+            .AppendRow(')', ')', '=', '=', ']', '=', ')', ']')
+            .AppendRow(']', ']', '=', '=', ']', '=', ']', ']')
+            .Build(PointTypeCharacters.PointTypePair, PointTypeCharacters.PointType);
 
         public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {

@@ -40,21 +40,7 @@ namespace Mors.Ranges.Sequences.Tests
         public override int GetHashCode() =>
             new PointSequenceEqualityComparer().GetHashCode(this);
 
-        public override string ToString()
-        {
-            return $"{Start}: {string.Concat(this.Select(PointTypeCharacter))}";
-
-            char PointTypeCharacter(PointType pointType)
-            {
-                switch (pointType)
-                {
-                    case PointType.ClosedEnd: return 'x';
-                    case PointType.Covered: return '=';
-                    case PointType.OpenEnd: return 'o';
-                    case PointType.Uncovered: return '-';
-                    default: throw new ArgumentException($"The point type {pointType} is not supported.", nameof(pointType));
-                }
-            }
-        }
+        public override string ToString() =>
+            $"{Start}: {string.Concat(this.Select(PointTypeCharacters.Character))}";
     }
 }

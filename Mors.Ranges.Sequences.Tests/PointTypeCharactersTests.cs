@@ -4,7 +4,6 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using NUnit.Framework;
-using System;
 
 namespace Mors.Ranges.Sequences
 {
@@ -12,57 +11,24 @@ namespace Mors.Ranges.Sequences
     internal class PointTypeCharactersTests
     {
         [Test]
-        [TestCase('#', '#', '3', '4')]
-        [TestCase('#', '2', '#', '4')]
-        [TestCase('#', '2', '3', '#')]
-        [TestCase('1', '#', '#', '4')]
-        [TestCase('1', '#', '3', '#')]
-        [TestCase('1', '2', '#', '#')]
-        [TestCase('#', '#', '#', '4')]
-        [TestCase('#', '#', '3', '#')]
-        [TestCase('#', '2', '#', '#')]
-        [TestCase('1', '#', '#', '#')]
-        [TestCase('#', '#', '#', '#')]
-        public void ConstructorShouldThrowArgumentExceptionGivenIdenticalCharactersForDifferentPointTypes(
-            char uncoveredPoint,
-            char coveredPoint,
-            char closedEndPoint,
-            char openEndPoint)
+        [TestCase('-', ExpectedResult = PointType.Outside)]
+        [TestCase('(', ExpectedResult = PointType.OpenStart)]
+        [TestCase('[', ExpectedResult = PointType.ClosedStart)]
+        [TestCase('#', ExpectedResult = PointType.ClosedStartAndEnd)]
+        [TestCase('=', ExpectedResult = PointType.Inside)]
+        [TestCase(')', ExpectedResult = PointType.OpenEnd)]
+        [TestCase(']', ExpectedResult = PointType.ClosedEnd)]
+        public PointType? PointTypeShouldReturnCorrespondingPointTypeGivenCharacterWithAssignedPointType(char pointType)
         {
-            Assert.Throws<ArgumentException>(
-                () => { var unused = new PointTypeCharacters(uncoveredPoint, coveredPoint, closedEndPoint, openEndPoint); });
-        }
-
-        [Test]
-        [TestCase('a', ExpectedResult = PointType.Uncovered)]
-        [TestCase('b', ExpectedResult = PointType.Covered)]
-        [TestCase('c', ExpectedResult = PointType.ClosedEnd)]
-        [TestCase('d', ExpectedResult = PointType.OpenEnd)]
-        public PointType? PointTypeShouldReturnCorrespondingPointTypeGivenCharacterWithAssignedPointType(char character)
-        {
-            var characters = new PointTypeCharacters('a', 'b', 'c', 'd');
-            return characters.MaybePointType(character);
+            return PointTypeCharacters.MaybePointType(pointType);
         }
 
         [Test]
         public void PointTypeShouldReturnNullGivenCharacterWithoutAssignedPointType()
         {
-            var characters = new PointTypeCharacters('a', 'b', 'c', 'd');
             Assert.AreEqual(
                 default(PointType?),
-                characters.MaybePointType('#'));
-        }
-
-        [Test]
-        // This test is for character to point type lookup array used inside matcher,
-        // which assumes specific integer values for point types.
-        [TestCase(PointType.Uncovered, ExpectedResult = 0)]
-        [TestCase(PointType.Covered, ExpectedResult = 1)]
-        [TestCase(PointType.ClosedEnd, ExpectedResult = 2)]
-        [TestCase(PointType.OpenEnd, ExpectedResult = 3)]
-        public int PointTypeShouldHaveSpecificIntegerValue(PointType type)
-        {
-            return (int)type;
+                PointTypeCharacters.MaybePointType('_'));
         }
     }
 }

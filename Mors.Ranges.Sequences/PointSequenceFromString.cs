@@ -25,10 +25,9 @@ namespace Mors.Ranges.Sequences
 
         public IEnumerator<PointType> GetEnumerator()
         {
-            var characters = new PointTypeCharacters('-', '=', 'x', 'o');
             return _string
                 .Cast<char>()
-                .Select(x => characters.PointType(x))
+                .Select(PointTypeCharacters.PointType)
                 .GetEnumerator();
         }
 
