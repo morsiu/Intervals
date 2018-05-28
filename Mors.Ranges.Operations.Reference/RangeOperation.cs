@@ -17,7 +17,7 @@ namespace Mors.Ranges.Operations.Reference
             StateTable<PointTypePair, PointType> stateTable)
         {
             var result =
-                new RangesInSequence(
+                new RangesInPointSequence(
                         new PointSequenceWithoutSingleOpenPoints(
                             new ZippedPointSequence(
                                 !rangeA.IsEmpty
