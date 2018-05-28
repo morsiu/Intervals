@@ -12,107 +12,106 @@ namespace Mors.Ranges.Sequences.Tests
     public class RangesInSequenceTests
     {
         [Test]
-        [TestCaseSource(nameof(ValidRangeCases))]
-        public Range ShouldReturnExpectedRangeForValidString(string @string)
+        [TestCaseSource(nameof(ValidStrings))]
+        public IEnumerable<Range> ShouldReturnExpectedRangeForValidString(string @string)
         {
-            var parser = new RangesInPointSequence(new TestablePointSequence(@string, 1));
-            return parser.SingleOrDefault();
+            return new RangesInPointSequence(new TestablePointSequence(@string, 1));
         }
 
         [Test]
-        [TestCaseSource(nameof(TextRangesWithUnexpectedInput))]
+        [TestCaseSource(nameof(StringsWithUnexpectedInput))]
         public void ShouldThrowExceptionForUnexpectedInput(string @string)
         {
-            var parser = new RangesInPointSequence(new TestablePointSequence(@string, 1));
+            var ranges = new RangesInPointSequence(new TestablePointSequence(@string, 1));
             Assert.Throws<RangesInPointSequence.UnexpectedInputException>(
-                () => parser.LastOrDefault());
+                () => ranges.LastOrDefault());
         }
 
         [Test]
-        [TestCaseSource(nameof(TextRangesWithUnexpectedEndOfInput))]
+        [TestCaseSource(nameof(StringsWithUnexpectedEndOfInput))]
         public void ShouldThrowExceptionForUnexpectedEndOfInput(string @string)
         {
-            var parser = new RangesInPointSequence(new TestablePointSequence(@string, 1));
+            var ranges = new RangesInPointSequence(new TestablePointSequence(@string, 1));
             Assert.Throws<RangesInPointSequence.UnexpectedEndOfInputException>(
-                () => parser.LastOrDefault());
+                () => ranges.LastOrDefault());
         }
 
-        public static IEnumerable<TestCaseData> ValidRangeCases
+        public static IEnumerable<TestCaseData> ValidStrings()
         {
-            get
-            {
-                yield return new TestCaseData("").Returns(null);
-                yield return new TestCaseData("-").Returns(null);
+            yield return new TestCaseData("").Returns(NoRanges());
+            yield return new TestCaseData("-").Returns(NoRanges());
 
-                yield return new TestCaseData("x").Returns(new Range(1, 1, false, false));
-                yield return new TestCaseData("-x").Returns(new Range(2, 2, false, false));
-                yield return new TestCaseData("x-").Returns(new Range(1, 1, false, false));
-                yield return new TestCaseData("-x-").Returns(new Range(2, 2, false, false));
-                yield return new TestCaseData("xx").Returns(new Range(1, 2, false, false));
-                yield return new TestCaseData("-xx").Returns(new Range(2, 3, false, false));
-                yield return new TestCaseData("xx-").Returns(new Range(1, 2, false, false));
-                yield return new TestCaseData("-xx-").Returns(new Range(2, 3, false, false));
-                yield return new TestCaseData("x=x").Returns(new Range(1, 3, false, false));
-                yield return new TestCaseData("-x=x").Returns(new Range(2, 4, false, false));
-                yield return new TestCaseData("x=x-").Returns(new Range(1, 3, false, false));
-                yield return new TestCaseData("-x=x-").Returns(new Range(2, 4, false, false));
+            yield return new TestCaseData("#").Returns(Ranges(Closed(1, 1)));
+            yield return new TestCaseData("-#").Returns(Ranges(Closed(2, 2)));
+            yield return new TestCaseData("#-").Returns(Ranges(Closed(1, 1)));
+            yield return new TestCaseData("-#-").Returns(Ranges(Closed(2, 2)));
+            yield return new TestCaseData("[]").Returns(Ranges(Closed(1, 2)));
+            yield return new TestCaseData("-[]").Returns(Ranges(Closed(2, 3)));
+            yield return new TestCaseData("[]-").Returns(Ranges(Closed(1, 2)));
+            yield return new TestCaseData("-[]-").Returns(Ranges(Closed(2, 3)));
+            yield return new TestCaseData("[=]").Returns(Ranges(Closed(1, 3)));
+            yield return new TestCaseData("-[=]").Returns(Ranges(Closed(2, 4)));
+            yield return new TestCaseData("[=]-").Returns(Ranges(Closed(1, 3)));
+            yield return new TestCaseData("-[=]-").Returns(Ranges(Closed(2, 4)));
 
-                yield return new TestCaseData("oo").Returns(new Range(1, 2, true, true));
-                yield return new TestCaseData("-oo").Returns(new Range(2, 3, true, true));
-                yield return new TestCaseData("oo-").Returns(new Range(1, 2, true, true));
-                yield return new TestCaseData("-oo-").Returns(new Range(2, 3, true, true));
-                yield return new TestCaseData("o=o").Returns(new Range(1, 3, true, true));
-                yield return new TestCaseData("-o=o").Returns(new Range(2, 4, true, true));
-                yield return new TestCaseData("o=o-").Returns(new Range(1, 3, true, true));
-                yield return new TestCaseData("-o=o-").Returns(new Range(2, 4, true, true));
+            yield return new TestCaseData("()").Returns(Ranges(Open(1, 2)));
+            yield return new TestCaseData("-()").Returns(Ranges(Open(2, 3)));
+            yield return new TestCaseData("()-").Returns(Ranges(Open(1, 2)));
+            yield return new TestCaseData("-()-").Returns(Ranges(Open(2, 3)));
+            yield return new TestCaseData("(=)").Returns(Ranges(Open(1, 3)));
+            yield return new TestCaseData("-(=)").Returns(Ranges(Open(2, 4)));
+            yield return new TestCaseData("(=)-").Returns(Ranges(Open(1, 3)));
+            yield return new TestCaseData("-(=)-").Returns(Ranges(Open(2, 4)));
 
-                yield return new TestCaseData("xo").Returns(new Range(1, 2, false, true));
-                yield return new TestCaseData("-xo").Returns(new Range(2, 3, false, true));
-                yield return new TestCaseData("xo-").Returns(new Range(1, 2, false, true));
-                yield return new TestCaseData("-xo-").Returns(new Range(2, 3, false, true));
-                yield return new TestCaseData("x=o").Returns(new Range(1, 3, false, true));
-                yield return new TestCaseData("-x=o").Returns(new Range(2, 4, false, true));
-                yield return new TestCaseData("x=o-").Returns(new Range(1, 3, false, true));
-                yield return new TestCaseData("-x=o-").Returns(new Range(2, 4, false, true));
+            yield return new TestCaseData("[)").Returns(Ranges(RightOpen(1, 2)));
+            yield return new TestCaseData("-[)").Returns(Ranges(RightOpen(2, 3)));
+            yield return new TestCaseData("[)-").Returns(Ranges(RightOpen(1, 2)));
+            yield return new TestCaseData("-[)-").Returns(Ranges(RightOpen(2, 3)));
+            yield return new TestCaseData("[=)").Returns(Ranges(RightOpen(1, 3)));
+            yield return new TestCaseData("-[=)").Returns(Ranges(RightOpen(2, 4)));
+            yield return new TestCaseData("[=)-").Returns(Ranges(RightOpen(1, 3)));
+            yield return new TestCaseData("-[=)-").Returns(Ranges(RightOpen(2, 4)));
 
-                yield return new TestCaseData("ox").Returns(new Range(1, 2, true, false));
-                yield return new TestCaseData("-ox").Returns(new Range(2, 3, true, false));
-                yield return new TestCaseData("ox-").Returns(new Range(1, 2, true, false));
-                yield return new TestCaseData("-ox-").Returns(new Range(2, 3, true, false));
-                yield return new TestCaseData("o=x").Returns(new Range(1, 3, true, false));
-                yield return new TestCaseData("-o=x").Returns(new Range(2, 4, true, false));
-                yield return new TestCaseData("o=x-").Returns(new Range(1, 3, true, false));
-                yield return new TestCaseData("-o=x-").Returns(new Range(2, 4, true, false));
-            }
+            yield return new TestCaseData("(]").Returns(Ranges(LeftOpen(1, 2)));
+            yield return new TestCaseData("-(]").Returns(Ranges(LeftOpen(2, 3)));
+            yield return new TestCaseData("(]-").Returns(Ranges(LeftOpen(1, 2)));
+            yield return new TestCaseData("-(]-").Returns(Ranges(LeftOpen(2, 3)));
+            yield return new TestCaseData("(=]").Returns(Ranges(LeftOpen(1, 3)));
+            yield return new TestCaseData("-(=]").Returns(Ranges(LeftOpen(2, 4)));
+            yield return new TestCaseData("(=]-").Returns(Ranges(LeftOpen(1, 3)));
+            yield return new TestCaseData("-(=]-").Returns(Ranges(LeftOpen(2, 4)));
+            
+            yield return new TestCaseData("#(]").Returns(Ranges(Closed(1, 1), LeftOpen(2, 3)));
+            yield return new TestCaseData("[)#").Returns(Ranges(RightOpen(1, 2), Closed(3, 3)));
+
+            IEnumerable<Range> NoRanges() => Enumerable.Empty<Range>();
+            IEnumerable<Range> Ranges(params Range[] ranges) => ranges;
+            Range Open(int start, int end) => new Range(start, end, true, true);
+            Range Closed(int start, int end) => new Range(start, end, false, false);
+            Range LeftOpen(int start, int end) => new Range(start, end, true, false);
+            Range RightOpen(int start, int end) => new Range(start, end, false, true);
         }
 
-        public static IEnumerable<string> TextRangesWithUnexpectedInput
+        public static IEnumerable<string> StringsWithUnexpectedInput()
         {
-            get
-            {
-                yield return "-=";
-                yield return "=";
-                yield return "x-=";
-                yield return "x=-";
-                yield return "x=x=";
-                yield return "x=o=";
-                yield return "o-=";
-                yield return "o-x";
-                yield return "o-o";
-                yield return "o=-";
-                yield return "o=x=";
-                yield return "o=o=";
-            }
+            yield return "=";
+            yield return ")";
+            yield return "]";
+            yield return "(#";
+            yield return "[#";
+            yield return "(-";
+            yield return "((";
+            yield return "##";
+            yield return "#[]";
+            yield return "[]#";
         }
 
-        public static IEnumerable<string> TextRangesWithUnexpectedEndOfInput
+        public static IEnumerable<string> StringsWithUnexpectedEndOfInput()
         {
-            get
-            {
-                yield return "x-o";
-                yield return "x=";
-                yield return "o=";
-            }
+            yield return "[";
+            yield return "(";
+            yield return "[=";
+            yield return "(=";
         }
     }
 }

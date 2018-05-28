@@ -37,6 +37,6 @@ namespace Mors.Ranges.Sequences
             (((((Start * 397) ^ End) * 397) ^ HasOpenStart.GetHashCode()) * 397) ^ HasOpenEnd.GetHashCode();
 
         public override string ToString() =>
-            string.Concat(HasOpenStart ? '(' : '<', Start, ", ", End, HasOpenEnd ? ')' : '>');
+            string.Concat(HasOpenStart ? '(' : '[', Start, ", ", End, HasOpenEnd ? ')' : ']');
     }
 }

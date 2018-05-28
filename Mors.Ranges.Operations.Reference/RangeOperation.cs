@@ -49,14 +49,12 @@ namespace Mors.Ranges.Operations.Reference
             IPointSequence sequence)
         {
             var result =
-                new RangesInPointSequence(
-                        new PointSequenceWithoutSingleOpenPoints(sequence))
+                new RangesInPointSequence(sequence)
                     .FirstOrDefault();
             return result == null
                 ? Range.Empty<int>()
                 : Range.Create(result.Start, result.End, result.HasOpenStart, result.HasOpenEnd);
         }
-
 
         public static bool Any<TValue>(
             IRange<int> rangeA,

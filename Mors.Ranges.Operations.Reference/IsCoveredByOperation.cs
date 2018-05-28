@@ -3,26 +3,10 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Mors.Ranges.Sequences;
-
 namespace Mors.Ranges.Operations.Reference
 {
     public static class IsCoveredByOperation
     {
-        private static readonly PointTypeCharacters PointTypeCharacters = new PointTypeCharacters('-', '=', 'x', 'o');
-        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
-
-        // ReSharper disable once UnusedMember.Local
-        // Left for documentation purposes
-        private static readonly StateTable<PointTypePair, bool> States =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', ' ', '#', '#', '#')
-            .AppendRow('x', ' ', ' ', '#', '#')
-            .AppendRow('o', ' ', ' ', ' ', '#')
-            .AppendRow('-', ' ', ' ', ' ', ' ')
-            .Build(PointTypeCharacters.PointTypePair, BoolCharacters.Bool);
-
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
             return CoversOperation.Calculate(rangeB, rangeA);

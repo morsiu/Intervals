@@ -9,16 +9,18 @@ namespace Mors.Ranges.Operations.Reference
 {
     public static class EqualsOperation
     {
-        private static readonly PointTypeCharacters PointTypeCharacters = new PointTypeCharacters('-', '=', 'x', 'o');
         private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
 
         private static readonly StateTable<PointTypePair, bool> States =
             new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', '#', ' ', ' ', ' ')
-            .AppendRow('x', ' ', '#', ' ', ' ')
-            .AppendRow('o', ' ', ' ', '#', ' ')
-            .AppendRow('-', ' ', ' ', ' ', '#')
+            .AssumingHeader('-', '(', '[', '#', '=', ')', ']')
+            .AppendRow('-', '#', ' ', ' ', ' ', ' ', ' ', ' ')
+            .AppendRow('(', ' ', '#', ' ', ' ', ' ', ' ', ' ')
+            .AppendRow('[', ' ', ' ', '#', ' ', ' ', ' ', ' ')
+            .AppendRow('#', ' ', ' ', ' ', '#', ' ', ' ', ' ')
+            .AppendRow('=', ' ', ' ', ' ', ' ', '#', ' ', ' ')
+            .AppendRow(')', ' ', ' ', ' ', ' ', ' ', '#', ' ')
+            .AppendRow(']', ' ', ' ', ' ', ' ', ' ', ' ', '#')
             .Build(PointTypeCharacters.PointTypePair, BoolCharacters.Bool);
 
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)

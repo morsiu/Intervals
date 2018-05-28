@@ -10,8 +10,6 @@ namespace Mors.Ranges.Operations.Reference
 {
     public static class SpanOperation
     {
-        private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
-
         private enum State
         {
             BeforeOrAfter,
@@ -61,12 +59,12 @@ namespace Mors.Ranges.Operations.Reference
 
         private static (State, PointType) StateAndPointType(string stateAndPointTypeCharacters)
         {
-            return (ToState(stateAndPointTypeCharacters[0]), Characters.PointType(stateAndPointTypeCharacters[1]));
+            return (ToState(stateAndPointTypeCharacters[0]), PointTypeCharacters.PointType(stateAndPointTypeCharacters[1]));
         }
 
         private static (State, PointTypePair) StateAndPointTypePair(string stateAndPointTypeCharacters, char pointTypeCharacter)
         {
-            return (ToState(stateAndPointTypeCharacters[0]), Characters.PointTypePair(stateAndPointTypeCharacters[1], pointTypeCharacter));
+            return (ToState(stateAndPointTypeCharacters[0]), PointTypeCharacters.PointTypePair(stateAndPointTypeCharacters[1], pointTypeCharacter));
         }
 
         private static State ToState(char stateCharacter)
@@ -78,7 +76,7 @@ namespace Mors.Ranges.Operations.Reference
                 case 'R': return State.InSecondRange;
                 case '2': return State.InBothRanges;
                 case 'B': return State.BetweenRanges;
-                default: throw new ArgumentOutOfRangeException(nameof(stateCharacter), stateCharacter, "Unknown state character");
+                default: throw new ArgumentOutOfRangeException(nameof(stateCharacter), stateCharacter, null);
             }
         }
     }

@@ -9,16 +9,17 @@ namespace Mors.Ranges.Operations.Reference
 {
     public static class IntersectOperation
     {
-        private static readonly PointTypeCharacters Characters = new PointTypeCharacters('-', '=', 'x', 'o');
-
         private static readonly StateTable<PointTypePair, PointType> States =
             new StateTableBuilder<char, char, char>()
-            .AssumingHeader('=', 'x', 'o', '-')
-            .AppendRow('=', '=', 'x', 'o', '-')
-            .AppendRow('x', 'x', 'x', 'o', '-')
-            .AppendRow('o', 'o', 'o', 'o', '-')
-            .AppendRow('-', '-', '-', '-', '-')
-            .Build(Characters.PointTypePair, Characters.PointType);
+            .AssumingHeader('-', '(', '[', '#', '=', ')', ']')
+            .AppendRow('-', '-', '-', '-', '-', '-', '-', '-')
+            .AppendRow('(', '-', '(', '(', '(', '(', '-', '-')
+            .AppendRow('[', '-', '(', '[', '[', '[', '-', '#')
+            .AppendRow('#', '-', '(', '[', '#', '=', ')', ']')
+            .AppendRow('=', '-', '(', '[', '=', '=', ')', ']')
+            .AppendRow(')', '-', '-', '-', ')', ')', ')', ')')
+            .AppendRow(']', '-', '-', '#', ']', ']', ')', ']')
+            .Build(PointTypeCharacters.PointTypePair, PointTypeCharacters.PointType);
 
         public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
