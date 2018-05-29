@@ -32,22 +32,33 @@ namespace Mors.Ranges.Sequences
 
         private sealed class Outside : StatefulSequence<PointType, Range>.IState
         {
+            public (bool HasOutput, Range Output) Output(in Element<PointType> point)
+            {
+                switch (point.Value)
+                {
+                    case PointType.ClosedStartAndEnd:
+                        return (true, new Range(point.Position, point.Position, false, false));
+                    default:
+                        return (false, default);
+                }
+            }
+
             public void Last()
             {
             }
 
-            public StatefulSequence<PointType, Range>.IStateOutput Next(in Element<PointType> point)
+            public StatefulSequence<PointType, Range>.IState Next(in Element<PointType> point)
             {
                 switch (point.Value)
                 {
                     case PointType.Outside:
-                        return new StateOutput(this);
+                        return this;
                     case PointType.ClosedStart:
-                        return new StateOutput(new Inside(point.Position, false));
+                        return new Inside(point.Position, false);
                     case PointType.OpenStart:
-                        return new StateOutput(new Inside(point.Position, true));
+                        return new Inside(point.Position, true);
                     case PointType.ClosedStartAndEnd:
-                        return new StateOutput(new OutsideAfterOnePointRange(), new Range(point.Position, point.Position, false, false));
+                        return new OutsideAfterOnePointRange();
                     default:
                         throw new UnexpectedInputException(point.Value, point.Position, "Outside");
                 }
@@ -56,20 +67,25 @@ namespace Mors.Ranges.Sequences
         
         private sealed class OutsideAfterClosedEnd : StatefulSequence<PointType, Range>.IState
         {
+            public (bool HasOutput, Range Output) Output(in Element<PointType> point)
+            {
+                return (false, default);
+            }
+
             public void Last()
             {
             }
 
-            public StatefulSequence<PointType, Range>.IStateOutput Next(in Element<PointType> point)
+            public StatefulSequence<PointType, Range>.IState Next(in Element<PointType> point)
             {
                 switch (point.Value)
                 {
                     case PointType.Outside:
-                        return new StateOutput(new Outside(), null);
+                        return new Outside();
                     case PointType.ClosedStart:
-                        return new StateOutput(new Inside(point.Position, false), null);
+                        return new Inside(point.Position, false);
                     case PointType.OpenStart:
-                        return new StateOutput(new Inside(point.Position, true), null);
+                        return new Inside(point.Position, true);
                     default:
                         throw new UnexpectedInputException(point.Value, point.Position, "Outside");
                 }
@@ -78,18 +94,23 @@ namespace Mors.Ranges.Sequences
         
         private sealed class OutsideAfterOnePointRange : StatefulSequence<PointType, Range>.IState
         {
+            public (bool HasOutput, Range Output) Output(in Element<PointType> point)
+            {
+                return (false, default);
+            }
+
             public void Last()
             {
             }
 
-            public StatefulSequence<PointType, Range>.IStateOutput Next(in Element<PointType> point)
+            public StatefulSequence<PointType, Range>.IState Next(in Element<PointType> point)
             {
                 switch (point.Value)
                 {
                     case PointType.Outside:
-                        return new StateOutput(new Outside(), null);
+                        return new Outside();
                     case PointType.OpenStart:
-                        return new StateOutput(new Inside(point.Position, true), null);
+                        return new Inside(point.Position, true);
                     default:
                         throw new UnexpectedInputException(point.Value, point.Position, "Outside");
                 }
@@ -107,49 +128,38 @@ namespace Mors.Ranges.Sequences
                 _hasOpenStart = hasOpenStart;
             }
 
+            public (bool HasOutput, Range Output) Output(in Element<PointType> point)
+            {
+                switch (point.Value)
+                {
+                    case PointType.OpenEnd:
+                        return (true, new Range(_start, point.Position, _hasOpenStart, true));
+                    case PointType.ClosedEnd:
+                        return (true, new Range(_start, point.Position, _hasOpenStart, false));
+                    default:
+                        return (false, default);
+                }
+            }
+
             public void Last()
             {
                 throw new UnexpectedEndOfInputException("Inside");
             }
 
-            public StatefulSequence<PointType, Range>.IStateOutput Next(in Element<PointType> point)
+            public StatefulSequence<PointType, Range>.IState Next(in Element<PointType> point)
             {
                 switch (point.Value)
                 {
                     case PointType.OpenEnd:
-                        return new StateOutput(new Outside(), new Range(_start, point.Position, _hasOpenStart, true));
+                        return new Outside();
                     case PointType.ClosedEnd:
-                        return new StateOutput(new OutsideAfterClosedEnd(), new Range(_start, point.Position, _hasOpenStart, false));
+                        return new OutsideAfterClosedEnd();
                     case PointType.Inside:
-                        return new StateOutput(this);
+                        return this;
                     default:
                         throw new UnexpectedInputException(point.Value, point.Position, "Inside");
                 }
             }
-        }
-
-        private sealed class StateOutput : StatefulSequence<PointType, Range>.IStateOutput
-        {
-            public StateOutput(StatefulSequence<PointType, Range>.IState nextState)
-                : this(nextState, false, default)
-            {
-            }
-
-            public StateOutput(StatefulSequence<PointType, Range>.IState nextState, Range output)
-                : this(nextState, true, output)
-            {
-            }
-
-            private StateOutput(StatefulSequence<PointType, Range>.IState nextState, bool hasOutput, Range output)
-            {
-                NextState = nextState;
-                HasOutput = hasOutput;
-                Output = output;
-            }
-
-            public bool HasOutput { get; }
-            public Range Output { get; }
-            public StatefulSequence<PointType, Range>.IState NextState { get; }
         }
     }
 }

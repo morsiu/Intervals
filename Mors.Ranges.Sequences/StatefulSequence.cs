@@ -20,13 +20,14 @@ namespace Mors.Ranges.Sequences
             var position = new Position(1);
             foreach (var input in _inputs)
             {
-                var stateOutput = state.Next(new Element<TInput>(input, position));
-                if (stateOutput.HasOutput)
+                var element = new Element<TInput>(input, position);
+                var (hasOutput, output) = state.Output(element);
+                if (hasOutput)
                 {
-                    yield return stateOutput.Output;
+                    yield return output;
                 }
                 position = position.Next();
-                state = stateOutput.NextState;
+                state = state.Next(element);
             }
             state.Last();
         }
@@ -35,16 +36,11 @@ namespace Mors.Ranges.Sequences
 
         public interface IState
         {
-            IStateOutput Next(in Element<TInput> input);
+            IState Next(in Element<TInput> point);
+
+            (bool HasOutput, TOutput Output) Output(in Element<TInput> point);
 
             void Last();
-        }
-
-        public interface IStateOutput
-        {
-            bool HasOutput { get; }
-            TOutput Output { get; }
-            IState NextState { get; }
         }
     }
 }
