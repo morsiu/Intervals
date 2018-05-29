@@ -21,123 +21,82 @@ namespace Mors.Ranges.Sequences
 
         public IEnumerator<Range> GetEnumerator()
         {
-            return _sequence
-                .Select((x, i) => new Point(x, new Position(_sequence.Start + i)))
-                .Aggregate(
-                    (State: (IState)new Outside(), Results: new List<Range>()),
-                    (x, y) =>
-                    {
-                        var(state, result) = x.State.Next(y);
-                        if (result != null) x.Results.Add(result);
-                        return (state, x.Results);
-                    },
-                    x =>
-                    {
-                        x.State.Last();
-                        return x.Results;
-                    })
-                .GetEnumerator();
+            return new StatefulSequence<PointType, Range>(new Outside(), _sequence).GetEnumerator();
         }
 
-        public readonly struct Point
-        {
-            public Point(PointType type, Position position)
-            {
-                Type = type;
-                Position = position;
-            }
-
-            public PointType Type { get; }
-            public Position Position { get; }
-        }
-
-        public readonly struct Position
-        {
-            private readonly int _position;
-            public Position(int position) => _position = position;
-            public override string ToString() => _position.ToString();
-            public static implicit operator int(Position x) => x._position;
-        }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }
 
-        private interface IState
-        {
-            (IState State, Range Result) Next(in Point point);
-
-            void Last();
-        }
-
-        private sealed class Outside : IState
+        private sealed class Outside : StatefulSequence<PointType, Range>.IState
         {
             public void Last()
             {
             }
 
-            public (IState State, Range Result) Next(in Point point)
+            public StatefulSequence<PointType, Range>.IStateOutput Next(in Element<PointType> point)
             {
-                switch (point.Type)
+                switch (point.Value)
                 {
                     case PointType.Outside:
-                        return (this, null);
+                        return new StateOutput(this);
                     case PointType.ClosedStart:
-                        return (new Inside(point.Position, false), null);
+                        return new StateOutput(new Inside(point.Position, false));
                     case PointType.OpenStart:
-                        return (new Inside(point.Position, true), null);
+                        return new StateOutput(new Inside(point.Position, true));
                     case PointType.ClosedStartAndEnd:
-                        return (new OutsideAfterOnePointRange(), new Range(point.Position, point.Position, false, false));
+                        return new StateOutput(new OutsideAfterOnePointRange(), new Range(point.Position, point.Position, false, false));
                     default:
-                        throw new UnexpectedInputException(point, "Outside");
+                        throw new UnexpectedInputException(point.Value, point.Position, "Outside");
                 }
             }
         }
         
-        private sealed class OutsideAfterClosedEnd : IState
+        private sealed class OutsideAfterClosedEnd : StatefulSequence<PointType, Range>.IState
         {
             public void Last()
             {
             }
 
-            public (IState State, Range Result) Next(in Point point)
+            public StatefulSequence<PointType, Range>.IStateOutput Next(in Element<PointType> point)
             {
-                switch (point.Type)
+                switch (point.Value)
                 {
                     case PointType.Outside:
-                        return (new Outside(), null);
+                        return new StateOutput(new Outside(), null);
                     case PointType.ClosedStart:
-                        return (new Inside(point.Position, false), null);
+                        return new StateOutput(new Inside(point.Position, false), null);
                     case PointType.OpenStart:
-                        return (new Inside(point.Position, true), null);
+                        return new StateOutput(new Inside(point.Position, true), null);
                     default:
-                        throw new UnexpectedInputException(point, "Outside");
+                        throw new UnexpectedInputException(point.Value, point.Position, "Outside");
                 }
             }
         }
         
-        private sealed class OutsideAfterOnePointRange : IState
+        private sealed class OutsideAfterOnePointRange : StatefulSequence<PointType, Range>.IState
         {
             public void Last()
             {
             }
 
-            public (IState State, Range Result) Next(in Point point)
+            public StatefulSequence<PointType, Range>.IStateOutput Next(in Element<PointType> point)
             {
-                switch (point.Type)
+                switch (point.Value)
                 {
                     case PointType.Outside:
-                        return (new Outside(), null);
+                        return new StateOutput(new Outside(), null);
                     case PointType.OpenStart:
-                        return (new Inside(point.Position, true), null);
+                        return new StateOutput(new Inside(point.Position, true), null);
                     default:
-                        throw new UnexpectedInputException(point, "Outside");
+                        throw new UnexpectedInputException(point.Value, point.Position, "Outside");
                 }
             }
         }
 
-        private sealed class Inside : IState
+        private sealed class Inside : StatefulSequence<PointType, Range>.IState
         {
             private readonly Position _start;
             private readonly bool _hasOpenStart;
@@ -153,48 +112,44 @@ namespace Mors.Ranges.Sequences
                 throw new UnexpectedEndOfInputException("Inside");
             }
 
-            public (IState State, Range Result) Next(in Point point)
+            public StatefulSequence<PointType, Range>.IStateOutput Next(in Element<PointType> point)
             {
-                switch (point.Type)
+                switch (point.Value)
                 {
                     case PointType.OpenEnd:
-                        return (new Outside(), new Range(_start, point.Position, _hasOpenStart, true));
+                        return new StateOutput(new Outside(), new Range(_start, point.Position, _hasOpenStart, true));
                     case PointType.ClosedEnd:
-                        return (new OutsideAfterClosedEnd(), new Range(_start, point.Position, _hasOpenStart, false));
+                        return new StateOutput(new OutsideAfterClosedEnd(), new Range(_start, point.Position, _hasOpenStart, false));
                     case PointType.Inside:
-                        return (this, null);
+                        return new StateOutput(this);
                     default:
-                        throw new UnexpectedInputException(point, "Inside");
+                        throw new UnexpectedInputException(point.Value, point.Position, "Inside");
                 }
             }
         }
 
-        public sealed class UnexpectedInputException : Exception
+        private sealed class StateOutput : StatefulSequence<PointType, Range>.IStateOutput
         {
-            private readonly Point _point;
-            private readonly string _stateName;
-
-            public UnexpectedInputException(Point point, string stateName)
+            public StateOutput(StatefulSequence<PointType, Range>.IState nextState)
+                : this(nextState, false, default)
             {
-                _point = point;
-                _stateName = stateName;
             }
 
-            public override string Message =>
-                $"Unexpected point type {_point.Type} at position {_point.Position} in state {_stateName}";
-        }
-
-        public sealed class UnexpectedEndOfInputException : Exception
-        {
-            private readonly string _stateName;
-
-            public UnexpectedEndOfInputException(string stateName)
+            public StateOutput(StatefulSequence<PointType, Range>.IState nextState, Range output)
+                : this(nextState, true, output)
             {
-                _stateName = stateName;
             }
 
-            public override string Message =>
-                $"Unexpected end of input in state {_stateName}";
+            private StateOutput(StatefulSequence<PointType, Range>.IState nextState, bool hasOutput, Range output)
+            {
+                NextState = nextState;
+                HasOutput = hasOutput;
+                Output = output;
+            }
+
+            public bool HasOutput { get; }
+            public Range Output { get; }
+            public StatefulSequence<PointType, Range>.IState NextState { get; }
         }
     }
 }

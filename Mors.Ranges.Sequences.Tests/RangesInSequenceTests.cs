@@ -23,7 +23,7 @@ namespace Mors.Ranges.Sequences.Tests
         public void ShouldThrowExceptionForUnexpectedInput(string @string)
         {
             var ranges = new RangesInPointSequence(new TestablePointSequence(@string, 1));
-            Assert.Throws<RangesInPointSequence.UnexpectedInputException>(
+            Assert.Throws<UnexpectedInputException>(
                 () => ranges.LastOrDefault());
         }
 
@@ -32,7 +32,7 @@ namespace Mors.Ranges.Sequences.Tests
         public void ShouldThrowExceptionForUnexpectedEndOfInput(string @string)
         {
             var ranges = new RangesInPointSequence(new TestablePointSequence(@string, 1));
-            Assert.Throws<RangesInPointSequence.UnexpectedEndOfInputException>(
+            Assert.Throws<UnexpectedEndOfInputException>(
                 () => ranges.LastOrDefault());
         }
 
