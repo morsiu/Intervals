@@ -11,7 +11,7 @@ namespace Mors.Ranges.Operations.Reference
         {
             if (rangeA.IsEmpty || rangeB.IsEmpty) return false;
             var intersection = IntersectOperation.Calculate(rangeA, rangeB);
-            var bEqualsIntersection = EqualsOperation.Calculate(intersection, rangeB);
+            var bEqualsIntersection = new EqualsOperation(intersection, rangeB).Result();
             return bEqualsIntersection;
         }
     }

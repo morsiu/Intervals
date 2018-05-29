@@ -7,13 +7,22 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public static class EqualsOperation
+    public sealed class EqualsOperation
     {
-        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        private readonly IRange<int> _first;
+        private readonly IRange<int> _second;
+
+        public EqualsOperation(IRange<int> first, IRange<int> second)
+        {
+            _first = first;
+            _second = second;
+        }
+
+        public bool Result()
         {
             return new PointSequenceEqualityComparer().Equals(
-                new PointSequenceFromRange(rangeA.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd),
-                new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd));
+                new PointSequenceFromRange(_first.Start, _second.End, _second.HasOpenStart, _second.HasOpenEnd),
+                new PointSequenceFromRange(_second.Start, _second.End, _second.HasOpenStart, _second.HasOpenEnd));
         }
     }
 }
