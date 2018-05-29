@@ -9,25 +9,11 @@ namespace Mors.Ranges.Operations.Reference
 {
     public static class EqualsOperation
     {
-        private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
-
-        private static readonly StateTable<PointTypePair, bool> States =
-            new StateTableBuilder<char, char, char>()
-            .AssumingHeader('-', '(', '[', '#', '=', ')', ']')
-            .AppendRow('-', '#', ' ', ' ', ' ', ' ', ' ', ' ')
-            .AppendRow('(', ' ', '#', ' ', ' ', ' ', ' ', ' ')
-            .AppendRow('[', ' ', ' ', '#', ' ', ' ', ' ', ' ')
-            .AppendRow('#', ' ', ' ', ' ', '#', ' ', ' ', ' ')
-            .AppendRow('=', ' ', ' ', ' ', ' ', '#', ' ', ' ')
-            .AppendRow(')', ' ', ' ', ' ', ' ', ' ', '#', ' ')
-            .AppendRow(']', ' ', ' ', ' ', ' ', ' ', ' ', '#')
-            .Build(PointTypeCharacters.PointTypePair, BoolCharacters.Bool);
-
         public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
         {
-            if (rangeA == null || rangeB == null) return rangeA == null && rangeB == null;
-            var notEquals = RangeOperations.Any(rangeA, rangeB, output => output == false, States);
-            return !notEquals;
+            return new PointSequenceEqualityComparer().Equals(
+                new PointSequenceFromRange(rangeA.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd),
+                new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd));
         }
     }
 }
