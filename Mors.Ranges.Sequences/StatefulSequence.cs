@@ -36,9 +36,9 @@ namespace Mors.Ranges.Sequences
 
         public interface IState
         {
-            IState Next(in Element<TInput> point);
+            IState Next(in Element<TInput> input);
 
-            (bool HasOutput, TOutput Output) Output(in Element<TInput> point);
+            (bool HasOutput, TOutput Output) Output(in Element<TInput> input);
 
             void Last();
         }
