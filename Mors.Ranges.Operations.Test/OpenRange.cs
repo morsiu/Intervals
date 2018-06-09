@@ -4,13 +4,19 @@
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations
 {
     public readonly struct OpenRange : IOpenRange<int>, IRange<int>, IEquatable<OpenRange>
     {
         private readonly IRange<int> _range;
-
+        
+        public OpenRange(IPointSequence pointSequence)
+            : this(new FirstRangeInPointSequence(pointSequence))
+        {
+        }
+        
         public OpenRange(IRange<int> range)
         {
             _range = range;
@@ -41,5 +47,8 @@ namespace Mors.Ranges.Operations
         public override int GetHashCode() => _range.GetHashCode();
 
         public override string ToString() => _range.ToString();
+
+        public IPointSequence PointSequence() =>
+            new PointSequenceFromRange(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
     }
 }

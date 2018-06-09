@@ -1,15 +1,21 @@
-// Copyright (C) 2017 Łukasz Mrozek
+﻿// Copyright (C) 2017 Łukasz Mrozek
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations
 {
     public readonly struct ClosedRange : IClosedRange<int>, IRange<int>, IEquatable<ClosedRange>
     {
         private readonly IRange<int> _range;
+
+        public ClosedRange(IPointSequence pointSequence)
+            : this(new FirstRangeInPointSequence(pointSequence))
+        {
+        }
 
         public ClosedRange(IRange<int> range)
         {
@@ -41,5 +47,8 @@ namespace Mors.Ranges.Operations
         public override int GetHashCode() => _range.GetHashCode();
 
         public override string ToString() => _range.ToString();
+
+        public IPointSequence PointSequence() =>
+            new PointSequenceFromRange(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
     }
 }
