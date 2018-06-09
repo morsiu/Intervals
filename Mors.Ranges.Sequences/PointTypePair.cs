@@ -53,5 +53,14 @@ namespace Mors.Ranges.Sequences
         }
 
         public override string ToString() => $"{_pointA}, {_pointB}";
+
+        public bool LeftIs(PointType first, PointType second) =>
+            _pointA == first || _pointA == second;
+
+        public bool RightIs(PointType first, PointType second) =>
+            _pointB == first || _pointB == second;
+
+        public bool LeftIs(PointType first) => _pointA == first;  
+        public bool RightIs(PointType first) => _pointB == first;  
     }
 }
