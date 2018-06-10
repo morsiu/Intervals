@@ -25,9 +25,8 @@ namespace Mors.Ranges
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
         public void IntersectsWithShouldReturnExpectedResult(RangePair testCase)
         {
-            var expected = IntersectsWithOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                expected,
+                IntersectsWithOperation.Calculate(testCase.RangeA.SequencesRange(), testCase.RangeB.SequencesRange()),
                 RangeOperations.IntersectsWith(testCase.RangeA, testCase.RangeB));
         }
 
@@ -43,9 +42,11 @@ namespace Mors.Ranges
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
         public void IntersectShouldReturnExpectedResult(RangePair testCase)
         {
-            var expected = IntersectOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                expected,
+                IntersectOperation.Calculate(
+                        testCase.RangeA.SequencesRange(),
+                        testCase.RangeB.SequencesRange())
+                    .Range(),
                 RangeOperations.Intersect(testCase.RangeA, testCase.RangeB));
         }
 
@@ -61,9 +62,8 @@ namespace Mors.Ranges
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
         public void CoversShouldReturnExpectedResult(RangePair testCase)
         {
-            var expected = CoversOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                expected,
+                CoversOperation.Calculate(testCase.RangeA.SequencesRange(), testCase.RangeB.SequencesRange()),
                 RangeOperations.Covers(testCase.RangeA, testCase.RangeB));
         }
 
@@ -79,9 +79,8 @@ namespace Mors.Ranges
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
         public void IsCoveredByShouldReturnExpectedResult(RangePair testCase)
         {
-            var expected = IsCoveredByOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                expected,
+                IsCoveredByOperation.Calculate(testCase.RangeA.SequencesRange(), testCase.RangeB.SequencesRange()),
                 RangeOperations.IsCoveredBy(testCase.RangeA, testCase.RangeB));
         }
 
@@ -97,9 +96,11 @@ namespace Mors.Ranges
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
         public void SpanShouldReturnExpectedResult(RangePair testCase)
         {
-            var expected = SpanOperation.Calculate(testCase.RangeA, testCase.RangeB);
             Assert.AreEqual(
-                expected,
+                SpanOperation.Calculate(
+                        testCase.RangeA.SequencesRange(),
+                        testCase.RangeB.SequencesRange())
+                    .Range(),
                 RangeOperations.Span(testCase.RangeA, testCase.RangeB));
         }
     }

@@ -8,6 +8,5 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.Ranges.Sequences\Mors.Ranges.Sequences.csproj" />
-    <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
   </ItemGroup>
 </Project>

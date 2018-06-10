@@ -11,72 +11,63 @@ namespace Mors.Ranges.Operations.Reference
 {
     internal static class RangeOperations
     {
-        public static IRange<int> Zip(
-            IRange<int> rangeA,
-            IRange<int> rangeB,
+        public static Range? Zip(
+            Range? rangeA,
+            Range? rangeB,
             StateTable<PointTypePair, PointType> stateTable)
         {
             return RangeFromSequence(
                 new ZippedPointSequence(
-                    !rangeA.IsEmpty
-                        ? new PointSequenceFromRange(rangeA.Start, rangeA.End, rangeA.HasOpenStart, rangeA.HasOpenEnd)
+                    rangeA is Range x
+                        ? new PointSequenceFromRange(x.Start, x.End, x.HasOpenStart, x.HasOpenEnd)
                         : (IPointSequence)new EmptyPointSequence(),
-                    !rangeB.IsEmpty
-                        ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
+                    rangeB is Range y
+                        ? new PointSequenceFromRange(y.Start, y.End, y.HasOpenStart, y.HasOpenEnd)
                         : (IPointSequence)new EmptyPointSequence(),
                     stateTable.Match));
         }
 
-        public static IRange<int> Zip<TState>(
-            IRange<int> rangeA,
-            IRange<int> rangeB,
+        public static Range? Zip<TState>(
+            Range? rangeA,
+            Range? rangeB,
             TState initialState,
             StateTable<(TState, PointTypePair), (TState, PointType)> stateTable)
         {
             return RangeFromSequence(
                 new ZippedPointSequence<TState>(
-                    !rangeA.IsEmpty
-                        ? new PointSequenceFromRange(rangeA.Start, rangeA.End, rangeA.HasOpenStart, rangeA.HasOpenEnd)
+                    rangeA is Range x
+                        ? new PointSequenceFromRange(x.Start, x.End, x.HasOpenStart, x.HasOpenEnd)
                         : (IPointSequence)new EmptyPointSequence(),
-                    !rangeB.IsEmpty
-                        ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
+                    rangeB is Range y
+                        ? new PointSequenceFromRange(y.Start, y.End, y.HasOpenStart, y.HasOpenEnd)
                         : (IPointSequence)new EmptyPointSequence(),
                     initialState,
                     stateTable.Match));
         }
 
-        private static IRange<int> RangeFromSequence(
+        private static Range? RangeFromSequence(
             IPointSequence sequence)
         {
-            var result =
-                new RangesInPointSequence(sequence)
-                    .Cast<Sequences.Range?>()
-                    .FirstOrDefault();
-            return result == null
-                ? Range.Empty<int>()
-                : Range.Create(
-                    result.Value.Start,
-                    result.Value.End,
-                    result.Value.HasOpenStart,
-                    result.Value.HasOpenEnd);
+            return new RangesInPointSequence(sequence)
+                .Cast<Range?>()
+                .FirstOrDefault();
         }
 
         public static bool Any<TValue>(
-            IRange<int> rangeA,
-            IRange<int> rangeB,
+            Range? rangeA,
+            Range? rangeB,
             Func<TValue, bool> predicate,
             StateTable<PointTypePair, TValue> stateTable)
         {
-            var result =
-                new ZipOfPointSequences<TValue>(
-                    !rangeA.IsEmpty
-                        ? new PointSequenceFromRange(rangeA.Start, rangeA.End, rangeA.HasOpenStart, rangeA.HasOpenEnd)
+            return new ZipOfPointSequences<TValue>(
+                    rangeA is Range x
+                        ? new PointSequenceFromRange(x.Start, x.End, x.HasOpenStart, x.HasOpenEnd)
                         : (IPointSequence)new EmptyPointSequence(),
-                    !rangeB.IsEmpty
-                        ? new PointSequenceFromRange(rangeB.Start, rangeB.End, rangeB.HasOpenStart, rangeB.HasOpenEnd)
+                    rangeB is Range y
+                        ? new PointSequenceFromRange(y.Start, y.End, y.HasOpenStart, y.HasOpenEnd)
                         : (IPointSequence)new EmptyPointSequence(),
-                    stateTable.Match);
-            return result.Any(predicate);
+                    stateTable.Match)
+                .Any(predicate);
         }
     }
 }

@@ -17,6 +17,18 @@ namespace Mors.Ranges.Operations
         {
         }
 
+        public ClosedRange(Sequences.Range? range)
+            : this(
+                range != null 
+                    ? Ranges.Range.Create(
+                        range.Value.Start,
+                        range.Value.End,
+                        range.Value.HasOpenStart,
+                        range.Value.HasOpenEnd)
+                    : Ranges.Range.Empty<int>())
+        {
+        }
+
         public ClosedRange(IRange<int> range)
         {
             if (range.HasOpenEnd || range.HasOpenStart)
@@ -48,6 +60,11 @@ namespace Mors.Ranges.Operations
 
         public override string ToString() => _range.ToString();
 
+        public Sequences.Range? Range() =>
+            _range.IsEmpty
+                ? default(Sequences.Range?)
+                : new Sequences.Range(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
+        
         public IPointSequence PointSequence() =>
             new PointSequenceFromRange(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
     }

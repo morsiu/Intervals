@@ -46,15 +46,9 @@ namespace Mors.Ranges.Operations.Reference
             .AppendRow("2=", "L=", "L=", "L=", "2=")
             .Build(StateAndPointTypePair, StateAndPointType);
 
-        public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public static Range? Calculate(Range? rangeA, Range? rangeB)
         {
-            var output =
-                rangeA.IsEmpty
-                    ? rangeB
-                    : rangeB.IsEmpty
-                        ? rangeA
-                        : RangeOperations.Zip(rangeA, rangeB, State.BeforeOrAfter, States);
-            return output;
+            return RangeOperations.Zip(rangeA, rangeB, State.BeforeOrAfter, States);
         }
 
         private static (State, PointType) StateAndPointType(string stateAndPointTypeCharacters)

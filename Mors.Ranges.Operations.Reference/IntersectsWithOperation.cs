@@ -23,7 +23,7 @@ namespace Mors.Ranges.Operations.Reference
             .AppendRow(']', ' ', ' ', '#', '#', '#', ' ', '#')
             .Build(PointTypeCharacters.PointTypePair, BoolCharacters.Bool);
 
-        public static bool Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public static bool Calculate(Range? rangeA, Range? rangeB)
         {
             var anyIntersection = RangeOperations.Any(rangeA, rangeB, output => output, States);
             return anyIntersection;

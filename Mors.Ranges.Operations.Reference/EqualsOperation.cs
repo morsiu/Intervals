@@ -9,10 +9,10 @@ namespace Mors.Ranges.Operations.Reference
 {
     public sealed class EqualsOperation
     {
-        private readonly IRange<int> _first;
-        private readonly IRange<int> _second;
+        private readonly Range? _first;
+        private readonly Range? _second;
 
-        public EqualsOperation(IRange<int> first, IRange<int> second)
+        public EqualsOperation(Range? first, Range? second)
         {
             _first = first;
             _second = second;
@@ -21,8 +21,12 @@ namespace Mors.Ranges.Operations.Reference
         public bool Result()
         {
             return new PointSequenceEqualityComparer().Equals(
-                new PointSequenceFromRange(_first.Start, _second.End, _second.HasOpenStart, _second.HasOpenEnd),
-                new PointSequenceFromRange(_second.Start, _second.End, _second.HasOpenStart, _second.HasOpenEnd));
+                _first is Range x
+                    ? new PointSequenceFromRange(x.Start, x.End,  x.HasOpenStart, x.HasOpenEnd)
+                    : (IPointSequence)new EmptyPointSequence(),
+                _second is Range y
+                    ? new PointSequenceFromRange(y.Start, y.End, y.HasOpenStart, y.HasOpenEnd)
+                    : (IPointSequence)new EmptyPointSequence());
         }
     }
 }

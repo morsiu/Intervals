@@ -11,27 +11,27 @@ namespace Mors.Ranges.Operations
     {
         public static bool Covers(OpenRange first, OpenRange second)
         {
-            return CoversOperation.Calculate(first, second);
+            return CoversOperation.Calculate(first.Range(), second.Range());
         }
 
         public static bool IntersectsWith(OpenRange first, OpenRange second)
         {
-            return IntersectsWithOperation.Calculate(first, second);
+            return IntersectsWithOperation.Calculate(first.Range(), second.Range());
         }
 
         public static OpenRange Intersect(OpenRange first, OpenRange second)
         {
-            return new OpenRange(IntersectOperation.Calculate(first, second));
+            return new OpenRange(IntersectOperation.Calculate(first.Range(), second.Range()));
         }
 
         public static bool IsCoveredBy(OpenRange first, OpenRange second)
         {
-            return IsCoveredByOperation.Calculate(first, second);
+            return IsCoveredByOperation.Calculate(first.Range(), second.Range());
         }
 
         public static OpenRange Span(OpenRange first, OpenRange second)
         {
-            return new OpenRange(SpanOperation.Calculate(first, second));
+            return new OpenRange(SpanOperation.Calculate(first.Range(), second.Range()));
         }
     }
 }

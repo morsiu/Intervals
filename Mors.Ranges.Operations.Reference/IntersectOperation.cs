@@ -21,7 +21,7 @@ namespace Mors.Ranges.Operations.Reference
             .AppendRow(']', '-', '-', '#', ']', ']', ')', ']')
             .Build(PointTypeCharacters.PointTypePair, PointTypeCharacters.PointType);
 
-        public static IRange<int> Calculate(IRange<int> rangeA, IRange<int> rangeB)
+        public static Range? Calculate(Range? rangeA, Range? rangeB)
         {
             var output = RangeOperations.Zip(rangeA, rangeB, States);
             return output;
