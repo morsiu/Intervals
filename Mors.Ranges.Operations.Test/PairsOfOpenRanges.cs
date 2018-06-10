@@ -13,8 +13,21 @@ namespace Mors.Ranges.Operations
     {
         public static IEnumerable<(OpenRange, OpenRange)> OfAllPossibleRelations()
         {
-            return new PairsOfRangesOfKinds(new AllNonNullPairsOfRangeKinds())
+            return new PairsOfRangesOfKinds<Ranges, IRange<int>>(new AllNonNullPairsOfRangeKinds())
                 .Select(x => (new OpenRange(x.RangeA), new OpenRange(x.RangeB)));
+        }
+
+        private struct Ranges : IRanges<IRange<int>>
+        {
+            public IRange<int> Empty()
+            {
+                return Range.Empty<int>();
+            }
+
+            public IRange<int> NonEmpty(int start, int end, bool isStartOpen, bool isEndOpen)
+            {
+                return Range.Create(start, end, isStartOpen, isEndOpen);
+            }
         }
     }
 }

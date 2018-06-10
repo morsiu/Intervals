@@ -5,18 +5,18 @@
 
 namespace Mors.Ranges.Generation
 {
-    public struct RangePair
+    public readonly struct RangePair<TRange>
     {
-        public RangePair(IRange<int> rangeA, IRange<int> rangeB)
+        public RangePair(TRange rangeA, TRange rangeB)
             : this()
         {
             RangeA = rangeA;
             RangeB = rangeB;
         }
 
-        public IRange<int> RangeA { get; }
+        public TRange RangeA { get; }
 
-        public IRange<int> RangeB { get; }
+        public TRange RangeB { get; }
 
         public override string ToString()
         {

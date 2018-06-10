@@ -17,7 +17,7 @@ namespace Mors.Ranges
     {
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNullRangePairs))]
-        public void IntersectsWithShouldThrowGivenNullRange(RangePair testCase)
+        public void IntersectsWithShouldThrowGivenNullRange(RangePair<IRange<int>> testCase)
         {
             Assert.Throws<ArgumentNullException>(
                 () => RangeOperations.IntersectsWith(testCase.RangeA, testCase.RangeB));
@@ -25,7 +25,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
-        public void IntersectsWithShouldReturnExpectedResult(RangePair testCase)
+        public void IntersectsWithShouldReturnExpectedResult(RangePair<IRange<int>> testCase)
         {
             Assert.AreEqual(
                 IntersectsWithOperation.Calculate(testCase.RangeA.SequencesRange(), testCase.RangeB.SequencesRange()),
@@ -34,7 +34,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNullRangePairs))]
-        public void IntersectShouldThrowGivenNullRange(RangePair testCase)
+        public void IntersectShouldThrowGivenNullRange(RangePair<IRange<int>> testCase)
         {
             Assert.Throws<ArgumentNullException>(
                 () => RangeOperations.Intersect(testCase.RangeA, testCase.RangeB));
@@ -42,7 +42,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
-        public void IntersectShouldReturnExpectedResult(RangePair testCase)
+        public void IntersectShouldReturnExpectedResult(RangePair<IRange<int>> testCase)
         {
             Assert.AreEqual(
                 IntersectOperation.Calculate(
@@ -54,7 +54,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNullRangePairs))]
-        public void CoversShouldThrowGivenNullRange(RangePair testCase)
+        public void CoversShouldThrowGivenNullRange(RangePair<IRange<int>> testCase)
         {
             Assert.Throws<ArgumentNullException>(
                 () => RangeOperations.Covers(testCase.RangeA, testCase.RangeB));
@@ -62,7 +62,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
-        public void CoversShouldReturnExpectedResult(RangePair testCase)
+        public void CoversShouldReturnExpectedResult(RangePair<IRange<int>> testCase)
         {
             Assert.AreEqual(
                 CoversOperation.Calculate(testCase.RangeA.SequencesRange(), testCase.RangeB.SequencesRange()),
@@ -71,7 +71,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNullRangePairs))]
-        public void IsCoveredByShouldThrowGivenNullRange(RangePair testCase)
+        public void IsCoveredByShouldThrowGivenNullRange(RangePair<IRange<int>> testCase)
         {
             Assert.Throws<ArgumentNullException>(
                 () => RangeOperations.IsCoveredBy(testCase.RangeA, testCase.RangeB));
@@ -79,7 +79,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
-        public void IsCoveredByShouldReturnExpectedResult(RangePair testCase)
+        public void IsCoveredByShouldReturnExpectedResult(RangePair<IRange<int>> testCase)
         {
             Assert.AreEqual(
                 IsCoveredByOperation.Calculate(testCase.RangeA.SequencesRange(), testCase.RangeB.SequencesRange()),
@@ -88,7 +88,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNullRangePairs))]
-        public void SpanShouldThrowGivenNullRange(RangePair testCase)
+        public void SpanShouldThrowGivenNullRange(RangePair<IRange<int>> testCase)
         {
             Assert.Throws<ArgumentNullException>(
                 () => RangeOperations.Span(testCase.RangeA, testCase.RangeB));
@@ -96,7 +96,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
-        public void SpanShouldReturnExpectedResult(RangePair testCase)
+        public void SpanShouldReturnExpectedResult(RangePair<IRange<int>> testCase)
         {
             var expected =
                 new RangesInPointSequence(

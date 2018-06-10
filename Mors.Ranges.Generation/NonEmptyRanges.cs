@@ -8,9 +8,10 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation
 {
-    internal sealed class NonEmptyRanges : IEnumerable<IRange<int>>
+    internal sealed class NonEmptyRanges<TRanges, TRange> : IEnumerable<TRange>
+        where TRanges : struct, IRanges<TRange>
     {
-        public IEnumerator<IRange<int>> GetEnumerator()
+        public IEnumerator<TRange> GetEnumerator()
         {
             foreach (var rangeEnd in new AllRangeEnds())
             {
@@ -23,11 +24,11 @@ namespace Mors.Ranges.Generation
             return GetEnumerator();
         }
 
-        private static IRange<int> GenerateNonEmptyRange(int start, int end, RangeEnds ends)
+        private static TRange GenerateNonEmptyRange(int start, int end, RangeEnds ends)
         {
             var hasOpenStart = ends == RangeEnds.LeftOpen;
             var hasOpenEnd = ends == RangeEnds.RightOpen;
-            var range = Range.Create(start, end, hasOpenStart, hasOpenEnd);
+            var range = default(TRanges).NonEmpty(start, end, hasOpenStart, hasOpenEnd);
             return range;
         }
     }

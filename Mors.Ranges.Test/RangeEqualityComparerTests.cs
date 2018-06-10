@@ -21,7 +21,7 @@ namespace Mors.Ranges
 
         [Test]
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllRangePairs))]
-        public void EqualsShouldReturnExpectedResult(RangePair testCase)
+        public void EqualsShouldReturnExpectedResult(RangePair<IRange<int>> testCase)
         {
             Assert.AreEqual(
                 testCase.RangeA != null && testCase.RangeB != null

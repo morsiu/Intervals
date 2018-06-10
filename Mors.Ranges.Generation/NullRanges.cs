@@ -8,9 +8,10 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation
 {
-    internal sealed class NullRanges : IEnumerable<IRange<int>>
+    internal sealed class NullRanges<TRange> : IEnumerable<TRange>
+        where TRange : class
     {
-        public IEnumerator<IRange<int>> GetEnumerator()
+        public IEnumerator<TRange> GetEnumerator()
         {
             yield return null;
         }

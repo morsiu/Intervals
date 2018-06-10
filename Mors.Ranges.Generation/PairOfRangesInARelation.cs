@@ -7,7 +7,8 @@ using System;
 
 namespace Mors.Ranges.Generation
 {
-    internal struct PairOfRangesInARelation
+    internal struct PairOfRangesInARelation<TRanges, TRange>
+        where TRanges : struct, IRanges<TRange>
     {
         private readonly RangeRelation _rangeRelation;
 
@@ -16,7 +17,7 @@ namespace Mors.Ranges.Generation
             _rangeRelation = rangeRelation;
         }
 
-        public RangePair RangePair(RangeEnds rangeAEnds, RangeEnds rangeBEnds)
+        public RangePair<TRange> RangePair(RangeEnds rangeAEnds, RangeEnds rangeBEnds)
         {
             switch (_rangeRelation)
             {
@@ -51,20 +52,20 @@ namespace Mors.Ranges.Generation
             }
         }
 
-        private static RangePair RangePair(
+        private static RangePair<TRange> RangePair(
             int rangeAStart, int rangeAEnd, RangeEnds rangeAEnds,
             int rangeBStart, int rangeBEnd, RangeEnds rangeBEnds)
         {
             var rangeA = Range(rangeAStart, rangeAEnd, rangeAEnds);
             var rangeB = Range(rangeBStart, rangeBEnd, rangeBEnds);
-            return new RangePair(rangeA, rangeB);
+            return new RangePair<TRange>(rangeA, rangeB);
         }
 
-        private static IRange<int> Range(int start, int end, RangeEnds ends)
+        private static TRange Range(int start, int end, RangeEnds ends)
         {
             var hasOpenStart = ends == RangeEnds.LeftOpen;
             var hasOpenEnd = ends == RangeEnds.RightOpen;
-            var range = Ranges.Range.Create(start, end, hasOpenStart, hasOpenEnd);
+            var range = default(TRanges).NonEmpty(start, end, hasOpenStart, hasOpenEnd);
             return range;
         }
     }

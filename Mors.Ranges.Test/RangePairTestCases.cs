@@ -10,31 +10,39 @@ namespace Mors.Ranges
 {
     public static class RangePairTestCases
     {
-        public static IEnumerable<RangePair> AllRangePairs
+        public static IEnumerable<RangePair<IRange<int>>> AllRangePairs
         {
             get
             {
-                var pairs = new PairsOfRangesOfKinds(new AllPairsOfRangeKinds());
+                var pairs = new PairsOfRangesOfKinds<Ranges, IRange<int>>(new AllPairsOfRangeKinds());
                 return pairs;
             }
         }
 
-        public static IEnumerable<RangePair> AllNonNullRangePairs
+        public static IEnumerable<RangePair<IRange<int>>> AllNonNullRangePairs
         {
             get
             {
-                var pairs = new PairsOfRangesOfKinds(new AllNonNullPairsOfRangeKinds());
+                var pairs = new PairsOfRangesOfKinds<Ranges, IRange<int>>(new AllNonNullPairsOfRangeKinds());
                 return pairs;
             }
         }
 
-        public static IEnumerable<RangePair> AllNullRangePairs
+        public static IEnumerable<RangePair<IRange<int>>> AllNullRangePairs
         {
             get
             {
-                var pairs = new PairsOfRangesOfKinds(new AllNullPairsOfRangeKinds());
+                var pairs = new PairsOfRangesOfKinds<Ranges, IRange<int>>(new AllNullPairsOfRangeKinds());
                 return pairs;
             }
+        }
+
+        private struct Ranges : IRanges<IRange<int>>
+        {
+            public IRange<int> Empty() => Range.Empty<int>();
+
+            public IRange<int> NonEmpty(int start, int end, bool isStartOpen, bool isEndOpen) =>
+                Range.Create(start, end, isStartOpen, isEndOpen);
         }
     }
 }

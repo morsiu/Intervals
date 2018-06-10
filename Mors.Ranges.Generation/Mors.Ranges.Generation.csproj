@@ -6,7 +6,4 @@
     <Copyright>Copyright © 2018 Łukasz Mrozek</Copyright>
     <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
-  </ItemGroup>
 </Project>

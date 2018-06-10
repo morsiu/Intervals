@@ -9,7 +9,9 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation
 {
-    public sealed class PairsOfRangesOfKinds : IEnumerable<RangePair>
+    public sealed class PairsOfRangesOfKinds<TRanges, TRange> : IEnumerable<RangePair<TRange>>
+        where TRanges : struct, IRanges<TRange>
+        where TRange : class
     {
         private readonly IEnumerable<Tuple<RangeKind, RangeKind>> _pairsOfRangeKinds;
 
@@ -18,7 +20,7 @@ namespace Mors.Ranges.Generation
             _pairsOfRangeKinds = pairsOfRangeKinds;
         }
 
-        public IEnumerator<RangePair> GetEnumerator()
+        public IEnumerator<RangePair<TRange>> GetEnumerator()
         {
             foreach (var pairOfRangeKinds in _pairsOfRangeKinds)
             {
@@ -36,11 +38,11 @@ namespace Mors.Ranges.Generation
             return GetEnumerator();
         }
 
-        private static IEnumerable<RangePair> GeneratePairs(RangeKind rangeAKind, RangeKind rangeBKind)
+        private static IEnumerable<RangePair<TRange>> GeneratePairs(RangeKind rangeAKind, RangeKind rangeBKind)
         {
             if (rangeAKind == RangeKind.NonEmpty && rangeBKind == RangeKind.NonEmpty)
-                return new PairsOfNonEmptyRanges();
-            return new PairsOfMixedRanges(rangeAKind, rangeBKind);
+                return new PairsOfNonEmptyRanges<TRanges, TRange>();
+            return new PairsOfMixedRanges<TRanges, TRange>(rangeAKind, rangeBKind);
         }
     }
 }

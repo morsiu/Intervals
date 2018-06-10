@@ -13,7 +13,7 @@ namespace Mors.Ranges.Operations
     {
         public static IEnumerable<(ClosedRange, ClosedRange)> OfAllPossibleRelations()
         {
-            return new PairsOfRangesOfKinds(new AllNonNullPairsOfRangeKinds())
+            return new PairsOfRangesOfKinds<Ranges, IRange<int>>(new AllNonNullPairsOfRangeKinds())
                 .Where(x => IsClosedOrEmpty(x.RangeA) && IsClosedOrEmpty(x.RangeB))
                 .Select(x => (new ClosedRange(x.RangeA), new ClosedRange(x.RangeB)));
         }
@@ -21,6 +21,19 @@ namespace Mors.Ranges.Operations
         private static bool IsClosedOrEmpty(IRange<int> x)
         {
             return x.IsEmpty || (!x.HasOpenStart && !x.HasOpenEnd);
+        }
+        
+        private struct Ranges : IRanges<IRange<int>>
+        {
+            public IRange<int> Empty()
+            {
+                return Range.Empty<int>();
+            }
+
+            public IRange<int> NonEmpty(int start, int end, bool isStartOpen, bool isEndOpen)
+            {
+                return Range.Create(start, end, isStartOpen, isEndOpen);
+            }
         }
     }
 }

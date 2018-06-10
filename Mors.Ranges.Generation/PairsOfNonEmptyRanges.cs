@@ -8,9 +8,10 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation
 {
-    internal sealed class PairsOfNonEmptyRanges : IEnumerable<RangePair>
+    internal sealed class PairsOfNonEmptyRanges<TRanges, TRange> : IEnumerable<RangePair<TRange>>
+        where TRanges : struct, IRanges<TRange>
     {
-        public IEnumerator<RangePair> GetEnumerator()
+        public IEnumerator<RangePair<TRange>> GetEnumerator()
         {
             foreach (var abRangesRelation in new AllRangeRelations())
             {
@@ -18,7 +19,7 @@ namespace Mors.Ranges.Generation
                 {
                     foreach (var rangeBEnds in new AllRangeEnds())
                     {
-                        yield return new PairOfRangesInARelation(abRangesRelation).RangePair(rangeAEnds, rangeBEnds);
+                        yield return new PairOfRangesInARelation<TRanges, TRange>(abRangesRelation).RangePair(rangeAEnds, rangeBEnds);
                     }
                 }
             }

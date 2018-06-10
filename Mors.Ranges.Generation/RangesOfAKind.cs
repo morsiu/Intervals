@@ -9,7 +9,9 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation
 {
-    internal sealed class RangesOfAKind : IEnumerable<IRange<int>>
+    internal sealed class RangesOfAKind<TRanges, TRange> : IEnumerable<TRange>
+        where TRanges : struct, IRanges<TRange>
+        where TRange : class
     {
         private readonly RangeKind _rangeKind;
 
@@ -18,16 +20,16 @@ namespace Mors.Ranges.Generation
             _rangeKind = rangeKind;
         }
 
-        public IEnumerator<IRange<int>> GetEnumerator()
+        public IEnumerator<TRange> GetEnumerator()
         {
             switch (_rangeKind)
             {
                 case RangeKind.NonEmpty:
-                    return new NonEmptyRanges().GetEnumerator();
+                    return new NonEmptyRanges<TRanges, TRange>().GetEnumerator();
                 case RangeKind.Empty:
-                    return new EmptyRanges().GetEnumerator();
+                    return new EmptyRanges<TRanges, TRange>().GetEnumerator();
                 case RangeKind.Null:
-                    return new NullRanges().GetEnumerator();
+                    return new NullRanges<TRange>().GetEnumerator();
                 default:
                     throw new ArgumentOutOfRangeException();
             }
