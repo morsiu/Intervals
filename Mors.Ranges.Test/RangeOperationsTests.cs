@@ -5,8 +5,10 @@
 
 using NUnit.Framework;
 using System;
+using System.Linq;
 using Mors.Ranges.Generation;
 using Mors.Ranges.Operations.Reference;
+using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges
 {
@@ -96,12 +98,27 @@ namespace Mors.Ranges
         [TestCaseSource(typeof(RangePairTestCases), nameof(RangePairTestCases.AllNonNullRangePairs))]
         public void SpanShouldReturnExpectedResult(RangePair testCase)
         {
-            Assert.AreEqual(
-                SpanOperation.Calculate(
-                        testCase.RangeA.SequencesRange(),
-                        testCase.RangeB.SequencesRange())
-                    .Range(),
-                RangeOperations.Span(testCase.RangeA, testCase.RangeB));
+            var expected =
+                new RangesInPointSequence(
+                        new SpanOperation(
+                            testCase.RangeA.IsEmpty
+                                ? (IPointSequence) new EmptyPointSequence()
+                                : new PointSequenceFromRange(
+                                    testCase.RangeA.Start,
+                                    testCase.RangeA.End,
+                                    testCase.RangeA.HasOpenStart,
+                                    testCase.RangeA.HasOpenEnd),
+                            testCase.RangeB.IsEmpty
+                                ? (IPointSequence) new EmptyPointSequence()
+                                : new PointSequenceFromRange(
+                                    testCase.RangeB.Start,
+                                    testCase.RangeB.End,
+                                    testCase.RangeB.HasOpenStart,
+                                    testCase.RangeB.HasOpenEnd)))
+                    .Select(x => Range.Create(x.Start, x.End, x.HasOpenStart, x.HasOpenEnd));
+            Assert.That(
+                new[] { RangeOperations.Span(testCase.RangeA, testCase.RangeB) },
+                Is.EqualTo(expected.DefaultIfEmpty(Range.Empty<int>())).AsCollection);
         }
     }
 }

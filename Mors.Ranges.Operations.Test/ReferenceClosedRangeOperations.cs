@@ -31,7 +31,8 @@ namespace Mors.Ranges.Operations
 
         public static ClosedRange Span(ClosedRange first, ClosedRange second)
         {
-            return new ClosedRange(SpanOperation.Calculate(first.Range(), second.Range()));
+            return new ClosedRange(
+                new SpanOperation(first.PointSequence(), second.PointSequence()));
         }
     }
 }

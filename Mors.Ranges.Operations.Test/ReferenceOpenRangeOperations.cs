@@ -31,7 +31,8 @@ namespace Mors.Ranges.Operations
 
         public static OpenRange Span(OpenRange first, OpenRange second)
         {
-            return new OpenRange(SpanOperation.Calculate(first.Range(), second.Range()));
+            return new OpenRange(
+                new SpanOperation(first.PointSequence(), second.PointSequence()));
         }
     }
 }

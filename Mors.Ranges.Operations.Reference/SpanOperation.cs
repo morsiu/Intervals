@@ -1,77 +1,170 @@
-﻿// Copyright (C) 2013 Łukasz Mrozek
+﻿// Copyright (C) 2018 Łukasz Mrozek
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public static class SpanOperation
+    public sealed class SpanOperation : IPointSequence
     {
-        private enum State
+        private readonly IPointSequence _first;
+        private readonly IPointSequence _second;
+
+        public SpanOperation(IPointSequence first, IPointSequence second)
         {
-            BeforeOrAfter,
-            InFirstRange,
-            InSecondRange,
-            InBothRanges,
-            BetweenRanges,
-            Invalid
+            _first = new AlignedPointSequence(first, second);
+            _second = new AlignedPointSequence(second, first);
         }
 
-        private static readonly StateTable<(State, PointTypePair), (State, PointType)> States =
-            new StateTableBuilder<string, char, string>()
-            .AssumingHeader(  '-')
-            .AppendRow("Bx", "L=")
-            .AppendRow("Bo", "L=")
-            .AssumingHeader(  '-',  'x',  'o')
-            .AppendRow(" -", " -", "Rx", "Ro")
-            .AppendRow(" x", "Lx", "2x", "2x")
-            .AppendRow(" o", "Lo", "2x", "2o")
-            .AppendRow("L=", "L=", "2=", "2=")
-            .AppendRow("Lx", "B=", "R=", "R=")
-            .AppendRow("Lo", "B=", "R=", "R=")
-            .AppendRow("R=", "L=", "2=", "2=")
-            .AppendRow("Rx", "B=", "L=", "L=")
-            .AppendRow("Ro", "B=", "L=", "L=")
-            .AppendRow("B-", "B=", "R=", "R=")
-            .AssumingHeader(  'x',  'o',  '=')
-            .AppendRow("L-", "Rx", "Ro", "R=")
-            .AppendRow("R-", "Rx", "Ro", "R=")
-            .AssumingHeader(  '-',  'x',  'o',  '=')
-            .AppendRow("2-", " -", "Rx", "Ro", "R=")
-            .AppendRow("2x", " x", " x", " x", "R=")
-            .AppendRow("2o", " o", " x", " o", "R=")
-            .AppendRow("2=", "L=", "L=", "L=", "2=")
-            .Build(StateAndPointTypePair, StateAndPointType);
-
-        public static Range? Calculate(Range? rangeA, Range? rangeB)
+        public IEnumerator<PointType> GetEnumerator()
         {
-            return RangeOperations.Zip(rangeA, rangeB, State.BeforeOrAfter, States);
-        }
-
-        private static (State, PointType) StateAndPointType(string stateAndPointTypeCharacters)
-        {
-            return (ToState(stateAndPointTypeCharacters[0]), PointTypeCharacters.PointType(stateAndPointTypeCharacters[1]));
-        }
-
-        private static (State, PointTypePair) StateAndPointTypePair(string stateAndPointTypeCharacters, char pointTypeCharacter)
-        {
-            return (ToState(stateAndPointTypeCharacters[0]), PointTypeCharacters.PointTypePair(stateAndPointTypeCharacters[1], pointTypeCharacter));
-        }
-
-        private static State ToState(char stateCharacter)
-        {
-            switch (stateCharacter)
+            Range? output = default;
+            var ranges =
+                new StatefulSequence<PointTypePair, Range>(
+                    new Outside(),
+                    new Position(Start),
+                    _first.Zip(_second, (x, y) => new PointTypePair(x, y)));
+            foreach (var range in ranges)
             {
-                case ' ': return State.BeforeOrAfter;
-                case 'L': return State.InFirstRange;
-                case 'R': return State.InSecondRange;
-                case '2': return State.InBothRanges;
-                case 'B': return State.BetweenRanges;
-                default: throw new ArgumentOutOfRangeException(nameof(stateCharacter), stateCharacter, null);
+                output = output.HasValue ? Span(output.Value, range) : range;
+            }
+
+            return new AlignedPointSequence(
+                    output.HasValue
+                        ? new PointSequenceFromRange(
+                            output.Value.Start,
+                            output.Value.End,
+                            output.Value.HasOpenStart,
+                            output.Value.HasOpenEnd)
+                        : (IPointSequence) new EmptyPointSequence(),
+                    _first)
+                .GetEnumerator();
+            
+            Range Span(in Range first, in Range second) =>
+                new Range(
+                    Math.Min(first.Start, second.Start),
+                    Math.Max(first.End, second.End),
+                    first.Start == second.Start
+                        ? first.HasOpenStart && second.HasOpenStart
+                        : first.Start < second.Start
+                            ? first.HasOpenStart
+                            : second.HasOpenStart,
+                    first.End == second.End
+                        ? first.HasOpenEnd && second.HasOpenEnd
+                        : first.End > second.End
+                            ? first.HasOpenEnd
+                            : second.HasOpenEnd);
+        }
+
+        private sealed class Outside : StatefulSequence<PointTypePair, Range>.IState
+        {
+            public StatefulSequence<PointTypePair, Range>.IState Next(in Element<PointTypePair> input)
+            {
+                if (input.Value.LeftOrRightIs(PointType.ClosedStart, PointType.OpenStart))
+                {
+                    return new Inside(new RangeEnd(input));
+                }
+                return this;
+            }
+
+            public (bool HasOutput, Range Output) Output(in Element<PointTypePair> input)
+            {
+                if ((input.Value.LeftIs(PointType.ClosedStartAndEnd) && input.Value.RightIs(PointType.ClosedStartAndEnd, PointType.Outside))
+                    || (input.Value.LeftIs(PointType.Outside, PointType.ClosedStartAndEnd) && input.Value.RightIs(PointType.ClosedStartAndEnd)))
+                {
+                    return (true, new Range(input.Position, input.Position, false, false));
+                }
+                return (false, default);
+            }
+
+            public void Last()
+            {
             }
         }
+
+        private sealed class Inside : StatefulSequence<PointTypePair, Range>.IState
+        {
+            private readonly RangeEnd _start;
+
+            public Inside(RangeEnd start)
+            {
+                _start = start;
+            }
+            
+            public StatefulSequence<PointTypePair, Range>.IState Next(in Element<PointTypePair> input)
+            {
+                if (input.Value.LeftIs(PointType.ClosedEnd, PointType.OpenEnd)
+                    && input.Value.RightIs(PointType.ClosedEnd, PointType.OpenEnd, PointType.Outside))
+                {
+                    return new Outside();
+                }
+                if (input.Value.LeftIs(PointType.ClosedEnd, PointType.OpenEnd, PointType.Outside)
+                    && input.Value.RightIs(PointType.ClosedEnd, PointType.OpenEnd))
+                {
+                    return new Outside();
+                }
+                return this;
+            }
+
+            public (bool HasOutput, Range Output) Output(in Element<PointTypePair> input)
+            {
+                if ((input.Value.LeftIs(PointType.ClosedEnd, PointType.OpenEnd) && input.Value.RightIs(PointType.ClosedEnd, PointType.OpenEnd, PointType.Outside))
+                    || (input.Value.LeftIs(PointType.ClosedEnd, PointType.OpenEnd, PointType.Outside) && input.Value.RightIs(PointType.ClosedEnd, PointType.OpenEnd)))
+                {
+                    return (
+                        true,
+                        _start.Range(new RangeEnd(input)));
+                }
+                return (false, default);
+            }
+
+            public void Last()
+            {
+                throw new UnexpectedEndOfInputException("Inside");
+            }
+        }
+
+        private readonly struct RangeEnd
+        {
+            private readonly Position _position;
+            private readonly bool _isOpen;
+
+            public RangeEnd(in Element<PointTypePair> element)
+                : this(
+                    element.Position,
+                    !element.Value.LeftOrRightIs(PointType.ClosedStart) &&
+                    !element.Value.LeftOrRightIs(PointType.ClosedEnd))
+            {
+            }
+
+            private RangeEnd(in Position position, bool isOpen)
+            {
+                _position = position;
+                _isOpen = isOpen;
+            }
+
+            public Range Range(RangeEnd end)
+            {
+                return new Range(
+                    _position,
+                    end._position,
+                    _isOpen,
+                    end._isOpen);
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public int Start => _first.Start;
+        public int Length => _first.Length;
     }
 }
