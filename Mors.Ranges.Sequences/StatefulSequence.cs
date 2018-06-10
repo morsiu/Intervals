@@ -6,18 +6,20 @@ namespace Mors.Ranges.Sequences
     public sealed class StatefulSequence<TInput, TOutput> : IEnumerable<TOutput>
     {
         private readonly IState _initialState;
+        private readonly Position _initialPosition;
         private readonly IEnumerable<TInput> _inputs;
 
-        public StatefulSequence(IState initialState, IEnumerable<TInput> inputs)
+        public StatefulSequence(IState initialState, Position initialPosition, IEnumerable<TInput> inputs)
         {
             _initialState = initialState;
+            _initialPosition = initialPosition;
             _inputs = inputs;
         }
 
         public IEnumerator<TOutput> GetEnumerator()
         {
             var state = _initialState;
-            var position = new Position(1);
+            var position = _initialPosition;
             foreach (var input in _inputs)
             {
                 var element = new Element<TInput>(input, position);

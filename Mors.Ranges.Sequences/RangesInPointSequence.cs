@@ -21,7 +21,7 @@ namespace Mors.Ranges.Sequences
 
         public IEnumerator<Range> GetEnumerator()
         {
-            return new StatefulSequence<PointType, Range>(new Outside(), _sequence).GetEnumerator();
+            return new StatefulSequence<PointType, Range>(new Outside(), new Position(_sequence.Start), _sequence).GetEnumerator();
         }
 
 
