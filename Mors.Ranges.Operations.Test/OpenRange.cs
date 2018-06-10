@@ -66,6 +66,8 @@ namespace Mors.Ranges.Operations
                 : new Sequences.Range(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
         
         public IPointSequence PointSequence() =>
-            new PointSequenceFromRange(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
+            _range.IsEmpty
+                ? (IPointSequence) new EmptyPointSequence()
+                : new PointSequenceFromRange(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
     }
 }

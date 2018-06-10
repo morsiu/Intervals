@@ -31,7 +31,7 @@ namespace Mors.Ranges.Operations
 
         public ClosedRange(IRange<int> range)
         {
-            if (range.HasOpenEnd || range.HasOpenStart)
+            if (!range.IsEmpty && (range.HasOpenEnd || range.HasOpenStart))
             {
                 throw new ArgumentException("Range has open ends.", nameof(range));
             }
@@ -66,6 +66,8 @@ namespace Mors.Ranges.Operations
                 : new Sequences.Range(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
         
         public IPointSequence PointSequence() =>
-            new PointSequenceFromRange(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
+            _range.IsEmpty
+                ? (IPointSequence) new EmptyPointSequence()
+                : new PointSequenceFromRange(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
     }
 }
