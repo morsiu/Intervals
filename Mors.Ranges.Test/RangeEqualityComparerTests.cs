@@ -24,7 +24,9 @@ namespace Mors.Ranges
         public void EqualsShouldReturnExpectedResult(RangePair testCase)
         {
             Assert.AreEqual(
-                new EqualsOperation(testCase.RangeA.SequencesRange(), testCase.RangeB.SequencesRange()).Result(),
+                testCase.RangeA != null && testCase.RangeB != null
+                    ? new EqualsOperation(testCase.RangeA.SequencesRange(), testCase.RangeB.SequencesRange()).Result()
+                    : testCase.RangeA == null && testCase.RangeB == null,
                 RangeEqualityComparer<int>.Instance.Equals(testCase.RangeA, testCase.RangeB));
         }
     }

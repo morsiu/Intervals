@@ -4,7 +4,7 @@
     {
         public static Sequences.Range? SequencesRange(this IRange<int> range)
         {
-            return range != null && !range.IsEmpty
+            return !range.IsEmpty
                 ? new Sequences.Range(range.Start, range.End, range.HasOpenStart, range.HasOpenEnd)
                 : default(Sequences.Range?);
         }
