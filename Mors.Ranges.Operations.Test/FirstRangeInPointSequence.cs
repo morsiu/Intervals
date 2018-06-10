@@ -17,7 +17,10 @@ namespace Mors.Ranges
                     .SingleOrDefault());
         }
 
-        public bool Equals(IRange<int> other) => RangeEqualityComparer<int>.Instance.Equals(this, other);
+        public override bool Equals(object obj) => obj is IRange<int> other && Equals(other);
+        public bool Equals(IRange<int> other) => RangeEqualityComparer<int>.Instance.Equals(_range.Value, other);
+        public override int GetHashCode() => RangeEqualityComparer<int>.Instance.GetHashCode(_range.Value);
+        public override string ToString() => _range.Value.ToString();
 
         public bool IsEmpty => _range.Value.IsEmpty;
         public int Start => _range.Value.Start;
