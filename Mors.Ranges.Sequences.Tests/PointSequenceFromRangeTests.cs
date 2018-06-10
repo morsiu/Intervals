@@ -28,7 +28,7 @@ namespace Mors.Ranges.Sequences.Tests
 
         [Test]
         [TestCaseSource(nameof(EnumerationTestCases))]
-        public TestablePointSequence EnumerationTest(Range input)
+        public TestablePointSequence EnumerationTest(in Range input)
         {
             return new TestablePointSequence(
                 new PointSequenceFromRange(input.Start, input.End, input.HasOpenStart, input.HasOpenEnd));

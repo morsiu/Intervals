@@ -50,10 +50,15 @@ namespace Mors.Ranges.Operations.Reference
         {
             var result =
                 new RangesInPointSequence(sequence)
+                    .Cast<Sequences.Range?>()
                     .FirstOrDefault();
             return result == null
                 ? Range.Empty<int>()
-                : Range.Create(result.Start, result.End, result.HasOpenStart, result.HasOpenEnd);
+                : Range.Create(
+                    result.Value.Start,
+                    result.Value.End,
+                    result.Value.HasOpenStart,
+                    result.Value.HasOpenEnd);
         }
 
         public static bool Any<TValue>(

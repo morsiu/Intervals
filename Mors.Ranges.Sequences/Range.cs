@@ -8,7 +8,7 @@ using System;
 
 namespace Mors.Ranges.Sequences
 {
-    public sealed class Range : IEquatable<Range>
+    public readonly struct Range : IEquatable<Range>
     {
         public Range(int start, int end, bool hasOpenStart, bool hasOpenEnd)
         {
@@ -24,8 +24,7 @@ namespace Mors.Ranges.Sequences
         public bool HasOpenEnd { get; }
 
         public bool Equals(Range other) =>
-            other != null
-            && other.Start == Start
+            other.Start == Start
             && other.End == End
             && other.HasOpenStart == HasOpenStart
             && other.HasOpenEnd == HasOpenEnd;
