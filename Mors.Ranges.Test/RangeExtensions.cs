@@ -1,4 +1,4 @@
-﻿namespace Mors.Ranges
+﻿namespace Mors.Ranges.Test
 {
     internal static class RangeExtensions
     {

@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 
-namespace Mors.Ranges
+namespace Mors.Ranges.Test
 {
     public class RangeTests
     {

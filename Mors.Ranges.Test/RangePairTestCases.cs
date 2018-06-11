@@ -6,7 +6,7 @@
 using System.Collections.Generic;
 using Mors.Ranges.Generation;
 
-namespace Mors.Ranges
+namespace Mors.Ranges.Test
 {
     public static class RangePairTestCases
     {

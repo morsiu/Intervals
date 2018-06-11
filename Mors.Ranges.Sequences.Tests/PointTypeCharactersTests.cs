@@ -5,7 +5,7 @@
 
 using NUnit.Framework;
 
-namespace Mors.Ranges.Sequences
+namespace Mors.Ranges.Sequences.Tests
 {
     [TestFixture]
     internal class PointTypeCharactersTests
