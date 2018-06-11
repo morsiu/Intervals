@@ -55,12 +55,12 @@ namespace Mors.Ranges.Operations
 
         public Range? Range() =>
             _nonEmpty
-                ? default(Range?)
-                : new Range(Start, End, false, false);
+                ? new Range(Start, End, false, false)
+                : default(Range?);
         
         public IPointSequence PointSequence() =>
             _nonEmpty
-                ? (IPointSequence) new EmptyPointSequence()
-                : new PointSequenceFromRange(Start, End, false, false);
+                ? new PointSequenceFromRange(Start, End, false, false)
+                : (IPointSequence) new EmptyPointSequence();
     }
 }
