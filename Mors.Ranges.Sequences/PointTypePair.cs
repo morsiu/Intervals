@@ -31,7 +31,7 @@ namespace Mors.Ranges.Sequences
 
         public override bool Equals(object obj)
         {
-            return obj is PointTypePair && Equals((PointTypePair) obj);
+            return obj is PointTypePair other && Equals(other);
         }
 
         public override int GetHashCode()
