@@ -17,8 +17,6 @@ namespace Mors.Ranges.Operations.Reference
             _states = states;
         }
 
-        public int Count => _states.Count;
-
         public TOutput Match(TInput input)
         {
             return _states.TryGetValue(input, out var output)

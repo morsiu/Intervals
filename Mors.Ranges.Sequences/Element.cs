@@ -10,8 +10,5 @@
 
         public TValue Value { get; }
         public Position Position { get; }
-
-        public Element<TValue> Next(TValue input) =>
-            new Element<TValue>(input, Position.Next());
     }
 }

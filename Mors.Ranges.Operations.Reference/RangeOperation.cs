@@ -27,24 +27,6 @@ namespace Mors.Ranges.Operations.Reference
                     stateTable.Match));
         }
 
-        public static Range? Zip<TState>(
-            Range? rangeA,
-            Range? rangeB,
-            TState initialState,
-            StateTable<(TState, PointTypePair), (TState, PointType)> stateTable)
-        {
-            return RangeFromSequence(
-                new ZippedPointSequence<TState>(
-                    rangeA is Range x
-                        ? new PointSequenceFromRange(x.Start, x.End, x.HasOpenStart, x.HasOpenEnd)
-                        : (IPointSequence)new EmptyPointSequence(),
-                    rangeB is Range y
-                        ? new PointSequenceFromRange(y.Start, y.End, y.HasOpenStart, y.HasOpenEnd)
-                        : (IPointSequence)new EmptyPointSequence(),
-                    initialState,
-                    stateTable.Match));
-        }
-
         private static Range? RangeFromSequence(
             IPointSequence sequence)
         {
