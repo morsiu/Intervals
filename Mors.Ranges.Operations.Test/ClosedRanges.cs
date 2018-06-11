@@ -5,14 +5,14 @@
 
 namespace Mors.Ranges.Operations
 {
-    internal readonly struct ClosedRanges : IClosedRanges<int, ClosedRange>
+    internal readonly struct ClosedRanges : IClosedRanges<int, ClosedRange>, IEmptyRanges<ClosedRange>
     {
         public ClosedRange Empty()
         {
             return new ClosedRange();
         }
 
-        public ClosedRange NonEmpty(int start, int end)
+        public ClosedRange Range(int start, int end)
         {
             return new ClosedRange(start, end);
         }

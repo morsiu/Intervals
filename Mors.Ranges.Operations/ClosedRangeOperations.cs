@@ -13,7 +13,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where T : IComparable<T>
-            where TRange : IClosedRange<T>
+            where TRange : IRange<T>, IEmptyRange
         {
             if (!IntersectsWith<T, TRange>(left, right))
                 return false;
@@ -29,7 +29,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where T : IComparable<T>
-            where TRange : IClosedRange<T>
+            where TRange : IRange<T>, IEmptyRange
         {
             if (left.Empty || right.Empty) return false;
             if (left.Start.CompareTo(right.End) > 0) return false;
@@ -42,8 +42,8 @@ namespace Mors.Ranges.Operations
             in TRange right,
             out TRange result)
             where T : IComparable<T>
-            where TRange : IClosedRange<T>
-            where TRanges : struct, IClosedRanges<T, TRange>
+            where TRange : IRange<T>, IEmptyRange
+            where TRanges : struct, IClosedRanges<T, TRange>, IEmptyRanges<TRange>
         {
             if (!IntersectsWith<T, TRange>(left, right))
             {
@@ -52,7 +52,7 @@ namespace Mors.Ranges.Operations
             }
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
             var leftEndToRightEnd = left.End.CompareTo(right.End);
-            result = default(TRanges).NonEmpty(
+            result = default(TRanges).Range(
                 leftStartToRightStart > 0 ? left.Start : right.Start,
                 leftEndToRightEnd < 0 ? left.End : right.End);
         }
@@ -61,7 +61,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where T : IComparable<T>
-            where TRange : IClosedRange<T>
+            where TRange : IRange<T>, IEmptyRange
         {
             return Covers<T, TRange>(right, left);
         }
@@ -71,7 +71,7 @@ namespace Mors.Ranges.Operations
             in TRange right,
             out TRange result)
             where T : IComparable<T>
-            where TRange : IClosedRange<T>
+            where TRange : IRange<T>, IEmptyRange
             where TRanges : struct, IClosedRanges<T, TRange>
         {
             if (left.Empty)
@@ -89,7 +89,7 @@ namespace Mors.Ranges.Operations
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
             var leftEndToRightEnd = left.End.CompareTo(right.End);
 
-            result = default(TRanges).NonEmpty(
+            result = default(TRanges).Range(
                 leftStartToRightStart < 0 ? left.Start : right.Start,
                 leftEndToRightEnd > 0 ? left.End : right.End);
         }

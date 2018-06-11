@@ -13,7 +13,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where T : IComparable<T>
-            where TRange : IOpenRange<T>
+            where TRange : IRange<T>, IEmptyRange, IOpenRange
         {
             if (!IntersectsWith<T, TRange>(left, right))
                 return false;
@@ -29,7 +29,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where T : IComparable<T>
-            where TRange : IOpenRange<T>
+            where TRange : IRange<T>, IEmptyRange, IOpenRange
         {
             return Covers<T, TRange>(right, left);
         }
@@ -39,8 +39,8 @@ namespace Mors.Ranges.Operations
             in TRange right,
             out TRange result)
             where T : IComparable<T>
-            where TRange : IOpenRange<T>
-            where TRanges : struct, IOpenRanges<T, TRange>
+            where TRange : IRange<T>, IEmptyRange, IOpenRange
+            where TRanges : struct, IOpenRanges<T, TRange>, IEmptyRanges<TRange>
         {
             if (!IntersectsWith<T, TRange>(left, right))
             {
@@ -70,7 +70,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where T : IComparable<T>
-            where TRange : IOpenRange<T>
+            where TRange : IRange<T>, IEmptyRange, IOpenRange
         {
             if (left.Empty || right.Empty) return false;
             
@@ -91,7 +91,7 @@ namespace Mors.Ranges.Operations
             in TRange right,
             out TRange result)
             where T : IComparable<T>
-            where TRange : IOpenRange<T>
+            where TRange : IRange<T>, IEmptyRange, IOpenRange
             where TRanges : struct, IOpenRanges<T, TRange>
         {
             if (left.Empty)

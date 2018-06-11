@@ -5,7 +5,7 @@
 
 namespace Mors.Ranges.Operations
 {
-    internal readonly struct OpenRanges : IOpenRanges<int, OpenRange>
+    internal readonly struct OpenRanges : IOpenRanges<int, OpenRange>, IEmptyRanges<OpenRange>
     {
         public OpenRange Empty()
         {
