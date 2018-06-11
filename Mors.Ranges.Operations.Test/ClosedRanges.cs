@@ -9,12 +9,12 @@ namespace Mors.Ranges.Operations
     {
         public ClosedRange Empty()
         {
-            return new ClosedRange(Range.Empty<int>());
+            return new ClosedRange();
         }
 
         public ClosedRange NonEmpty(int start, int end)
         {
-            return new ClosedRange(Range.Closed(start, end));
+            return new ClosedRange(start, end);
         }
     }
 }

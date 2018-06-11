@@ -3,7 +3,9 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System.Linq;
 using Mors.Ranges.Operations.Reference;
+using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations
 {
@@ -21,7 +23,7 @@ namespace Mors.Ranges.Operations
 
         public static OpenRange Intersect(OpenRange first, OpenRange second)
         {
-            return new OpenRange(IntersectOperation.Calculate(first.Range(), second.Range()));
+            return IntersectOperation.Calculate(first.Range(), second.Range()).OpenRange();
         }
 
         public static bool IsCoveredBy(OpenRange first, OpenRange second)
@@ -31,8 +33,12 @@ namespace Mors.Ranges.Operations
 
         public static OpenRange Span(OpenRange first, OpenRange second)
         {
-            return new OpenRange(
-                new SpanOperation(first.PointSequence(), second.PointSequence()));
+            return
+                new RangesInPointSequence(
+                        new SpanOperation(first.PointSequence(), second.PointSequence()))
+                    .Cast<Range?>()
+                    .SingleOrDefault()
+                    .OpenRange();
         }
     }
 }

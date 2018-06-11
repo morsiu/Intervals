@@ -8,66 +8,59 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations
 {
-    public readonly struct ClosedRange : IClosedRange<int>, IRange<int>, IEquatable<ClosedRange>
+    public readonly struct ClosedRange : IClosedRange<int>, IEquatable<ClosedRange>
     {
-        private readonly IRange<int> _range;
+        private readonly bool _nonEmpty;
 
-        public ClosedRange(IPointSequence pointSequence)
-            : this(new FirstRangeInPointSequence(pointSequence))
+        public ClosedRange(int start, int end)
+            : this(true, start, end)
         {
         }
 
-        public ClosedRange(Sequences.Range? range)
-            : this(
-                range != null 
-                    ? Ranges.Range.Create(
-                        range.Value.Start,
-                        range.Value.End,
-                        range.Value.HasOpenStart,
-                        range.Value.HasOpenEnd)
-                    : Ranges.Range.Empty<int>())
+        private ClosedRange(bool nonEmpty, int start, int end)
         {
+            _nonEmpty = nonEmpty;
+            Start = start;
+            End = end;
         }
 
-        public ClosedRange(IRange<int> range)
-        {
-            if (!range.IsEmpty && (range.HasOpenEnd || range.HasOpenStart))
-            {
-                throw new ArgumentException("Range has open ends.", nameof(range));
-            }
-            _range = range;
-        }
+        public bool Empty => !_nonEmpty;
 
-        public bool IsEmpty => _range.IsEmpty;
+        public int Start { get; }
 
-        public int Start => _range.Start;
+        public int End { get; }
 
-        public int End => _range.End;
-
-        public bool HasOpenStart => _range.HasOpenStart;
-
-        public bool HasOpenEnd => _range.HasOpenEnd;
-
-        public bool Empty => _range.IsEmpty;
-
-        public bool Equals(IRange<int> other) => _range.Equals(other);
-
-        public bool Equals(ClosedRange other) => _range.Equals(other._range);
+        public bool Equals(ClosedRange other) =>
+            other._nonEmpty == _nonEmpty
+            && other.Start == Start
+            && other.End == End;
 
         public override bool Equals(object obj) => obj is ClosedRange other && Equals(other);
 
-        public override int GetHashCode() => _range.GetHashCode();
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = _nonEmpty.GetHashCode();
+                hashCode = (hashCode * 397) ^ Start;
+                hashCode = (hashCode * 397) ^ End;
+                return hashCode;
+            }
+        }
 
-        public override string ToString() => _range.ToString();
+        public override string ToString() =>
+            _nonEmpty
+                ? $"[{Start}, {End}]"
+                : "{empty}";
 
-        public Sequences.Range? Range() =>
-            _range.IsEmpty
-                ? default(Sequences.Range?)
-                : new Sequences.Range(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
+        public Range? Range() =>
+            _nonEmpty
+                ? default(Range?)
+                : new Range(Start, End, false, false);
         
         public IPointSequence PointSequence() =>
-            _range.IsEmpty
+            _nonEmpty
                 ? (IPointSequence) new EmptyPointSequence()
-                : new PointSequenceFromRange(_range.Start, _range.End, _range.HasOpenStart, _range.HasOpenEnd);
+                : new PointSequenceFromRange(Start, End, false, false);
     }
 }

@@ -13,26 +13,39 @@ namespace Mors.Ranges.Operations
     {
         public static IEnumerable<(ClosedRange, ClosedRange)> OfAllPossibleRelations()
         {
-            return new PairsOfRangesOfKinds<Ranges, IRange<int>>(new AllNonNullPairsOfRangeKinds())
-                .Where(x => IsClosedOrEmpty(x.RangeA) && IsClosedOrEmpty(x.RangeB))
-                .Select(x => (new ClosedRange(x.RangeA), new ClosedRange(x.RangeB)));
+            return new PairsOfRangesOfKinds<Ranges, Range>(new AllNonNullPairsOfRangeKinds())
+                .Where(x => x.RangeA != null && x.RangeB != null)
+                .Select(x => (x.RangeA.ClosedRange(), x.RangeB.ClosedRange()));
         }
 
-        private static bool IsClosedOrEmpty(IRange<int> x)
+        private sealed class Range
         {
-            return x.IsEmpty || (!x.HasOpenStart && !x.HasOpenEnd);
-        }
-        
-        private struct Ranges : IRanges<IRange<int>>
-        {
-            public IRange<int> Empty()
+            private readonly bool _empty;
+            private readonly int _start;
+            private readonly int _end;
+
+            public Range(bool empty, int start, int end)
             {
-                return Range.Empty<int>();
+                _empty = empty;
+                _start = start;
+                _end = end;
+            }
+            
+            public ClosedRange ClosedRange() => _empty ? new ClosedRange() : new ClosedRange(_start, _end);
+        }
+
+        private struct Ranges : IRanges<Range>
+        {
+            public Range Empty()
+            {
+                return new Range(true, 0, 0);
             }
 
-            public IRange<int> NonEmpty(int start, int end, bool isStartOpen, bool isEndOpen)
+            public Range NonEmpty(int start, int end, bool isStartOpen, bool isEndOpen)
             {
-                return Range.Create(start, end, isStartOpen, isEndOpen);
+                return !isStartOpen && !isEndOpen
+                    ? new Range(false, start, end)
+                    : default;
             }
         }
     }

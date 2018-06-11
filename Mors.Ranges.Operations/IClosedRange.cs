@@ -22,11 +22,17 @@ namespace Mors.Ranges.Operations
         /// <summary>
         /// Gets the value of the start end.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// The Empty condition is true.
+        /// </exception>>
         T Start { get; }
         
         /// <summary>
         /// Gets the value of the ending end.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// The Empty condition is true.
+        /// </exception>>
         T End { get; }
     }
 }

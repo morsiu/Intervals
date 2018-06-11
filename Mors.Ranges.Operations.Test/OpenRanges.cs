@@ -9,12 +9,12 @@ namespace Mors.Ranges.Operations
     {
         public OpenRange Empty()
         {
-            return new OpenRange(Ranges.Range.Empty<int>());
+            return new OpenRange();
         }
 
         public OpenRange Range(int start, int end, bool openStart, bool openEnd)
         {
-            return new OpenRange(Ranges.Range.Create(start, end, openStart, openEnd));
+            return new OpenRange(start, end, openStart, openEnd);
         }
     }
 }

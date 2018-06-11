@@ -42,11 +42,17 @@ namespace Mors.Ranges.Operations
         /// <summary>
         /// Gets a value indicating whether the start end of the range belongs to the range.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// The Empty condition is true.
+        /// </exception>
         bool OpenStart { get; }
         
         /// <summary>
         /// Gets a value indicating whether the ending end of the range belongs to the range.
         /// </summary>
+        /// <exception cref="InvalidOperationException">
+        /// The Empty condition is true.
+        /// </exception>
         bool OpenEnd { get; }
     }
 }

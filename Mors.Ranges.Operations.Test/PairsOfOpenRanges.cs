@@ -13,20 +13,41 @@ namespace Mors.Ranges.Operations
     {
         public static IEnumerable<(OpenRange, OpenRange)> OfAllPossibleRelations()
         {
-            return new PairsOfRangesOfKinds<Ranges, IRange<int>>(new AllNonNullPairsOfRangeKinds())
-                .Select(x => (new OpenRange(x.RangeA), new OpenRange(x.RangeB)));
+            return new PairsOfRangesOfKinds<Ranges, Range>(new AllNonNullPairsOfRangeKinds())
+                .Where(x => x.RangeA != null && x.RangeB != null)
+                .Select(x => (x.RangeA.OpenRange(), x.RangeB.OpenRange()));
         }
 
-        private struct Ranges : IRanges<IRange<int>>
+        private sealed class Range
         {
-            public IRange<int> Empty()
+            private readonly bool _empty;
+            private readonly int _start;
+            private readonly int _end;
+            private readonly bool _openStart;
+            private readonly bool _openEnd;
+
+            public Range(bool empty, int start, int end, bool openStart, bool openEnd)
             {
-                return Range.Empty<int>();
+                _empty = empty;
+                _start = start;
+                _end = end;
+                _openStart = openStart;
+                _openEnd = openEnd;
+            }
+            
+            public OpenRange OpenRange() => _empty ? new OpenRange() : new OpenRange(_start, _end, _openStart, _openEnd);
+        }
+
+        private struct Ranges : IRanges<Range>
+        {
+            public Range Empty()
+            {
+                return new Range(true, 0, 0, false, false);
             }
 
-            public IRange<int> NonEmpty(int start, int end, bool isStartOpen, bool isEndOpen)
+            public Range NonEmpty(int start, int end, bool isStartOpen, bool isEndOpen)
             {
-                return Range.Create(start, end, isStartOpen, isEndOpen);
+                return new Range(false, start, end, isStartOpen, isEndOpen);
             }
         }
     }

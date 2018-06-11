@@ -17,7 +17,6 @@
     <ProjectReference Include="..\Mors.Ranges.Generation\Mors.Ranges.Generation.csproj" />
     <ProjectReference Include="..\Mors.Ranges.Operations\Mors.Ranges.Operations.csproj" />
     <ProjectReference Include="..\Mors.Ranges.Operations.Reference\Mors.Ranges.Operations.Reference.csproj" />
-    <ProjectReference Include="..\Mors.Ranges\Mors.Ranges.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
