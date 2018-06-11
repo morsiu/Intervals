@@ -1,9 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>netstandard1.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
-    <Copyright>Copyright © 2018 Łukasz Mrozek</Copyright>
-    <Authors>Łukasz Mrozek</Authors>
-  </PropertyGroup>
-</Project>
