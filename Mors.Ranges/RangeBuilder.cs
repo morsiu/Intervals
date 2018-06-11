@@ -52,8 +52,8 @@ namespace Mors.Ranges
 
         public void Clear()
         {
-            _start = default(T);
-            _end = default(T);
+            _start = default;
+            _end = default;
             _completion = RangeCompletion.HasNothing;
         }
 
