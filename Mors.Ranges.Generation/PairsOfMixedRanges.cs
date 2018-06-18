@@ -10,7 +10,6 @@ namespace Mors.Ranges.Generation
 {
     internal sealed class PairsOfMixedRanges<TRanges, TRange> : IEnumerable<RangePair<TRange>>
         where TRanges : struct, IRanges<TRange>
-        where TRange : class
     {
         private readonly RangeKind _rangeAKind;
         private readonly RangeKind _rangeBKind;

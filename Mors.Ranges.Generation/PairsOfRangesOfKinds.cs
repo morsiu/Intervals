@@ -11,7 +11,6 @@ namespace Mors.Ranges.Generation
 {
     public sealed class PairsOfRangesOfKinds<TRanges, TRange> : IEnumerable<RangePair<TRange>>
         where TRanges : struct, IRanges<TRange>
-        where TRange : class
     {
         private readonly IEnumerable<Tuple<RangeKind, RangeKind>> _pairsOfRangeKinds;
 

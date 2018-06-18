@@ -11,7 +11,6 @@ namespace Mors.Ranges.Generation
 {
     internal sealed class RangesOfAKind<TRanges, TRange> : IEnumerable<TRange>
         where TRanges : struct, IRanges<TRange>
-        where TRange : class
     {
         private readonly RangeKind _rangeKind;
 
@@ -28,8 +27,6 @@ namespace Mors.Ranges.Generation
                     return new NonEmptyRanges<TRanges, TRange>().GetEnumerator();
                 case RangeKind.Empty:
                     return new EmptyRanges<TRanges, TRange>().GetEnumerator();
-                case RangeKind.Null:
-                    return new NullRanges<TRange>().GetEnumerator();
                 default:
                     throw new ArgumentOutOfRangeException();
             }

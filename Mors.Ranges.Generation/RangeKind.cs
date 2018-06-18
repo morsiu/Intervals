@@ -8,7 +8,6 @@ namespace Mors.Ranges.Generation
     public enum RangeKind
     {
         NonEmpty,
-        Empty,
-        Null
+        Empty
     }
 }
