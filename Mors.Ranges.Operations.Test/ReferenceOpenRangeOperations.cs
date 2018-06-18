@@ -13,32 +13,27 @@ namespace Mors.Ranges.Operations
     {
         public static bool Covers(OpenRange first, OpenRange second)
         {
-            return CoversOperation.Calculate(first.Range(), second.Range());
+            return new CoversOperation(first.PointSequence(), second.PointSequence()).Result();
         }
 
         public static bool IntersectsWith(OpenRange first, OpenRange second)
         {
-            return IntersectsWithOperation.Calculate(first.Range(), second.Range());
+            return new IntersectsWithOperation(first.PointSequence(), second.PointSequence()).Result();
         }
 
         public static OpenRange Intersect(OpenRange first, OpenRange second)
         {
-            return IntersectOperation.Calculate(first.Range(), second.Range()).OpenRange();
+            return new IntersectOperation(first.PointSequence(), second.PointSequence()).AtMostOneOpenRange();
         }
 
         public static bool IsCoveredBy(OpenRange first, OpenRange second)
         {
-            return IsCoveredByOperation.Calculate(first.Range(), second.Range());
+            return new IsCoveredByOperation(first.PointSequence(), second.PointSequence()).Result();
         }
 
         public static OpenRange Span(OpenRange first, OpenRange second)
         {
-            return
-                new RangesInPointSequence(
-                        new SpanOperation(first.PointSequence(), second.PointSequence()))
-                    .Cast<Range?>()
-                    .SingleOrDefault()
-                    .OpenRange();
+            return new SpanOperation(first.PointSequence(), second.PointSequence()).AtMostOneOpenRange();
         }
     }
 }

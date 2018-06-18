@@ -3,27 +3,29 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
+using System.Linq;
 using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations
 {
-    internal static class RangeExtensions
+    internal static class PointSequenceExtensions
     {
-        public static OpenRange OpenRange(this Range? range)
+        public static OpenRange AtMostOneOpenRange(this IPointSequence pointSequence)
         {
-            return range is Range x
-                ? new OpenRange(x.Start, x.End, x.HasOpenStart, x.HasOpenEnd)
-                : new OpenRange();
+            return new RangesInPointSequence(pointSequence)
+                .Cast<Range?>()
+                .DefaultIfEmpty(default)
+                .Select(x => x.OpenRange())
+                .Single();
         }
 
-        public static ClosedRange ClosedRange(this Range? range)
+        public static ClosedRange AtMostOneClosedRange(this IPointSequence pointSequence)
         {
-            return range is Range x
-                ? !x.HasOpenStart && !x.HasOpenEnd
-                    ? new ClosedRange(x.Start, x.End)
-                    : throw new ArgumentException("The range has open ends.", nameof(range))
-                : new ClosedRange();
+            return new RangesInPointSequence(pointSequence)
+                .Cast<Range?>()
+                .DefaultIfEmpty(default)
+                .Select(x => x.ClosedRange())
+                .Single(); 
         }
     }
 }
