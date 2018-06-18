@@ -26,13 +26,13 @@ namespace Mors.Ranges.Sequences
         public int Start => Math.Min(_main.Start, _other.Start);
 
         public int Length =>
-            new RightPadding(_main.Start, _main.Length, _other.Start, _other.Length).End
-            - new LeftPadding(_main.Start, _other.Start).Start
-            + 1;
+            LeftPadding().Length
+            + _main.Length
+            + RightPadding().Length;
 
         public IEnumerator<PointType> GetEnumerator()
         {
-            var leftPadding = new LeftPadding(_main.Start, _other.Start);
+            var leftPadding = LeftPadding();
             foreach (var pointType in Enumerable.Repeat(PointType.Outside, leftPadding.Length))
             {
                 yield return pointType;
@@ -41,16 +41,19 @@ namespace Mors.Ranges.Sequences
             {
                 yield return pointType;
             }
-            var rightPadding = new RightPadding(_main.Start, _main.Length, _other.Start, _other.Length);
+            var rightPadding = RightPadding();
             foreach (var pointType in Enumerable.Repeat(PointType.Outside, rightPadding.Length))
             {
                 yield return pointType;
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        private RightPadding RightPadding() =>
+            new RightPadding(_main.Start, _main.Length, _other.Start, _other.Length);
+
+        private LeftPadding LeftPadding() =>
+            new LeftPadding(_main.Start, _other.Start);
     }
 }

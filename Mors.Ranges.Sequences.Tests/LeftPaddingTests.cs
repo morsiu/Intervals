@@ -10,15 +10,6 @@ namespace Mors.Ranges.Sequences.Tests
     public class LeftPaddingTests
     {
         [Test]
-        [TestCase(0, 0, ExpectedResult = 0)]
-        [TestCase(0, 1, ExpectedResult = 0)]
-        [TestCase(1, 0, ExpectedResult = 0)]
-        public int StartTest(int mainStart, int otherStart)
-        {
-            return new LeftPadding(mainStart, otherStart).Start;
-        }
-
-        [Test]
         [TestCase(-1, 0, ExpectedResult = 0)]
         [TestCase(-1, 1, ExpectedResult = 0)]
         [TestCase(0, 0, ExpectedResult = 0)]

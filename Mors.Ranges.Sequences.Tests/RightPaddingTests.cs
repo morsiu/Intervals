@@ -22,17 +22,5 @@ namespace Mors.Ranges.Sequences.Tests
         {
             return new RightPadding(mainStart, mainLength, otherStart, otherLength).Length;
         }
-
-        [Test]
-        [TestCase(0, 0, 0, 0, ExpectedResult = 0)]
-        [TestCase(0, 0, 0, 1, ExpectedResult = 1)]
-        [TestCase(0, 1, 0, 0, ExpectedResult = 1)]
-        [TestCase(0, 1, 0, 1, ExpectedResult = 1)]
-        [TestCase(0, 1, 1, 1, ExpectedResult = 2)]
-        [TestCase(1, 1, 0, 1, ExpectedResult = 2)]
-        public int EndTest(int mainStart, int mainLength, int otherStart, int otherLength)
-        {
-            return new RightPadding(mainStart, mainLength, otherStart, otherLength).End;
-        }
     }
 }

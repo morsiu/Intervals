@@ -19,6 +19,5 @@ namespace Mors.Ranges.Sequences
         }
 
         public int Length => Math.Max(0, _mainStart - _otherStart);
-        public int Start => Math.Min(_mainStart, _otherStart);
     }
 }
