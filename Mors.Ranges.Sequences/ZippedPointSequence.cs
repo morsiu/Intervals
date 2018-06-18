@@ -28,7 +28,7 @@ namespace Mors.Ranges.Sequences
 
         public int Start => _first.Start;
 
-        public int Length => _second.Start;
+        public int Length => _first.Length;
 
         public IEnumerator<PointType> GetEnumerator()
         {
