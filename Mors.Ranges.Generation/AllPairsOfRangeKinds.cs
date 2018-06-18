@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation
 {
-    public sealed class AllNonNullPairsOfRangeKinds : IEnumerable<Tuple<RangeKind, RangeKind>>
+    public sealed class AllPairsOfRangeKinds : IEnumerable<Tuple<RangeKind, RangeKind>>
     {
         public IEnumerator<Tuple<RangeKind, RangeKind>> GetEnumerator()
         {

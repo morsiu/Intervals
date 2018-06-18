@@ -3,32 +3,27 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation
 {
-    internal sealed class RangesOfAKind<TRanges, TRange> : IEnumerable<TRange>
+    internal sealed class PairsOfRangesOfMixedKinds<TRanges, TRange> : IEnumerable<RangePair<TRange>>
         where TRanges : struct, IRanges<TRange>
     {
-        private readonly RangeKind _rangeKind;
-
-        public RangesOfAKind(RangeKind rangeKind)
+        public IEnumerator<RangePair<TRange>> GetEnumerator()
         {
-            _rangeKind = rangeKind;
-        }
-
-        public IEnumerator<TRange> GetEnumerator()
-        {
-            switch (_rangeKind)
+            var emptyRange = default(TRanges).Empty();
+            foreach (var rangeEnds in new AllRangeEnds())
             {
-                case RangeKind.NonEmpty:
-                    return new NonEmptyRanges<TRanges, TRange>().GetEnumerator();
-                case RangeKind.Empty:
-                    return new EmptyRanges<TRanges, TRange>().GetEnumerator();
-                default:
-                    throw new ArgumentOutOfRangeException();
+                var nonEmptyRange =
+                    default(TRanges).NonEmpty(
+                        1,
+                        3,
+                        rangeEnds == RangeEnds.LeftOpen || rangeEnds == RangeEnds.Open,
+                        rangeEnds == RangeEnds.RightOpen || rangeEnds == RangeEnds.Open);
+                yield return new RangePair<TRange>(emptyRange, nonEmptyRange);
+                yield return new RangePair<TRange>(nonEmptyRange, emptyRange);
             }
         }
 
