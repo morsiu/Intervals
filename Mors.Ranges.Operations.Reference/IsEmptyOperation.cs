@@ -3,27 +3,17 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System.Linq;
 using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public sealed class CoversOperation
+    public sealed class IsEmptyOperation
     {
-        private readonly IPointSequence _first;
-        private readonly IPointSequence _second;
+        private readonly IPointSequence _pointSequence;
 
-        public CoversOperation(IPointSequence first, IPointSequence second)
-        {
-            _first = new AlignedPointSequence(first, second);
-            _second = new AlignedPointSequence(second, first);
-        }
+        public IsEmptyOperation(IPointSequence pointSequence) => _pointSequence = pointSequence;
 
-        public bool Result() =>
-            !new IsEmptyOperation(_first).Result()
-            && !new IsEmptyOperation(_second).Result()
-            && new EqualsOperation(
-                    new IntersectOperation(_first, _second),
-                    _second)
-                .Result();
+        public bool Result() => _pointSequence.All(x => x == PointType.Outside);
     }
 }
