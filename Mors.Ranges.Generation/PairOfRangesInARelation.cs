@@ -65,7 +65,7 @@ namespace Mors.Ranges.Generation
         {
             var hasOpenStart = ends == RangeEnds.LeftOpen;
             var hasOpenEnd = ends == RangeEnds.RightOpen;
-            var range = default(TRanges).NonEmpty(start, end, hasOpenStart, hasOpenEnd);
+            var range = default(TRanges).Range(start, end, hasOpenStart, hasOpenEnd);
             return range;
         }
     }

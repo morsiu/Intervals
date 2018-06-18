@@ -17,7 +17,7 @@ namespace Mors.Ranges.Generation
             foreach (var rangeEnds in new AllRangeEnds())
             {
                 var nonEmptyRange =
-                    default(TRanges).NonEmpty(
+                    default(TRanges).Range(
                         1,
                         3,
                         rangeEnds == RangeEnds.LeftOpen || rangeEnds == RangeEnds.Open,
