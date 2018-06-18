@@ -22,8 +22,7 @@ namespace Mors.Ranges.Sequences
             _otherLength = otherLength;
         }
 
-        public int End => Math.Max(_mainStart + _mainLength, _otherStart + _otherLength);
-
+        public int End => Math.Max(_mainStart + _mainLength, _otherStart + _otherLength) - 1;
         public int Length => Math.Max(0, _otherStart + _otherLength - _mainStart - _mainLength);
     }
 }
