@@ -79,16 +79,13 @@ namespace Mors.Ranges.Operations
                 result = right;
                 return;
             }
-
             if (right.Empty)
             {
                 result = left;
                 return;
             }
-
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
             var leftEndToRightEnd = left.End.CompareTo(right.End);
-
             result = default(TRanges).Range(
                 leftStartToRightStart < 0 ? left.Start : right.Start,
                 leftEndToRightEnd > 0 ? left.End : right.End);
