@@ -11,6 +11,11 @@ namespace Mors.Ranges.Operations
 {
     internal static class ReferenceClosedRangeOperations
     {
+        public static object Contains(ClosedRange range, int point)
+        {
+            return new ContainsOperation(range.PointSequence(), point).Result();
+        }
+
         public static bool Covers(ClosedRange first, ClosedRange second)
         {
             return new CoversOperation(first.PointSequence(), second.PointSequence()).Result();

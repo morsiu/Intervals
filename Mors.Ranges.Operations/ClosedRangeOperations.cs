@@ -9,6 +9,17 @@ namespace Mors.Ranges.Operations
 {
     public static class ClosedRangeOperations
     {
+        public static bool Contains<T, TRange>(
+            in TRange range,
+            in T point)
+            where T : IComparable<T>
+            where TRange : IRange<T>, IEmptyRange
+        {
+            return !range.Empty
+                   && point.CompareTo(range.Start) >= 0
+                   && point.CompareTo(range.End) <= 0;
+        }
+        
         public static bool Covers<T, TRange>(
             in TRange left,
             in TRange right)

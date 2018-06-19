@@ -20,6 +20,15 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
+        [TestCaseSource(typeof(AllPossibleRelationsOfClosedRangeAndPoint))]
+        public void ContainsReturnsExpectedResult((ClosedRange Range, int Point) pair)
+        {
+            Assert.AreEqual(
+                ReferenceClosedRangeOperations.Contains(pair.Range, pair.Point),
+                ClosedRangeOperations.Contains(pair.Range, pair.Point));
+        }
+
+        [Test]
         [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
         public void IntersectReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
