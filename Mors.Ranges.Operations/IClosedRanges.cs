@@ -7,10 +7,10 @@ using System;
 
 namespace Mors.Ranges.Operations
 {
-    public interface IClosedRanges<in T, out TRange>
-        where T : IComparable<T>
-        where TRange : IRange<T>
+    public interface IClosedRanges<in TPoint, out TRange>
+        where TPoint : IComparable<TPoint>
+        where TRange : IRange<TPoint>
     {
-        TRange Range(T start, T end);
+        TRange Range(TPoint start, TPoint end);
     }
 }

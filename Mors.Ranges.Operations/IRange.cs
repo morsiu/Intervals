@@ -7,11 +7,11 @@ using System;
 
 namespace Mors.Ranges.Operations
 {
-    public interface IRange<out T>
-        where T : IComparable<T>
+    public interface IRange<out TPoint>
+        where TPoint : IComparable<TPoint>
     {
-        T Start { get; }
+        TPoint Start { get; }
         
-        T End { get; }
+        TPoint End { get; }
     }
 }

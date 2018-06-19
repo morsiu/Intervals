@@ -9,24 +9,24 @@ namespace Mors.Ranges.Operations
 {
     public static class ClosedRangeOperations
     {
-        public static bool Contains<T, TRange>(
+        public static bool Contains<TPoint, TRange>(
             in TRange range,
-            in T point)
-            where T : IComparable<T>
-            where TRange : IRange<T>, IEmptyRange
+            in TPoint point)
+            where TPoint : IComparable<TPoint>
+            where TRange : IRange<TPoint>, IEmptyRange
         {
             return !range.Empty
                    && point.CompareTo(range.Start) >= 0
                    && point.CompareTo(range.End) <= 0;
         }
         
-        public static bool Covers<T, TRange>(
+        public static bool Covers<TPoint, TRange>(
             in TRange left,
             in TRange right)
-            where T : IComparable<T>
-            where TRange : IRange<T>, IEmptyRange
+            where TPoint : IComparable<TPoint>
+            where TRange : IRange<TPoint>, IEmptyRange
         {
-            if (!IntersectsWith<T, TRange>(left, right))
+            if (!IntersectsWith<TPoint, TRange>(left, right))
                 return false;
 
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
@@ -36,11 +36,11 @@ namespace Mors.Ranges.Operations
                    && (leftEndToRightEnd > 0 || leftEndToRightEnd  == 0);
         }
         
-        public static bool IntersectsWith<T, TRange>(
+        public static bool IntersectsWith<TPoint, TRange>(
             in TRange left,
             in TRange right)
-            where T : IComparable<T>
-            where TRange : IRange<T>, IEmptyRange
+            where TPoint : IComparable<TPoint>
+            where TRange : IRange<TPoint>, IEmptyRange
         {
             if (left.Empty || right.Empty) return false;
             if (left.Start.CompareTo(right.End) > 0) return false;
@@ -48,15 +48,15 @@ namespace Mors.Ranges.Operations
             return true;
         }
         
-        public static void Intersect<T, TRange, TRanges>(
+        public static void Intersect<TPoint, TRange, TRanges>(
             in TRange left,
             in TRange right,
             out TRange result)
-            where T : IComparable<T>
-            where TRange : IRange<T>, IEmptyRange
-            where TRanges : struct, IClosedRanges<T, TRange>, IEmptyRanges<TRange>
+            where TPoint : IComparable<TPoint>
+            where TRange : IRange<TPoint>, IEmptyRange
+            where TRanges : struct, IClosedRanges<TPoint, TRange>, IEmptyRanges<TRange>
         {
-            if (!IntersectsWith<T, TRange>(left, right))
+            if (!IntersectsWith<TPoint, TRange>(left, right))
             {
                 result = default(TRanges).Empty();
                 return;
@@ -68,22 +68,22 @@ namespace Mors.Ranges.Operations
                 leftEndToRightEnd < 0 ? left.End : right.End);
         }
         
-        public static bool IsCoveredBy<T, TRange>(
+        public static bool IsCoveredBy<TPoint, TRange>(
             in TRange left,
             in TRange right)
-            where T : IComparable<T>
-            where TRange : IRange<T>, IEmptyRange
+            where TPoint : IComparable<TPoint>
+            where TRange : IRange<TPoint>, IEmptyRange
         {
-            return Covers<T, TRange>(right, left);
+            return Covers<TPoint, TRange>(right, left);
         }
         
-        public static void Span<T, TRange, TRanges>(
+        public static void Span<TPoint, TRange, TRanges>(
             in TRange left,
             in TRange right,
             out TRange result)
-            where T : IComparable<T>
-            where TRange : IRange<T>, IEmptyRange
-            where TRanges : struct, IClosedRanges<T, TRange>
+            where TPoint : IComparable<TPoint>
+            where TRange : IRange<TPoint>, IEmptyRange
+            where TRanges : struct, IClosedRanges<TPoint, TRange>
         {
             if (left.Empty)
             {
