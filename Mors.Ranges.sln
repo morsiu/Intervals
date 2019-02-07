@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28531.58
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Operations.Reference", "Mors.Ranges.Operations.Reference\Mors.Ranges.Operations.Reference.csproj", "{157AD3AA-90CA-48C9-B54E-1671CC4597A9}"
 EndProject
@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Sequences", "Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Sequences.Tests", "Mors.Ranges.Sequences.Tests\Mors.Ranges.Sequences.Tests.csproj", "{D5266733-971E-48D9-A3DB-5D73EC054DCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mors.Ranges.Generation", "Mors.Ranges.Generation\Mors.Ranges.Generation.csproj", "{FA072F00-F6AC-4618-9C91-D60E24CB3DE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Generation", "Mors.Ranges.Generation\Mors.Ranges.Generation.csproj", "{FA072F00-F6AC-4618-9C91-D60E24CB3DE3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mors.Ranges.Generation.Tests", "Mors.Ranges.Generation.Tests\Mors.Ranges.Generation.Tests.csproj", "{486DE49E-C828-40EB-BBC2-BD5609EE5858}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{FA072F00-F6AC-4618-9C91-D60E24CB3DE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA072F00-F6AC-4618-9C91-D60E24CB3DE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA072F00-F6AC-4618-9C91-D60E24CB3DE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{486DE49E-C828-40EB-BBC2-BD5609EE5858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{486DE49E-C828-40EB-BBC2-BD5609EE5858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{486DE49E-C828-40EB-BBC2-BD5609EE5858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{486DE49E-C828-40EB-BBC2-BD5609EE5858}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
