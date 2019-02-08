@@ -3,40 +3,20 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Collections.Generic;
-
 namespace Mors.Ranges.Generation.Tests
 {
-    internal readonly struct ClosedRange
+    internal readonly struct OpenRangePair
     {
-        private readonly int _start;
-        private readonly int _end;
-        private readonly bool _nonEmpty;
+        private readonly OpenRange _first;
+        private readonly OpenRange _second;
 
-        public ClosedRange(int start, int end)
+        public OpenRangePair(OpenRange first, OpenRange second)
         {
-            _nonEmpty = true;
-            _start = start;
-            _end = end;
+            _first = first;
+            _second = second;
         }
 
-        public IEnumerable<OpenRange> ToOpenRanges()
-        {
-            var x = new OpenRanges();
-            if (!_nonEmpty)
-            {
-                yield return x.Empty();
-            }
-            else
-            {
-                yield return x.Range(_start, _end, isStartOpen: true, isEndOpen: true);
-                yield return x.Range(_start, _end, isStartOpen: true, isEndOpen: false);
-                yield return x.Range(_start, _end, isStartOpen: false, isEndOpen: true);
-                yield return x.Range(_start, _end, isStartOpen: false, isEndOpen: false);
-            }
-        }
-
-        public override string ToString() =>
-            _nonEmpty ? $"[{_start}, {_end}]" : "∅";
+        public override string ToString() => $"({_first}, {_second})";
     }
+
 }

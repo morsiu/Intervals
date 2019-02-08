@@ -3,40 +3,35 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using System.Collections.Generic;
-
 namespace Mors.Ranges.Generation.Tests
 {
-    internal readonly struct ClosedRange
+    internal readonly struct OpenRange
     {
-        private readonly int _start;
-        private readonly int _end;
+        private readonly Point _start;
+        private readonly Point _end;
         private readonly bool _nonEmpty;
 
-        public ClosedRange(int start, int end)
+        public OpenRange(int start, int end, bool isStartOpen, bool isEndOpen)
         {
             _nonEmpty = true;
-            _start = start;
-            _end = end;
-        }
-
-        public IEnumerable<OpenRange> ToOpenRanges()
-        {
-            var x = new OpenRanges();
-            if (!_nonEmpty)
-            {
-                yield return x.Empty();
-            }
-            else
-            {
-                yield return x.Range(_start, _end, isStartOpen: true, isEndOpen: true);
-                yield return x.Range(_start, _end, isStartOpen: true, isEndOpen: false);
-                yield return x.Range(_start, _end, isStartOpen: false, isEndOpen: true);
-                yield return x.Range(_start, _end, isStartOpen: false, isEndOpen: false);
-            }
+            _start = new Point(isStartOpen, start);
+            _end = new Point(isEndOpen, end);
         }
 
         public override string ToString() =>
-            _nonEmpty ? $"[{_start}, {_end}]" : "∅";
+            _nonEmpty
+                ? $"{_start.ToString(isStartPoint: true)}, {_end.ToString(isStartPoint: false)}"
+                : "∅";
+
+        private readonly struct Point
+        {
+            public Point(bool isOpen, int value) { _isOpen = isOpen; _value = value; }
+            private readonly bool _isOpen;
+            private readonly int _value;
+            public string ToString(bool isStartPoint) =>
+                isStartPoint
+                    ? $"{(_isOpen ? '(' : '[')}{_value}"
+                    : $"{_value}{(_isOpen ? ')' : ']')}";
+        }
     }
 }

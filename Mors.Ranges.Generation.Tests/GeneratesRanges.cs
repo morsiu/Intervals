@@ -8,14 +8,22 @@ using NUnit.Framework;
 namespace Mors.Ranges.Generation.Tests
 {
     [TestFixture]
-    public sealed partial class GeneratesClosedRanges
+    public sealed class GeneratesRanges
     {
         [Test]
-        public void OfAllPossibleRelations()
+        public void GeneratesClosedRangesOfAllPossibleRelations()
         {
             CollectionAssert.AreEquivalent(
-                new PairsOfClosedRangesOfAllPossibleRelations(),
-                new PairsOfClosedRangesOfAllPossibleRelations<ClosedRange, ClosedRangePair, ClosedRanges>());
+                expected: new PairsOfClosedRangesOfAllPossibleRelations(),
+                actual: new PairsOfClosedRangesOfAllPossibleRelations<ClosedRange, ClosedRangePair, ClosedRanges>());
+        }
+
+        [Test]
+        public void GeneratesOpenRangesOfAllPossibleRelations()
+        {
+            CollectionAssert.AreEquivalent(
+                expected: new PairsOfOpenRangesOfAllPossibleRelations(),
+                actual: new PairsOfOpenRangesOfAllPossibleRelations<OpenRange, OpenRangePair, OpenRanges>());
         }
     }
 }
