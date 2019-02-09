@@ -3,17 +3,30 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Mors.Ranges.Generation.Tests
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Mors.Ranges.Generation
 {
-    internal readonly struct Pairs
-        : IPairs<ClosedRange, ClosedRange, PairOfClosedRanges>,
-        IPairs<OpenRange, OpenRange, PairOfOpenRanges>,
-        IPairs<ClosedRange, int, PairOfClosedRangeAndPoint>
+    public sealed class PairsOfClosedRangesAndPointsOfAllPossibleRelations<
+            TRange,
+            TRanges,
+            TPairOfRangeAndPoint,
+            TPairsOfRangesAndPoints>
+        : IEnumerable<TPairOfRangeAndPoint>
+        where TRanges : IClosedRanges<TRange>
+        where TPairsOfRangesAndPoints : IPairs<TRange, int, TPairOfRangeAndPoint>
     {
-        public PairOfClosedRanges Pair(ClosedRange first, ClosedRange second) => new PairOfClosedRanges(first, second);
+        public IEnumerator<TPairOfRangeAndPoint> GetEnumerator()
+        {
+            var a = default(TRanges).Range(3, 5);
+            var b = default(TPairsOfRangesAndPoints);
+            return Enumerable.Range(1, 7)
+                .Select(x => b.Pair(a, x))
+                .GetEnumerator();
+        }
 
-        public PairOfOpenRanges Pair(OpenRange first, OpenRange second) => new PairOfOpenRanges(first, second);
-
-        public PairOfClosedRangeAndPoint Pair(ClosedRange first, int second) => new PairOfClosedRangeAndPoint(first, second);
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

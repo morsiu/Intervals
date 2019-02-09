@@ -3,17 +3,26 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System.Collections;
+using System.Collections.Generic;
+
 namespace Mors.Ranges.Generation.Tests
 {
-    internal readonly struct Pairs
-        : IPairs<ClosedRange, ClosedRange, PairOfClosedRanges>,
-        IPairs<OpenRange, OpenRange, PairOfOpenRanges>,
-        IPairs<ClosedRange, int, PairOfClosedRangeAndPoint>
+    internal sealed class PairsOfClosedRangesAndPointsOfAllPossibleRelations
+        : IEnumerable<PairOfClosedRangeAndPoint>
     {
-        public PairOfClosedRanges Pair(ClosedRange first, ClosedRange second) => new PairOfClosedRanges(first, second);
+        public IEnumerator<PairOfClosedRangeAndPoint> GetEnumerator()
+        {
+            var x = new ClosedRange(3, 5);
+            yield return new PairOfClosedRangeAndPoint(x, 1); // range starts after the point
+            yield return new PairOfClosedRangeAndPoint(x, 2); // range starts after the point, with adjacent start
+            yield return new PairOfClosedRangeAndPoint(x, 3); // range starts with the point
+            yield return new PairOfClosedRangeAndPoint(x, 4); // range contains the point
+            yield return new PairOfClosedRangeAndPoint(x, 5); // range ends with the point
+            yield return new PairOfClosedRangeAndPoint(x, 6); // range ends before the point, with adjacent end
+            yield return new PairOfClosedRangeAndPoint(x, 7); // range ends before the point
+        }
 
-        public PairOfOpenRanges Pair(OpenRange first, OpenRange second) => new PairOfOpenRanges(first, second);
-
-        public PairOfClosedRangeAndPoint Pair(ClosedRange first, int second) => new PairOfClosedRangeAndPoint(first, second);
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

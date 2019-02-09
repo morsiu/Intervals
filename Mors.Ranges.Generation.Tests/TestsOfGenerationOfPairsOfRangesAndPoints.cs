@@ -3,17 +3,24 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using NUnit.Framework;
+
 namespace Mors.Ranges.Generation.Tests
 {
-    internal readonly struct Pairs
-        : IPairs<ClosedRange, ClosedRange, PairOfClosedRanges>,
-        IPairs<OpenRange, OpenRange, PairOfOpenRanges>,
-        IPairs<ClosedRange, int, PairOfClosedRangeAndPoint>
+    [TestFixture]
+    public sealed class TestsOfGenerationOfPairsOfRangesAndPoints
     {
-        public PairOfClosedRanges Pair(ClosedRange first, ClosedRange second) => new PairOfClosedRanges(first, second);
-
-        public PairOfOpenRanges Pair(OpenRange first, OpenRange second) => new PairOfOpenRanges(first, second);
-
-        public PairOfClosedRangeAndPoint Pair(ClosedRange first, int second) => new PairOfClosedRangeAndPoint(first, second);
+        [Test]
+        public void GeneratesPairsOfClosedRangesAndPointsOfAllPossibleRelations()
+        {
+            CollectionAssert.AreEquivalent(
+                expected: new PairsOfClosedRangesAndPointsOfAllPossibleRelations(),
+                actual:
+                    new PairsOfClosedRangesAndPointsOfAllPossibleRelations<
+                        ClosedRange,
+                        ClosedRanges,
+                        PairOfClosedRangeAndPoint,
+                        Pairs>());
+        }
     }
 }

@@ -5,15 +5,17 @@
 
 namespace Mors.Ranges.Generation.Tests
 {
-    internal readonly struct Pairs
-        : IPairs<ClosedRange, ClosedRange, PairOfClosedRanges>,
-        IPairs<OpenRange, OpenRange, PairOfOpenRanges>,
-        IPairs<ClosedRange, int, PairOfClosedRangeAndPoint>
+    internal readonly struct PairOfClosedRangeAndPoint
     {
-        public PairOfClosedRanges Pair(ClosedRange first, ClosedRange second) => new PairOfClosedRanges(first, second);
+        private readonly ClosedRange _first;
+        private readonly int _second;
 
-        public PairOfOpenRanges Pair(OpenRange first, OpenRange second) => new PairOfOpenRanges(first, second);
+        public PairOfClosedRangeAndPoint(ClosedRange first, int second)
+        {
+            _first = first;
+            _second = second;
+        }
 
-        public PairOfClosedRangeAndPoint Pair(ClosedRange first, int second) => new PairOfClosedRangeAndPoint(first, second);
+        public override string ToString() => $"({_first}, {_second})";
     }
 }
