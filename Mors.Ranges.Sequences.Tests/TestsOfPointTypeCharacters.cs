@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Mors.Ranges.Sequences.Tests
 {
     [TestFixture]
-    internal class PointTypeCharactersTests
+    internal class TestsOfPointTypeCharacters
     {
         [Test]
         [TestCase('-', ExpectedResult = PointType.Outside)]

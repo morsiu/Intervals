@@ -9,7 +9,7 @@ using NUnit.Framework;
 
 namespace Mors.Ranges.Sequences.Tests
 {
-    public class RangesInSequenceTests
+    public class TestsOfRangesInPointSequence
     {
         [Test]
         [TestCaseSource(nameof(ValidStrings))]

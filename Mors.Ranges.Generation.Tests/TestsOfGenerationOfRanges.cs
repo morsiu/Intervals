@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Mors.Ranges.Generation.Tests
 {
     [TestFixture]
-    public sealed class GeneratesRanges
+    public sealed class TestsOfGenerationOfRanges
     {
         [Test]
         public void GeneratesClosedRangesOfAllPossibleRelations()

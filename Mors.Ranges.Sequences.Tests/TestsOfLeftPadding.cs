@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Mors.Ranges.Sequences.Tests
 {
-    public class LeftPaddingTests
+    public class TestsOfLeftPadding
     {
         [Test]
         [TestCase(-1, 0, ExpectedResult = 0)]

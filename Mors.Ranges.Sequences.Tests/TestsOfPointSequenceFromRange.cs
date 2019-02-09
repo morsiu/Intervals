@@ -8,7 +8,7 @@ using NUnit.Framework;
 
 namespace Mors.Ranges.Sequences.Tests
 {
-    public class PointSequenceFromRangeTests
+    public class TestsOfPointSequenceFromRange
     {
         public static IEnumerable<TestCaseData> EnumerationTestCases()
         {

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Mors.Ranges.Operations
 {
     [TestFixture]
-    public sealed class OpenRangeOperationTests
+    public sealed class TestsOfOperationsOnOpenRanges
     {
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
