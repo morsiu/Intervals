@@ -11,7 +11,7 @@ namespace Mors.Ranges.Operations
     public sealed class OpenRangeOperationTests
     {
         [Test]
-        [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
         public void IntersectsWithReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
             Assert.AreEqual(
@@ -20,7 +20,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
         public void IntersectReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
             OpenRangeOperations.Intersect<int, OpenRange, OpenRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);
@@ -30,7 +30,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
         public void CoversReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
             Assert.AreEqual(
@@ -39,7 +39,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
         public void IsCoveredByReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
             Assert.AreEqual(
@@ -48,7 +48,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(PairsOfOpenRanges), nameof(PairsOfOpenRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
         public void SpanReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
             OpenRangeOperations.Span<int, OpenRange, OpenRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);

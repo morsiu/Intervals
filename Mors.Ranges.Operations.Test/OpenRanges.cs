@@ -7,21 +7,21 @@ using Mors.Ranges.Generation;
 
 namespace Mors.Ranges.Operations
 {
-    internal readonly struct OpenRanges : IOpenRanges<int, OpenRange>, IEmptyRanges<OpenRange>, IRanges<OpenRange>
+    internal readonly struct OpenRanges
+        : IOpenRanges<int, OpenRange>,
+        IEmptyRanges<OpenRange>,
+        Generation.IOpenRanges<OpenRange, (OpenRange, OpenRange)>
     {
-        OpenRange IRanges<OpenRange>.Empty()
-        {
-            return new OpenRange();
-        }
+        public OpenRange Empty() => new OpenRange();
+
+        public (OpenRange, OpenRange) Pair(OpenRange first, OpenRange second) => (first, second);
+
+        public OpenRange Range(int start, int end, bool isStartOpen, bool isEndOpen) =>
+            new OpenRange(start, end, isStartOpen, isEndOpen);
 
         OpenRange IEmptyRanges<OpenRange>.Empty()
         {
             return new OpenRange();
-        }
-
-        OpenRange IRanges<OpenRange>.Range(int start, int end, bool openStart, bool openEnd)
-        {
-            return new OpenRange(start, end, openStart, openEnd);
         }
 
         OpenRange IOpenRanges<int, OpenRange>.Range(int start, int end, bool openStart, bool openEnd)
