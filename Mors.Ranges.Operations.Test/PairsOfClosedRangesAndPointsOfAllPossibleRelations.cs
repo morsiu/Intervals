@@ -5,7 +5,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Mors.Ranges.Generation;
 
 namespace Mors.Ranges.Operations
 {
@@ -13,15 +13,14 @@ namespace Mors.Ranges.Operations
     {
         public IEnumerator<(ClosedRange, int)> GetEnumerator()
         {
-            var range = new ClosedRange(3, 5);
-            return Enumerable.Range(1, 7)
-                .Select(x => (range, x))
+            return new PairsOfClosedRangesAndPointsOfAllPossibleRelations<
+                    ClosedRange,
+                    ClosedRanges,
+                    (ClosedRange, int),
+                    Pairs>()
                 .GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
