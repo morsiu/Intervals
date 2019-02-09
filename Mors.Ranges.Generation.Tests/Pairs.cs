@@ -5,9 +5,12 @@
 
 namespace Mors.Ranges.Generation.Tests
 {
-    internal struct ClosedRanges : IClosedRanges<ClosedRange>
+    internal readonly struct Pairs
+        : IPairs<ClosedRange, ClosedRange, ClosedRangePair>,
+        IPairs<OpenRange, OpenRange, OpenRangePair>
     {
-        public ClosedRange Empty() => new ClosedRange();
-        public ClosedRange Range(int start, int end) => new ClosedRange(start, end);
+        public ClosedRangePair Pair(ClosedRange first, ClosedRange second) => new ClosedRangePair(first, second);
+
+        public OpenRangePair Pair(OpenRange first, OpenRange second) => new OpenRangePair(first, second);
     }
 }

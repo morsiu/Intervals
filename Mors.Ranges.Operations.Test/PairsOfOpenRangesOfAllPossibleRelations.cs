@@ -5,7 +5,6 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Mors.Ranges.Generation;
 
 namespace Mors.Ranges.Operations
@@ -14,7 +13,11 @@ namespace Mors.Ranges.Operations
     {
         public IEnumerator<(OpenRange, OpenRange)> GetEnumerator()
         {
-            return new PairsOfOpenRangesOfAllPossibleRelations<OpenRange, (OpenRange, OpenRange), OpenRanges>()
+            return new PairsOfOpenRangesOfAllPossibleRelations<
+                    OpenRange,
+                    (OpenRange, OpenRange),
+                    OpenRanges,
+                    Pairs>()
                 .GetEnumerator();
         }
 

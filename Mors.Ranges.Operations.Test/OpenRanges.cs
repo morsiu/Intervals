@@ -10,11 +10,9 @@ namespace Mors.Ranges.Operations
     internal readonly struct OpenRanges
         : IOpenRanges<int, OpenRange>,
         IEmptyRanges<OpenRange>,
-        Generation.IOpenRanges<OpenRange, (OpenRange, OpenRange)>
+        IOpenRanges<OpenRange>
     {
         public OpenRange Empty() => new OpenRange();
-
-        public (OpenRange, OpenRange) Pair(OpenRange first, OpenRange second) => (first, second);
 
         public OpenRange Range(int start, int end, bool isStartOpen, bool isEndOpen) =>
             new OpenRange(start, end, isStartOpen, isEndOpen);

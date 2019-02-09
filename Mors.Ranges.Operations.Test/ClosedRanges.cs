@@ -10,11 +10,9 @@ namespace Mors.Ranges.Operations
     internal readonly struct ClosedRanges
         : IClosedRanges<int, ClosedRange>,
         IEmptyRanges<ClosedRange>,
-        Generation.IClosedRanges<ClosedRange, (ClosedRange, ClosedRange)>
+        IClosedRanges<ClosedRange>
     {
         public ClosedRange Empty() => new ClosedRange();
-
-        public (ClosedRange, ClosedRange) Pair(ClosedRange first, ClosedRange second) => (first, second);
 
         public ClosedRange Range(int start, int end) => new ClosedRange(start, end);
 

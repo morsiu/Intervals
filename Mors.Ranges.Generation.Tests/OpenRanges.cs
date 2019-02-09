@@ -5,11 +5,9 @@
 
 namespace Mors.Ranges.Generation.Tests
 {
-    internal struct OpenRanges : IOpenRanges<OpenRange, OpenRangePair>
+    internal struct OpenRanges : IOpenRanges<OpenRange>
     {
         public OpenRange Empty() => new OpenRange();
-
-        public OpenRangePair Pair(OpenRange first, OpenRange second) => new OpenRangePair(first, second);
 
         public OpenRange Range(int start, int end, bool isStartOpen, bool isEndOpen) =>
             new OpenRange(start, end, isStartOpen, isEndOpen);
