@@ -14,12 +14,12 @@ namespace Mors.Ranges.Sequences
     {
         private readonly IPointSequence _first;
         private readonly IPointSequence _second;
-        private readonly Func<PointTypePair, TResult> _zip;
+        private readonly Func<PairOfPointTypes, TResult> _zip;
 
         public ZipOfPointSequences(
             IPointSequence first,
             IPointSequence second,
-            Func<PointTypePair, TResult> zip)
+            Func<PairOfPointTypes, TResult> zip)
         {
             _first = new AlignedPointSequence(first, second);
             _second = new AlignedPointSequence(second, first);
@@ -29,7 +29,7 @@ namespace Mors.Ranges.Sequences
         public IEnumerator<TResult> GetEnumerator()
         {
             return _first
-                .Zip(_second, PointTypePair.Create)
+                .Zip(_second, PairOfPointTypes.Create)
                 .Select(_zip)
                 .GetEnumerator();
         }

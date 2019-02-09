@@ -26,10 +26,10 @@ namespace Mors.Ranges.Operations.Reference
         {
             Range? output = default;
             var ranges =
-                new StatefulSequence<PointTypePair, Range>(
+                new StatefulSequence<PairOfPointTypes, Range>(
                     new Outside(),
                     new Position(Start),
-                    _first.Zip(_second, (x, y) => new PointTypePair(x, y)));
+                    _first.Zip(_second, (x, y) => new PairOfPointTypes(x, y)));
             foreach (var range in ranges)
             {
                 output = output.HasValue ? Span(output.Value, range) : range;
@@ -62,9 +62,9 @@ namespace Mors.Ranges.Operations.Reference
                             : second.HasOpenEnd);
         }
 
-        private sealed class Outside : StatefulSequence<PointTypePair, Range>.IState
+        private sealed class Outside : StatefulSequence<PairOfPointTypes, Range>.IState
         {
-            public StatefulSequence<PointTypePair, Range>.IState Next(in Element<PointTypePair> input)
+            public StatefulSequence<PairOfPointTypes, Range>.IState Next(in Element<PairOfPointTypes> input)
             {
                 if (input.Value.LeftOrRightIs(PointType.ClosedStart, PointType.OpenStart))
                 {
@@ -73,7 +73,7 @@ namespace Mors.Ranges.Operations.Reference
                 return this;
             }
 
-            public (bool HasOutput, Range Output) Output(in Element<PointTypePair> input)
+            public (bool HasOutput, Range Output) Output(in Element<PairOfPointTypes> input)
             {
                 if ((input.Value.LeftIs(PointType.ClosedStartAndEnd) && input.Value.RightIs(PointType.ClosedStartAndEnd, PointType.Outside))
                     || (input.Value.LeftIs(PointType.Outside, PointType.ClosedStartAndEnd) && input.Value.RightIs(PointType.ClosedStartAndEnd)))
@@ -88,7 +88,7 @@ namespace Mors.Ranges.Operations.Reference
             }
         }
 
-        private sealed class Inside : StatefulSequence<PointTypePair, Range>.IState
+        private sealed class Inside : StatefulSequence<PairOfPointTypes, Range>.IState
         {
             private readonly RangeEnd _start;
 
@@ -97,7 +97,7 @@ namespace Mors.Ranges.Operations.Reference
                 _start = start;
             }
             
-            public StatefulSequence<PointTypePair, Range>.IState Next(in Element<PointTypePair> input)
+            public StatefulSequence<PairOfPointTypes, Range>.IState Next(in Element<PairOfPointTypes> input)
             {
                 if (input.Value.LeftIs(PointType.ClosedEnd, PointType.OpenEnd)
                     && input.Value.RightIs(PointType.ClosedEnd, PointType.OpenEnd, PointType.Outside))
@@ -112,7 +112,7 @@ namespace Mors.Ranges.Operations.Reference
                 return this;
             }
 
-            public (bool HasOutput, Range Output) Output(in Element<PointTypePair> input)
+            public (bool HasOutput, Range Output) Output(in Element<PairOfPointTypes> input)
             {
                 if ((input.Value.LeftIs(PointType.ClosedEnd, PointType.OpenEnd) && input.Value.RightIs(PointType.ClosedEnd, PointType.OpenEnd, PointType.Outside))
                     || (input.Value.LeftIs(PointType.ClosedEnd, PointType.OpenEnd, PointType.Outside) && input.Value.RightIs(PointType.ClosedEnd, PointType.OpenEnd)))
@@ -135,7 +135,7 @@ namespace Mors.Ranges.Operations.Reference
             private readonly Position _position;
             private readonly bool _isOpen;
 
-            public RangeEnd(in Element<PointTypePair> element)
+            public RangeEnd(in Element<PairOfPointTypes> element)
                 : this(
                     element.Position,
                     !element.Value.LeftOrRightIs(PointType.ClosedStart) &&

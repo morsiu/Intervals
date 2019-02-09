@@ -15,7 +15,7 @@ namespace Mors.Ranges.Generation.Tests
         {
             CollectionAssert.AreEquivalent(
                 expected: new PairsOfClosedRangesOfAllPossibleRelations(),
-                actual: new PairsOfClosedRangesOfAllPossibleRelations<ClosedRange, ClosedRangePair, ClosedRanges, Pairs>());
+                actual: new PairsOfClosedRangesOfAllPossibleRelations<ClosedRange, PairOfClosedRanges, ClosedRanges, Pairs>());
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace Mors.Ranges.Generation.Tests
         {
             CollectionAssert.AreEquivalent(
                 expected: new PairsOfOpenRangesOfAllPossibleRelations(),
-                actual: new PairsOfOpenRangesOfAllPossibleRelations<OpenRange, OpenRangePair, OpenRanges, Pairs>());
+                actual: new PairsOfOpenRangesOfAllPossibleRelations<OpenRange, PairOfOpenRanges, OpenRanges, Pairs>());
         }
     }
 }

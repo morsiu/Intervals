@@ -39,9 +39,9 @@ namespace Mors.Ranges.Sequences
             }
         }
 
-        public static PointTypePair PointTypePair(char pointTypeA, char pointTypeB)
+        public static PairOfPointTypes PairOfPointTypes(char pointTypeA, char pointTypeB)
         {
-            return new PointTypePair(
+            return new PairOfPointTypes(
                 MaybePointType(pointTypeA)
                     ?? throw new ArgumentOutOfRangeException(nameof(pointTypeA), pointTypeA, null),
                 MaybePointType(pointTypeB)

@@ -9,13 +9,13 @@ using System.Linq;
 
 namespace Mors.Ranges.Generation
 {
-    public sealed class PairsOfOpenRangesOfAllPossibleRelations<TRange, TRangePair, TRanges, TRangePairs> : IEnumerable<TRangePair>
+    public sealed class PairsOfOpenRangesOfAllPossibleRelations<TRange, TPairOfRanges, TRanges, TPairsOfRanges> : IEnumerable<TPairOfRanges>
         where TRanges : IOpenRanges<TRange>
-        where TRangePairs : IPairs<TRange, TRange, TRangePair>
+        where TPairsOfRanges : IPairs<TRange, TRange, TPairOfRanges>
     {
-        public IEnumerator<TRangePair> GetEnumerator()
+        public IEnumerator<TPairOfRanges> GetEnumerator()
         {
-            return new PairsOfClosedRangesOfAllPossibleRelations<IEnumerable<TRange>, IEnumerable<TRangePair>, Ranges, RangePairs>()
+            return new PairsOfClosedRangesOfAllPossibleRelations<IEnumerable<TRange>, IEnumerable<TPairOfRanges>, Ranges, RangePairs>()
                 .SelectMany(x => x)
                 .GetEnumerator();
         }
@@ -39,11 +39,11 @@ namespace Mors.Ranges.Generation
             }
         }
         
-        private readonly struct RangePairs : IPairs<IEnumerable<TRange>, IEnumerable<TRange>, IEnumerable<TRangePair>>
+        private readonly struct RangePairs : IPairs<IEnumerable<TRange>, IEnumerable<TRange>, IEnumerable<TPairOfRanges>>
         {
-            public IEnumerable<TRangePair> Pair(IEnumerable<TRange> first, IEnumerable<TRange> second)
+            public IEnumerable<TPairOfRanges> Pair(IEnumerable<TRange> first, IEnumerable<TRange> second)
             {
-                return first.SelectMany(x => second, (x, y) => default(TRangePairs).Pair(x, y));
+                return first.SelectMany(x => second, (x, y) => default(TPairsOfRanges).Pair(x, y));
             }
         }
     }

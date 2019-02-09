@@ -8,9 +8,9 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation.Tests
 {
-    internal sealed class PairsOfClosedRangesOfAllPossibleRelations : IEnumerable<ClosedRangePair>
+    internal sealed class PairsOfClosedRangesOfAllPossibleRelations : IEnumerable<PairOfClosedRanges>
     {
-        public IEnumerator<ClosedRangePair> GetEnumerator()
+        public IEnumerator<PairOfClosedRanges> GetEnumerator()
         {
             var x = new ClosedRanges();
             var y = new Pairs();

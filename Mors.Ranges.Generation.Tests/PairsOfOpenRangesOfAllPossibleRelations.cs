@@ -9,9 +9,9 @@ using System.Linq;
 
 namespace Mors.Ranges.Generation.Tests
 {
-    internal sealed class PairsOfOpenRangesOfAllPossibleRelations : IEnumerable<OpenRangePair>
+    internal sealed class PairsOfOpenRangesOfAllPossibleRelations : IEnumerable<PairOfOpenRanges>
     {
-        public IEnumerator<OpenRangePair> GetEnumerator()
+        public IEnumerator<PairOfOpenRanges> GetEnumerator()
         {
             return new PairsOfClosedRangesOfAllPossibleRelations()
                 .SelectMany(x => x.ToOpenRangePairs())

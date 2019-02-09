@@ -7,31 +7,31 @@ using System;
 
 namespace Mors.Ranges.Sequences
 {
-    public struct PointTypePair : IEquatable<PointTypePair>
+    public struct PairOfPointTypes : IEquatable<PairOfPointTypes>
     {
         private readonly PointType _pointA;
         private readonly PointType _pointB;
 
-        public PointTypePair(PointType pointA, PointType pointB)
+        public PairOfPointTypes(PointType pointA, PointType pointB)
             : this()
         {
             _pointA = pointA;
             _pointB = pointB;
         }
 
-        public static PointTypePair Create(PointType pointA, PointType pointB)
+        public static PairOfPointTypes Create(PointType pointA, PointType pointB)
         {
-            return new PointTypePair(pointA, pointB);
+            return new PairOfPointTypes(pointA, pointB);
         }
 
-        public bool Equals(PointTypePair other)
+        public bool Equals(PairOfPointTypes other)
         {
             return _pointA == other._pointA && _pointB == other._pointB;
         }
 
         public override bool Equals(object obj)
         {
-            return obj is PointTypePair other && Equals(other);
+            return obj is PairOfPointTypes other && Equals(other);
         }
 
         public override int GetHashCode()
@@ -42,12 +42,12 @@ namespace Mors.Ranges.Sequences
             }
         }
 
-        public static bool operator ==(PointTypePair left, PointTypePair right)
+        public static bool operator ==(PairOfPointTypes left, PairOfPointTypes right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(PointTypePair left, PointTypePair right)
+        public static bool operator !=(PairOfPointTypes left, PairOfPointTypes right)
         {
             return !left.Equals(right);
         }

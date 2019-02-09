@@ -6,11 +6,11 @@
 namespace Mors.Ranges.Generation.Tests
 {
     internal readonly struct Pairs
-        : IPairs<ClosedRange, ClosedRange, ClosedRangePair>,
-        IPairs<OpenRange, OpenRange, OpenRangePair>
+        : IPairs<ClosedRange, ClosedRange, PairOfClosedRanges>,
+        IPairs<OpenRange, OpenRange, PairOfOpenRanges>
     {
-        public ClosedRangePair Pair(ClosedRange first, ClosedRange second) => new ClosedRangePair(first, second);
+        public PairOfClosedRanges Pair(ClosedRange first, ClosedRange second) => new PairOfClosedRanges(first, second);
 
-        public OpenRangePair Pair(OpenRange first, OpenRange second) => new OpenRangePair(first, second);
+        public PairOfOpenRanges Pair(OpenRange first, OpenRange second) => new PairOfOpenRanges(first, second);
     }
 }

@@ -3,10 +3,33 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Mors.Ranges.Generation
+using System.Collections.Generic;
+
+namespace Mors.Ranges.Generation.Tests
 {
-    public sealed class PairsOfClosedRangesAndPointsOfAllPossibleRelations<TRange, TRanges>
-        where TRanges : IClosedRanges<TRange, int>
+    internal readonly struct PairOfClosedRanges
     {
+        private readonly ClosedRange _first;
+        private readonly ClosedRange _second;
+
+        public PairOfClosedRanges(ClosedRange first, ClosedRange second)
+        {
+            _first = first;
+            _second = second;
+        }
+
+        public IEnumerable<PairOfOpenRanges> ToOpenRangePairs()
+        {
+            foreach (var first in _first.ToOpenRanges())
+            {
+                foreach (var second in _second.ToOpenRanges())
+                {
+                    yield return new PairOfOpenRanges(first, second);
+                }
+            }
+        }
+
+        public override string ToString() => $"({_first}, {_second})";
     }
+
 }

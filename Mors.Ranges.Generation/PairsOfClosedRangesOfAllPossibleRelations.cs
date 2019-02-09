@@ -8,14 +8,14 @@ using System.Collections.Generic;
 
 namespace Mors.Ranges.Generation
 {
-    public sealed class PairsOfClosedRangesOfAllPossibleRelations<TRange, TRangePair, TRanges, TRangePairs> : IEnumerable<TRangePair>
+    public sealed class PairsOfClosedRangesOfAllPossibleRelations<TRange, TPairOfRanges, TRanges, TPairsOfRanges> : IEnumerable<TPairOfRanges>
         where TRanges : IClosedRanges<TRange>
-        where TRangePairs : IPairs<TRange, TRange, TRangePair>
+        where TPairsOfRanges : IPairs<TRange, TRange, TPairOfRanges>
     {
-        public IEnumerator<TRangePair> GetEnumerator()
+        public IEnumerator<TPairOfRanges> GetEnumerator()
         {
             var x = default(TRanges);
-            var y = default(TRangePairs);
+            var y = default(TPairsOfRanges);
             yield return y.Pair(x.Empty(), x.Empty());
             yield return y.Pair(x.Range(1, 5), x.Empty());
             yield return y.Pair(x.Empty(), x.Range(1, 5));

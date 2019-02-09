@@ -13,7 +13,7 @@ namespace Mors.Ranges.Operations.Reference
     {
         private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
 
-        private static readonly StateTable<PointTypePair, bool> States =
+        private static readonly StateTable<PairOfPointTypes, bool> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('-', '(', '[', '#', '=', ')', ']')
             .AppendRow('-', ' ', ' ', ' ', ' ', ' ', ' ', ' ')
@@ -23,7 +23,7 @@ namespace Mors.Ranges.Operations.Reference
             .AppendRow('=', ' ', ' ', '#', '#', '#', ' ', '#')
             .AppendRow(')', ' ', ' ', ' ', ' ', ' ', ' ', ' ')
             .AppendRow(']', ' ', ' ', '#', '#', '#', ' ', '#')
-            .Build(PointTypeCharacters.PointTypePair, BoolCharacters.Bool);
+            .Build(PointTypeCharacters.PairOfPointTypes, BoolCharacters.Bool);
 
         private readonly IEnumerable<bool> _result;
 

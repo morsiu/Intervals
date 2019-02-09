@@ -5,12 +5,12 @@
 
 namespace Mors.Ranges.Generation.Tests
 {
-    internal readonly struct OpenRangePair
+    internal readonly struct PairOfOpenRanges
     {
         private readonly OpenRange _first;
         private readonly OpenRange _second;
 
-        public OpenRangePair(OpenRange first, OpenRange second)
+        public PairOfOpenRanges(OpenRange first, OpenRange second)
         {
             _first = first;
             _second = second;

@@ -11,7 +11,7 @@ namespace Mors.Ranges.Operations.Reference
 {
     public sealed class IntersectOperation : IPointSequence
     {
-        private static readonly StateTable<PointTypePair, PointType> States =
+        private static readonly StateTable<PairOfPointTypes, PointType> States =
             new StateTableBuilder<char, char, char>()
             .AssumingHeader('-', '(', '[', '#', '=', ')', ']')
             .AppendRow('-', '-', '-', '-', '-', '-', '-', '-')
@@ -21,7 +21,7 @@ namespace Mors.Ranges.Operations.Reference
             .AppendRow('=', '-', '(', '[', '=', '=', ')', ']')
             .AppendRow(')', '-', '-', '-', ')', ')', ')', ')')
             .AppendRow(']', '-', '-', '#', ']', ']', ')', ']')
-            .Build(PointTypeCharacters.PointTypePair, PointTypeCharacters.PointType);
+            .Build(PointTypeCharacters.PairOfPointTypes, PointTypeCharacters.PointType);
 
         private readonly ZippedPointSequence _result;
 

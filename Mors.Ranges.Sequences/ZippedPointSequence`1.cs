@@ -15,13 +15,13 @@ namespace Mors.Ranges.Sequences
         private readonly IPointSequence _first;
         private readonly IPointSequence _second;
         private readonly TState _initialState;
-        private readonly Func<(TState, PointTypePair), (TState, PointType)> _zip;
+        private readonly Func<(TState, PairOfPointTypes), (TState, PointType)> _zip;
 
         public ZippedPointSequence(
             IPointSequence first,
             IPointSequence second,
             TState initialState,
-            Func<(TState, PointTypePair), (TState, PointType)> zip)
+            Func<(TState, PairOfPointTypes), (TState, PointType)> zip)
         {
             _first = new AlignedPointSequence(first, second);
             _second = new AlignedPointSequence(second, first);
@@ -36,9 +36,9 @@ namespace Mors.Ranges.Sequences
         public IEnumerator<PointType> GetEnumerator()
         {
             var state = _initialState;
-            foreach (var pointTypePair in _first.Zip(_second, PointTypePair.Create))
+            foreach (var pairOfPointTypes in _first.Zip(_second, PairOfPointTypes.Create))
             {
-                var (nextState, output) = _zip((state, pointTypePair));
+                var (nextState, output) = _zip((state, pairOfPointTypes));
                 state = nextState;
                 yield return output;
             }

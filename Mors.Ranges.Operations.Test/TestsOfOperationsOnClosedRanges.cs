@@ -20,7 +20,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(AllPossibleRelationsOfClosedRangeAndPoint))]
+        [TestCaseSource(typeof(PairsOfClosedRangesAndPointsOfAllPossibleRelations))]
         public void ContainsReturnsExpectedResult((ClosedRange Range, int Point) pair)
         {
             Assert.AreEqual(
