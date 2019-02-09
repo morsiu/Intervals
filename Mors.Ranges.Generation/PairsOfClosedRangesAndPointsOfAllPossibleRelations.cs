@@ -5,9 +5,8 @@
 
 namespace Mors.Ranges.Generation
 {
-    public interface IClosedRanges<TRange>
+    public sealed class PairsOfClosedRangesAndPointsOfAllPossibleRelations<TRange, TRanges>
+        where TRanges : IClosedRanges<TRange, int>
     {
-        TRange Empty();
-        TRange Range(int start, int end);
     }
 }
