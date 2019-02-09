@@ -11,7 +11,7 @@ namespace Mors.Ranges.Operations
     public sealed class ClosedRangeOperationTests
     {
         [Test]
-        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfClosedRangesOfAllPossibleRelations))]
         public void IntersectsWithReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
             Assert.AreEqual(
@@ -29,7 +29,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfClosedRangesOfAllPossibleRelations))]
         public void IntersectReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
             ClosedRangeOperations.Intersect<int, ClosedRange, ClosedRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);
@@ -39,7 +39,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfClosedRangesOfAllPossibleRelations))]
         public void CoversReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
             Assert.AreEqual(
@@ -48,7 +48,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfClosedRangesOfAllPossibleRelations))]
         public void IsCoveredByReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
             Assert.AreEqual(
@@ -57,7 +57,7 @@ namespace Mors.Ranges.Operations
         }
 
         [Test]
-        [TestCaseSource(typeof(PairsOfClosedRanges), nameof(PairsOfClosedRanges.OfAllPossibleRelations))]
+        [TestCaseSource(typeof(PairsOfClosedRangesOfAllPossibleRelations))]
         public void SpanReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
             ClosedRangeOperations.Span<int, ClosedRange, ClosedRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);

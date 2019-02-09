@@ -3,19 +3,20 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Mors.Ranges.Generation;
 
 namespace Mors.Ranges.Operations
 {
-    public static class PairsOfClosedRanges
+    public sealed class PairsOfClosedRangesOfAllPossibleRelations : IEnumerable<(ClosedRange, ClosedRange)>
     {
-        public static IEnumerable<(ClosedRange, ClosedRange)> OfAllPossibleRelations()
+        public IEnumerator<(ClosedRange, ClosedRange)> GetEnumerator()
         {
-            return new PairsOfRangesOfKinds<ClosedRanges, ClosedRange?>(new AllPairsOfRangeKinds())
-                .Where(x => x.RangeA != null && x.RangeB != null)
-                .Select(x => (x.RangeA.Value, x.RangeB.Value));
+            return new PairsOfClosedRangesOfAllPossibleRelations<ClosedRange, (ClosedRange, ClosedRange), ClosedRanges>()
+                .GetEnumerator();
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

@@ -7,28 +7,25 @@ using Mors.Ranges.Generation;
 
 namespace Mors.Ranges.Operations
 {
-    internal readonly struct ClosedRanges : IClosedRanges<int, ClosedRange>, IEmptyRanges<ClosedRange>, IRanges<ClosedRange?>
+    internal readonly struct ClosedRanges
+        : IClosedRanges<int, ClosedRange>,
+        IEmptyRanges<ClosedRange>,
+        Generation.IClosedRanges<ClosedRange, (ClosedRange, ClosedRange)>
     {
+        public ClosedRange Empty() => new ClosedRange();
+
+        public (ClosedRange, ClosedRange) Pair(ClosedRange first, ClosedRange second) => (first, second);
+
+        public ClosedRange Range(int start, int end) => new ClosedRange(start, end);
+
         ClosedRange IEmptyRanges<ClosedRange>.Empty()
         {
             return new ClosedRange();
         }
 
-        ClosedRange? IRanges<ClosedRange?>.Empty()
-        {
-            return new ClosedRange();
-        }
-        
         ClosedRange IClosedRanges<int, ClosedRange>.Range(int start, int end)
         {
             return new ClosedRange(start, end);
-        }
-        
-        ClosedRange? IRanges<ClosedRange?>.Range(int start, int end, bool isStartOpen, bool isEndOpen)
-        {
-            return !isStartOpen && !isEndOpen
-                ? new ClosedRange(start, end)
-                : default;
         }
     }
 }
