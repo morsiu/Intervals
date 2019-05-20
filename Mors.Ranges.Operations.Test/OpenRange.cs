@@ -8,7 +8,14 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations
 {
-    public readonly struct OpenRange : IRange<int>, IOpenRange, IEmptyRange, IEquatable<OpenRange>
+    public readonly struct OpenRange
+        : IRange<int>,
+        Reference.IRange<int>,
+        IOpenRange,
+        Reference.IOpenRange,
+        IEmptyRange,
+        Reference.IEmptyRange,
+        IEquatable<OpenRange>
     {
         private readonly bool _nonEmpty;
 

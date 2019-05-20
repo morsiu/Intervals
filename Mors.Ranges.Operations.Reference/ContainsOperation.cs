@@ -7,7 +7,7 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public sealed class ContainsOperation
+    internal sealed class ContainsOperation
     {
         private readonly IntersectsWithOperation _result;
 

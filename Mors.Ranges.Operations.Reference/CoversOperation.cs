@@ -7,7 +7,7 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public sealed class CoversOperation
+    internal sealed class CoversOperation
     {
         private readonly IPointSequence _first;
         private readonly IPointSequence _second;

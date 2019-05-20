@@ -9,7 +9,7 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public sealed class IntersectsWithOperation
+    internal sealed class IntersectsWithOperation
     {
         private static readonly BoolCharacters BoolCharacters = new BoolCharacters('#', ' ');
 

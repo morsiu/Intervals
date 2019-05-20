@@ -1,39 +1,35 @@
-﻿// Copyright (C) 2018 Łukasz Mrozek
+﻿// Copyright (C) 2019 Łukasz Mrozek
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 using System.Linq;
-using Mors.Ranges.Operations.Reference;
 using Mors.Ranges.Sequences;
 
-namespace Mors.Ranges.Operations
+namespace Mors.Ranges.Operations.Reference
 {
-    internal static class ReferenceOpenRangeOperations
+    internal static class PointSequenceExtensions
     {
-        public static bool Covers(OpenRange first, OpenRange second)
+        public static TOpenRange AtMostOneOpenRange<TOpenRange, TOpenRanges>(this IPointSequence pointSequence)
+            where TOpenRange : IRange<int>, IOpenRange
+            where TOpenRanges : struct, IOpenRanges<int, TOpenRange>, IEmptyRanges<TOpenRange>
         {
-            return new CoversOperation(first.PointSequence(), second.PointSequence()).Result();
+            return new RangesInPointSequence(pointSequence)
+                .Cast<Range?>()
+                .DefaultIfEmpty(default)
+                .Select(x => x.ToOpenRange<TOpenRange, TOpenRanges>())
+                .Single();
         }
 
-        public static bool IntersectsWith(OpenRange first, OpenRange second)
+        public static TClosedRange AtMostOneClosedRange<TClosedRange, TClosedRanges>(this IPointSequence pointSequence)
+            where TClosedRange : IRange<int>
+            where TClosedRanges : struct, IClosedRanges<int, TClosedRange>, IEmptyRanges<TClosedRange>
         {
-            return new IntersectsWithOperation(first.PointSequence(), second.PointSequence()).Result();
-        }
-
-        public static OpenRange Intersect(OpenRange first, OpenRange second)
-        {
-            return new IntersectOperation(first.PointSequence(), second.PointSequence()).AtMostOneOpenRange();
-        }
-
-        public static bool IsCoveredBy(OpenRange first, OpenRange second)
-        {
-            return new IsCoveredByOperation(first.PointSequence(), second.PointSequence()).Result();
-        }
-
-        public static OpenRange Span(OpenRange first, OpenRange second)
-        {
-            return new SpanOperation(first.PointSequence(), second.PointSequence()).AtMostOneOpenRange();
+            return new RangesInPointSequence(pointSequence)
+                .Cast<Range?>()
+                .DefaultIfEmpty(default)
+                .Select(x => x.ToClosedRange<TClosedRange, TClosedRanges>())
+                .Single(); 
         }
     }
 }

@@ -8,7 +8,7 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public sealed class IsEmptyOperation
+    internal sealed class IsEmptyOperation
     {
         private readonly IPointSequence _pointSequence;
 

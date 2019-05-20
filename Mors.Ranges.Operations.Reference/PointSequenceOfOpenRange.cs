@@ -1,32 +1,22 @@
-﻿// Copyright (C) 2018 Łukasz Mrozek
+﻿// Copyright (C) 2019 Łukasz Mrozek
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using Mors.Ranges.Generation;
+using Mors.Ranges.Sequences;
 
-namespace Mors.Ranges.Operations
+namespace Mors.Ranges.Operations.Reference
 {
-    internal readonly struct OpenRanges
-        : IOpenRanges<int, OpenRange>,
-        Reference.IOpenRanges<int, OpenRange>,
-        IEmptyRanges<OpenRange>,
-        Reference.IEmptyRanges<OpenRange>,
-        IOpenRanges<OpenRange>
+    internal sealed class PointSequenceOfOpenRange<TOpenRange>
+        where TOpenRange : IRange<int>, IOpenRange, IEmptyRange
     {
-        public OpenRange Empty() => new OpenRange();
+        private readonly TOpenRange _range;
 
-        public OpenRange Range(int start, int end, bool isStartOpen, bool isEndOpen) =>
-            new OpenRange(start, end, isStartOpen, isEndOpen);
+        public PointSequenceOfOpenRange(TOpenRange range) => _range = range;
 
-        OpenRange IEmptyRanges<OpenRange>.Empty()
-        {
-            return new OpenRange();
-        }
-
-        OpenRange IOpenRanges<int, OpenRange>.Range(int start, int end, bool openStart, bool openEnd)
-        {
-            return new OpenRange(start, end, openStart, openEnd);
-        }
+        public IPointSequence Value() =>
+            _range.Empty
+                ? (IPointSequence)new EmptyPointSequence()
+                : new PointSequenceFromRange(_range.Start, _range.End, _range.OpenStart, _range.OpenEnd);
     }
 }

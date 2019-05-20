@@ -7,6 +7,8 @@ using NUnit.Framework;
 
 namespace Mors.Ranges.Operations
 {
+    using ReferenceOpenRangeOperations = Reference.ReferenceOpenRangeOperations<OpenRange, OpenRanges>;
+
     [TestFixture]
     public sealed class TestsOfOperationsOnOpenRanges
     {

@@ -9,7 +9,7 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public sealed class IntersectOperation : IPointSequence
+    internal sealed class IntersectOperation : IPointSequence
     {
         private static readonly StateTable<PairOfPointTypes, PointType> States =
             new StateTableBuilder<char, char, char>()

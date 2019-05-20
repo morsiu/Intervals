@@ -7,6 +7,8 @@ using NUnit.Framework;
 
 namespace Mors.Ranges.Operations
 {
+    using ReferenceClosedRangeOperations = Reference.ReferenceClosedRangeOperations<ClosedRange, ClosedRanges>;
+
     [TestFixture]
     public sealed class TestsOfOperationsOnClosedRanges
     {

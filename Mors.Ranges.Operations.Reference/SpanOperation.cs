@@ -11,7 +11,7 @@ using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations.Reference
 {
-    public sealed class SpanOperation : IPointSequence
+    internal sealed class SpanOperation : IPointSequence
     {
         private readonly IPointSequence _first;
         private readonly IPointSequence _second;
