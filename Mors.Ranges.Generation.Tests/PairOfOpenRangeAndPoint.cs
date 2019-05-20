@@ -3,37 +3,20 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using NUnit.Framework;
-
 namespace Mors.Ranges.Generation.Tests
 {
-    [TestFixture]
-    public sealed class TestsOfGenerationOfPairsOfRangesAndPoints
+    internal readonly struct PairOfOpenRangeAndPoint
     {
-        [Test]
-        public void GeneratesPairsOfClosedRangesAndPointsOfAllPossibleRelations()
+        private readonly OpenRange _first;
+        private readonly int _second;
+
+        public PairOfOpenRangeAndPoint(OpenRange first, int second)
         {
-            CollectionAssert.AreEquivalent(
-                expected: new PairsOfClosedRangesAndPointsOfAllPossibleRelations(),
-                actual:
-                    new PairsOfClosedRangesAndPointsOfAllPossibleRelations<
-                        ClosedRange,
-                        ClosedRanges,
-                        PairOfClosedRangeAndPoint,
-                        Pairs>());
+            _first = first;
+            _second = second;
         }
 
-        [Test]
-        public void GeneratesPairsOfOpenRangesAndPointsOfAllPossibleRelations()
-        {
-            CollectionAssert.AreEquivalent(
-                expected: new PairsOfOpenRangesAndPointsOfAllPossibleRelations(),
-                actual:
-                    new PairsOfOpenRangesAndPointsOfAllPossibleRelations<
-                        OpenRange,
-                        OpenRanges,
-                        PairOfOpenRangeAndPoint,
-                        Pairs>());
-        }
+        public override string ToString() => $"({_first}, {_second})";
     }
+
 }

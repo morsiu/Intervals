@@ -3,37 +3,38 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace Mors.Ranges.Generation.Tests
+namespace Mors.Ranges.Generation
 {
-    [TestFixture]
-    public sealed class TestsOfGenerationOfPairsOfRangesAndPoints
+    public sealed class PairsOfOpenRangesAndPointsOfAllPossibleRelations<
+        TRange,
+        TRanges,
+        TPairOfRangeAndPoint,
+        TPairsOfRangesAndPoints>
+    : IEnumerable<TPairOfRangeAndPoint>
+    where TRanges : IOpenRanges<TRange>
+    where TPairsOfRangesAndPoints : IPairs<TRange, int, TPairOfRangeAndPoint>
     {
-        [Test]
-        public void GeneratesPairsOfClosedRangesAndPointsOfAllPossibleRelations()
+        public IEnumerator<TPairOfRangeAndPoint> GetEnumerator()
         {
-            CollectionAssert.AreEquivalent(
-                expected: new PairsOfClosedRangesAndPointsOfAllPossibleRelations(),
-                actual:
-                    new PairsOfClosedRangesAndPointsOfAllPossibleRelations<
-                        ClosedRange,
-                        ClosedRanges,
-                        PairOfClosedRangeAndPoint,
-                        Pairs>());
+            var a = default(TPairsOfRangesAndPoints);
+            return Enumerable.Range(1, 7)
+                .SelectMany(x => Ranges(), (x, y) => a.Pair(y, x))
+                .GetEnumerator();
         }
 
-        [Test]
-        public void GeneratesPairsOfOpenRangesAndPointsOfAllPossibleRelations()
+        private static IEnumerable<TRange> Ranges()
         {
-            CollectionAssert.AreEquivalent(
-                expected: new PairsOfOpenRangesAndPointsOfAllPossibleRelations(),
-                actual:
-                    new PairsOfOpenRangesAndPointsOfAllPossibleRelations<
-                        OpenRange,
-                        OpenRanges,
-                        PairOfOpenRangeAndPoint,
-                        Pairs>());
+            yield return default(TRanges).Range(3, 5, false, false);
+            yield return default(TRanges).Range(3, 5, false, true);
+            yield return default(TRanges).Range(3, 5, true, false);
+            yield return default(TRanges).Range(3, 5, true, true);
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
+
 }

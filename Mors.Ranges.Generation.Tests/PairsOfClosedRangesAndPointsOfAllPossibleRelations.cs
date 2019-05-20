@@ -25,4 +25,5 @@ namespace Mors.Ranges.Generation.Tests
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
+
 }

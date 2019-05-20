@@ -9,6 +9,22 @@ namespace Mors.Ranges.Operations
 {
     public static class OpenRangeOperations
     {
+        public static bool Contains<TPoint, TRange>(
+            in TRange range,
+            in TPoint point)
+            where TPoint : IComparable<TPoint>
+            where TRange : IRange<TPoint>, IEmptyRange, IOpenRange
+        {
+            if (range.Empty) return false;
+            var pointToStart = point.CompareTo(range.Start);
+            var pointToEnd = point.CompareTo(range.End);
+            if (pointToStart < 0) return false;
+            if (pointToStart == 0) return pointToEnd != 0 ? !range.OpenStart : !range.OpenStart && !range.OpenEnd;
+            if (pointToEnd < 0) return true;
+            if (pointToEnd == 0) return !range.OpenEnd;
+            return false;
+        }
+
         public static bool Covers<TPoint, TRange>(
             in TRange left,
             in TRange right)

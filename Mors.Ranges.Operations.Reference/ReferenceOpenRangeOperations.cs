@@ -11,6 +11,9 @@ namespace Mors.Ranges.Operations.Reference
         where TOpenRange : IRange<int>, IOpenRange, IEmptyRange
         where TOpenRanges : struct, IOpenRanges<int, TOpenRange>, IEmptyRanges<TOpenRange>
     {
+        public static object Contains(in TOpenRange range, int point) =>
+            new ContainsOperation(PointSequence(range), point).Result();
+
         public static bool Covers(TOpenRange first, TOpenRange second) =>
             new CoversOperation(PointSequence(first), PointSequence(second)).Result();
 

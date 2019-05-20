@@ -3,20 +3,24 @@
 // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-namespace Mors.Ranges.Generation.Tests
-{
-    internal readonly struct PairOfClosedRangeAndPoint
-    {
-        private readonly ClosedRange _first;
-        private readonly int _second;
+using System.Collections;
+using System.Collections.Generic;
+using Mors.Ranges.Generation;
 
-        public PairOfClosedRangeAndPoint(ClosedRange first, int second)
+namespace Mors.Ranges.Operations
+{
+    public sealed class PairsOfOpenRangesAndPointsOfAllPossibleRelations : IEnumerable<(OpenRange, int)>
+    {
+        public IEnumerator<(OpenRange, int)> GetEnumerator()
         {
-            _first = first;
-            _second = second;
+            return new PairsOfOpenRangesAndPointsOfAllPossibleRelations<
+                    OpenRange,
+                    OpenRanges,
+                    (OpenRange, int),
+                    Pairs>()
+                .GetEnumerator();
         }
 
-        public override string ToString() => $"({_first}, {_second})";
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
-
 }

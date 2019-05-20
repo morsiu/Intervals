@@ -13,6 +13,15 @@ namespace Mors.Ranges.Operations
     public sealed class TestsOfOperationsOnOpenRanges
     {
         [Test]
+        [TestCaseSource(typeof(PairsOfOpenRangesAndPointsOfAllPossibleRelations))]
+        public void ContainsReturnsExpectedResult((OpenRange Range, int Point) pair)
+        {
+            Assert.AreEqual(
+                ReferenceOpenRangeOperations.Contains(pair.Range, pair.Point),
+                OpenRangeOperations.Contains(pair.Range, pair.Point));
+        }
+
+        [Test]
         [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
         public void IntersectsWithReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
