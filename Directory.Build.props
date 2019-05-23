@@ -4,5 +4,6 @@
     <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
     <Copyright>Copyright © 2019 Łukasz Mrozek</Copyright>
     <Authors>Łukasz Mrozek</Authors>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 </Project>
