@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard1.2</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
-    <Copyright>Copyright © 2018 Łukasz Mrozek</Copyright>
-    <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.Ranges.Sequences\Mors.Ranges.Sequences.csproj" />

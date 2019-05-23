@@ -1,10 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
-    <Copyright>Copyright © 2018 Łukasz Mrozek</Copyright>
-    <Authors>Łukasz Mrozek</Authors>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
