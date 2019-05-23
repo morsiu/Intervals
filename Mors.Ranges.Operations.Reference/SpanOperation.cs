@@ -40,8 +40,8 @@ namespace Mors.Ranges.Operations.Reference
                         : (IPointSequence) new EmptyPointSequence(),
                     _first)
                 .GetEnumerator();
-            
-            Range Span(in Range first, in Range second) =>
+
+            static Range Span(in Range first, in Range second) =>
                 new Range(
                     Math.Min(first.Start, second.Start),
                     Math.Max(first.End, second.End),

@@ -79,12 +79,12 @@ namespace Mors.Ranges.Sequences.Tests
             yield return new TestCaseData("#(]").Returns(Ranges(Closed(1, 1), LeftOpen(2, 3)));
             yield return new TestCaseData("[)#").Returns(Ranges(RightOpen(1, 2), Closed(3, 3)));
 
-            IEnumerable<Range> NoRanges() => Enumerable.Empty<Range>();
-            IEnumerable<Range> Ranges(params Range[] ranges) => ranges;
-            Range Open(int start, int end) => new Range(start, end, true, true);
-            Range Closed(int start, int end) => new Range(start, end, false, false);
-            Range LeftOpen(int start, int end) => new Range(start, end, true, false);
-            Range RightOpen(int start, int end) => new Range(start, end, false, true);
+            static IEnumerable<Range> NoRanges() => Enumerable.Empty<Range>();
+            static IEnumerable<Range> Ranges(params Range[] ranges) => ranges;
+            static Range Open(int start, int end) => new Range(start, end, true, true);
+            static Range Closed(int start, int end) => new Range(start, end, false, false);
+            static Range LeftOpen(int start, int end) => new Range(start, end, true, false);
+            static Range RightOpen(int start, int end) => new Range(start, end, false, true);
         }
 
         public static IEnumerable<string> StringsWithUnexpectedInput()
