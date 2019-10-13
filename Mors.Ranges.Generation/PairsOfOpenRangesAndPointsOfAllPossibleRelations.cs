@@ -10,8 +10,8 @@ namespace Mors.Ranges.Generation
         TPairOfRangeAndPoint,
         TPairsOfRangesAndPoints>
     : IEnumerable<TPairOfRangeAndPoint>
-    where TRanges : IOpenRanges<TRange>
-    where TPairsOfRangesAndPoints : IPairs<TRange, int, TPairOfRangeAndPoint>
+    where TRanges : struct, IOpenRanges<TRange>
+    where TPairsOfRangesAndPoints : struct, IPairs<TRange, int, TPairOfRangeAndPoint>
     {
         public IEnumerator<TPairOfRangeAndPoint> GetEnumerator()
         {

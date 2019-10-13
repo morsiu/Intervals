@@ -7,7 +7,7 @@ namespace Mors.Ranges.Operations.Reference
     internal sealed class StateTableBuilder<TRowInput, TColumnInput, TOutput>
     {
         private readonly Dictionary<(TRowInput Row, TColumnInput Column), TOutput> _states = new Dictionary<(TRowInput, TColumnInput), TOutput>();
-        private TColumnInput[] _columns;
+        private TColumnInput[]? _columns;
 
         public StateTableBuilder<TRowInput, TColumnInput, TOutput> AssumingHeader(params TColumnInput[] columns)
         {
@@ -17,6 +17,7 @@ namespace Mors.Ranges.Operations.Reference
 
         public StateTableBuilder<TRowInput, TColumnInput, TOutput> AppendRow(TRowInput row, params TOutput[] outputs)
         {
+            if (_columns == null) throw new InvalidOperationException($"Columns are not set. Call {nameof(AssumingHeader)} first.");
             var index = 0;
             foreach (var output in outputs)
             {

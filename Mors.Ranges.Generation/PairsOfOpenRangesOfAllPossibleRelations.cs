@@ -5,8 +5,8 @@ using System.Linq;
 namespace Mors.Ranges.Generation
 {
     public sealed class PairsOfOpenRangesOfAllPossibleRelations<TRange, TPairOfRanges, TRanges, TPairsOfRanges> : IEnumerable<TPairOfRanges>
-        where TRanges : IOpenRanges<TRange>
-        where TPairsOfRanges : IPairs<TRange, TRange, TPairOfRanges>
+        where TRanges : struct, IOpenRanges<TRange>
+        where TPairsOfRanges : struct, IPairs<TRange, TRange, TPairOfRanges>
     {
         public IEnumerator<TPairOfRanges> GetEnumerator()
         {
