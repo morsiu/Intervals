@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    ".NETStandard,Version=v1.2": {
+    ".NETStandard,Version=v1.1": {
       "NETStandard.Library": {
         "type": "Direct",
         "requested": "[1.6.1, )",
@@ -36,7 +36,6 @@
           "System.Text.RegularExpressions": "4.3.0",
           "System.Threading": "4.3.0",
           "System.Threading.Tasks": "4.3.0",
-          "System.Threading.Timer": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0",
           "System.Xml.XDocument": "4.3.0"
         }
@@ -335,16 +334,6 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.Threading.Timer": {
-        "type": "Transitive",
-        "resolved": "4.3.0",
-        "contentHash": "Z6YfyYTCg7lOZjJzBjONJTFKGN9/NIYKSxhU5GRd+DTwHSZyvWp1xuI5aR+dLg+ayyC5Xv57KiY4oJ0tMO89fQ==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0",
-          "Microsoft.NETCore.Targets": "1.1.0",
-          "System.Runtime": "4.3.0"
-        }
-      },
       "System.ValueTuple": {
         "type": "Transitive",
         "resolved": "4.5.0",
@@ -374,7 +363,7 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
-      "Mors.Ranges.Sequences": {
+      "mors.ranges.sequences": {
         "type": "Project",
         "dependencies": {
           "NETStandard.Library": "1.6.1",
