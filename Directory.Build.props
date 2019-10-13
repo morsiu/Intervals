@@ -1,9 +1,10 @@
 <Project>
   <PropertyGroup>
-    <LangVersion>Preview</LangVersion>
     <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
     <Copyright>Copyright © 2019 Łukasz Mrozek</Copyright>
     <Authors>Łukasz Mrozek</Authors>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 </Project>
