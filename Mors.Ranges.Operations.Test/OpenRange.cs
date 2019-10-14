@@ -1,5 +1,4 @@
 ﻿using System;
-using Mors.Ranges.Sequences;
 
 namespace Mors.Ranges.Operations
 {
@@ -65,10 +64,5 @@ namespace Mors.Ranges.Operations
             _nonEmpty 
                 ? $"{(OpenStart ? "(" : "[")}{Start}, {End}{(OpenEnd ? ")" : "]")}"
                 : "{empty}";
-
-        public IPointSequence PointSequence() =>
-            _nonEmpty
-                ? new PointSequenceFromRange(Start, End, OpenStart, OpenEnd)
-                : (IPointSequence) new EmptyPointSequence();
     }
 }

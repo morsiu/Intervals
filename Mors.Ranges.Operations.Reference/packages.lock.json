@@ -78,6 +78,14 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
+      "System.Collections.Immutable": {
+        "type": "Transitive",
+        "resolved": "1.6.0",
+        "contentHash": "+aL946rTSJyo4PqstwsVZ5RBfaxfkIx+nTMfpmaxzorqgifRJwndBZhXPWNWGJpys7cQ1/vCvilYN9ugM05JFA==",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        }
+      },
       "System.Diagnostics.Debug": {
         "type": "Transitive",
         "resolved": "4.3.0",
@@ -361,6 +369,14 @@
           "System.IO": "4.3.0",
           "System.Runtime": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
+        }
+      },
+      "mors.ranges.inequations": {
+        "type": "Project",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Collections.Immutable": "1.6.0",
+          "System.ValueTuple": "4.5.0"
         }
       },
       "mors.ranges.sequences": {

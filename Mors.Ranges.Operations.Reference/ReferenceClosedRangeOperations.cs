@@ -1,4 +1,5 @@
-﻿using Mors.Ranges.Sequences;
+﻿using System.Linq;
+using Mors.Ranges.Inequations;
 
 namespace Mors.Ranges.Operations.Reference
 {
@@ -7,27 +8,41 @@ namespace Mors.Ranges.Operations.Reference
         where TClosedRanges : struct, IClosedRanges<int, TClosedRange>, IEmptyRanges<TClosedRange>
     {
         public static object Contains(in TClosedRange range, int point) =>
-            new ContainsOperation(PointSequence(range), point).Result();
+            range.ToInequationFromClosed().IsSatisfiedBy(point);
 
         public static bool Covers(in TClosedRange first, in TClosedRange second) =>
-            new CoversOperation(PointSequence(first), PointSequence(second)).Result();
+            !first.Empty
+            && !second.Empty
+            && Inequation.And(
+                    second.ToInequationFromClosed(),
+                    Inequation.Not(
+                        first.ToInequationFromClosed()))
+                .ToClosedRanges<TClosedRange, TClosedRanges>()
+                .All(x => x.Empty);
 
         public static bool IntersectsWith(TClosedRange first, TClosedRange second) =>
-            new IntersectsWithOperation(PointSequence(first), PointSequence(second)).Result();
+            Inequation.And(
+                    first.ToInequationFromClosed(),
+                    second.ToInequationFromClosed())
+                .ToClosedRanges<TClosedRange, TClosedRanges>()
+                .Any(x => !x.Empty);
 
         public static TClosedRange Intersect(TClosedRange first, TClosedRange second) =>
-            AtMostOneClosedRange(new IntersectOperation(PointSequence(first), PointSequence(second)));
+            Inequation.And(
+                    first.ToInequationFromClosed(),
+                    second.ToInequationFromClosed())
+                .ToClosedRanges<TClosedRange, TClosedRanges>()
+                .Single();
 
         public static bool IsCoveredBy(TClosedRange first, TClosedRange second) =>
-            new IsCoveredByOperation(PointSequence(first), PointSequence(second)).Result();
+            Covers(second, first);
 
         public static TClosedRange Span(TClosedRange first, TClosedRange second) =>
-            AtMostOneClosedRange(new SpanOperation(PointSequence(first), PointSequence(second)));
-
-        private static TClosedRange AtMostOneClosedRange(IPointSequence pointSequence) =>
-            pointSequence.AtMostOneClosedRange<TClosedRange, TClosedRanges>();
-
-        private static IPointSequence PointSequence(in TClosedRange range) =>
-            new PointSequenceOfClosedRange<TClosedRange>(range).Value();
+            Inequation.Closure(
+                    Inequation.Or(
+                        first.ToInequationFromClosed(),
+                        second.ToInequationFromClosed()))
+                .ToClosedRanges<TClosedRange, TClosedRanges>()
+                .Single();
     }
 }

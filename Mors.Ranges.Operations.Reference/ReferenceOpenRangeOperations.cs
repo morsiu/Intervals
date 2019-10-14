@@ -1,4 +1,5 @@
-﻿using Mors.Ranges.Sequences;
+﻿using System.Linq;
+using Mors.Ranges.Inequations;
 
 namespace Mors.Ranges.Operations.Reference
 {
@@ -7,26 +8,41 @@ namespace Mors.Ranges.Operations.Reference
         where TOpenRanges : struct, IOpenRanges<int, TOpenRange>, IEmptyRanges<TOpenRange>
     {
         public static object Contains(in TOpenRange range, int point) =>
-            new ContainsOperation(PointSequence(range), point).Result();
+            range.ToInequationFromOpen().IsSatisfiedBy(point);
 
         public static bool Covers(TOpenRange first, TOpenRange second) =>
-            new CoversOperation(PointSequence(first), PointSequence(second)).Result();
+            !first.Empty
+            && !second.Empty
+            && Inequation.And(
+                    second.ToInequationFromOpen(),
+                    Inequation.Not(
+                        first.ToInequationFromOpen()))
+                .ToOpenRanges<TOpenRange, TOpenRanges>()
+                .All(x => x.Empty);
 
         public static bool IntersectsWith(TOpenRange first, TOpenRange second) =>
-            new IntersectsWithOperation(PointSequence(first), PointSequence(second)).Result();
+            Inequation.And(
+                    first.ToInequationFromOpen(),
+                    second.ToInequationFromOpen())
+                .ToOpenRanges<TOpenRange, TOpenRanges>()
+                .Any(x => !x.Empty);
 
         public static TOpenRange Intersect(TOpenRange first, TOpenRange second) =>
-            new IntersectOperation(PointSequence(first), PointSequence(second))
-                .AtMostOneOpenRange<TOpenRange, TOpenRanges>();
+            Inequation.And(
+                    first.ToInequationFromOpen(),
+                    second.ToInequationFromOpen())
+                .ToOpenRanges<TOpenRange, TOpenRanges>()
+                .Single();
 
         public static bool IsCoveredBy(TOpenRange first, TOpenRange second) =>
-            new IsCoveredByOperation(PointSequence(first), PointSequence(second)).Result();
+            Covers(second, first);
 
         public static TOpenRange Span(TOpenRange first, TOpenRange second) =>
-            new SpanOperation(PointSequence(first), PointSequence(second))
-                .AtMostOneOpenRange<TOpenRange, TOpenRanges>();
-
-        private static IPointSequence PointSequence(in TOpenRange range) =>
-            new PointSequenceOfOpenRange<TOpenRange>(range).Value();
+            Inequation.Closure(
+                    Inequation.Or(
+                        first.ToInequationFromOpen(),
+                        second.ToInequationFromOpen()))
+                .ToOpenRanges<TOpenRange, TOpenRanges>()
+                .Single();
     }
 }

@@ -3,6 +3,7 @@
     <TargetFramework>netstandard1.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Mors.Ranges.Inequations\Mors.Ranges.Inequations.csproj" />
     <ProjectReference Include="..\Mors.Ranges.Sequences\Mors.Ranges.Sequences.csproj" />
   </ItemGroup>
 </Project>
