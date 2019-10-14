@@ -841,15 +841,7 @@
         "type": "Project",
         "dependencies": {
           "Mors.Ranges.Inequations": "1.0.0",
-          "Mors.Ranges.Sequences": "1.0.0",
           "NETStandard.Library": "1.6.1"
-        }
-      },
-      "mors.ranges.sequences": {
-        "type": "Project",
-        "dependencies": {
-          "NETStandard.Library": "1.6.1",
-          "System.ValueTuple": "4.5.0"
         }
       }
     }
