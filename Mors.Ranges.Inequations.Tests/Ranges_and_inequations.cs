@@ -5,11 +5,11 @@ using Xunit;
 namespace Mors.Ranges.Inequations.Tests
 {
     using static Inequation;
-    using static Range;
+    using static OpenRange;
 
     public class Ranges_and_inequations
     {
-        private static IEnumerable<(RangeUnion RangeUnion, Inequation Inequation)> EquivalentRangesAndInequations()
+        private static IEnumerable<(OpenRangeUnion RangeUnion, Inequation Inequation)> EquivalentRangesAndInequations()
         {
             yield return (
                 Closed(1, 1),
@@ -61,7 +61,7 @@ namespace Mors.Ranges.Inequations.Tests
                         LessThanOrEqualTo(5))));
         }
 
-        public static IEnumerable<(Inequation Inequation, RangeUnion RangeUnion)> InequationsEquivalentToRanges()
+        public static IEnumerable<(Inequation Inequation, OpenRangeUnion RangeUnion)> InequationsEquivalentToRanges()
         {
             yield return (
                 And(
@@ -207,9 +207,9 @@ namespace Mors.Ranges.Inequations.Tests
 
         [Theory]
         [MemberData(nameof(InequationsEquivalentToRangeUnions))]
-        public void Inequation_is_equivalent_to_range_union(in Inequation inequation, in RangeUnion rangeUnion)
+        public void Inequation_is_equivalent_to_range_union(in Inequation inequation, in OpenRangeUnion rangeUnion)
         {
-            Assert.Equal(rangeUnion, inequation.ToRangeUnion());
+            Assert.Equal(rangeUnion, inequation.ToOpenRangeUnion());
         }
 
         public static IEnumerable<object[]> InequationsEquivalentToRangeUnions()
@@ -220,7 +220,7 @@ namespace Mors.Ranges.Inequations.Tests
 
         [Theory]
         [MemberData(nameof(RangesUnionsEquivalentToInequations))]
-        public void Range_union_is_equivalent_to_inequation(in RangeUnion rangeUnion, in Inequation inequation)
+        public void Range_union_is_equivalent_to_inequation(in OpenRangeUnion rangeUnion, in Inequation inequation)
         {
             Assert.Equal(inequation, rangeUnion.ToInequation());
         }

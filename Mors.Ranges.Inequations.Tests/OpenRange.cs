@@ -5,7 +5,7 @@ namespace Mors.Ranges.Inequations.Tests
 {
     using Implementation = Inequations.Inequation;
 
-    public readonly struct Range : IOpenRange<Point>
+    public readonly struct OpenRange : IOpenRange<Point>
     {
         private readonly Point _start;
         private readonly Point _end;
@@ -13,7 +13,7 @@ namespace Mors.Ranges.Inequations.Tests
         private readonly bool _isStartClosed;
         private readonly bool _isEndClosed;
 
-        private Range(in Point start, in Point end, bool isStartClosed, bool isEndClosed)
+        private OpenRange(in Point start, in Point end, bool isStartClosed, bool isEndClosed)
         {
             _start = start;
             _end = end;
@@ -22,21 +22,25 @@ namespace Mors.Ranges.Inequations.Tests
             _isNonEmpty = true;
         }
 
-        public static Range LeftOpen(in Point start, in Point end) => new Range(start, end, isStartClosed: false, isEndClosed: true);
+        public static OpenRange LeftOpen(in Point start, in Point end) =>
+            new OpenRange(start, end, isStartClosed: false, isEndClosed: true);
 
-        public static Range RightOpen(in Point start, in Point end) => new Range(start, end, isStartClosed: true, isEndClosed: false);
+        public static OpenRange RightOpen(in Point start, in Point end) =>
+            new OpenRange(start, end, isStartClosed: true, isEndClosed: false);
 
-        public static Range Closed(in Point start, in Point end) => new Range(start, end, isStartClosed: true, isEndClosed: true);
+        public static OpenRange Closed(in Point start, in Point end) =>
+            new OpenRange(start, end, isStartClosed: true, isEndClosed: true);
 
-        public static Range Open(in Point start, in Point end) => new Range(start, end, isStartClosed: false, isEndClosed: false);
+        public static OpenRange Open(in Point start, in Point end) =>
+            new OpenRange(start, end, isStartClosed: false, isEndClosed: false);
 
-        public static Range Empty() => new Range();
+        public static OpenRange Empty() => new OpenRange();
 
-        public static RangeUnion Union(in Range first, in Range other) =>
-            Inequation.Or(first.ToInequation(), other.ToInequation()).ToRangeUnion();
+        public static OpenRangeUnion Union(in OpenRange first, in OpenRange other) =>
+            Inequation.Or(first.ToInequation(), other.ToInequation()).ToOpenRangeUnion();
 
         public override bool Equals(object obj) =>
-            obj is Range range
+            obj is OpenRange range
             && _isStartClosed == range._isStartClosed
             && (!_isStartClosed
                 || (EqualityComparer<Point>.Default.Equals(_start, range._start)
@@ -48,7 +52,7 @@ namespace Mors.Ranges.Inequations.Tests
             HashCode.Combine(_start, _end, _isNonEmpty, _isStartClosed, _isEndClosed);
 
         public Inequation ToInequation() =>
-            new Inequation(Implementation.FromOpenRange<Point, Range>(this));
+            new Inequation(Implementation.FromOpenRange<Point, OpenRange>(this));
 
         public override string ToString() =>
             (_isNonEmpty, _isStartClosed, _isEndClosed) switch
