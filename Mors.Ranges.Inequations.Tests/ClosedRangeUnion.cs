@@ -4,8 +4,6 @@ using System.Linq;
 
 namespace Mors.Ranges.Inequations.Tests
 {
-    using Implementation = Inequations.Inequation;
-
     public readonly struct ClosedRangeUnion
     {
         private readonly IEnumerable<ClosedRange> _ranges;
@@ -17,7 +15,7 @@ namespace Mors.Ranges.Inequations.Tests
         public static ClosedRangeUnion FromRange(ClosedRange range) => new ClosedRangeUnion(Enumerable.Repeat(range, 1));
 
         public static ClosedRangeUnion FromInequation(Inequation<Point> inequation) =>
-            new ClosedRangeUnion(Implementation.ToClosedRanges<Point, ClosedRange, Points, ClosedRanges>(inequation));
+            new ClosedRangeUnion(inequation.ToClosedRanges<ClosedRange, Points, ClosedRanges>());
 
         public override bool Equals(object obj) =>
             obj is ClosedRangeUnion other && _ranges.SequenceEqual(other._ranges);

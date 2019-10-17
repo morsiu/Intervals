@@ -8,7 +8,7 @@ namespace Mors.Ranges.Inequations
     internal sealed class OpenRangesInInequation<T, TRange, TPoints, TRanges> : IEnumerable<TRange>
         where TRanges: struct, IOpenRanges<T, TRange>
         where TPoints: struct, IPoints<T>
-        where T : struct, IComparable<T>
+        where T : IComparable<T>
     {
         private readonly IInequation<T> _inequation;
 

@@ -13,24 +13,17 @@ namespace Mors.Ranges.Operations.Reference
         public static bool Covers(in TClosedRange first, in TClosedRange second) =>
             !first.Empty
             && !second.Empty
-            && Inequation.And(
-                    second.ToInequationFromClosed(),
-                    Inequation.Not(
-                        first.ToInequationFromClosed()))
+            && second.ToInequationFromClosed().And(first.ToInequationFromClosed().Not())
                 .ToClosedRanges<TClosedRange, TClosedRanges>()
                 .All(x => x.Empty);
 
         public static bool IntersectsWith(TClosedRange first, TClosedRange second) =>
-            Inequation.And(
-                    first.ToInequationFromClosed(),
-                    second.ToInequationFromClosed())
+            first.ToInequationFromClosed().And(second.ToInequationFromClosed())
                 .ToClosedRanges<TClosedRange, TClosedRanges>()
                 .Any(x => !x.Empty);
 
         public static TClosedRange Intersect(TClosedRange first, TClosedRange second) =>
-            Inequation.And(
-                    first.ToInequationFromClosed(),
-                    second.ToInequationFromClosed())
+            first.ToInequationFromClosed().And(second.ToInequationFromClosed())
                 .ToClosedRanges<TClosedRange, TClosedRanges>()
                 .Single();
 
@@ -38,10 +31,7 @@ namespace Mors.Ranges.Operations.Reference
             Covers(second, first);
 
         public static TClosedRange Span(TClosedRange first, TClosedRange second) =>
-            Inequation.Closure(
-                    Inequation.Or(
-                        first.ToInequationFromClosed(),
-                        second.ToInequationFromClosed()))
+            first.ToInequationFromClosed().Or(second.ToInequationFromClosed()).Closure()
                 .ToClosedRanges<TClosedRange, TClosedRanges>()
                 .Single();
     }

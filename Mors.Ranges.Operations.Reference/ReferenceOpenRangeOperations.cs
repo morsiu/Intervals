@@ -13,24 +13,17 @@ namespace Mors.Ranges.Operations.Reference
         public static bool Covers(TOpenRange first, TOpenRange second) =>
             !first.Empty
             && !second.Empty
-            && Inequation.And(
-                    second.ToInequationFromOpen(),
-                    Inequation.Not(
-                        first.ToInequationFromOpen()))
+            && second.ToInequationFromOpen().And(first.ToInequationFromOpen().Not())
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .All(x => x.Empty);
 
         public static bool IntersectsWith(TOpenRange first, TOpenRange second) =>
-            Inequation.And(
-                    first.ToInequationFromOpen(),
-                    second.ToInequationFromOpen())
+            first.ToInequationFromOpen().And(second.ToInequationFromOpen())
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .Any(x => !x.Empty);
 
         public static TOpenRange Intersect(TOpenRange first, TOpenRange second) =>
-            Inequation.And(
-                    first.ToInequationFromOpen(),
-                    second.ToInequationFromOpen())
+            first.ToInequationFromOpen().And(second.ToInequationFromOpen())
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .Single();
 
@@ -38,10 +31,7 @@ namespace Mors.Ranges.Operations.Reference
             Covers(second, first);
 
         public static TOpenRange Span(TOpenRange first, TOpenRange second) =>
-            Inequation.Closure(
-                    Inequation.Or(
-                        first.ToInequationFromOpen(),
-                        second.ToInequationFromOpen()))
+            first.ToInequationFromOpen().Or(second.ToInequationFromOpen()).Closure()
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .Single();
     }

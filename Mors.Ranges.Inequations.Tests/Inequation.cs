@@ -12,16 +12,16 @@ namespace Mors.Ranges.Inequations.Tests
         public Inequation(Inequation<Point> inequation) => _inequation = inequation;
 
         public static Inequation And(in Inequation first, in Inequation second) =>
-            new Inequation(Implementation.And(first._inequation, second._inequation));
+            new Inequation(first._inequation.And(second._inequation));
 
         public static Inequation Closure(in Inequation value) =>
-            new Inequation(Implementation.Closure(value._inequation));
+            new Inequation(value._inequation.Closure());
 
         public static Inequation Not(in Inequation value) =>
-            new Inequation(Implementation.Not(value._inequation));
+            new Inequation(value._inequation.Not());
 
         public static Inequation Or(in Inequation first, in Inequation second) =>
-            new Inequation(Implementation.Or(first._inequation, second._inequation));
+            new Inequation(first._inequation.Or(second._inequation));
 
         public static Inequation Equal(in Point value) =>
             new Inequation(Implementation.Equal(value));

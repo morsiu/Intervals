@@ -9,13 +9,13 @@ namespace Mors.Ranges.Operations.Reference
         public static IEnumerable<TClosedRange> ToClosedRanges<TClosedRange, TClosedRanges>(this Inequation<int> inequation)
             where TClosedRanges : struct, IClosedRanges<int, TClosedRange>, IEmptyRanges<TClosedRange>
             where TClosedRange : IRange<int>, IEmptyRange =>
-            Inequation.ToClosedRanges<int, ClosedRange<int>, Integers, ClosedRanges<int>>(inequation)
+            inequation.ToClosedRanges<ClosedRange<int>, Integers, ClosedRanges<int>>()
                 .Select(x => x.ToReferenceRange<TClosedRange, TClosedRanges>());
 
         public static IEnumerable<TOpenRange> ToOpenRanges<TOpenRange, TOpenRanges>(this Inequation<int> inequation)
             where TOpenRanges : struct, IOpenRanges<int, TOpenRange>, IEmptyRanges<TOpenRange>
             where TOpenRange : IRange<int>, IOpenRange, IEmptyRange =>
-            Inequation.ToOpenRanges<int, OpenRange<int>, Integers, OpenRanges<int>>(inequation)
+            inequation.ToOpenRanges<OpenRange<int>, Integers, OpenRanges<int>>()
                 .Select(x => x.ToReferenceRange<TOpenRange, TOpenRanges>());
     }
 }
