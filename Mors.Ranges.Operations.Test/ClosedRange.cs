@@ -3,8 +3,8 @@
 namespace Mors.Ranges.Operations
 {
     public readonly struct ClosedRange
-        : IRange<int>,
-        Reference.IRange<int>,
+        : IClosedRange<int>,
+        Reference.IClosedRange<int>,
         IEmptyRange,
         Reference.IEmptyRange,
         IEquatable<ClosedRange>

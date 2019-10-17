@@ -7,7 +7,7 @@ namespace Mors.Ranges.Operations.Reference
         public static TClosedRange ToReferenceRange<TClosedRange, TClosedRanges>(
             this ClosedRange<int> range)
             where TClosedRanges : struct, IClosedRanges<int, TClosedRange>, IEmptyRanges<TClosedRange>
-            where TClosedRange : IRange<int>, IEmptyRange
+            where TClosedRange : IClosedRange<int>, IEmptyRange
         {
             var ranges = default(TClosedRanges);
             return !range.Empty()
@@ -15,8 +15,8 @@ namespace Mors.Ranges.Operations.Reference
                 : ranges.Empty();
         }
 
-        public static Inequation<int> ToInequationFromClosed<TClosedRange>(this TClosedRange range)
-            where TClosedRange : IRange<int>, IEmptyRange =>
+        public static Inequation<int> ToInequation<TClosedRange>(this TClosedRange range)
+            where TClosedRange : IClosedRange<int>, IEmptyRange =>
             Inequation.FromClosedRange<int, ClosedRange<int>>(
                 range.Empty
                     ? new ClosedRange<int>()

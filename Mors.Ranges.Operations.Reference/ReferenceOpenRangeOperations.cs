@@ -3,16 +3,16 @@
 namespace Mors.Ranges.Operations.Reference
 {
     public static class ReferenceOpenRangeOperations<TOpenRange, TOpenRanges>
-        where TOpenRange : IRange<int>, IOpenRange, IEmptyRange
+        where TOpenRange : IOpenRange<int>, IEmptyRange
         where TOpenRanges : struct, IOpenRanges<int, TOpenRange>, IEmptyRanges<TOpenRange>
     {
         public static object Contains(in TOpenRange range, int point) =>
-            range.ToInequationFromOpen().IsSatisfiedBy(point);
+            range.ToInequation().IsSatisfiedBy(point);
 
         public static bool Covers(TOpenRange first, TOpenRange second)
         {
-            var secondInequation = second.ToInequationFromOpen();
-            var firstInequation = first.ToInequationFromOpen();
+            var secondInequation = second.ToInequation();
+            var firstInequation = first.ToInequation();
             return !firstInequation.IsEmpty<Integers>()
                    && !secondInequation.IsEmpty<Integers>()
                    && secondInequation.And(firstInequation.Not())
@@ -21,12 +21,12 @@ namespace Mors.Ranges.Operations.Reference
         }
 
         public static bool IntersectsWith(TOpenRange first, TOpenRange second) =>
-            first.ToInequationFromOpen().And(second.ToInequationFromOpen())
+            first.ToInequation().And(second.ToInequation())
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .Any(x => !x.Empty);
 
         public static TOpenRange Intersect(TOpenRange first, TOpenRange second) =>
-            first.ToInequationFromOpen().And(second.ToInequationFromOpen())
+            first.ToInequation().And(second.ToInequation())
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .Single();
 
@@ -34,7 +34,7 @@ namespace Mors.Ranges.Operations.Reference
             Covers(second, first);
 
         public static TOpenRange Span(TOpenRange first, TOpenRange second) =>
-            first.ToInequationFromOpen().Or(second.ToInequationFromOpen()).Closure()
+            first.ToInequation().Or(second.ToInequation()).Closure()
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .Single();
     }

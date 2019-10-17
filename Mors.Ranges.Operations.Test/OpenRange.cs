@@ -3,10 +3,8 @@
 namespace Mors.Ranges.Operations
 {
     public readonly struct OpenRange
-        : IRange<int>,
-        Reference.IRange<int>,
-        IOpenRange,
-        Reference.IOpenRange,
+        : IOpenRange<int>,
+        Reference.IOpenRange<int>,
         IEmptyRange,
         Reference.IEmptyRange,
         IEquatable<OpenRange>

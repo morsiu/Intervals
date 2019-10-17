@@ -8,7 +8,7 @@ namespace Mors.Ranges.Operations
             in TRange range,
             in TPoint point)
             where TPoint : IComparable<TPoint>
-            where TRange : IRange<TPoint>, IEmptyRange
+            where TRange : IClosedRange<TPoint>, IEmptyRange
         {
             return !range.Empty
                    && point.CompareTo(range.Start) >= 0
@@ -19,7 +19,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where TPoint : IComparable<TPoint>
-            where TRange : IRange<TPoint>, IEmptyRange
+            where TRange : IClosedRange<TPoint>, IEmptyRange
         {
             if (!IntersectsWith<TPoint, TRange>(left, right))
                 return false;
@@ -35,7 +35,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where TPoint : IComparable<TPoint>
-            where TRange : IRange<TPoint>, IEmptyRange
+            where TRange : IClosedRange<TPoint>, IEmptyRange
         {
             if (left.Empty || right.Empty) return false;
             if (left.Start.CompareTo(right.End) > 0) return false;
@@ -48,7 +48,7 @@ namespace Mors.Ranges.Operations
             in TRange right,
             out TRange result)
             where TPoint : IComparable<TPoint>
-            where TRange : IRange<TPoint>, IEmptyRange
+            where TRange : IClosedRange<TPoint>, IEmptyRange
             where TRanges : struct, IClosedRanges<TPoint, TRange>, IEmptyRanges<TRange>
         {
             if (!IntersectsWith<TPoint, TRange>(left, right))
@@ -67,7 +67,7 @@ namespace Mors.Ranges.Operations
             in TRange left,
             in TRange right)
             where TPoint : IComparable<TPoint>
-            where TRange : IRange<TPoint>, IEmptyRange
+            where TRange : IClosedRange<TPoint>, IEmptyRange
         {
             return Covers<TPoint, TRange>(right, left);
         }
@@ -77,7 +77,7 @@ namespace Mors.Ranges.Operations
             in TRange right,
             out TRange result)
             where TPoint : IComparable<TPoint>
-            where TRange : IRange<TPoint>, IEmptyRange
+            where TRange : IClosedRange<TPoint>, IEmptyRange
             where TRanges : struct, IClosedRanges<TPoint, TRange>
         {
             if (left.Empty)

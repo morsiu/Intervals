@@ -3,16 +3,16 @@
 namespace Mors.Ranges.Operations.Reference
 {
     public static class ReferenceClosedRangeOperations<TClosedRange, TClosedRanges>
-        where TClosedRange : IRange<int>, IEmptyRange
+        where TClosedRange : IClosedRange<int>, IEmptyRange
         where TClosedRanges : struct, IClosedRanges<int, TClosedRange>, IEmptyRanges<TClosedRange>
     {
         public static object Contains(in TClosedRange range, int point) =>
-            range.ToInequationFromClosed().IsSatisfiedBy(point);
+            range.ToInequation().IsSatisfiedBy(point);
 
         public static bool Covers(in TClosedRange first, in TClosedRange second)
         {
-            var secondInequation = second.ToInequationFromClosed();
-            var firstInequation = first.ToInequationFromClosed();
+            var secondInequation = second.ToInequation();
+            var firstInequation = first.ToInequation();
             return !firstInequation.IsEmpty<Integers>()
                    && !secondInequation.IsEmpty<Integers>()
                    && secondInequation.And(firstInequation.Not())
@@ -21,12 +21,12 @@ namespace Mors.Ranges.Operations.Reference
         }
 
         public static bool IntersectsWith(TClosedRange first, TClosedRange second) =>
-            first.ToInequationFromClosed().And(second.ToInequationFromClosed())
+            first.ToInequation().And(second.ToInequation())
                 .ToClosedRanges<TClosedRange, TClosedRanges>()
                 .Any(x => !x.Empty);
 
         public static TClosedRange Intersect(TClosedRange first, TClosedRange second) =>
-            first.ToInequationFromClosed().And(second.ToInequationFromClosed())
+            first.ToInequation().And(second.ToInequation())
                 .ToClosedRanges<TClosedRange, TClosedRanges>()
                 .Single();
 
@@ -34,7 +34,7 @@ namespace Mors.Ranges.Operations.Reference
             Covers(second, first);
 
         public static TClosedRange Span(TClosedRange first, TClosedRange second) =>
-            first.ToInequationFromClosed().Or(second.ToInequationFromClosed()).Closure()
+            first.ToInequation().Or(second.ToInequation()).Closure()
                 .ToClosedRanges<TClosedRange, TClosedRanges>()
                 .Single();
     }
