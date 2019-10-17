@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 
 namespace Mors.Ranges.Inequations
@@ -17,110 +16,86 @@ namespace Mors.Ranges.Inequations
 
         public IEnumerator<TRange> GetEnumerator()
         {
-            var boundaries =
-                Enumerable.Repeat(default(TPoints).Minimum(), 1)
-                    .Union(_inequation.Boundaries())
-                    .Union(Enumerable.Repeat(default(TPoints).Maximum(), 1));
-            var boundaryPoints =
-                boundaries.Select(x => new BoundaryPoint(x));
-            var points =
-                boundaryPoints
-                    .SelectMany(x => x.ToPoints())
-                    .ToImmutableSortedSet();
-            var union =
-                points.Aggregate(
-                    new RangeUnion(),
-                    (a, b) => a.AppendPoint(b, b.SatisfiesInequation(_inequation)));
-            var ranges = union.ToRanges();
-            return ranges.GetEnumerator();
+            return new OpenRangesInInequation<T, OpenRange, TPoints, OpenRanges>(_inequation)
+                .SelectMany(x => x.ToClosedRange())
+                .GetEnumerator();
         }
+
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-
-        private readonly struct RangeUnion
+        private readonly struct OpenRange : IOpenRange<T>
         {
-            private readonly ImmutableArray<TRange> _ranges;
-            private readonly (Point Start, Point? End)? _newRange;
+            private readonly T _start;
+            private readonly T _end;
+            private readonly bool _isStartClosed;
+            private readonly bool _isEndClosed;
+            private readonly bool _nonEmpty;
 
-            private RangeUnion(
-                ImmutableArray<TRange> ranges,
-                (Point Start, Point? End)? newRange) =>
-                (_ranges, _newRange) = (ranges, newRange);
+            public OpenRange(T start, T end, bool isStartClosed, bool isEndClosed)
+            {
+                _start = start;
+                _end = end;
+                _isStartClosed = isStartClosed;
+                _isEndClosed = isEndClosed;
+                _nonEmpty = true;
+            }
 
-            public RangeUnion AppendPoint(Point point, bool pointSatisfiesInequation) =>
-                (_newRange, pointSatisfiesInequation) switch
+            public IEnumerable<TRange> ToClosedRange()
+            {
+                var ranges = default(TRanges);
+                if (!_nonEmpty)
                 {
-                    (null, false) => this,
-                    (null, true) => WithNewRange(start: point, end: null),
-                    ((Point start, null), false) => WithRangeAndNoNewRange(start.ToRange(start)),
-                    ((Point start, null), true) => WithNewRange(start, end: point),
-                    ((Point start, Point end), false) => WithRangeAndNoNewRange(start.ToRange(end)),
-                    ((Point start, Point _), true) => WithNewRange(start, point),
+                    return One(ranges.Empty());
+                }
+                return _start.CompareTo(_end) switch
+                {
+                    0 when _isStartClosed && _isEndClosed =>
+                        One(ranges.NonEmpty(_start, _end)),
+                    var x when x < 0 =>
+                        One(ranges.NonEmpty(
+                            NewStart(_start, _isStartClosed),
+                            NewEnd(_end, _isEndClosed))),
+                    _ => throw new Exception("Start is greater than the end.")
                 };
 
-            public IEnumerable<TRange> ToRanges() =>
-                (_ranges.IsDefault ? ImmutableArray<TRange>.Empty : _ranges)
-                    .AddRange(
-                        _newRange is (Point start, Point end)
-                            ? Enumerable.Repeat(start.ToRange(end), 1)
-                            : Enumerable.Empty<TRange>())
-                    .DefaultIfEmpty(default(TRanges).Empty());
+                static IEnumerable<TRange> One(TRange x) => Enumerable.Repeat(x, 1);
 
-            public override string ToString() =>
-                $"New range: `{(_newRange?.ToString() ?? "none")}`, Ranges: {_ranges.Length}";
+                static T NewStart(T start, bool isStartClosed) =>
+                    isStartClosed
+                        ? start
+                        : default(TPoints).Next(start) switch
+                        {
+                            (true, var afterStart) => afterStart,
+                            (false, _) => throw new Exception("There is no successor to start, even though end is greater than start.")
+                        };
 
-            private RangeUnion WithNewRange(Point start, Point? end) =>
-                new RangeUnion(_ranges, (start, end));
+                static T NewEnd(T end, bool isEndClosed) =>
+                    isEndClosed
+                        ? end
+                        : default(TPoints).Previous(end) switch
+                        {
+                            (true, var beforeEnd) => beforeEnd,
+                            (false, _) => throw new Exception("There is no predecessor to end, even though start is smaller than end.")
+                        };
+            }
 
-            private RangeUnion WithRangeAndNoNewRange(TRange range) =>
-                new RangeUnion(
-                    _ranges.IsDefault
-                        ? ImmutableArray.Create(range)
-                        : _ranges.Add(range),
-                    null);
+            bool IOpenRange<T>.Empty() => !_nonEmpty;
+
+            bool IOpenRange<T>.ClosedStart() => _isStartClosed;
+
+            bool IOpenRange<T>.ClosedEnd() => _isEndClosed;
+
+            T IOpenRange<T>.Start() => _start;
+
+            T IOpenRange<T>.End() => _end;
         }
 
-        private readonly struct BoundaryPoint
+        private readonly struct OpenRanges : IOpenRanges<T, OpenRange>
         {
-            private readonly T _value;
+            public OpenRange NonEmpty(T start, T end, bool isStartClosed, bool isEndClosed) =>
+                new OpenRange(start, end, isStartClosed, isEndClosed);
 
-            public BoundaryPoint(in T value) => _value = value;
-
-            public IEnumerable<Point> ToPoints() =>
-                (default(TPoints).Previous(_value),
-                 default(TPoints).Next(_value)) switch
-                {
-                    ((true, T x), (true, T y)) => new[] { new Point(x), new Point(_value), new Point(y) },
-                    ((false, _), (true, T y)) => new[] { new Point(_value), new Point(y) },
-                    ((true, T x), (false, _)) => new[] { new Point(x), new Point(_value) },
-                    _ => new[] { new Point(_value) }
-                };
-        }
-
-        private readonly struct Point : IEquatable<Point>, IComparable<Point>
-        {
-            private readonly T _value;
-
-            public Point(T value) => _value = value;
-
-            public int CompareTo(Point other) => _value.CompareTo(other._value);
-
-            public bool Equals(Point other) => _value.CompareTo(other._value) == 0;
-
-            public override bool Equals(object obj) => obj is Point other && Equals(other);
-
-            public override int GetHashCode() =>
-                -1939223833 + EqualityComparer<T>.Default.GetHashCode(_value);
-
-            public bool SatisfiesInequation(IInequation<T> inequation) =>
-                inequation.IsSatisfiedBy(_value);
-
-            public TRange ToRange(in Point other) =>
-                _value.CompareTo(other._value) <= 0
-                    ? default(TRanges).NonEmpty(_value, other._value)
-                    : throw new Exception($"A range start {_value} must be lower than or equal to a range end {other._value}");
-
-            public override string ToString() => _value.ToString();
+            public OpenRange Empty() => new OpenRange();
         }
     }
 }
