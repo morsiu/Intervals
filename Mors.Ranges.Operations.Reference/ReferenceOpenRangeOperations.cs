@@ -7,26 +7,16 @@ namespace Mors.Ranges.Operations.Reference
         where TOpenRanges : struct, IOpenRanges<int, TOpenRange>, IEmptyRanges<TOpenRange>
     {
         public static object Contains(in TOpenRange range, int point) =>
-            range.ToInequation().IsSatisfiedBy(point);
+            ReferenceOperation.Contains(range.ToInequation(), point);
 
-        public static bool Covers(TOpenRange first, TOpenRange second)
-        {
-            var secondInequation = second.ToInequation();
-            var firstInequation = first.ToInequation();
-            return !firstInequation.IsEmpty<Integers>()
-                   && !secondInequation.IsEmpty<Integers>()
-                   && secondInequation.And(firstInequation.Not())
-                       .ToOpenRanges<TOpenRange, TOpenRanges>()
-                       .All(x => x.Empty);
-        }
+        public static bool Covers(TOpenRange first, TOpenRange second) =>
+            ReferenceOperation.Covers(first.ToInequation(), second.ToInequation());
 
         public static bool IntersectsWith(TOpenRange first, TOpenRange second) =>
-            first.ToInequation().And(second.ToInequation())
-                .ToOpenRanges<TOpenRange, TOpenRanges>()
-                .Any(x => !x.Empty);
+            ReferenceOperation.IntersectsWith(first.ToInequation(), second.ToInequation());
 
         public static TOpenRange Intersect(TOpenRange first, TOpenRange second) =>
-            first.ToInequation().And(second.ToInequation())
+            ReferenceOperation.Intersect(first.ToInequation(), second.ToInequation())
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .Single();
 
@@ -34,7 +24,7 @@ namespace Mors.Ranges.Operations.Reference
             Covers(second, first);
 
         public static TOpenRange Span(TOpenRange first, TOpenRange second) =>
-            first.ToInequation().Or(second.ToInequation()).Closure()
+            ReferenceOperation.Span(first.ToInequation(), second.ToInequation())
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .Single();
     }
