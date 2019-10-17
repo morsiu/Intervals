@@ -16,6 +16,10 @@ namespace Mors.Ranges.Inequations
         public Inequation<T> Closure() =>
             new Inequation<T>(new Closure<T>(_value));
 
+        public bool IsEmpty<TPoints>()
+            where TPoints : struct, IPoints<T> =>
+            new IsInequationEmpty<T, TPoints>(_value).Value();
+
         public Inequation<T> Not() =>
             new Inequation<T>(new Not<T>(_value));
 

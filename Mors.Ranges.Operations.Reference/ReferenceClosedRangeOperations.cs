@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Mors.Ranges.Inequations;
 
 namespace Mors.Ranges.Operations.Reference
 {
@@ -10,12 +9,16 @@ namespace Mors.Ranges.Operations.Reference
         public static object Contains(in TClosedRange range, int point) =>
             range.ToInequationFromClosed().IsSatisfiedBy(point);
 
-        public static bool Covers(in TClosedRange first, in TClosedRange second) =>
-            !first.Empty
-            && !second.Empty
-            && second.ToInequationFromClosed().And(first.ToInequationFromClosed().Not())
-                .ToClosedRanges<TClosedRange, TClosedRanges>()
-                .All(x => x.Empty);
+        public static bool Covers(in TClosedRange first, in TClosedRange second)
+        {
+            var secondInequation = second.ToInequationFromClosed();
+            var firstInequation = first.ToInequationFromClosed();
+            return !firstInequation.IsEmpty<Integers>()
+                   && !secondInequation.IsEmpty<Integers>()
+                   && secondInequation.And(firstInequation.Not())
+                       .ToClosedRanges<TClosedRange, TClosedRanges>()
+                       .All(x => x.Empty);
+        }
 
         public static bool IntersectsWith(TClosedRange first, TClosedRange second) =>
             first.ToInequationFromClosed().And(second.ToInequationFromClosed())
