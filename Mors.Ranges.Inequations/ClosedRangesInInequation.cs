@@ -66,7 +66,7 @@ namespace Mors.Ranges.Inequations
                         : default(TPoints).Next(start) switch
                         {
                             (true, var afterStart) => afterStart,
-                            (false, _) => throw new Exception("There is no successor to start, even though end is greater than start.")
+                            _ => throw new Exception("There is no successor to start, even though end is greater than start.")
                         };
 
                 static T NewEnd(T end, bool isEndClosed) =>
@@ -75,7 +75,7 @@ namespace Mors.Ranges.Inequations
                         : default(TPoints).Previous(end) switch
                         {
                             (true, var beforeEnd) => beforeEnd,
-                            (false, _) => throw new Exception("There is no predecessor to end, even though start is smaller than end.")
+                            _ => throw new Exception("There is no predecessor to end, even though start is smaller than end.")
                         };
             }
 

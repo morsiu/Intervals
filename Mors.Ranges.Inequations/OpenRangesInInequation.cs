@@ -52,14 +52,13 @@ namespace Mors.Ranges.Inequations
                     CurrentSatisfiesInequation(),
                     NextSatisfiesInequation()) switch
                 {
-                    (false, false, false) => None(),
                     (false, false, true) => One(OpenStart()),
                     (false, true, false) => Two(ClosedStart(), ClosedEnd()),
                     (false, true, true) => One(ClosedStart()),
                     (true, false, false) => One(OpenEnd()),
                     (true, false, true) => Two(OpenEnd(), OpenStart()),
                     (true, true, false) => One(ClosedEnd()),
-                    (true, true, true) => None()
+                    _ => None(),
                 };
 
                 RangeEnd OpenStart() => new RangeEnd(value, false, true);

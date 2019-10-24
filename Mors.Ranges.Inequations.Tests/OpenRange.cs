@@ -57,11 +57,11 @@ namespace Mors.Ranges.Inequations.Tests
         public override string ToString() =>
             (_isNonEmpty, _isStartClosed, _isEndClosed) switch
             {
-                (false, _, _) => "∅",
                 (true, false, false) => $"({_start}; {_end})",
                 (true, false, true) => $"({_start}; {_end}]",
                 (true, true, false) => $"[{_start}; {_end})",
                 (true, true, true) => $"[{_start}; {_end}]",
+                _ => "∅",
             };
 
         bool IOpenRange<Point>.Empty() => !_isNonEmpty;

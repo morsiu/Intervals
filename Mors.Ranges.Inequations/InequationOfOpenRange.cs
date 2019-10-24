@@ -21,7 +21,7 @@ namespace Mors.Ranges.Inequations
                         (false, false) => OpenRange(),
                         (false, true) => LeftOpenRange(),
                         (true, false) => RightOpenRange(),
-                        (true, true) =>
+                        _ =>
                             Comparer<T>.Default.Compare(_range.Start(), _range.End()) == 0
                                 ? Point(_range.Start())
                                 : ClosedRange()

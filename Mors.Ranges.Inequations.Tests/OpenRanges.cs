@@ -7,10 +7,10 @@
         public OpenRange NonEmpty(Point start, Point end, bool isStartClosed, bool isEndClosed) =>
             (isStartClosed, isEndClosed) switch
             {
-                (false, false) => OpenRange.Open(start, end),
                 (false, true) => OpenRange.LeftOpen(start, end),
                 (true, true) => OpenRange.Closed(start, end),
-                (true, false) => OpenRange.RightOpen(start, end)
+                (true, false) => OpenRange.RightOpen(start, end),
+                _ => OpenRange.Open(start, end),
             };
     }
 }
