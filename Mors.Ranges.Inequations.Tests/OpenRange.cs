@@ -5,7 +5,7 @@ namespace Mors.Ranges.Inequations.Tests
 {
     using Implementation = Inequations.Inequation;
 
-    public readonly struct OpenRange : IOpenRange<Point>
+    public readonly struct OpenRange : IOpenRange<Point>, IEquatable<OpenRange>
     {
         private readonly Point _start;
         private readonly Point _end;
@@ -39,14 +39,16 @@ namespace Mors.Ranges.Inequations.Tests
         public static OpenRangeUnion Union(in OpenRange first, in OpenRange other) =>
             Inequation.Or(first.ToInequation(), other.ToInequation()).ToOpenRangeUnion();
 
+        public bool Equals(OpenRange other) =>
+            _isNonEmpty == other._isNonEmpty
+            && (!_isNonEmpty
+                || (_isStartClosed == other._isStartClosed
+                    && _isEndClosed == other._isEndClosed
+                    && EqualityComparer<Point>.Default.Equals(_start, other._start)
+                    && EqualityComparer<Point>.Default.Equals(_end, other._end)));
+
         public override bool Equals(object obj) =>
-            obj is OpenRange range
-            && _isStartClosed == range._isStartClosed
-            && (!_isStartClosed
-                || (EqualityComparer<Point>.Default.Equals(_start, range._start)
-                    && EqualityComparer<Point>.Default.Equals(_end, range._end)
-                    && _isNonEmpty == range._isNonEmpty
-                    && _isEndClosed == range._isEndClosed));
+            obj is OpenRange other && Equals(other);
 
         public override int GetHashCode() =>
             HashCode.Combine(_start, _end, _isNonEmpty, _isStartClosed, _isEndClosed);
