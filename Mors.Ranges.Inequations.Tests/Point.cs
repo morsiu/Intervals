@@ -32,6 +32,11 @@ namespace Mors.Ranges.Inequations.Tests
                 ? (true, new Point(_value - 1))
                 : (false, default);
 
-        public override string ToString() => _value.ToString();
+        public override string ToString() =>
+            _value == int.MaxValue
+                ? "max"
+                : _value == int.MinValue
+                    ? "min"
+                    : _value.ToString();
     }
 }
