@@ -42,6 +42,8 @@ namespace Mors.Ranges.Inequations.Tests
                 ? $"[{_start}; {_end}]"
                 : "∅";
 
+        public ClosedRangeUnion ToUnion() => ClosedRangeUnion.FromRange(this);
+
         bool IClosedRange<Point>.Empty() => !_isNonEmpty;
 
         Point IClosedRange<Point>.Start() => _start;

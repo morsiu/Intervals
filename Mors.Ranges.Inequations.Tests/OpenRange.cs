@@ -66,6 +66,8 @@ namespace Mors.Ranges.Inequations.Tests
                 _ => "∅",
             };
 
+        public OpenRangeUnion ToUnion() => OpenRangeUnion.FromRange(this);
+
         bool IOpenRange<Point>.Empty() => !_isNonEmpty;
 
         bool IOpenRange<Point>.ClosedStart() => _isStartClosed;

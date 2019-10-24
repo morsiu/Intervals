@@ -13,5 +13,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mors.Ranges.Inequations\Mors.Ranges.Inequations.csproj" />
+    <ProjectReference Include="..\Mors.Ranges.Generation\Mors.Ranges.Generation.csproj" />
   </ItemGroup>
 </Project>

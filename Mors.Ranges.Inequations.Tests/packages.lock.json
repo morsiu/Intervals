@@ -604,6 +604,12 @@
           "xunit.extensibility.core": "[2.4.1]"
         }
       },
+      "mors.ranges.generation": {
+        "type": "Project",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1"
+        }
+      },
       "mors.ranges.inequations": {
         "type": "Project",
         "dependencies": {

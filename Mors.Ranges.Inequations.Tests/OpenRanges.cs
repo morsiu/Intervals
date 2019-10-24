@@ -1,6 +1,10 @@
-﻿namespace Mors.Ranges.Inequations.Tests
+﻿using Mors.Ranges.Generation;
+
+namespace Mors.Ranges.Inequations.Tests
 {
-    public readonly struct OpenRanges : IOpenRanges<Point, OpenRange>
+    public readonly struct OpenRanges
+        : IOpenRanges<Point, OpenRange>,
+            IOpenRanges<OpenRange>
     {
         public OpenRange Empty() => OpenRange.Empty();
 
@@ -12,5 +16,8 @@
                 (true, false) => OpenRange.RightOpen(start, end),
                 _ => OpenRange.Open(start, end),
             };
+
+        public OpenRange Range(int start, int end, bool isStartOpen, bool isEndOpen) =>
+            NonEmpty(start, end, !isStartOpen, !isEndOpen);
     }
 }
