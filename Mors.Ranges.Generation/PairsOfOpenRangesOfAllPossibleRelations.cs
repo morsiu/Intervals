@@ -5,7 +5,7 @@ using System.Linq;
 namespace Mors.Ranges.Generation
 {
     public sealed class PairsOfOpenRangesOfAllPossibleRelations<TRange, TPairOfRanges, TRanges, TPairsOfRanges> : IEnumerable<TPairOfRanges>
-        where TRanges : struct, IOpenRanges<TRange>
+        where TRanges : struct, IOpenRanges<int, TRange>
         where TPairsOfRanges : struct, IPairs<TRange, TRange, TPairOfRanges>
     {
         public IEnumerator<TPairOfRanges> GetEnumerator()
@@ -17,7 +17,7 @@ namespace Mors.Ranges.Generation
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        private readonly struct Ranges : IClosedRanges<IEnumerable<TRange>>
+        private readonly struct Ranges : IClosedRanges<int, IEnumerable<TRange>>
         {
             public IEnumerable<TRange> Empty()
             {

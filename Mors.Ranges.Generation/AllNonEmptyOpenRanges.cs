@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Mors.Ranges.Generation
 {
     public sealed class AllNonEmptyOpenRanges<TOpenRange, TOpenRanges> : IEnumerable<TOpenRange>
-        where TOpenRanges : struct, IOpenRanges<TOpenRange>
+        where TOpenRanges : struct, IOpenRanges<int, TOpenRange>
     {
         public IEnumerator<TOpenRange> GetEnumerator()
         {

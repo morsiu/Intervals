@@ -1,6 +1,6 @@
 ﻿namespace Mors.Ranges.Generation.Tests
 {
-    internal struct OpenRanges : IOpenRanges<OpenRange>
+    internal struct OpenRanges : IOpenRanges<int, OpenRange>
     {
         public OpenRange Empty() => new OpenRange();
 

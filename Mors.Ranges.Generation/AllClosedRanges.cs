@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Mors.Ranges.Generation
 {
     public sealed class AllClosedRanges<TClosedRange, TClosedRanges> : IEnumerable<TClosedRange>
-        where TClosedRanges : struct, IClosedRanges<TClosedRange>
+        where TClosedRanges : struct, IClosedRanges<int, TClosedRange>
     {
         public IEnumerator<TClosedRange> GetEnumerator()
         {

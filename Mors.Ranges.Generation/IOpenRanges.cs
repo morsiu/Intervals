@@ -1,8 +1,8 @@
 ﻿namespace Mors.Ranges.Generation
 {
-    public interface IOpenRanges<TRange>
+    public interface IOpenRanges<TPoint, TRange>
     {
         TRange Empty();
-        TRange Range(int start, int end, bool isStartOpen, bool isEndOpen);
+        TRange Range(TPoint start, TPoint end, bool isStartOpen, bool isEndOpen);
     }
 }

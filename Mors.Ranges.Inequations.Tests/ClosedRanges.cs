@@ -1,10 +1,8 @@
-﻿using Mors.Ranges.Generation;
-
-namespace Mors.Ranges.Inequations.Tests
+﻿namespace Mors.Ranges.Inequations.Tests
 {
     public readonly struct ClosedRanges
         : IClosedRanges<Point, ClosedRange>,
-            IClosedRanges<ClosedRange>
+            Generation.IClosedRanges<int, ClosedRange>
     {
         public ClosedRange NonEmpty(Point start, Point end) => ClosedRange.Closed(start, end);
 

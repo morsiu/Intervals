@@ -1,8 +1,8 @@
 ﻿namespace Mors.Ranges.Generation
 {
-    public interface IClosedRanges<TRange>
+    public interface IClosedRanges<TPoint, TRange>
     {
         TRange Empty();
-        TRange Range(int start, int end);
+        TRange Range(TPoint start, TPoint end);
     }
 }

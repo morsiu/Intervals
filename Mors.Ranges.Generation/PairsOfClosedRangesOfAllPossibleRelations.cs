@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Mors.Ranges.Generation
 {
     public sealed class PairsOfClosedRangesOfAllPossibleRelations<TRange, TPairOfRanges, TRanges, TPairsOfRanges> : IEnumerable<TPairOfRanges>
-        where TRanges : struct, IClosedRanges<TRange>
+        where TRanges : struct, IClosedRanges<int, TRange>
         where TPairsOfRanges : struct, IPairs<TRange, TRange, TPairOfRanges>
     {
         public IEnumerator<TPairOfRanges> GetEnumerator()

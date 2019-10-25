@@ -1,10 +1,8 @@
-﻿using Mors.Ranges.Generation;
-
-namespace Mors.Ranges.Inequations.Tests
+﻿namespace Mors.Ranges.Inequations.Tests
 {
     public readonly struct OpenRanges
         : IOpenRanges<Point, OpenRange>,
-            IOpenRanges<OpenRange>
+            Generation.IOpenRanges<int, OpenRange>
     {
         public OpenRange Empty() => OpenRange.Empty();
 
