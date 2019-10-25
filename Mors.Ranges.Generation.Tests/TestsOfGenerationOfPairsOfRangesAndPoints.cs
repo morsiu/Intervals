@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Linq;
+using NUnit.Framework;
 
 namespace Mors.Ranges.Generation.Tests
 {
@@ -12,10 +13,11 @@ namespace Mors.Ranges.Generation.Tests
                 expected: new PairsOfClosedRangesAndPointsOfAllPossibleRelations(),
                 actual:
                     new PairsOfClosedRangesAndPointsOfAllPossibleRelations<
+                        int,
                         ClosedRange,
                         ClosedRanges,
                         PairOfClosedRangeAndPoint,
-                        Pairs>());
+                        Pairs>(Enumerable.Range(1, 7).ToArray()));
         }
 
         [Test]
@@ -25,10 +27,11 @@ namespace Mors.Ranges.Generation.Tests
                 expected: new PairsOfOpenRangesAndPointsOfAllPossibleRelations(),
                 actual:
                     new PairsOfOpenRangesAndPointsOfAllPossibleRelations<
+                        int,
                         OpenRange,
                         OpenRanges,
                         PairOfOpenRangeAndPoint,
-                        Pairs>());
+                        Pairs>(Enumerable.Range(1, 7).ToArray()));
         }
     }
 }

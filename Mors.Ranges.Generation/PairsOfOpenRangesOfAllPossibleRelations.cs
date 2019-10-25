@@ -10,7 +10,8 @@ namespace Mors.Ranges.Generation
     {
         public IEnumerator<TPairOfRanges> GetEnumerator()
         {
-            return new PairsOfClosedRangesOfAllPossibleRelations<IEnumerable<TRange>, IEnumerable<TPairOfRanges>, Ranges, RangePairs>()
+            return new PairsOfClosedRangesOfAllPossibleRelations<int, IEnumerable<TRange>, IEnumerable<TPairOfRanges>, Ranges, RangePairs>(
+                    new[] { 1, 3, 5, 7 })
                 .SelectMany(x => x)
                 .GetEnumerator();
         }

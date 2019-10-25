@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Mors.Ranges.Generation;
 
 namespace Mors.Ranges.Operations
@@ -9,10 +10,11 @@ namespace Mors.Ranges.Operations
         public IEnumerator<(ClosedRange, int)> GetEnumerator()
         {
             return new PairsOfClosedRangesAndPointsOfAllPossibleRelations<
+                    int,
                     ClosedRange,
                     ClosedRanges,
                     (ClosedRange, int),
-                    Pairs>()
+                    Pairs>(Enumerable.Range(1, 7).ToArray())
                 .GetEnumerator();
         }
 

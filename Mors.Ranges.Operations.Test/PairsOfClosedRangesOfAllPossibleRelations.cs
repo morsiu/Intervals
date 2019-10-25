@@ -9,10 +9,11 @@ namespace Mors.Ranges.Operations
         public IEnumerator<(ClosedRange, ClosedRange)> GetEnumerator()
         {
             return new PairsOfClosedRangesOfAllPossibleRelations<
+                    int,
                     ClosedRange,
                     (ClosedRange, ClosedRange),
                     ClosedRanges,
-                    Pairs>()
+                    Pairs>(new[] { 1, 3, 5, 7 })
                 .GetEnumerator();
         }
 

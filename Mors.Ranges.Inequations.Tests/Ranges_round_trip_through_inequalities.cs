@@ -8,15 +8,18 @@ namespace Mors.Ranges.Inequations.Tests
     public class Ranges_round_trip_through_inequalities
     {
         public static IEnumerable<object[]> NonEmptyOpenRanges() =>
-            new AllNonEmptyOpenRanges<OpenRange, OpenRanges>()
+            new AllNonEmptyOpenRanges<Point, OpenRange, OpenRanges>(
+                    new Point(1), new Point(3))
                 .Select(x => new object[] { x });
 
         public static IEnumerable<object[]> EmptyOpenRanges() =>
-            new AllEmptyOpenRanges<OpenRange, OpenRanges>()
+            new AllEmptyOpenRanges<Point, OpenRange, OpenRanges>(
+                    new Point(1))
                 .Select(x => new object[] { x });
 
         public static IEnumerable<object[]> ClosedRanges() =>
-            new AllClosedRanges<ClosedRange, ClosedRanges>()
+            new AllClosedRanges<Point, ClosedRange, ClosedRanges>(
+                    new Point(1), new Point(3))
                 .Select(x => new object[] { x });
 
         [Theory]

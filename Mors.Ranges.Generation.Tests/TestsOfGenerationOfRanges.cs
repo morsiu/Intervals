@@ -10,7 +10,8 @@ namespace Mors.Ranges.Generation.Tests
         {
             CollectionAssert.AreEquivalent(
                 expected: new PairsOfClosedRangesOfAllPossibleRelations(),
-                actual: new PairsOfClosedRangesOfAllPossibleRelations<ClosedRange, PairOfClosedRanges, ClosedRanges, Pairs>());
+                actual: new PairsOfClosedRangesOfAllPossibleRelations<int, ClosedRange, PairOfClosedRanges, ClosedRanges, Pairs>(
+                    new[] { 1, 3, 5, 7 }));
         }
 
         [Test]

@@ -2,7 +2,7 @@
 {
     public readonly struct OpenRanges
         : IOpenRanges<Point, OpenRange>,
-            Generation.IOpenRanges<int, OpenRange>
+            Generation.IOpenRanges<Point, OpenRange>
     {
         public OpenRange Empty() => OpenRange.Empty();
 
@@ -15,7 +15,7 @@
                 _ => OpenRange.Open(start, end),
             };
 
-        public OpenRange Range(int start, int end, bool isStartOpen, bool isEndOpen) =>
+        public OpenRange Range(Point start, Point end, bool isStartOpen, bool isEndOpen) =>
             NonEmpty(start, end, !isStartOpen, !isEndOpen);
     }
 }
