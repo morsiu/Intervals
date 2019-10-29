@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Mors.Ranges.Generation;
 using Xunit;
 
 namespace Mors.Ranges.Inequations.Tests
@@ -8,31 +7,26 @@ namespace Mors.Ranges.Inequations.Tests
     public class Ranges_round_trip_through_inequalities
     {
         public static IEnumerable<object[]> NonEmptyOpenRanges() =>
-            new AllNonEmptyOpenRanges<Point, OpenRange, OpenRanges>(
-                    new Point(1), new Point(3))
-                .Select(x => new object[] { x });
+            new AllNonEmptyOpenRanges().ToEnumerableOfObjects();
 
         public static IEnumerable<object[]> EmptyOpenRanges() =>
-            new AllEmptyOpenRanges<Point, OpenRange, OpenRanges>(
-                    new Point(1))
-                .Select(x => new object[] { x });
+            new AllEmptyOpenRanges().ToEnumerableOfObjects();
 
         public static IEnumerable<object[]> ClosedRanges() =>
-            new AllNonEmptyClosedRanges<Point, ClosedRange, ClosedRanges>(
-                    new Point(1), new Point(3))
-                .Concat(new AllEmptyClosedRanges())
-                .Select(x => new object[] { x });
+            new AllEmptyClosedRanges()
+                .Concat(new AllNonEmptyClosedRanges())
+                .ToEnumerableOfObjects();
 
         [Theory]
         [MemberData(nameof(NonEmptyOpenRanges))]
-        public void Non_empty_range_round_trips_through_inequalities(OpenRange range) =>
+        public void Non_empty_open_range_round_trips_through_inequalities(OpenRange range) =>
             Assert.Equal(
-                range.ToUnion(),
+                range,
                 range.ToInequation().ToOpenRangeUnion());
 
         [Theory]
         [MemberData(nameof(EmptyOpenRanges))]
-        public void Empty_range_round_trips_through_inequalities(OpenRange range) =>
+        public void Empty_open_range_round_trips_through_inequalities(OpenRange range) =>
             Assert.Equal(
                 OpenRange.Empty(),
                 range.ToInequation().ToOpenRangeUnion());
@@ -41,7 +35,7 @@ namespace Mors.Ranges.Inequations.Tests
         [MemberData(nameof(ClosedRanges))]
         public void Closed_range_round_trips_through_inequalities(ClosedRange range) =>
             Assert.Equal(
-                range.ToUnion(),
+                range,
                 range.ToInequation().ToClosedRangeUnion());
     }
 }
