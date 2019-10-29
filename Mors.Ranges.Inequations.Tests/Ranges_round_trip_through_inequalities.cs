@@ -18,8 +18,9 @@ namespace Mors.Ranges.Inequations.Tests
                 .Select(x => new object[] { x });
 
         public static IEnumerable<object[]> ClosedRanges() =>
-            new AllClosedRanges<Point, ClosedRange, ClosedRanges>(
+            new AllNonEmptyClosedRanges<Point, ClosedRange, ClosedRanges>(
                     new Point(1), new Point(3))
+                .Concat(new AllEmptyClosedRanges())
                 .Select(x => new object[] { x });
 
         [Theory]
