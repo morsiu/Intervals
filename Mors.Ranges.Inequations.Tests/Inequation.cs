@@ -41,6 +41,8 @@ namespace Mors.Ranges.Inequations.Tests
         public static Inequation GreaterThanOrEqualTo(in Point value) =>
             new Inequation(Implementation.GreaterThanOrEqualTo(value));
 
+        public bool IsEmpty() => _inequation.IsEmpty<Points>();
+
         public OpenRangeUnion ToOpenRangeUnion() => OpenRangeUnion.FromInequation(_inequation);
 
         public ClosedRangeUnion ToClosedRangeUnion() => ClosedRangeUnion.FromInequation(_inequation);
