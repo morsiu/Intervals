@@ -1,5 +1,4 @@
-﻿using System;
-using Mors.Ranges.Inequations;
+﻿using Mors.Ranges.Inequations;
 
 namespace Mors.Ranges.Operations.Reference
 {
@@ -29,5 +28,10 @@ namespace Mors.Ranges.Operations.Reference
             Inequation<int> first,
             Inequation<int> second) =>
             first.Or(second).Closure();
+
+        public static Inequation<int> Union(
+            Inequation<int> first,
+            Inequation<int> second) =>
+            first.Or(second);
     }
 }

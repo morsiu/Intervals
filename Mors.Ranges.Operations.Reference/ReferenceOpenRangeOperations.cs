@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Mors.Ranges.Operations.Reference
+﻿namespace Mors.Ranges.Operations.Reference
 {
     public static class ReferenceOpenRangeOperations<TOpenRange, TOpenRanges>
         where TOpenRange : IOpenRange<int>, IEmptyRange
@@ -17,15 +15,13 @@ namespace Mors.Ranges.Operations.Reference
 
         public static TOpenRange Intersect(TOpenRange first, TOpenRange second) =>
             ReferenceOperation.Intersect(first.ToInequation(), second.ToInequation())
-                .ToOpenRanges<TOpenRange, TOpenRanges>()
-                .Single();
+                .ToOpenRange<TOpenRange, TOpenRanges>();
 
         public static bool IsCoveredBy(TOpenRange first, TOpenRange second) =>
             Covers(second, first);
 
         public static TOpenRange Span(TOpenRange first, TOpenRange second) =>
             ReferenceOperation.Span(first.ToInequation(), second.ToInequation())
-                .ToOpenRanges<TOpenRange, TOpenRanges>()
-                .Single();
+                .ToOpenRange<TOpenRange, TOpenRanges>();
     }
 }
