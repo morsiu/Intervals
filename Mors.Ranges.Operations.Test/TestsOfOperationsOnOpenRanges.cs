@@ -2,7 +2,7 @@
 
 namespace Mors.Ranges.Operations
 {
-    using ReferenceOpenRangeOperations = Reference.ReferenceOpenRangeOperations<OpenRange, OpenRanges>;
+    using ReferenceOpenRangeOperations = Reference.ReferenceOpenRangeOperations<OpenRange, RangeUnion<OpenRange>, OpenRanges, RangeUnions<OpenRange>>;
 
     [TestFixture]
     public sealed class TestsOfOperationsOnOpenRanges
@@ -60,6 +60,19 @@ namespace Mors.Ranges.Operations
             OpenRangeOperations.Span<int, OpenRange, OpenRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);
             Assert.AreEqual(
                 ReferenceOpenRangeOperations.Span(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                actual);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
+        public void UnionReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
+        {
+            OpenRangeOperations.Union<int, OpenRange, RangeUnion<OpenRange>, OpenRanges, RangeUnions<OpenRange>>(
+                pairOfRanges.RangeA,
+                pairOfRanges.RangeB,
+                out var actual);
+            Assert.AreEqual(
+                ReferenceOpenRangeOperations.Union(pairOfRanges.RangeA, pairOfRanges.RangeB),
                 actual);
         }
     }

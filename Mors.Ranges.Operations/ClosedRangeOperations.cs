@@ -96,5 +96,49 @@ namespace Mors.Ranges.Operations
                 leftStartToRightStart < 0 ? left.Start : right.Start,
                 leftEndToRightEnd > 0 ? left.End : right.End);
         }
+
+        public static void Union<TPoint, TRange, TRangeUnion, TRanges, TRangeUnions>(
+            in TRange left,
+            in TRange right,
+            out TRangeUnion result)
+            where TPoint : IComparable<TPoint>
+            where TRange : IClosedRange<TPoint>, IEmptyRange
+            where TRanges : struct, IClosedRanges<TPoint, TRange>
+            where TRangeUnions : struct, IRangeUnions<TRange, TRangeUnion>
+        {
+            if (left.Empty && right.Empty)
+            {
+                result = default(TRangeUnions).Empty();
+                return;
+            }
+            if (left.Empty)
+            {
+                result = default(TRangeUnions).NonEmpty(right);
+                return;
+            }
+            if (right.Empty)
+            {
+                result = default(TRangeUnions).NonEmpty(left);
+                return;
+            }
+            if (left.Start.CompareTo(right.End) > 0)
+            {
+                result = default(TRangeUnions).NonEmpty(right, left);
+                return;
+            }
+            if (left.End.CompareTo(right.Start) < 0)
+            {
+                result = default(TRangeUnions).NonEmpty(left, right);
+                return;
+            }
+            result = default(TRangeUnions).NonEmpty(
+                default(TRanges).Range(
+                    left.Start.CompareTo(right.Start) < 0
+                        ? left.Start
+                        : right.Start,
+                    left.End.CompareTo(right.End) > 0
+                        ? left.End
+                        : right.End));
+        }
     }
 }

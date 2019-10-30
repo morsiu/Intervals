@@ -134,5 +134,67 @@ namespace Mors.Ranges.Operations
                         ? left.OpenEnd
                         : right.OpenEnd);
         }
+
+        public static void Union<TPoint, TRange, TRangeUnion, TRanges, TRangeUnions>(
+            in TRange left,
+            in TRange right,
+            out TRangeUnion result)
+            where TPoint : IComparable<TPoint>
+            where TRange : IOpenRange<TPoint>, IEmptyRange
+            where TRanges : struct, IOpenRanges<TPoint, TRange>
+            where TRangeUnions : struct, IRangeUnions<TRange, TRangeUnion>
+        {
+            if (left.Empty && right.Empty)
+            {
+                result = default(TRangeUnions).Empty();
+                return;
+            }
+            if (left.Empty)
+            {
+                result = default(TRangeUnions).NonEmpty(right);
+                return;
+            }
+            if (right.Empty)
+            {
+                result = default(TRangeUnions).NonEmpty(left);
+                return;
+            }
+            var leftStartToRightEnd = left.Start.CompareTo(right.End);
+            if (leftStartToRightEnd > 0
+                || (leftStartToRightEnd == 0 && left.OpenStart && right.OpenEnd))
+            {
+                result = default(TRangeUnions).NonEmpty(right, left);
+                return;
+            }
+            var leftEndToRightStart = left.End.CompareTo(right.Start);
+            if (leftEndToRightStart < 0
+                || (leftEndToRightStart == 0 && left.OpenEnd && right.OpenStart))
+            {
+                result = default(TRangeUnions).NonEmpty(left, right);
+                return;
+            }
+            var leftStartToRightStart = left.Start.CompareTo(right.Start);
+            var leftEndToRightEnd = left.End.CompareTo(right.End);
+            result = default(TRangeUnions).NonEmpty(
+                default(TRanges).Range(
+                    leftStartToRightStart < 0
+                        ? left.Start
+                        : right.Start,
+                    leftEndToRightEnd > 0
+                        ? left.End
+                        : right.End,
+                    leftStartToRightStart switch
+                    {
+                        var x when x < 0 => left.OpenStart,
+                        var x when x > 0 => right.OpenStart,
+                        _ => left.OpenStart && right.OpenStart
+                    },
+                    leftEndToRightEnd switch
+                    {
+                        var x when x < 0 => right.OpenEnd,
+                        var x when x > 0 => left.OpenEnd,
+                        _ => left.OpenEnd && right.OpenEnd
+                    }));
+        }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Mors.Ranges.Operations
 {
-    using ReferenceClosedRangeOperations = Reference.ReferenceClosedRangeOperations<ClosedRange, ClosedRanges>;
+    using ReferenceClosedRangeOperations = Reference.ReferenceClosedRangeOperations<ClosedRange, RangeUnion<ClosedRange>, ClosedRanges, RangeUnions<ClosedRange>>;
 
     [TestFixture]
     public sealed class TestsOfOperationsOnClosedRanges
@@ -60,6 +60,19 @@ namespace Mors.Ranges.Operations
             ClosedRangeOperations.Span<int, ClosedRange, ClosedRanges>(pairOfRanges.RangeA, pairOfRanges.RangeB, out var actual);
             Assert.AreEqual(
                 ReferenceClosedRangeOperations.Span(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                actual);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfClosedRangesOfAllPossibleRelations))]
+        public void UnionReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
+        {
+            ClosedRangeOperations.Union<int, ClosedRange, RangeUnion<ClosedRange>, ClosedRanges, RangeUnions<ClosedRange>>(
+                pairOfRanges.RangeA,
+                pairOfRanges.RangeB,
+                out var actual);
+            Assert.AreEqual(
+                ReferenceClosedRangeOperations.Union(pairOfRanges.RangeA, pairOfRanges.RangeB),
                 actual);
         }
     }

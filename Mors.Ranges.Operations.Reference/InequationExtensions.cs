@@ -15,6 +15,19 @@ namespace Mors.Ranges.Operations.Reference
                 .ToClosedRanges<TClosedRange, TClosedRanges>()
                 .ToRange<TClosedRange, TClosedRanges>();
 
+        public static TClosedRangeUnion ToClosedRangeUnion<
+            TClosedRange,
+            TClosedRangeUnion,
+            TClosedRanges,
+            TClosedRangeUnions>(
+            this Inequation<int> inequation)
+            where TClosedRange : IClosedRange<int>, IEmptyRange
+            where TClosedRanges : struct, IClosedRanges<int, TClosedRange>, IEmptyRanges<TClosedRange>
+            where TClosedRangeUnions : struct, IRangeUnions<TClosedRange, TClosedRangeUnion> =>
+            inequation
+                .ToClosedRanges<TClosedRange, TClosedRanges>()
+                .ToRangeUnion<TClosedRange, TClosedRangeUnion, TClosedRangeUnions>();
+
         public static TOpenRange ToOpenRange<TOpenRange, TOpenRanges>(
             this Inequation<int> inequation)
             where TOpenRange : IOpenRange<int>, IEmptyRange
@@ -22,6 +35,18 @@ namespace Mors.Ranges.Operations.Reference
             inequation
                 .ToOpenRanges<TOpenRange, TOpenRanges>()
                 .ToRange<TOpenRange, TOpenRanges>();
+
+        public static TOpenRangeUnion ToOpenRangeUnion<
+            TOpenRange,
+            TOpenRangeUnion,
+            TOpenRanges,
+            TOpenRangeUnions>(
+            this Inequation<int> inequation)
+            where TOpenRange : IOpenRange<int>, IEmptyRange
+            where TOpenRanges : struct, IOpenRanges<int, TOpenRange>, IEmptyRanges<TOpenRange>
+            where TOpenRangeUnions : struct, IRangeUnions<TOpenRange, TOpenRangeUnion> =>
+            inequation.ToOpenRanges<TOpenRange, TOpenRanges>()
+                .ToRangeUnion<TOpenRange, TOpenRangeUnion, TOpenRangeUnions>();
 
         private static IEnumerable<TClosedRange> ToClosedRanges<TClosedRange, TClosedRanges>(
             this Inequation<int> inequation)
@@ -45,6 +70,19 @@ namespace Mors.Ranges.Operations.Reference
             var first = enumerator.Current;
             if (!enumerator.MoveNext()) return first;
             throw new Exception("Expected at most one range.");
+        }
+
+        private static TRangeUnion ToRangeUnion<TRange, TRangeUnion, TRangeUnions>(
+            this IEnumerable<TRange> ranges)
+            where TRangeUnions : struct, IRangeUnions<TRange, TRangeUnion>
+        {
+            using var enumerator = ranges.GetEnumerator();
+            if (!enumerator.MoveNext()) return default(TRangeUnions).Empty();
+            var first = enumerator.Current;
+            if (!enumerator.MoveNext()) return default(TRangeUnions).NonEmpty(first);
+            var second = enumerator.Current;
+            if (!enumerator.MoveNext()) return default(TRangeUnions).NonEmpty(first, second);
+            throw new Exception("Conversion of more than two ranges to a range union is not supported.");
         }
     }
 }

@@ -1,8 +1,13 @@
 ﻿namespace Mors.Ranges.Operations.Reference
 {
-    public static class ReferenceClosedRangeOperations<TClosedRange, TClosedRanges>
+    public static class ReferenceClosedRangeOperations<
+        TClosedRange,
+        TClosedRangeUnion,
+        TClosedRanges,
+        TClosedRangeUnions>
         where TClosedRange : IClosedRange<int>, IEmptyRange
         where TClosedRanges : struct, IClosedRanges<int, TClosedRange>, IEmptyRanges<TClosedRange>
+        where TClosedRangeUnions : struct, IRangeUnions<TClosedRange, TClosedRangeUnion>
     {
         public static object Contains(in TClosedRange range, int point) =>
             ReferenceOperation.Contains(range.ToInequation(), point);
@@ -23,5 +28,9 @@
         public static TClosedRange Span(TClosedRange first, TClosedRange second) =>
             ReferenceOperation.Span(first.ToInequation(), second.ToInequation())
                 .ToClosedRange<TClosedRange, TClosedRanges>();
+
+        public static TClosedRangeUnion Union(TClosedRange first, TClosedRange second) =>
+            ReferenceOperation.Union(first.ToInequation(), second.ToInequation())
+                .ToClosedRangeUnion<TClosedRange, TClosedRangeUnion, TClosedRanges, TClosedRangeUnions>();
     }
 }
