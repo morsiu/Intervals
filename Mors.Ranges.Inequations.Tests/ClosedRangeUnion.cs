@@ -33,6 +33,7 @@ namespace Mors.Ranges.Inequations.Tests
                 .DefaultIfEmpty(Inequation.False())
                 .Aggregate((a, b) => Inequation.Or(a, b));
 
-        public override string ToString() => string.Join(" ∪ ", _ranges);
+        public override string ToString() =>
+            string.Join(" ∪ ", _ranges.Select(x => x.ToString()).DefaultIfEmpty("∅"));
     }
 }

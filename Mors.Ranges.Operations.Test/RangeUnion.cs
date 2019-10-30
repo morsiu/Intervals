@@ -27,6 +27,6 @@ namespace Mors.Ranges.Operations
                 b => b.ToHashCode());
 
         public override string ToString() =>
-            string.Join(", ", _ranges);
+            string.Join(", ", _ranges.Select(x => x.ToString()).DefaultIfEmpty("{empty}"));
     }
 }
