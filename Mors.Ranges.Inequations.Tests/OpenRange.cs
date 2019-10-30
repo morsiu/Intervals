@@ -39,6 +39,8 @@ namespace Mors.Ranges.Inequations.Tests
         public static OpenRangeUnion Union(in OpenRange first, in OpenRange other) =>
             Inequation.Or(first.ToInequation(), other.ToInequation()).ToOpenRangeUnion();
 
+        public bool IsEmpty() => !_isNonEmpty;
+
         public bool Equals(OpenRange other) =>
             _isNonEmpty == other._isNonEmpty
             && (!_isNonEmpty

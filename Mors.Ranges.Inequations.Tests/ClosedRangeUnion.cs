@@ -12,7 +12,11 @@ namespace Mors.Ranges.Inequations.Tests
 
         public static implicit operator ClosedRangeUnion(ClosedRange range) => FromRange(range);
 
-        public static ClosedRangeUnion FromRange(ClosedRange range) => new ClosedRangeUnion(Enumerable.Repeat(range, 1));
+        public static ClosedRangeUnion FromRange(ClosedRange range) =>
+            new ClosedRangeUnion(
+                range.IsEmpty
+                    ? Enumerable.Empty<ClosedRange>()
+                    : Enumerable.Repeat(range, 1));
 
         public static ClosedRangeUnion FromInequation(Inequation<Point> inequation) =>
             new ClosedRangeUnion(inequation.ToClosedRanges<ClosedRange, Points, ClosedRanges>());

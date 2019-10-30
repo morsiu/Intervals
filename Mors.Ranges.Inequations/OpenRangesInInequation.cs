@@ -26,8 +26,7 @@ namespace Mors.Ranges.Inequations
             var ranges =
                 rangeEnds
                     .Zip(rangeEnds.Skip(1), (a, b) => a.ToRanges(b))
-                    .SelectMany(x => x)
-                    .DefaultIfEmpty(default(TRanges).Empty());
+                    .SelectMany(x => x);
             return ranges.GetEnumerator();
         }
 

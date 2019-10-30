@@ -45,7 +45,7 @@ namespace Mors.Ranges.Inequations
                 var ranges = default(TRanges);
                 if (!_nonEmpty)
                 {
-                    return One(ranges.Empty());
+                    return Enumerable.Empty<TRange>();
                 }
                 return _start.CompareTo(_end) switch
                 {

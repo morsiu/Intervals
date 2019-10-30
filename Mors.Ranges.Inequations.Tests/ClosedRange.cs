@@ -34,6 +34,8 @@ namespace Mors.Ranges.Inequations.Tests
         public override int GetHashCode() =>
             HashCode.Combine(_start, _end, _isNonEmpty);
 
+        public bool IsEmpty => !_isNonEmpty;
+
         public Inequation ToInequation() =>
             new Inequation(Implementation.FromClosedRange<Point, ClosedRange>(this));
 
