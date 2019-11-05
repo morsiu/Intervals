@@ -1,9 +1,7 @@
 ﻿namespace Mors.Ranges.Operations
 {
-    public interface IPoints<T>
+    public interface IPoints
     {
-        bool Next(T current, out T next);
-
-        bool Previous(T current, out T previous);
+        IPoints<T> For<T>();
     }
 }

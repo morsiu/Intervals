@@ -100,7 +100,7 @@ namespace Mors.Ranges.Operations
         public static void Subtract<TPoint, TRange, TRangeUnion, TRanges, TRangeUnions>(
             in TRange left,
             in TRange right,
-            IPoints<TPoint> points,
+            IPoints points,
             out TRangeUnion result)
             where TPoint : IComparable<TPoint>
             where TRange : IClosedRange<TPoint>, IEmptyRange
@@ -127,18 +127,16 @@ namespace Mors.Ranges.Operations
             if (leftStartToRightEnd == 0)
             {
                 // (MI) right meets left
-                points.Next(right.End, out var start);
                 result = default(TRangeUnions).NonEmpty(
-                    default(TRanges).Range(start, left.End));
+                    default(TRanges).Range(points.For<TPoint>().UnsafeNext(right.End), left.End));
                 return;
             }
             var leftEndToRightStart = left.End.CompareTo(right.Start);
             if (leftEndToRightStart == 0)
             {
                 // (M) left meets right
-                points.Previous(right.Start, out var end);
                 result = default(TRangeUnions).NonEmpty(
-                    default(TRanges).Range(left.Start, end));
+                    default(TRanges).Range(left.Start, points.For<TPoint>().UnsafePrevious(right.Start)));
                 return;
             }
             if (leftEndToRightStart < 0)
@@ -164,9 +162,8 @@ namespace Mors.Ranges.Operations
                 else
                 {
                     // (OI) right overlaps left
-                    points.Next(right.End, out var start);
                     result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(start, left.End));
+                        default(TRanges).Range(points.For<TPoint>().UnsafeNext(right.End), left.End));
                 }
             }
             else if (leftStartToRightStart == 0)
@@ -175,9 +172,8 @@ namespace Mors.Ranges.Operations
                 if (leftEndToRightEnd > 0)
                 {
                     // (SI) right starts left
-                    points.Next(right.End, out var start);
                     result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(start, left.End));
+                        default(TRanges).Range(points.For<TPoint>().UnsafeNext(right.End), left.End));
                 }
                 else if (leftEndToRightEnd == 0)
                 {
@@ -192,151 +188,28 @@ namespace Mors.Ranges.Operations
             }
             else
             {
+                var specificPoints = points.For<TPoint>();
+                var beforeRightStart = specificPoints.UnsafePrevious(right.Start);
                 var leftEndToRightEnd = left.End.CompareTo(right.End);
                 if (leftEndToRightEnd > 0)
                 {
+                    var afterRightEnd = specificPoints.UnsafeNext(right.End);
                     // (DI) right during first
-                    points.Previous(right.Start, out var firstEnd);
-                    points.Next(right.End, out var secondStart);
                     result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(left.Start, firstEnd),
-                        default(TRanges).Range(secondStart, left.End));
+                        default(TRanges).Range(left.Start, beforeRightStart),
+                        default(TRanges).Range(afterRightEnd, left.End));
                 }
                 else if (leftEndToRightEnd == 0)
                 {
                     // (FI) right finishes left
-                    points.Previous(right.Start, out var end);
                     result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(left.Start, end));
+                        default(TRanges).Range(left.Start, beforeRightStart));
                 }
                 else
                 {
                     // (O) left overlaps right
-                    points.Previous(right.Start, out var end);
                     result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(left.Start, end));
-                }
-            }
-        }
-
-        public static void Subtract2<TPoint, TRange, TRangeUnion, TRanges, TRangeUnions>(
-            in TRange left,
-            in TRange right,
-            IPoints<TPoint> points,
-            out TRangeUnion result)
-            where TPoint : IComparable<TPoint>
-            where TRange : IClosedRange<TPoint>, IEmptyRange
-            where TRanges : struct, IClosedRanges<TPoint, TRange>
-            where TRangeUnions : struct, IRangeUnions<TRange, TRangeUnion>
-        {
-            if (left.Empty)
-            {
-                result = default(TRangeUnions).Empty();
-                return;
-            }
-            if (right.Empty)
-            {
-                result = default(TRangeUnions).NonEmpty(left);
-                return;
-            }
-            var leftStartToRightEnd = left.Start.CompareTo(right.End);
-            if (leftStartToRightEnd > 0)
-            {
-                // (BI) right before left
-                result = default(TRangeUnions).NonEmpty(left);
-                return;
-            }
-            if (leftStartToRightEnd == 0)
-            {
-                // (MI) right meets left
-                points.Next(right.End, out var start);
-                result = default(TRangeUnions).NonEmpty(
-                    default(TRanges).Range(start, left.End));
-                return;
-            }
-            var leftEndToRightStart = left.End.CompareTo(right.Start);
-            if (leftEndToRightStart == 0)
-            {
-                // (M) left meets right
-                points.Previous(right.Start, out var end);
-                result = default(TRangeUnions).NonEmpty(
-                    default(TRanges).Range(left.Start, end));
-                return;
-            }
-            if (leftEndToRightStart < 0)
-            {
-                // (B) left before right
-                result = default(TRangeUnions).NonEmpty(left);
-                return;
-            }
-            var leftStartToRightStart = left.Start.CompareTo(right.Start);
-            if (leftStartToRightStart > 0)
-            {
-                var leftEndToRightEnd = left.End.CompareTo(right.End);
-                if (leftEndToRightEnd < 0)
-                {
-                    // (D) left during right
-                    result = default(TRangeUnions).Empty();
-                }
-                else if (leftEndToRightEnd == 0)
-                {
-                    // (F) left finishes right
-                    result = default(TRangeUnions).Empty();
-                }
-                else
-                {
-                    // (OI) right overlaps left
-                    points.Next(right.End, out var start);
-                    result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(start, left.End));
-                }
-            }
-            else if (leftStartToRightStart == 0)
-            {
-                var leftEndToRightEnd = left.End.CompareTo(right.End);
-                if (leftEndToRightEnd > 0)
-                {
-                    // (SI) right starts left
-                    points.Next(right.End, out var start);
-                    result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(start, left.End));
-                }
-                else if (leftEndToRightEnd == 0)
-                {
-                    // (EQ) left equals right
-                    result = default(TRangeUnions).Empty();
-                }
-                else
-                {
-                    // (S) left starts right
-                    result = default(TRangeUnions).Empty();
-                }
-            }
-            else
-            {
-                var leftEndToRightEnd = left.End.CompareTo(right.End);
-                if (leftEndToRightEnd > 0)
-                {
-                    // (DI) right during first
-                    points.Previous(right.Start, out var firstEnd);
-                    points.Next(right.End, out var secondStart);
-                    result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(left.Start, firstEnd),
-                        default(TRanges).Range(secondStart, left.End));
-                }
-                else if (leftEndToRightEnd == 0)
-                {
-                    // (FI) right finishes left
-                    points.Previous(right.Start, out var end);
-                    result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(left.Start, end));
-                }
-                else
-                {
-                    // (O) left overlaps right
-                    points.Previous(right.Start, out var end);
-                    result = default(TRangeUnions).NonEmpty(
-                        default(TRanges).Range(left.Start, end));
+                        default(TRanges).Range(left.Start, beforeRightStart));
                 }
             }
         }

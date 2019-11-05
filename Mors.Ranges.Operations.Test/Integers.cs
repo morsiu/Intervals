@@ -1,17 +1,16 @@
-﻿namespace Mors.Ranges.Operations
-{
-    public readonly struct Integers : IPoints<int>
-    {
-        public bool Next(int current, out int next)
-        {
-            next = current + 1;
-            return current != int.MaxValue;
-        }
+﻿using System;
 
-        public bool Previous(int current, out int previous)
-        {
-            previous = current - 1;
-            return current != int.MinValue;
-        }
+namespace Mors.Ranges.Operations
+{
+    public readonly struct Integers : IPoints, IPoints<int>
+    {
+        public IPoints<T> For<T>() =>
+            typeof(T) == typeof(int)
+                ? (IPoints<T>)(object)this
+                : throw new NotSupportedException();
+
+        public int UnsafeNext(int current) => current + 1;
+
+        public int UnsafePrevious(int current) => current - 1;
     }
 }
