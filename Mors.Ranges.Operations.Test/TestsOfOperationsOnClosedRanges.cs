@@ -65,6 +65,20 @@ namespace Mors.Ranges.Operations
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedRangesOfAllPossibleRelations))]
+        public void SubtractReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
+        {
+            ClosedRangeOperations.Subtract<int, ClosedRange, RangeUnion<ClosedRange>, ClosedRanges, RangeUnions<ClosedRange>>(
+                pairOfRanges.RangeA,
+                pairOfRanges.RangeB,
+                new Integers(),
+                out var actual);
+            Assert.AreEqual(
+                ReferenceClosedRangeOperations.Subtract(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                actual);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfClosedRangesOfAllPossibleRelations))]
         public void UnionReturnsExpectedResult((ClosedRange RangeA, ClosedRange RangeB) pairOfRanges)
         {
             ClosedRangeOperations.Union<int, ClosedRange, RangeUnion<ClosedRange>, ClosedRanges, RangeUnions<ClosedRange>>(

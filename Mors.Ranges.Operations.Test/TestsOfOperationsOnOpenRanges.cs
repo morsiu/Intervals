@@ -65,6 +65,19 @@ namespace Mors.Ranges.Operations
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
+        public void SubtractReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
+        {
+            OpenRangeOperations.Subtract<int, OpenRange, RangeUnion<OpenRange>, OpenRanges, RangeUnions<OpenRange>>(
+                pairOfRanges.RangeA,
+                pairOfRanges.RangeB,
+                out var actual);
+            Assert.AreEqual(
+                ReferenceOpenRangeOperations.Subtract(pairOfRanges.RangeA, pairOfRanges.RangeB),
+                actual);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfOpenRangesOfAllPossibleRelations))]
         public void UnionReturnsExpectedResult((OpenRange RangeA, OpenRange RangeB) pairOfRanges)
         {
             OpenRangeOperations.Union<int, OpenRange, RangeUnion<OpenRange>, OpenRanges, RangeUnions<OpenRange>>(

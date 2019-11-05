@@ -2,7 +2,8 @@
 
 namespace Mors.Ranges.Operations.Reference
 {
-    internal readonly struct Integers : IPoints<int>
+    public readonly struct Integers
+        : IPoints<int>
     {
         public int Maximum() => int.MaxValue;
 

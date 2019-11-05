@@ -29,6 +29,10 @@
             ReferenceOperation.Span(first.ToInequation(), second.ToInequation())
                 .ToClosedRange<TClosedRange, TClosedRanges>();
 
+        public static TClosedRangeUnion Subtract(TClosedRange first, TClosedRange second) =>
+            ReferenceOperation.Subtract(first.ToInequation(), second.ToInequation())
+                .ToClosedRangeUnion<TClosedRange, TClosedRangeUnion, TClosedRanges, TClosedRangeUnions>();
+
         public static TClosedRangeUnion Union(TClosedRange first, TClosedRange second) =>
             ReferenceOperation.Union(first.ToInequation(), second.ToInequation())
                 .ToClosedRangeUnion<TClosedRange, TClosedRangeUnion, TClosedRanges, TClosedRangeUnions>();

@@ -29,6 +29,10 @@
             ReferenceOperation.Span(first.ToInequation(), second.ToInequation())
                 .ToOpenRange<TOpenRange, TOpenRanges>();
 
+        public static TOpenRangeUnion Subtract(TOpenRange first, TOpenRange second) =>
+            ReferenceOperation.Subtract(first.ToInequation(), second.ToInequation())
+                .ToOpenRangeUnion<TOpenRange, TOpenRangeUnion, TOpenRanges, TOpenRangeUnions>();
+
         public static TOpenRangeUnion Union(TOpenRange first, TOpenRange second) =>
             ReferenceOperation.Union(first.ToInequation(), second.ToInequation())
                 .ToOpenRangeUnion<TOpenRange, TOpenRangeUnion, TOpenRanges, TOpenRangeUnions>();

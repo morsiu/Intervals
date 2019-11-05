@@ -29,6 +29,11 @@ namespace Mors.Ranges.Operations.Reference
             Inequation<int> second) =>
             first.Or(second).Closure();
 
+        public static Inequation<int> Subtract(
+            Inequation<int> first,
+            Inequation<int> second) =>
+            first.And(second.Not());
+
         public static Inequation<int> Union(
             Inequation<int> first,
             Inequation<int> second) =>

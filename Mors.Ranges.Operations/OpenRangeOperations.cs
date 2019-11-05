@@ -135,6 +135,142 @@ namespace Mors.Ranges.Operations
                         : right.OpenEnd);
         }
 
+        public static void Subtract<TPoint, TRange, TRangeUnion, TRanges, TRangeUnions>(
+            in TRange left,
+            in TRange right,
+            out TRangeUnion result)
+            where TPoint : IComparable<TPoint>
+            where TRange : IOpenRange<TPoint>, IEmptyRange
+            where TRanges : struct, IOpenRanges<TPoint, TRange>
+            where TRangeUnions : struct, IRangeUnions<TRange, TRangeUnion>
+        {
+            if (left.Empty)
+            {
+                result = default(TRangeUnions).Empty();
+                return;
+            }
+            if (right.Empty)
+            {
+                result = default(TRangeUnions).NonEmpty(left);
+                return;
+            }
+            var leftStartToRightEnd = left.Start.CompareTo(right.End);
+            if (leftStartToRightEnd > 0)
+            {
+                // (BI) right before left
+                result = default(TRangeUnions).NonEmpty(left);
+                return;
+            }
+            if (leftStartToRightEnd == 0)
+            {
+                // (MI) right meets left
+                result = default(TRangeUnions).NonEmpty(
+                    default(TRanges).Range(left.Start, left.End, left.OpenStart || !right.OpenEnd, left.OpenEnd));
+                return;
+            }
+            var leftEndToRightStart = left.End.CompareTo(right.Start);
+            if (leftEndToRightStart == 0)
+            {
+                // (M) left meets right
+                result = default(TRangeUnions).NonEmpty(
+                    default(TRanges).Range(left.Start, left.End, left.OpenStart, left.OpenEnd || !right.OpenStart));
+                return;
+            }
+            if (leftEndToRightStart < 0)
+            {
+                // (B) left before right
+                result = default(TRangeUnions).NonEmpty(left);
+                return;
+            }
+            var leftStartToRightStart = left.Start.CompareTo(right.Start);
+            var leftEndToRightEnd = left.End.CompareTo(right.End);
+            if (leftStartToRightStart > 0)
+            {
+                if (leftEndToRightEnd > 0)
+                {
+                    // (OI) right overlaps left
+                    result = default(TRangeUnions).NonEmpty(
+                        default(TRanges).Range(right.End, left.End, !right.OpenEnd, left.OpenEnd));
+                }
+                else if (leftEndToRightEnd == 0)
+                {
+                    // (F) left finishes right
+                    result = !left.OpenEnd && right.OpenEnd
+                        ? default(TRangeUnions).NonEmpty(
+                            default(TRanges).Range(left.End, left.End, openStart: false, openEnd: false))
+                        : default(TRangeUnions).Empty();
+                }
+                else
+                {
+                    // (D) left during right
+                    result = default(TRangeUnions).Empty();
+                }
+            }
+            else if (leftStartToRightStart == 0)
+            {
+                if (leftEndToRightEnd > 0)
+                {
+                    // (SI) right starts left
+                    var second = default(TRanges).Range(right.End, left.End, !right.OpenEnd, left.OpenEnd);
+                    result = !left.OpenStart && right.OpenStart
+                        ? default(TRangeUnions).NonEmpty(
+                            default(TRanges).Range(left.Start, left.Start, openStart: false, openEnd: false),
+                            second)
+                        : default(TRangeUnions).NonEmpty(second);
+                }
+                else if (leftEndToRightEnd == 0)
+                {
+                    // (EQ) left equals right
+                    var startIncluded = !left.OpenStart && right.OpenStart;
+                    var endIncluded = !left.OpenEnd && right.OpenEnd;
+                    result = (startIncluded, endIncluded) switch
+                    {
+                        (true, true) => default(TRangeUnions).NonEmpty(
+                            default(TRanges).Range(left.Start, left.Start, openStart: false, openEnd: false),
+                            default(TRanges).Range(left.End, left.End, openStart: false, openEnd: false)),
+                        (true, false) => default(TRangeUnions).NonEmpty(
+                            default(TRanges).Range(left.Start, left.Start, openStart: false, openEnd: false)),
+                        (false, true) => default(TRangeUnions).NonEmpty(
+                            default(TRanges).Range(left.End, left.End, openStart: false, openEnd: false)),
+                        _ => default(TRangeUnions).Empty()
+                    };
+                }
+                else
+                {
+                    // (S) left starts right
+                    result = !left.OpenStart && right.OpenStart
+                        ? default(TRangeUnions).NonEmpty(
+                            default(TRanges).Range(left.Start, left.Start, openStart: false, openEnd: false))
+                        : default(TRangeUnions).Empty();
+                }
+            }
+            else
+            {
+                if (leftEndToRightEnd > 0)
+                {
+                    // (DI) right during first
+                    result = default(TRangeUnions).NonEmpty(
+                        default(TRanges).Range(left.Start, right.Start, left.OpenStart, !right.OpenStart),
+                        default(TRanges).Range(right.End, left.End, !right.OpenEnd, left.OpenEnd));
+                }
+                else if (leftEndToRightEnd == 0)
+                {
+                    // (FI) right finishes left
+                    var first = default(TRanges).Range(left.Start, right.Start, left.OpenStart, !right.OpenStart);
+                    result = !left.OpenEnd && right.OpenEnd
+                        ? default(TRangeUnions).NonEmpty(first,
+                            default(TRanges).Range(left.End, left.End, openStart: false, openEnd: false))
+                        : default(TRangeUnions).NonEmpty(first);
+                }
+                else
+                {
+                    // (O) left overlaps right
+                    result = default(TRangeUnions).NonEmpty(
+                        default(TRanges).Range(left.Start, right.Start, left.OpenStart, !right.OpenStart));
+                }
+            }
+        }
+
         public static void Union<TPoint, TRange, TRangeUnion, TRanges, TRangeUnions>(
             in TRange left,
             in TRange right,
