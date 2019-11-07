@@ -832,11 +832,7 @@
         }
       },
       "mors.ranges.operations": {
-        "type": "Project",
-        "dependencies": {
-          "NETStandard.Library": "1.6.1",
-          "System.ValueTuple": "4.5.0"
-        }
+        "type": "Project"
       },
       "mors.ranges.operations.reference": {
         "type": "Project",
