@@ -1,6 +1,6 @@
 ﻿namespace Mors.Ranges.Inequations
 {
-    public interface IOpenRange<T>
+    public interface IOpenRange<out T>
     {
         bool Empty();
 

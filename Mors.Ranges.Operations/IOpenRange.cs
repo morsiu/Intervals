@@ -2,7 +2,7 @@
 
 namespace Mors.Ranges.Operations
 {
-    public interface IOpenRange<TPoint>
+    public interface IOpenRange<out TPoint>
         where TPoint : IComparable<TPoint>
     {
         TPoint Start { get; }
