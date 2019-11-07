@@ -1,6 +1,6 @@
 <Project>
   <PropertyGroup>
-    <PackageProjectUrl>https://github.com/morsiu/Ranges</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/morsiu/Intervals</PackageProjectUrl>
     <Copyright>Copyright © Łukasz Mrozek</Copyright>
     <Authors>Łukasz Mrozek</Authors>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
