@@ -38,13 +38,7 @@ namespace Mors.Intervals.Operations.Test
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                var hashCode = _nonEmpty.GetHashCode();
-                hashCode = (hashCode * 397) ^ Start;
-                hashCode = (hashCode * 397) ^ End;
-                return hashCode;
-            }
+            return HashCode.Combine(_nonEmpty, Start, End);
         }
 
         public override string ToString() =>
