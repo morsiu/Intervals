@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Implementation = Mors.Intervals.Inequations.Inequation;
 
 namespace Mors.Intervals.Inequations.Tests
 {
-    using Implementation = Inequations.Inequation;
-
     public readonly struct ClosedInterval : IClosedInterval<Point>, IEquatable<ClosedInterval>
     {
         private readonly bool _isNonEmpty;

@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Implementation = Mors.Intervals.Inequations.Inequation;
 
 namespace Mors.Intervals.Inequations.Tests
 {
-    using Implementation = Inequations.Inequation;
-
     public readonly struct Inequation
     {
         private readonly Inequation<Point> _inequation;

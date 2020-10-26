@@ -1,9 +1,8 @@
 ﻿using NUnit.Framework;
+using ReferenceOpenIntervalOperations = Mors.Intervals.Operations.Reference.ReferenceOpenIntervalOperations<Mors.Intervals.Operations.Test.OpenInterval, Mors.Intervals.Operations.Test.IntervalUnion<Mors.Intervals.Operations.Test.OpenInterval>, Mors.Intervals.Operations.Test.OpenIntervals, Mors.Intervals.Operations.Test.IntervalUnions<Mors.Intervals.Operations.Test.OpenInterval>>;
 
 namespace Mors.Intervals.Operations.Test
 {
-    using ReferenceOpenIntervalOperations = Reference.ReferenceOpenIntervalOperations<OpenInterval, IntervalUnion<OpenInterval>, OpenIntervals, IntervalUnions<OpenInterval>>;
-
     [TestFixture]
     public sealed class TestsOfOperationsOnOpenIntervals
     {

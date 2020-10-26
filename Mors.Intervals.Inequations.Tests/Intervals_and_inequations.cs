@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Xunit;
+using static Mors.Intervals.Inequations.Tests.Inequation;
+using static Mors.Intervals.Inequations.Tests.OpenInterval;
 
 namespace Mors.Intervals.Inequations.Tests
 {
-    using static Inequation;
-    using static OpenInterval;
-
     public class Intervals_and_inequations
     {
         private static IEnumerable<(OpenIntervalUnion IntervalUnion, Inequation Inequation)> EquivalentIntervalsAndInequations()
