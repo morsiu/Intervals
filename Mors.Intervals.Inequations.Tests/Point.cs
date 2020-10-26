@@ -16,7 +16,7 @@ namespace Mors.Intervals.Inequations.Tests
 
         public int CompareTo(Point other) => _value.CompareTo(other._value);
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is Point point && _value == point._value;
 
         public override int GetHashCode() =>

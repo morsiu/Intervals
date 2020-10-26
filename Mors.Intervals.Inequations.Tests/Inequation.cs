@@ -47,7 +47,7 @@ namespace Mors.Intervals.Inequations.Tests
 
         public ClosedIntervalUnion ToClosedIntervalUnion() => ClosedIntervalUnion.FromInequation(_inequation);
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is Inequation inequation
             && EqualityComparer<Inequation<Point>>.Default.Equals(_inequation, inequation._inequation);
 

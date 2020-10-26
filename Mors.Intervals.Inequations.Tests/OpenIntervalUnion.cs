@@ -21,7 +21,7 @@ namespace Mors.Intervals.Inequations.Tests
         public static OpenIntervalUnion FromInequation(Inequation<Point> inequation) =>
             new OpenIntervalUnion(inequation.ToOpenIntervals<OpenInterval, Points, OpenIntervals>());
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is OpenIntervalUnion other && _intervals.SequenceEqual(other._intervals);
 
         public override int GetHashCode() =>

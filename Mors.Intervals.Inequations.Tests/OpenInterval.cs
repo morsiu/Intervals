@@ -49,7 +49,7 @@ namespace Mors.Intervals.Inequations.Tests
                     && EqualityComparer<Point>.Default.Equals(_start, other._start)
                     && EqualityComparer<Point>.Default.Equals(_end, other._end)));
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is OpenInterval other && Equals(other);
 
         public override int GetHashCode() =>

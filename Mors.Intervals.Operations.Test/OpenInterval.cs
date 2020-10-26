@@ -43,7 +43,7 @@ namespace Mors.Intervals.Operations.Test
             && other.Start == Start
             && End == other.End;
 
-        public override bool Equals(object obj) => obj is OpenInterval other && Equals(other);
+        public override bool Equals(object? obj) => obj is OpenInterval other && Equals(other);
 
         public override int GetHashCode()
         {

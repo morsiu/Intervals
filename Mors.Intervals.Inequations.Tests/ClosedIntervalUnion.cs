@@ -21,7 +21,7 @@ namespace Mors.Intervals.Inequations.Tests
         public static ClosedIntervalUnion FromInequation(Inequation<Point> inequation) =>
             new ClosedIntervalUnion(inequation.ToClosedIntervals<ClosedInterval, Points, ClosedIntervals>());
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is ClosedIntervalUnion other && _intervals.SequenceEqual(other._intervals);
 
         public override int GetHashCode() =>

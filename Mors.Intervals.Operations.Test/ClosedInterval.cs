@@ -34,7 +34,7 @@ namespace Mors.Intervals.Operations.Test
             && other.Start == Start
             && other.End == End;
 
-        public override bool Equals(object obj) => obj is ClosedInterval other && Equals(other);
+        public override bool Equals(object? obj) => obj is ClosedInterval other && Equals(other);
 
         public override int GetHashCode()
         {
