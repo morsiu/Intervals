@@ -162,7 +162,7 @@ namespace Mors.Intervals.Inequations
                 static IEnumerable<TInterval> One(TInterval value) => Enumerable.Repeat(value, 1);
                 IEnumerable<TInterval> ThrowInvalidStateException()
                 {
-                    throw new Exception($"Invalid state, First: `{self.ToString()}`, Second: `{other.ToString()}`");
+                    throw new Exception($"Invalid state, First: `{self}`, Second: `{other}`");
                 }
             }
 
