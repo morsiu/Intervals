@@ -45,10 +45,7 @@ namespace Mors.Intervals.Operations.Test
 
         public override bool Equals(object? obj) => obj is OpenInterval other && Equals(other);
 
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(_nonEmpty, Start, End, OpenStart, OpenEnd);
-        }
+        public override int GetHashCode() => HashCode.Combine(_nonEmpty, Start, End, OpenStart, OpenEnd);
 
         public override string ToString() =>
             _nonEmpty 
