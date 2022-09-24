@@ -4,7 +4,7 @@
     <Copyright>Copyright © Łukasz Mrozek</Copyright>
     <Authors>Łukasz Mrozek</Authors>
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 </Project>
