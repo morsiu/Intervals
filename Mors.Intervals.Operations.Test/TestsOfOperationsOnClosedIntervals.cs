@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ReferenceClosedIntervalOperations = Mors.Intervals.Operations.Reference.ReferenceClosedIntervalOperations<Mors.Intervals.Operations.Test.ClosedInterval, Mors.Intervals.Operations.Test.IntervalUnion<Mors.Intervals.Operations.Test.ClosedInterval>, Mors.Intervals.Operations.Test.ClosedIntervals, Mors.Intervals.Operations.Test.IntervalUnions<Mors.Intervals.Operations.Test.ClosedInterval>>;
+using ReferenceClosedIntervalOperations = Mors.Intervals.Operations.Reference.ReferenceClosedIntervalOperations<Mors.Intervals.Operations.Test.ClosedInterval, Mors.Intervals.Operations.Test.ClosedIntervalUnion, Mors.Intervals.Operations.Test.ClosedIntervals, Mors.Intervals.Operations.Test.ClosedIntervalUnions>;
 
 namespace Mors.Intervals.Operations.Test
 {
@@ -66,7 +66,7 @@ namespace Mors.Intervals.Operations.Test
         [TestCaseSource(typeof(PairsOfClosedIntervalsOfAllPossibleRelations))]
         public void SubtractReturnsExpectedResult((ClosedInterval IntervalA, ClosedInterval IntervalB) pairOfIntervals)
         {
-            ClosedIntervalOperations.Subtract<int, ClosedInterval, IntervalUnion<ClosedInterval>, ClosedIntervals, IntervalUnions<ClosedInterval>>(
+            ClosedIntervalOperations.Subtract<int, ClosedInterval, ClosedIntervalUnion, ClosedIntervals, ClosedIntervalUnions>(
                 pairOfIntervals.IntervalA,
                 pairOfIntervals.IntervalB,
                 new Integers(),
@@ -80,7 +80,7 @@ namespace Mors.Intervals.Operations.Test
         [TestCaseSource(typeof(PairsOfClosedIntervalsOfAllPossibleRelations))]
         public void UnionReturnsExpectedResult((ClosedInterval IntervalA, ClosedInterval IntervalB) pairOfIntervals)
         {
-            ClosedIntervalOperations.Union<int, ClosedInterval, IntervalUnion<ClosedInterval>, ClosedIntervals, IntervalUnions<ClosedInterval>>(
+            ClosedIntervalOperations.Union<int, ClosedInterval, ClosedIntervalUnion, ClosedIntervals, ClosedIntervalUnions>(
                 pairOfIntervals.IntervalA,
                 pairOfIntervals.IntervalB,
                 out var actual);

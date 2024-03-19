@@ -4,21 +4,21 @@ using System.Linq;
 
 namespace Mors.Intervals.Operations.Test
 {
-    public readonly struct IntervalUnion<TInterval> : IEquatable<IntervalUnion<TInterval>>
+    public readonly struct OpenIntervalUnion : IEquatable<OpenIntervalUnion>
     {
-        private readonly ImmutableArray<TInterval> _intervals;
+        private readonly ImmutableArray<OpenInterval> _intervals;
 
-        public IntervalUnion(ImmutableArray<TInterval> intervals) =>
+        public OpenIntervalUnion(ImmutableArray<OpenInterval> intervals) =>
             _intervals = intervals;
 
-        public static IntervalUnion<TInterval> Empty() =>
-            new IntervalUnion<TInterval>(ImmutableArray<TInterval>.Empty);
+        public static OpenIntervalUnion Empty() =>
+            new OpenIntervalUnion(ImmutableArray<OpenInterval>.Empty);
 
-        public bool Equals(IntervalUnion<TInterval> other) => 
+        public bool Equals(OpenIntervalUnion other) => 
             _intervals.SequenceEqual(other._intervals);
 
         public override bool Equals(object? obj) => 
-            obj is IntervalUnion<TInterval> other && Equals(other);
+            obj is OpenIntervalUnion other && Equals(other);
 
         public override int GetHashCode() =>
             _intervals.Aggregate(

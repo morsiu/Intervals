@@ -76,13 +76,7 @@ namespace Mors.Intervals.Operations.Reference
             this IEnumerable<TInterval> intervals)
             where TIntervalUnions : struct, IIntervalUnions<TInterval, TIntervalUnion>
         {
-            using var enumerator = intervals.GetEnumerator();
-            if (!enumerator.MoveNext()) return default(TIntervalUnions).Empty();
-            var first = enumerator.Current;
-            if (!enumerator.MoveNext()) return default(TIntervalUnions).NonEmpty(first);
-            var second = enumerator.Current;
-            if (!enumerator.MoveNext()) return default(TIntervalUnions).NonEmpty(first, second);
-            throw new Exception("Conversion of more than two intervals to a interval union is not supported.");
+            return default(TIntervalUnions).FromEnumerable(intervals);
         }
     }
 }

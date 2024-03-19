@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Mors.Intervals.Inequations
 {
@@ -21,6 +22,11 @@ namespace Mors.Intervals.Inequations
             where T : IComparable<T>
             where TInterval : IClosedInterval<T> =>
             new Inequation<T>(new InequationOfClosedInterval<T, TInterval>(value).Value());
+
+        public static Inequation<T> FromClosedIntervalUnion<T, TInterval>(IEnumerable<TInterval> value)
+            where T : IComparable<T>
+            where TInterval : IClosedInterval<T> =>
+            new Inequation<T>(new InequationOfClosedIntervalUnion<T, TInterval>(value).Value());
 
         public static Inequation<T> GreaterThan<T>(in T value) where T : IComparable<T> =>
             new Inequation<T>(new GreaterThanValue<T>(value));

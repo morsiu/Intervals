@@ -1,5 +1,5 @@
 ﻿using NUnit.Framework;
-using ReferenceOpenIntervalOperations = Mors.Intervals.Operations.Reference.ReferenceOpenIntervalOperations<Mors.Intervals.Operations.Test.OpenInterval, Mors.Intervals.Operations.Test.IntervalUnion<Mors.Intervals.Operations.Test.OpenInterval>, Mors.Intervals.Operations.Test.OpenIntervals, Mors.Intervals.Operations.Test.IntervalUnions<Mors.Intervals.Operations.Test.OpenInterval>>;
+using ReferenceOpenIntervalOperations = Mors.Intervals.Operations.Reference.ReferenceOpenIntervalOperations<Mors.Intervals.Operations.Test.OpenInterval, Mors.Intervals.Operations.Test.OpenIntervalUnion, Mors.Intervals.Operations.Test.OpenIntervals, Mors.Intervals.Operations.Test.OpenIntervalUnions>;
 
 namespace Mors.Intervals.Operations.Test
 {
@@ -66,7 +66,7 @@ namespace Mors.Intervals.Operations.Test
         [TestCaseSource(typeof(PairsOfOpenIntervalsOfAllPossibleRelations))]
         public void SubtractReturnsExpectedResult((OpenInterval IntervalA, OpenInterval IntervalB) pairOfIntervals)
         {
-            OpenIntervalOperations.Subtract<int, OpenInterval, IntervalUnion<OpenInterval>, OpenIntervals, IntervalUnions<OpenInterval>>(
+            OpenIntervalOperations.Subtract<int, OpenInterval, OpenIntervalUnion, OpenIntervals, OpenIntervalUnions>(
                 pairOfIntervals.IntervalA,
                 pairOfIntervals.IntervalB,
                 out var actual);
@@ -79,7 +79,7 @@ namespace Mors.Intervals.Operations.Test
         [TestCaseSource(typeof(PairsOfOpenIntervalsOfAllPossibleRelations))]
         public void UnionReturnsExpectedResult((OpenInterval IntervalA, OpenInterval IntervalB) pairOfIntervals)
         {
-            OpenIntervalOperations.Union<int, OpenInterval, IntervalUnion<OpenInterval>, OpenIntervals, IntervalUnions<OpenInterval>>(
+            OpenIntervalOperations.Union<int, OpenInterval, OpenIntervalUnion, OpenIntervals, OpenIntervalUnions>(
                 pairOfIntervals.IntervalA,
                 pairOfIntervals.IntervalB,
                 out var actual);
