@@ -1,7 +1,7 @@
 {
   "version": 1,
   "dependencies": {
-    ".NETCoreApp,Version=v3.1": {
+    "net8.0": {
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
         "requested": "[16.4.0, )",
@@ -787,15 +787,15 @@
       "mors.intervals.generation": {
         "type": "Project",
         "dependencies": {
-          "NETStandard.Library": "1.6.1"
+          "NETStandard.Library": "[1.6.1, )"
         }
       },
       "mors.intervals.inequations": {
         "type": "Project",
         "dependencies": {
-          "NETStandard.Library": "1.6.1",
-          "System.Collections.Immutable": "1.6.0",
-          "System.ValueTuple": "4.5.0"
+          "NETStandard.Library": "[1.6.1, )",
+          "System.Collections.Immutable": "[1.6.0, )",
+          "System.ValueTuple": "[4.5.0, )"
         }
       },
       "mors.intervals.operations": {
@@ -804,8 +804,8 @@
       "mors.intervals.operations.reference": {
         "type": "Project",
         "dependencies": {
-          "Mors.Intervals.Inequations": "1.0.0",
-          "NETStandard.Library": "1.6.1"
+          "Mors.Intervals.Inequations": "[1.0.0, )",
+          "NETStandard.Library": "[1.6.1, )"
         }
       }
     }
