@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using CollectionAssert = NUnit.Framework.Legacy.CollectionAssert;
 
 namespace Mors.Intervals.Generation.Tests
 {

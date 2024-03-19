@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Assert = NUnit.Framework.Legacy.ClassicAssert;
 using ReferenceClosedIntervalOperations = Mors.Intervals.Operations.Reference.ReferenceClosedIntervalOperations<Mors.Intervals.Operations.Test.ClosedInterval, Mors.Intervals.Operations.Test.IntervalUnion<Mors.Intervals.Operations.Test.ClosedInterval>, Mors.Intervals.Operations.Test.ClosedIntervals, Mors.Intervals.Operations.Test.IntervalUnions<Mors.Intervals.Operations.Test.ClosedInterval>>;
 
 namespace Mors.Intervals.Operations.Test
