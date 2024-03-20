@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using CollectionAssert = NUnit.Framework.Legacy.CollectionAssert;
 
 namespace Mors.Intervals.Generation.Tests
 {
@@ -9,18 +8,18 @@ namespace Mors.Intervals.Generation.Tests
         [Test]
         public void GeneratesClosedIntervalsOfAllPossibleRelations()
         {
-            CollectionAssert.AreEquivalent(
-                expected: new PairsOfClosedIntervalsOfAllPossibleRelations(),
-                actual: new PairsOfClosedIntervalsOfAllPossibleRelations<int, ClosedInterval, PairOfClosedIntervals, ClosedIntervals, Pairs>(
-                    new[] { 1, 3, 5, 7 }));
+            Assert.That(
+                new PairsOfClosedIntervalsOfAllPossibleRelations<int, ClosedInterval, PairOfClosedIntervals, ClosedIntervals, Pairs>(
+                    new[] { 1, 3, 5, 7 }),
+                Is.EquivalentTo(new PairsOfClosedIntervalsOfAllPossibleRelations()));
         }
 
         [Test]
         public void GeneratesOpenIntervalsOfAllPossibleRelations()
         {
-            CollectionAssert.AreEquivalent(
-                expected: new PairsOfOpenIntervalsOfAllPossibleRelations(),
-                actual: new PairsOfOpenIntervalsOfAllPossibleRelations<OpenInterval, PairOfOpenIntervals, OpenIntervals, Pairs>());
+            Assert.That(
+                new PairsOfOpenIntervalsOfAllPossibleRelations<OpenInterval, PairOfOpenIntervals, OpenIntervals, Pairs>(),
+                Is.EquivalentTo(new PairsOfOpenIntervalsOfAllPossibleRelations()));
         }
     }
 }

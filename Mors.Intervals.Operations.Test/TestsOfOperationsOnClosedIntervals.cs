@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Assert = NUnit.Framework.Legacy.ClassicAssert;
 using ReferenceClosedIntervalOperations = Mors.Intervals.Operations.Reference.ReferenceClosedIntervalOperations<Mors.Intervals.Operations.Test.ClosedInterval, Mors.Intervals.Operations.Test.IntervalUnion<Mors.Intervals.Operations.Test.ClosedInterval>, Mors.Intervals.Operations.Test.ClosedIntervals, Mors.Intervals.Operations.Test.IntervalUnions<Mors.Intervals.Operations.Test.ClosedInterval>>;
 
 namespace Mors.Intervals.Operations.Test
@@ -11,18 +10,18 @@ namespace Mors.Intervals.Operations.Test
         [TestCaseSource(typeof(PairsOfClosedIntervalsOfAllPossibleRelations))]
         public void IntersectsWithReturnsExpectedResult((ClosedInterval IntervalA, ClosedInterval IntervalB) pairOfIntervals)
         {
-            Assert.AreEqual(
-                ReferenceClosedIntervalOperations.IntersectsWith(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                ClosedIntervalOperations.IntersectsWith<int, ClosedInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB));
+            Assert.That(
+                ClosedIntervalOperations.IntersectsWith<int, ClosedInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
+                Is.EqualTo(ReferenceClosedIntervalOperations.IntersectsWith(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedIntervalsAndPointsOfAllPossibleRelations))]
         public void ContainsReturnsExpectedResult((ClosedInterval Interval, int Point) pair)
         {
-            Assert.AreEqual(
-                ReferenceClosedIntervalOperations.Contains(pair.Interval, pair.Point),
-                ClosedIntervalOperations.Contains(pair.Interval, pair.Point));
+            Assert.That(
+                ClosedIntervalOperations.Contains(pair.Interval, pair.Point),
+                Is.EqualTo(ReferenceClosedIntervalOperations.Contains(pair.Interval, pair.Point)));
         }
 
         [Test]
@@ -30,27 +29,27 @@ namespace Mors.Intervals.Operations.Test
         public void IntersectReturnsExpectedResult((ClosedInterval IntervalA, ClosedInterval IntervalB) pairOfIntervals)
         {
             ClosedIntervalOperations.Intersect<int, ClosedInterval, ClosedIntervals>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB, out var actual);
-            Assert.AreEqual(
-                ReferenceClosedIntervalOperations.Intersect(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                actual);
+            Assert.That(
+                actual,
+                Is.EqualTo(ReferenceClosedIntervalOperations.Intersect(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedIntervalsOfAllPossibleRelations))]
         public void CoversReturnsExpectedResult((ClosedInterval IntervalA, ClosedInterval IntervalB) pairOfIntervals)
         {
-            Assert.AreEqual(
-                ReferenceClosedIntervalOperations.Covers(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                ClosedIntervalOperations.Covers<int, ClosedInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB));
+            Assert.That(
+                ClosedIntervalOperations.Covers<int, ClosedInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
+                Is.EqualTo(ReferenceClosedIntervalOperations.Covers(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedIntervalsOfAllPossibleRelations))]
         public void IsCoveredByReturnsExpectedResult((ClosedInterval IntervalA, ClosedInterval IntervalB) pairOfIntervals)
         {
-            Assert.AreEqual(
-                ReferenceClosedIntervalOperations.IsCoveredBy(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                ClosedIntervalOperations.IsCoveredBy<int, ClosedInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB));
+            Assert.That(
+                ClosedIntervalOperations.IsCoveredBy<int, ClosedInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
+                Is.EqualTo(ReferenceClosedIntervalOperations.IsCoveredBy(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
@@ -58,9 +57,9 @@ namespace Mors.Intervals.Operations.Test
         public void SpanReturnsExpectedResult((ClosedInterval IntervalA, ClosedInterval IntervalB) pairOfIntervals)
         {
             ClosedIntervalOperations.Span<int, ClosedInterval, ClosedIntervals>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB, out var actual);
-            Assert.AreEqual(
-                ReferenceClosedIntervalOperations.Span(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                actual);
+            Assert.That(
+                actual,
+                Is.EqualTo(ReferenceClosedIntervalOperations.Span(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
@@ -72,9 +71,9 @@ namespace Mors.Intervals.Operations.Test
                 pairOfIntervals.IntervalB,
                 new Integers(),
                 out var actual);
-            Assert.AreEqual(
-                ReferenceClosedIntervalOperations.Subtract(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                actual);
+            Assert.That(
+                actual,
+                Is.EqualTo(ReferenceClosedIntervalOperations.Subtract(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
@@ -85,9 +84,9 @@ namespace Mors.Intervals.Operations.Test
                 pairOfIntervals.IntervalA,
                 pairOfIntervals.IntervalB,
                 out var actual);
-            Assert.AreEqual(
-                ReferenceClosedIntervalOperations.Union(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                actual);
+            Assert.That(
+                actual,
+                Is.EqualTo(ReferenceClosedIntervalOperations.Union(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
     }
 }

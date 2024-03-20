@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using Assert = NUnit.Framework.Legacy.ClassicAssert;
 using ReferenceOpenIntervalOperations = Mors.Intervals.Operations.Reference.ReferenceOpenIntervalOperations<Mors.Intervals.Operations.Test.OpenInterval, Mors.Intervals.Operations.Test.IntervalUnion<Mors.Intervals.Operations.Test.OpenInterval>, Mors.Intervals.Operations.Test.OpenIntervals, Mors.Intervals.Operations.Test.IntervalUnions<Mors.Intervals.Operations.Test.OpenInterval>>;
 
 namespace Mors.Intervals.Operations.Test
@@ -11,18 +10,18 @@ namespace Mors.Intervals.Operations.Test
         [TestCaseSource(typeof(PairsOfOpenIntervalsAndPointsOfAllPossibleRelations))]
         public void ContainsReturnsExpectedResult((OpenInterval Interval, int Point) pair)
         {
-            Assert.AreEqual(
-                ReferenceOpenIntervalOperations.Contains(pair.Interval, pair.Point),
-                OpenIntervalOperations.Contains(pair.Interval, pair.Point));
+            Assert.That(
+                OpenIntervalOperations.Contains(pair.Interval, pair.Point),
+                Is.EqualTo(ReferenceOpenIntervalOperations.Contains(pair.Interval, pair.Point)));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenIntervalsOfAllPossibleRelations))]
         public void IntersectsWithReturnsExpectedResult((OpenInterval IntervalA, OpenInterval IntervalB) pairOfIntervals)
         {
-            Assert.AreEqual(
-                ReferenceOpenIntervalOperations.IntersectsWith(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                OpenIntervalOperations.IntersectsWith<int, OpenInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB));
+            Assert.That(
+                OpenIntervalOperations.IntersectsWith<int, OpenInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
+                Is.EqualTo(ReferenceOpenIntervalOperations.IntersectsWith(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
@@ -30,27 +29,27 @@ namespace Mors.Intervals.Operations.Test
         public void IntersectReturnsExpectedResult((OpenInterval IntervalA, OpenInterval IntervalB) pairOfIntervals)
         {
             OpenIntervalOperations.Intersect<int, OpenInterval, OpenIntervals>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB, out var actual);
-            Assert.AreEqual(
-                ReferenceOpenIntervalOperations.Intersect(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                actual);
+            Assert.That(
+                actual,
+                Is.EqualTo(ReferenceOpenIntervalOperations.Intersect(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenIntervalsOfAllPossibleRelations))]
         public void CoversReturnsExpectedResult((OpenInterval IntervalA, OpenInterval IntervalB) pairOfIntervals)
         {
-            Assert.AreEqual(
-                ReferenceOpenIntervalOperations.Covers(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                OpenIntervalOperations.Covers<int, OpenInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB));
+            Assert.That(
+                OpenIntervalOperations.Covers<int, OpenInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
+                Is.EqualTo(ReferenceOpenIntervalOperations.Covers(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
         [TestCaseSource(typeof(PairsOfOpenIntervalsOfAllPossibleRelations))]
         public void IsCoveredByReturnsExpectedResult((OpenInterval IntervalA, OpenInterval IntervalB) pairOfIntervals)
         {
-            Assert.AreEqual(
-                ReferenceOpenIntervalOperations.IsCoveredBy(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                OpenIntervalOperations.IsCoveredBy<int, OpenInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB));
+            Assert.That(
+                OpenIntervalOperations.IsCoveredBy<int, OpenInterval>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
+                Is.EqualTo(ReferenceOpenIntervalOperations.IsCoveredBy(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
@@ -58,9 +57,9 @@ namespace Mors.Intervals.Operations.Test
         public void SpanReturnsExpectedResult((OpenInterval IntervalA, OpenInterval IntervalB) pairOfIntervals)
         {
             OpenIntervalOperations.Span<int, OpenInterval, OpenIntervals>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB, out var actual);
-            Assert.AreEqual(
-                ReferenceOpenIntervalOperations.Span(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                actual);
+            Assert.That(
+                actual,
+                Is.EqualTo(ReferenceOpenIntervalOperations.Span(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
@@ -71,9 +70,9 @@ namespace Mors.Intervals.Operations.Test
                 pairOfIntervals.IntervalA,
                 pairOfIntervals.IntervalB,
                 out var actual);
-            Assert.AreEqual(
-                ReferenceOpenIntervalOperations.Subtract(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                actual);
+            Assert.That(
+                actual,
+                Is.EqualTo(ReferenceOpenIntervalOperations.Subtract(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
 
         [Test]
@@ -84,9 +83,9 @@ namespace Mors.Intervals.Operations.Test
                 pairOfIntervals.IntervalA,
                 pairOfIntervals.IntervalB,
                 out var actual);
-            Assert.AreEqual(
-                ReferenceOpenIntervalOperations.Union(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB),
-                actual);
+            Assert.That(
+                actual,
+                Is.EqualTo(ReferenceOpenIntervalOperations.Union(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));
         }
     }
 }

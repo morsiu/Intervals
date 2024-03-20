@@ -18,6 +18,12 @@
         "resolved": "4.1.0",
         "contentHash": "MT/DpAhjtiytzhTgTqIhBuWx4y26PKfDepYUHUM+5uv4TsryHC2jwFo5e6NhWkApCm/G6kZ80dRjdJFuAxq3rg=="
       },
+      "NUnit.Analyzers": {
+        "type": "Direct",
+        "requested": "[4.1.0, )",
+        "resolved": "4.1.0",
+        "contentHash": "Odd1RusSMnfswIiCPbokAqmlcCCXjQ20poaXWrw+CWDnBY1vQ/x6ZGqgyJXpebPq5Uf8uEBe5iOAySsCdSrWdQ=="
+      },
       "NUnit3TestAdapter": {
         "type": "Direct",
         "requested": "[4.5.0, )",
