@@ -2,6 +2,12 @@
   "version": 1,
   "dependencies": {
     "net8.0": {
+      "CsCheck": {
+        "type": "Direct",
+        "requested": "[3.1.0, )",
+        "resolved": "3.1.0",
+        "contentHash": "pFbR2dbF4CPjZUBEVMgpiZCst0zln6QnhPrwFhSUe/T8/bLKcpLAvoNjX7rmEAq5ErKzmn/oqmjfn1OM1aygmA=="
+      },
       "Microsoft.NET.Test.Sdk": {
         "type": "Direct",
         "requested": "[17.9.0, )",

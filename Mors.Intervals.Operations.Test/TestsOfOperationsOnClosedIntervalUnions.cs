@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using CsCheck;
 using Mors.Intervals.Operations.Reference;
 using NUnit.Framework;
 
@@ -35,6 +35,19 @@ namespace Mors.Intervals.Operations.Test
                     pairOfIntervalUnions.IntervalUnionA,
                     pairOfIntervalUnions.IntervalUnionB);
             Assert.That(actual, Is.EqualTo(expected), $"Expected {actual} to be {expected}");
+        }
+
+        [Test]
+        public void UnionReturnsExpectedResultGivenGeneratedIntervalUnions()
+        {
+            new GeneratedPairsOfClosedIntervalUnions(
+                    GeneratedPairsOfClosedIntervalUnions.Algorithm.TreeOfAllCombinations)
+                .Value()
+                .Sample(UnionReturnsExpectedResult);
+            new GeneratedPairsOfClosedIntervalUnions(
+                    GeneratedPairsOfClosedIntervalUnions.Algorithm.RandomIntervals)
+                .Value()
+                .Sample(UnionReturnsExpectedResult);
         }
 
         private static IEnumerable<(ClosedIntervalUnion, ClosedIntervalUnion)> TestCasesForUnion()
