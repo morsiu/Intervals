@@ -10,7 +10,7 @@ namespace Mors.Intervals.Generation.Tests
         {
             Assert.That(
                 new PairsOfClosedIntervalsOfAllPossibleRelations<int, ClosedInterval, PairOfClosedIntervals, ClosedIntervals, Pairs>(
-                    new[] { 1, 3, 5, 7 }),
+                    [1, 3, 5, 7]),
                 Is.EquivalentTo(new PairsOfClosedIntervalsOfAllPossibleRelations()));
         }
 

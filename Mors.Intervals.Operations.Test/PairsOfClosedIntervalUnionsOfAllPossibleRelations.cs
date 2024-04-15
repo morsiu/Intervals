@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using Mors.Intervals.Generation;
 
@@ -16,14 +15,14 @@ namespace Mors.Intervals.Operations.Test
                     ClosedInterval,
                     (ClosedInterval, ClosedInterval),
                     ClosedIntervals,
-                    Pairs>(new[] { 1, 3, 5, 7 })
+                    Pairs>([1, 3, 5, 7])
                 .Select(x => (ClosedIntervalUnion(x.Item1), ClosedIntervalUnion(x.Item2)))
                 .GetEnumerator();
 
             static ClosedIntervalUnion ClosedIntervalUnion(ClosedInterval interval) =>
                 interval.Empty
-                    ? new ClosedIntervalUnion(ImmutableArray<ClosedInterval>.Empty)
-                    : new ClosedIntervalUnion(ImmutableArray.Create(interval));
+                    ? new ClosedIntervalUnion([])
+                    : new ClosedIntervalUnion([interval]);
         }
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();

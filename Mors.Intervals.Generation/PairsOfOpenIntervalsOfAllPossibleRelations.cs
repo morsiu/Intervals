@@ -11,7 +11,7 @@ namespace Mors.Intervals.Generation
         public IEnumerator<TPairOfIntervals> GetEnumerator()
         {
             return new PairsOfClosedIntervalsOfAllPossibleRelations<int, IEnumerable<TInterval>, IEnumerable<TPairOfIntervals>, Intervals, IntervalPairs>(
-                    new[] { 1, 3, 5, 7 })
+                    [1, 3, 5, 7])
                 .SelectMany(x => x)
                 .GetEnumerator();
         }

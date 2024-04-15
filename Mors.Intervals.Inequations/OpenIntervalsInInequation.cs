@@ -67,7 +67,7 @@ namespace Mors.Intervals.Inequations
 
                 static IEnumerable<IntervalEnd> None() => Enumerable.Empty<IntervalEnd>();
                 static IEnumerable<IntervalEnd> One(IntervalEnd value) => Enumerable.Repeat(value, 1);
-                static IEnumerable<IntervalEnd> Two(IntervalEnd first, IntervalEnd second) => new[] { first, second };
+                static IEnumerable<IntervalEnd> Two(IntervalEnd first, IntervalEnd second) => [first, second];
             }
 
             private bool CurrentSatisfiesInequation() =>

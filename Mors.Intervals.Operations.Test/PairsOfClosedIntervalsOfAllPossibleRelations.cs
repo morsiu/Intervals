@@ -13,7 +13,7 @@ namespace Mors.Intervals.Operations.Test
                     ClosedInterval,
                     (ClosedInterval, ClosedInterval),
                     ClosedIntervals,
-                    Pairs>(new[] { 1, 3, 5, 7 })
+                    Pairs>([1, 3, 5, 7])
                 .GetEnumerator();
         }
 

@@ -14,9 +14,9 @@ namespace Mors.Intervals.Operations.Test
             new ClosedIntervalUnion(intervals.ToImmutableArray());
 
         public ClosedIntervalUnion NonEmpty(in ClosedInterval interval) =>
-            new ClosedIntervalUnion(ImmutableArray.Create(interval));
+            new ClosedIntervalUnion([interval]);
 
         public ClosedIntervalUnion NonEmpty(in ClosedInterval first, in ClosedInterval second) =>
-            new ClosedIntervalUnion(ImmutableArray.Create(first, second));
+            new ClosedIntervalUnion([first, second]);
     }
 }
