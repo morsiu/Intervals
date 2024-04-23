@@ -7,7 +7,7 @@ namespace Mors.Intervals.Inequations
     {
         public IEnumerable<T> Boundaries() => Enumerable.Empty<T>();
 
-        public override bool Equals(object obj) => obj is False<T>;
+        public override bool Equals(object? obj) => obj is False<T>;
 
         public override int GetHashCode() => 0;
 

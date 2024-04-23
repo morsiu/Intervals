@@ -10,7 +10,7 @@ namespace Mors.Intervals.Inequations
 
         public IEnumerable<T> Boundaries() => _inequation.Boundaries();
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is Not<T> other
             && EqualityComparer<IInequation<T>>.Default.Equals(_inequation, other._inequation);
 

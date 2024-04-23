@@ -12,7 +12,7 @@ namespace Mors.Intervals.Inequations
 
         public IEnumerable<T> Boundaries() => new SingleBoundary<T>(_value);
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is LessThanValue<T> value
             && EqualityComparer<T>.Default.Equals(_value, value._value);
 

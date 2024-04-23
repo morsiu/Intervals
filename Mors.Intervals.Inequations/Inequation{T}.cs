@@ -32,7 +32,7 @@ namespace Mors.Intervals.Inequations
         public bool Equals(Inequation<T> other) =>
             _value.Equals(other._value);
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is Inequation<T> other && Equals(other);
 
         public override int GetHashCode() =>
@@ -48,7 +48,7 @@ namespace Mors.Intervals.Inequations
             where TPoints : struct, IPoints<T> =>
             new OpenIntervalsInInequation<T, TInterval, TPoints, TIntervals>(_value);
 
-        public override string ToString() =>
+        public override string? ToString() =>
             _value.ToString();
     }
 }

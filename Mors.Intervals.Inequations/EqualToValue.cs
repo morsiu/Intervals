@@ -4,6 +4,7 @@ using System.Linq;
 namespace Mors.Intervals.Inequations
 {
     internal sealed class EqualToValue<T> : IInequation<T>
+        where T : notnull
     {
         private readonly T _value;
 
@@ -11,7 +12,7 @@ namespace Mors.Intervals.Inequations
 
         public IEnumerable<T> Boundaries() => Enumerable.Repeat(_value, 1);
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is EqualToValue<T> value
             && EqualityComparer<T>.Default.Equals(_value, value._value);
 

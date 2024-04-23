@@ -16,7 +16,7 @@ namespace Mors.Intervals.Inequations
         public IEnumerable<T> Boundaries() =>
             new UnionOfBoundaries<T>(_first.Boundaries(), _second.Boundaries());
 
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is And<T> and
             && EqualityComparer<IInequation<T>>.Default.Equals(_first, and._first)
             && EqualityComparer<IInequation<T>>.Default.Equals(_second, and._second);
