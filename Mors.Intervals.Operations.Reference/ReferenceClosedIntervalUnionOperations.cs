@@ -10,6 +10,12 @@
         where TClosedIntervalUnion : IClosedIntervalUnion<int, TClosedInterval>
         where TClosedIntervalUnions : struct, IIntervalUnions<TClosedInterval, TClosedIntervalUnion>
     {
+        public static TClosedIntervalUnion Intersect(TClosedIntervalUnion first, TClosedIntervalUnion second) =>
+            ReferenceOperation.Intersect(
+                    first.ToInequation<TClosedIntervalUnion, TClosedInterval>(),
+                    second.ToInequation<TClosedIntervalUnion, TClosedInterval>())
+                .ToClosedIntervalUnion<TClosedInterval, TClosedIntervalUnion, TClosedIntervals, TClosedIntervalUnions>();
+
         public static TClosedIntervalUnion Union(TClosedIntervalUnion first, TClosedIntervalUnion second) =>
             ReferenceOperation.Union(
                     first.ToInequation<TClosedIntervalUnion, TClosedInterval>(),

@@ -12,6 +12,46 @@ namespace Mors.Intervals.Operations.Test
     {
         [Test]
         [TestCaseSource(typeof(PairsOfClosedIntervalUnionsOfAllPossibleRelations))]
+        [TestCaseSource(nameof(TestCasesForIntersect))]
+        public void IntersectReturnsExpectedResult(
+            (ClosedIntervalUnion IntervalUnionA, ClosedIntervalUnion IntervalUnionB) pairOfIntervalUnions)
+        {
+            var expected =
+                ReferenceClosedIntervalUnionOperations<
+                        ClosedInterval,
+                        ClosedIntervalUnion,
+                        ClosedIntervals,
+                        ClosedIntervalUnions>
+                    .Intersect(pairOfIntervalUnions.IntervalUnionA, pairOfIntervalUnions.IntervalUnionB);
+            var actual =
+                ClosedIntervalUnionOperations.Intersect<
+                        ClosedIntervalUnion,
+                        IEnumerator<ClosedInterval>,
+                        ClosedInterval,
+                        int,
+                        Integers,
+                        ClosedIntervalUnionBuilder,
+                        ClosedIntervals>(
+                    pairOfIntervalUnions.IntervalUnionA,
+                    pairOfIntervalUnions.IntervalUnionB);
+            Assert.That(actual, Is.EqualTo(expected), $"Expected {actual} to be {expected}");
+        }
+
+        [Test]
+        public void IntersectReturnsExpectedResultGivenGeneratedIntervalUnions()
+        {
+            new GeneratedPairsOfClosedIntervalUnions(
+                    GeneratedPairsOfClosedIntervalUnions.Algorithm.TreeOfAllCombinations)
+                .Value()
+                .Sample(IntersectReturnsExpectedResult);
+            new GeneratedPairsOfClosedIntervalUnions(
+                    GeneratedPairsOfClosedIntervalUnions.Algorithm.RandomIntervals)
+                .Value()
+                .Sample(IntersectReturnsExpectedResult);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfClosedIntervalUnionsOfAllPossibleRelations))]
         [TestCaseSource(nameof(TestCasesForUnion))]
         public void UnionReturnsExpectedResult(
             (ClosedIntervalUnion IntervalUnionA, ClosedIntervalUnion IntervalUnionB) pairOfIntervalUnions)
@@ -48,6 +88,23 @@ namespace Mors.Intervals.Operations.Test
                     GeneratedPairsOfClosedIntervalUnions.Algorithm.RandomIntervals)
                 .Value()
                 .Sample(UnionReturnsExpectedResult);
+        }
+
+        private static IEnumerable<(ClosedIntervalUnion, ClosedIntervalUnion)> TestCasesForIntersect()
+        {
+            foreach (var (first, second) in All())
+            {
+                yield return (first, second);
+                yield return (second, first);
+            }
+
+            static IEnumerable<(ClosedIntervalUnion, ClosedIntervalUnion)> All()
+            {
+                yield return Pair([], []);
+
+                yield return Pair([(5, 7), (9, 11)], [(6, 8), (10, 12)]);
+                yield return Pair([(5, 7), (9, 11)], [(10, 12)]);
+            }
         }
 
         private static IEnumerable<(ClosedIntervalUnion, ClosedIntervalUnion)> TestCasesForUnion()
@@ -91,6 +148,19 @@ namespace Mors.Intervals.Operations.Test
                             intervals.Select(x => new ClosedInterval(x.Start, x.End)).ToImmutableArray());
                     }
                 }
+            }
+        }
+
+        private static (ClosedIntervalUnion, ClosedIntervalUnion) Pair(
+            (int Start, int End)[] first,
+            (int Start, int End)[] second)
+        {
+            return (Union(first), Union(second));
+
+            static ClosedIntervalUnion Union((int Start, int End)[] intervals)
+            {
+                return new ClosedIntervalUnion(
+                    intervals.Select(x => new ClosedInterval(x.Start, x.End)).ToImmutableArray());
             }
         }
     }

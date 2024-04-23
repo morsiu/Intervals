@@ -7,6 +7,87 @@ namespace Mors.Intervals.Operations
 {
     public static class ClosedIntervalUnionOperations
     {
+        public static TIntervalUnion Intersect<
+            TIntervalUnion,
+            TIntervalEnumerator,
+            TInterval,
+            TPoint,
+            TPoints,
+            TIntervalUnionBuilder,
+            TIntervals>(
+            TIntervalUnion left,
+            TIntervalUnion right)
+            where TIntervalUnion : IClosedIntervalUnion<TInterval, TIntervalEnumerator, TPoint>
+            where TIntervalEnumerator : IEnumerator<TInterval>
+            where TIntervalUnionBuilder : struct, IIntervalUnionBuilder<TIntervalUnion, TInterval>
+            where TIntervals : struct, IClosedIntervals<TPoint, TInterval>
+            where TInterval : struct, IClosedInterval<TPoint>
+            where TPoints : struct, IPoints<TPoint>
+            where TPoint : IComparable<TPoint>
+        {
+            using var leftInnerEnumerator = left.GetEnumerator();
+            using var rightInnerEnumerator = right.GetEnumerator();
+            var leftEnumerator = leftInnerEnumerator;
+            var rightEnumerator = rightInnerEnumerator;
+            var result = default(TIntervalUnionBuilder);
+            if (!leftEnumerator.MoveNext() || !rightEnumerator.MoveNext())
+            {
+                return result.Build();
+            }
+            var comparer = Comparer<TPoint>.Default;
+            do
+            {
+                var leftValue = leftEnumerator.Current;
+                var rightValue = rightEnumerator.Current;
+                var leftIsFirst = comparer.Compare(leftValue.Start, rightValue.Start) < 0;
+                ref var first = ref leftEnumerator;
+                ref var second = ref rightEnumerator;
+                ref var firstValue = ref leftValue;
+                ref var secondValue = ref rightValue;
+                if (!leftIsFirst)
+                {
+                    first = ref rightEnumerator;
+                    second = ref leftEnumerator;
+                    firstValue = ref rightValue;
+                    secondValue = ref leftValue;
+                }
+                if (comparer.Compare(firstValue.End, secondValue.Start) < 0)
+                {
+                    if (!first.MoveNext())
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                var intersectionStart = secondValue.Start;
+                var firstFinishesFirst = comparer.Compare(firstValue.End, secondValue.End) < 0;
+                var intersectionEnd =
+                    firstFinishesFirst
+                        ? firstValue.End
+                        : secondValue.End;
+                result.Append(default(TIntervals).Interval(intersectionStart, intersectionEnd));
+                if (firstFinishesFirst)
+                {
+                    if (!first.MoveNext())
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    if (!second.MoveNext())
+                    {
+                        break;
+                    }
+                }
+            }
+            while (true);
+            return result.Build();
+        }
+
         public static TIntervalUnion Union<
             TIntervalUnion,
             TIntervalEnumerator,
