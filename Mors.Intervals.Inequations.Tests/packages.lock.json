@@ -281,11 +281,6 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "System.Collections.Immutable": {
-        "type": "Transitive",
-        "resolved": "1.6.0",
-        "contentHash": "+aL946rTSJyo4PqstwsVZ5RBfaxfkIx+nTMfpmaxzorqgifRJwndBZhXPWNWGJpys7cQ1/vCvilYN9ugM05JFA=="
-      },
       "System.Console": {
         "type": "Transitive",
         "resolved": "4.3.0",
@@ -923,11 +918,6 @@
           "System.Runtime": "4.3.0"
         }
       },
-      "System.ValueTuple": {
-        "type": "Transitive",
-        "resolved": "4.5.0",
-        "contentHash": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ=="
-      },
       "System.Xml.ReaderWriter": {
         "type": "Transitive",
         "resolved": "4.3.0",
@@ -1016,12 +1006,7 @@
         }
       },
       "mors.intervals.inequations": {
-        "type": "Project",
-        "dependencies": {
-          "NETStandard.Library": "[1.6.1, )",
-          "System.Collections.Immutable": "[1.6.0, )",
-          "System.ValueTuple": "[4.5.0, )"
-        }
+        "type": "Project"
       }
     }
   }
