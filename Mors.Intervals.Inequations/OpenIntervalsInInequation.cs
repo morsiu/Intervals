@@ -22,7 +22,15 @@ namespace Mors.Intervals.Inequations
                     .Union(_inequation.Boundaries())
                     .Union(Enumerable.Repeat(points.Maximum(), 1));
             var boundaryPoints = boundaries.Select(x => new Point(x, _inequation));
-            var intervalEnds = boundaryPoints.SelectMany(x => x.ToIntervalEnds());
+            var intervalEnds =
+                boundaryPoints
+                    .Zip(
+                        boundaryPoints.Cast<Point?>().Prepend(null),
+                        boundaryPoints.Cast<Point?>().Skip(1).Append(null))
+                    .SelectMany(
+                        x => x.First.ToIntervalEnds(
+                            x.Second is { } previous && x.First.IsPredecessor(previous),
+                            x.Third is { } next && x.First.IsSuccessor(next)));
             var intervals =
                 intervalEnds
                     .Zip(intervalEnds.Skip(1), (a, b) => a.ToIntervals(b))
@@ -43,7 +51,21 @@ namespace Mors.Intervals.Inequations
                 _inequation = inequation;
             }
 
-            public IEnumerable<IntervalEnd> ToIntervalEnds()
+            public bool IsPredecessor(Point other)
+            {
+                return default(TPoints).Previous(_value) is (true, var previousValue)
+                    && Comparer<T>.Default.Compare(other._value, previousValue) == 0;
+            }
+
+            public bool IsSuccessor(Point other)
+            {
+                return default(TPoints).Next(_value) is (true, var nextValue)
+                    && Comparer<T>.Default.Compare(other._value, nextValue) == 0;
+            }
+
+            public IEnumerable<IntervalEnd> ToIntervalEnds(
+                bool previousIsBoundary,
+                bool nextIsBoundary)
             {
                 var value = _value;
                 return (
@@ -51,10 +73,10 @@ namespace Mors.Intervals.Inequations
                     CurrentSatisfiesInequation(),
                     NextSatisfiesInequation()) switch
                 {
-                    (false, false, true) => One(OpenStart()),
+                    (false, false, true) when !nextIsBoundary => One(OpenStart()),
                     (false, true, false) => Two(ClosedStart(), ClosedEnd()),
                     (false, true, true) => One(ClosedStart()),
-                    (true, false, false) => One(OpenEnd()),
+                    (true, false, false) when !previousIsBoundary => One(OpenEnd()),
                     (true, false, true) => Two(OpenEnd(), OpenStart()),
                     (true, true, false) => One(ClosedEnd()),
                     _ => None(),
