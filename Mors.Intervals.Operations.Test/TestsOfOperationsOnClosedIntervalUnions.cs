@@ -29,7 +29,6 @@ namespace Mors.Intervals.Operations.Test
                         IEnumerator<ClosedInterval>,
                         ClosedInterval,
                         int,
-                        Integers,
                         ClosedIntervalUnionBuilder,
                         ClosedIntervals>(
                     pairOfIntervalUnions.IntervalUnionA,

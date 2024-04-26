@@ -12,7 +12,6 @@ namespace Mors.Intervals.Operations
             TIntervalEnumerator,
             TInterval,
             TPoint,
-            TPoints,
             TIntervalUnionBuilder,
             TIntervals>(
             TIntervalUnion left,
@@ -22,7 +21,6 @@ namespace Mors.Intervals.Operations
             where TIntervalUnionBuilder : struct, IIntervalUnionBuilder<TIntervalUnion, TInterval>
             where TIntervals : struct, IClosedIntervals<TPoint, TInterval>
             where TInterval : struct, IClosedInterval<TPoint>
-            where TPoints : struct, IPoints<TPoint>
             where TPoint : IComparable<TPoint>
         {
             using var leftInnerEnumerator = left.GetEnumerator();
