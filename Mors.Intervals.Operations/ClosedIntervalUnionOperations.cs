@@ -106,19 +106,17 @@ namespace Mors.Intervals.Operations
         {
             using var leftInnerEnumerator = left.GetEnumerator();
             using var rightInnerEnumerator = right.GetEnumerator();
-            var result = default(TIntervalUnionBuilder);
             var leftEnumerator = new Enumerator<TInterval, TIntervalEnumerator>(leftInnerEnumerator);
             var rightEnumerator = new Enumerator<TInterval, TIntervalEnumerator>(rightInnerEnumerator);
             if (!leftEnumerator.MoveNext())
             {
-                AppendWithoutCurrent(ref rightEnumerator, ref result);
-                return result.Build();
+                return right;
             }
             if (!rightEnumerator.MoveNext())
             {
-                AppendWithCurrent(ref leftEnumerator, ref result);
-                return result.Build();
+                return left;
             }
+            var result = default(TIntervalUnionBuilder);
             var leftValue = leftEnumerator.Current;
             var rightValue = rightEnumerator.Current;
             do
@@ -160,17 +158,6 @@ namespace Mors.Intervals.Operations
                 }
             }
             while (true);
-
-            static void AppendWithCurrent(
-                ref Enumerator<TInterval, TIntervalEnumerator> enumerator,
-                ref TIntervalUnionBuilder builder)
-            {
-                builder.Append(enumerator.Current);
-                while (enumerator.MoveNext())
-                {
-                    builder.Append(enumerator.Current);
-                }
-            }
 
             static void AppendWithoutCurrent(
                 ref Enumerator<TInterval, TIntervalEnumerator> enumerator,
