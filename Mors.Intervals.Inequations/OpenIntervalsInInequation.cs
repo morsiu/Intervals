@@ -77,7 +77,9 @@ namespace Mors.Intervals.Inequations
                     (false, true, false) => Two(ClosedStart(), ClosedEnd()),
                     (false, true, true) => One(ClosedStart()),
                     (true, false, false) when !previousIsBoundary => One(OpenEnd()),
-                    (true, false, true) => Two(OpenEnd(), OpenStart()),
+                    (true, false, true) when previousIsBoundary && !nextIsBoundary => One(OpenStart()),
+                    (true, false, true) when !previousIsBoundary && nextIsBoundary => One(OpenEnd()),
+                    (true, false, true) when !previousIsBoundary && !nextIsBoundary => Two(OpenEnd(), OpenStart()),
                     (true, true, false) => One(ClosedEnd()),
                     _ => None(),
                 };
