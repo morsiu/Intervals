@@ -117,7 +117,6 @@ namespace Mors.Intervals.Operations
             do
             {
                 var leftEndToRightStart = comparer.Compare(leftValue.End, rightValue.Start);
-                var rightEndToLeftStart = comparer.Compare(rightValue.End, leftValue.Start);
                 if (leftEndToRightStart < 0)
                 {
                     result.Append(leftValue);
@@ -128,6 +127,7 @@ namespace Mors.Intervals.Operations
                     leftValue = leftEnumerator.Current;
                     continue;
                 }
+                var rightEndToLeftStart = comparer.Compare(rightValue.End, leftValue.Start);
                 if (rightEndToLeftStart < 0)
                 {
                     if (!rightEnumerator.MoveNext())
