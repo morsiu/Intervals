@@ -16,6 +16,12 @@
                     second.ToInequation<TClosedIntervalUnion, TClosedInterval>())
                 .ToClosedIntervalUnion<TClosedInterval, TClosedIntervalUnion, TClosedIntervals, TClosedIntervalUnions>();
 
+        public static TClosedIntervalUnion Subtract(TClosedIntervalUnion first, TClosedIntervalUnion second) =>
+            ReferenceOperation.Subtract(
+                    first.ToInequation<TClosedIntervalUnion, TClosedInterval>(),
+                    second.ToInequation<TClosedIntervalUnion, TClosedInterval>())
+                .ToClosedIntervalUnion<TClosedInterval, TClosedIntervalUnion, TClosedIntervals, TClosedIntervalUnions>();
+
         public static TClosedIntervalUnion Union(TClosedIntervalUnion first, TClosedIntervalUnion second) =>
             ReferenceOperation.Union(
                     first.ToInequation<TClosedIntervalUnion, TClosedInterval>(),

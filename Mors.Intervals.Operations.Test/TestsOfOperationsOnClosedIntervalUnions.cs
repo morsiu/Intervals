@@ -51,6 +51,46 @@ namespace Mors.Intervals.Operations.Test
 
         [Test]
         [TestCaseSource(typeof(PairsOfClosedIntervalUnionsOfAllPossibleRelations))]
+        [TestCaseSource(nameof(TestCasesForSubtract))]
+        public void SubtractReturnsExpectedResult(
+            (ClosedIntervalUnion IntervalUnionA, ClosedIntervalUnion IntervalUnionB) pairOfIntervalUnions)
+        {
+            var expected =
+                ReferenceClosedIntervalUnionOperations<
+                        ClosedInterval,
+                        ClosedIntervalUnion,
+                        ClosedIntervals,
+                        ClosedIntervalUnions>
+                    .Subtract(pairOfIntervalUnions.IntervalUnionA, pairOfIntervalUnions.IntervalUnionB);
+            var actual =
+                ClosedIntervalUnionOperations.Subtract<
+                        ClosedIntervalUnion,
+                        IEnumerator<ClosedInterval>,
+                        ClosedInterval,
+                        int,
+                        Integers,
+                        ClosedIntervalUnionBuilder,
+                        ClosedIntervals>(
+                    pairOfIntervalUnions.IntervalUnionA,
+                    pairOfIntervalUnions.IntervalUnionB);
+            Assert.That(actual, Is.EqualTo(expected), $"Expected {actual} to be {expected}");
+        }
+
+        [Test]
+        public void SubtractReturnsExpectedResultGivenGeneratedIntervalUnions()
+        {
+            new GeneratedPairsOfClosedIntervalUnions(
+                    GeneratedPairsOfClosedIntervalUnions.Algorithm.TreeOfAllCombinations)
+                .Value()
+                .Sample(SubtractReturnsExpectedResult, seed: null);
+            new GeneratedPairsOfClosedIntervalUnions(
+                    GeneratedPairsOfClosedIntervalUnions.Algorithm.RandomIntervals)
+                .Value()
+                .Sample(SubtractReturnsExpectedResult, seed: null);
+        }
+
+        [Test]
+        [TestCaseSource(typeof(PairsOfClosedIntervalUnionsOfAllPossibleRelations))]
         [TestCaseSource(nameof(TestCasesForUnion))]
         public void UnionReturnsExpectedResult(
             (ClosedIntervalUnion IntervalUnionA, ClosedIntervalUnion IntervalUnionB) pairOfIntervalUnions)
@@ -103,6 +143,35 @@ namespace Mors.Intervals.Operations.Test
 
                 yield return Pair([(5, 7), (9, 11)], [(6, 8), (10, 12)]);
                 yield return Pair([(5, 7), (9, 11)], [(10, 12)]);
+            }
+        }
+
+        private static IEnumerable<(ClosedIntervalUnion, ClosedIntervalUnion)> TestCasesForSubtract()
+        {
+            foreach (var (first, second) in All())
+            {
+                yield return (first, second);
+                yield return (second, first);
+            }
+
+            static IEnumerable<(ClosedIntervalUnion, ClosedIntervalUnion)> All()
+            {
+                yield return Pair([], []);
+                yield return Pair([(1, 3), (5, 7), (9, 11)], []);
+                yield return Pair([(1, 3), (5, 7), (9, 13)], [(2, 4), (6, 8), (10, 12)]);
+                yield return Pair([(1, 3), (5, 7), (9, 11)], [(2, 12)]);
+
+                /*
+                then one interval matched against multiple
+                  aaaaaaaaaaaaaaaa
+                bbbbb bbbbbb bbbb
+
+                aaaaaaaaaaaaaa
+                   bbbb bbb bbbb
+
+                aaaaaa    aaaaaaaaa   aaaaaaa
+                   bbbbbbbbb    bbbbbbbb  bbbbbbbb
+                */
             }
         }
 

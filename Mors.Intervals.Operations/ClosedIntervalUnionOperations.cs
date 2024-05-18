@@ -86,6 +86,100 @@ namespace Mors.Intervals.Operations
             return result.Build();
         }
 
+        public static TIntervalUnion Subtract<
+            TIntervalUnion,
+            TIntervalEnumerator,
+            TInterval,
+            TPoint,
+            TPoints,
+            TIntervalUnionBuilder,
+            TIntervals>(
+            TIntervalUnion left,
+            TIntervalUnion right)
+            where TIntervalUnion : IClosedIntervalUnion<TInterval, TIntervalEnumerator, TPoint>
+            where TIntervalEnumerator : IEnumerator<TInterval>
+            where TIntervalUnionBuilder : struct, IIntervalUnionBuilder<TIntervalUnion, TInterval>
+            where TIntervals : struct, IClosedIntervals<TPoint, TInterval>
+            where TInterval : struct, IClosedInterval<TPoint>
+            where TPoints : struct, IPoints<TPoint>
+            where TPoint : IComparable<TPoint>
+        {
+            using var leftEnumerator = left.GetEnumerator();
+            using var rightEnumerator = right.GetEnumerator();
+            if (!leftEnumerator.MoveNext() || !rightEnumerator.MoveNext())
+            {
+                return left;
+            }
+            var result = default(TIntervalUnionBuilder);
+            var comparer = Comparer<TPoint>.Default;
+            var leftValue = leftEnumerator.Current;
+            var rightValue = rightEnumerator.Current;
+            do
+            {
+                var leftEndToRightStart = comparer.Compare(leftValue.End, rightValue.Start);
+                var rightEndToLeftStart = comparer.Compare(rightValue.End, leftValue.Start);
+                if (leftEndToRightStart < 0)
+                {
+                    result.Append(leftValue);
+                    if (!leftEnumerator.MoveNext())
+                    {
+                        return result.Build();
+                    }
+                    leftValue = leftEnumerator.Current;
+                    continue;
+                }
+                if (rightEndToLeftStart < 0)
+                {
+                    if (!rightEnumerator.MoveNext())
+                    {
+                        result.Append(leftValue);
+                        while (leftEnumerator.MoveNext())
+                        {
+                            result.Append(leftEnumerator.Current);
+                        }
+                        return result.Build();
+                    }
+                    rightValue = rightEnumerator.Current;
+                    continue;
+                }
+                var leftStartToRightStart = comparer.Compare(leftValue.Start, rightValue.Start);
+                if (leftStartToRightStart < 0)
+                {
+                    result.Append(
+                        default(TIntervals).Interval(
+                            leftValue.Start,
+                            default(TPoints).UnsafePrevious(rightValue.Start)));
+                }
+                var leftEndToRightEnd = comparer.Compare(leftValue.End, rightValue.End);
+                if (leftEndToRightEnd > 0)
+                {
+                    leftValue =
+                        default(TIntervals).Interval(
+                            default(TPoints).UnsafeNext(rightValue.End),
+                            leftValue.End);
+                    if (!rightEnumerator.MoveNext())
+                    {
+                        result.Append(leftValue);
+                        while (leftEnumerator.MoveNext())
+                        {
+                            result.Append(leftEnumerator.Current);
+                        }
+                        return result.Build();
+                    }
+                    rightValue = rightEnumerator.Current;
+                }
+                else
+                {
+                    if (!leftEnumerator.MoveNext())
+                    {
+                        return result.Build();
+                    }
+                    leftValue = leftEnumerator.Current;
+                }
+            }
+            while (true);
+        }
+
         public static TIntervalUnion Union<
             TIntervalUnion,
             TIntervalEnumerator,
