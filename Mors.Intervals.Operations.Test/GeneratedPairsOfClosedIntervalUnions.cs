@@ -22,6 +22,7 @@ internal sealed class GeneratedPairsOfClosedIntervalUnions
         {
             Algorithm.RandomIntervals => RandomIntervals(),
             Algorithm.TreeOfAllCombinations => TreeOfAllCombinations(),
+            _ => throw new NotImplementedException(),
         };
     }
 
@@ -129,6 +130,7 @@ internal sealed class GeneratedPairsOfClosedIntervalUnions
                         Instruction.MovePastAdjacent =>
                             States.MovedPreviously
                             | (state & (States.InsideA | States.InsideB)),
+                        _ => throw new NotImplementedException(),
                     }));
         }
 
