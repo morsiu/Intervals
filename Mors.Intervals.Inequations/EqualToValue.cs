@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Mors.Intervals.Inequations
@@ -16,8 +17,7 @@ namespace Mors.Intervals.Inequations
             obj is EqualToValue<T> value
             && EqualityComparer<T>.Default.Equals(_value, value._value);
 
-        public override int GetHashCode() =>
-            -1939223833 + EqualityComparer<T>.Default.GetHashCode(_value);
+        public override int GetHashCode() => HashCode.Combine(_value);
 
         public bool IsSatisfiedBy(in T value) => EqualityComparer<T>.Default.Equals(value, _value);
 

@@ -35,8 +35,7 @@ namespace Mors.Intervals.Inequations
         public override bool Equals(object? obj) =>
             obj is Inequation<T> other && Equals(other);
 
-        public override int GetHashCode() =>
-            _value.GetHashCode();
+        public override int GetHashCode() => HashCode.Combine(_value);
 
         public IEnumerable<TInterval> ToClosedIntervals<TInterval, TPoints, TIntervals>()
             where TIntervals : struct, IClosedIntervals<T, TInterval>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Mors.Intervals.Inequations
 {
@@ -21,13 +22,7 @@ namespace Mors.Intervals.Inequations
             && EqualityComparer<IInequation<T>>.Default.Equals(_first, or._first)
             && EqualityComparer<IInequation<T>>.Default.Equals(_second, or._second);
 
-        public override int GetHashCode()
-        {
-            var hashCode = -552916506;
-            hashCode = hashCode * -1521134295 + EqualityComparer<IInequation<T>>.Default.GetHashCode(_first);
-            hashCode = hashCode * -1521134295 + EqualityComparer<IInequation<T>>.Default.GetHashCode(_second);
-            return hashCode;
-        }
+        public override int GetHashCode() => HashCode.Combine(_first, _second);
 
         public bool IsSatisfiedBy(in T value) =>
             _first.IsSatisfiedBy(value) || _second.IsSatisfiedBy(value);

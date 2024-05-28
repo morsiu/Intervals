@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Mors.Intervals.Inequations
 {
@@ -14,8 +15,7 @@ namespace Mors.Intervals.Inequations
             obj is Not<T> other
             && EqualityComparer<IInequation<T>>.Default.Equals(_inequation, other._inequation);
 
-        public override int GetHashCode() =>
-            978307439 + EqualityComparer<IInequation<T>>.Default.GetHashCode(_inequation);
+        public override int GetHashCode() => HashCode.Combine(_inequation);
 
         public bool IsSatisfiedBy(in T value) => !_inequation.IsSatisfiedBy(value);
 
