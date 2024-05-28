@@ -24,10 +24,10 @@ namespace Mors.Intervals.Inequations
             return 
                 (value.CompareTo(first), value.CompareTo(last)) switch
                 {
-                    var (x, _) when x < 0 => false,
-                    var (x, _) when x == 0 => _inequation.IsSatisfiedBy(value),
-                    var (_, y) when y < 0 => true,
-                    var (_, y) when y == 0 => _inequation.IsSatisfiedBy(value),
+                    (< 0, _) => false,
+                    (0, _) => _inequation.IsSatisfiedBy(value),
+                    (_, < 0) => true,
+                    (_, 0) => _inequation.IsSatisfiedBy(value),
                     _ => false
                 };
         }
