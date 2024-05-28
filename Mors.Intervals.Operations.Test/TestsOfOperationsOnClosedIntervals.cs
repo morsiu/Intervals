@@ -28,7 +28,10 @@ namespace Mors.Intervals.Operations.Test
         [TestCaseSource(typeof(PairsOfClosedIntervalsOfAllPossibleRelations))]
         public void IntersectReturnsExpectedResult((ClosedInterval IntervalA, ClosedInterval IntervalB) pairOfIntervals)
         {
-            ClosedIntervalOperations.Intersect<int, ClosedInterval, ClosedIntervals>(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB, out var actual);
+            ClosedIntervalOperations.Intersect<int, ClosedInterval, ClosedIntervals, ClosedInterval, ClosedIntervals>(
+                pairOfIntervals.IntervalA,
+                pairOfIntervals.IntervalB,
+                out var actual);
             Assert.That(
                 actual,
                 Is.EqualTo(ReferenceClosedIntervalOperations.Intersect(pairOfIntervals.IntervalA, pairOfIntervals.IntervalB)));

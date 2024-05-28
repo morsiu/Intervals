@@ -8,9 +8,8 @@ namespace Mors.Intervals.Operations
             in TInterval interval,
             in TPoint point)
             where TPoint : IComparable<TPoint>
-            where TInterval : IOpenInterval<TPoint>, IEmptyInterval
+            where TInterval : IOpenInterval<TPoint>
         {
-            if (interval.Empty) return false;
             var pointToStart = point.CompareTo(interval.Start);
             var pointToEnd = point.CompareTo(interval.End);
             if (pointToStart < 0) return false;
@@ -24,7 +23,7 @@ namespace Mors.Intervals.Operations
             in TInterval left,
             in TInterval right)
             where TPoint : IComparable<TPoint>
-            where TInterval : IOpenInterval<TPoint>, IEmptyInterval
+            where TInterval : IOpenInterval<TPoint>
         {
             if (!IntersectsWith<TPoint, TInterval>(left, right))
                 return false;
@@ -40,7 +39,7 @@ namespace Mors.Intervals.Operations
             in TInterval left,
             in TInterval right)
             where TPoint : IComparable<TPoint>
-            where TInterval : IOpenInterval<TPoint>, IEmptyInterval
+            where TInterval : IOpenInterval<TPoint>
         {
             return Covers<TPoint, TInterval>(right, left);
         }
@@ -81,10 +80,8 @@ namespace Mors.Intervals.Operations
             in TInterval left,
             in TInterval right)
             where TPoint : IComparable<TPoint>
-            where TInterval : IOpenInterval<TPoint>, IEmptyInterval
+            where TInterval : IOpenInterval<TPoint>
         {
-            if (left.Empty || right.Empty) return false;
-            
             var leftStartToRightEnd = left.Start.CompareTo(right.End);
             
             if (leftStartToRightEnd > 0) return false;
@@ -102,21 +99,9 @@ namespace Mors.Intervals.Operations
             in TInterval right,
             out TInterval result)
             where TPoint : IComparable<TPoint>
-            where TInterval : IOpenInterval<TPoint>, IEmptyInterval
+            where TInterval : IOpenInterval<TPoint>
             where TIntervals : struct, IOpenIntervals<TPoint, TInterval>
         {
-            if (left.Empty)
-            {
-                result = right;
-                return;
-            }
-
-            if (right.Empty)
-            {
-                result = left;
-                return;
-            }
-
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
             var leftEndToRightEnd = left.End.CompareTo(right.End);
             
@@ -140,20 +125,10 @@ namespace Mors.Intervals.Operations
             in TInterval right,
             out TIntervalUnion result)
             where TPoint : IComparable<TPoint>
-            where TInterval : IOpenInterval<TPoint>, IEmptyInterval
+            where TInterval : IOpenInterval<TPoint>
             where TIntervals : struct, IOpenIntervals<TPoint, TInterval>
             where TIntervalUnions : struct, IIntervalUnions<TInterval, TIntervalUnion>
         {
-            if (left.Empty)
-            {
-                result = default(TIntervalUnions).Empty();
-                return;
-            }
-            if (right.Empty)
-            {
-                result = default(TIntervalUnions).NonEmpty(left);
-                return;
-            }
             var leftStartToRightEnd = left.Start.CompareTo(right.End);
             if (leftStartToRightEnd > 0)
             {
@@ -276,25 +251,10 @@ namespace Mors.Intervals.Operations
             in TInterval right,
             out TIntervalUnion result)
             where TPoint : IComparable<TPoint>
-            where TInterval : IOpenInterval<TPoint>, IEmptyInterval
+            where TInterval : IOpenInterval<TPoint>
             where TIntervals : struct, IOpenIntervals<TPoint, TInterval>
             where TIntervalUnions : struct, IIntervalUnions<TInterval, TIntervalUnion>
         {
-            if (left.Empty && right.Empty)
-            {
-                result = default(TIntervalUnions).Empty();
-                return;
-            }
-            if (left.Empty)
-            {
-                result = default(TIntervalUnions).NonEmpty(right);
-                return;
-            }
-            if (right.Empty)
-            {
-                result = default(TIntervalUnions).NonEmpty(left);
-                return;
-            }
             var leftStartToRightEnd = left.Start.CompareTo(right.End);
             if (leftStartToRightEnd > 0
                 || (leftStartToRightEnd == 0 && left.OpenStart && right.OpenEnd))

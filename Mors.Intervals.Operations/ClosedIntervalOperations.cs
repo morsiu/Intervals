@@ -35,30 +35,31 @@ namespace Mors.Intervals.Operations
             in TInterval left,
             in TInterval right)
             where TPoint : IComparable<TPoint>
-            where TInterval : IClosedInterval<TPoint>, IEmptyInterval
+            where TInterval : IClosedInterval<TPoint>
         {
-            if (left.Empty || right.Empty) return false;
             if (left.Start.CompareTo(right.End) > 0) return false;
             if (left.End.CompareTo(right.Start) < 0) return false;
             return true;
         }
         
-        public static void Intersect<TPoint, TInterval, TIntervals>(
+        public static void Intersect<TPoint, TInterval, TIntervals, TMaybeInterval, TMaybeIntervals>(
             in TInterval left,
             in TInterval right,
             out TInterval result)
             where TPoint : IComparable<TPoint>
-            where TInterval : IClosedInterval<TPoint>, IEmptyInterval
-            where TIntervals : struct, IClosedIntervals<TPoint, TInterval>, IEmptyIntervals<TInterval>
+            where TInterval : IClosedInterval<TPoint>
+            where TIntervals : struct, IClosedIntervals<TPoint, TInterval>
+            where TMaybeInterval : IClosedInterval<TPoint>, IEmptyInterval
+            where TMaybeIntervals : struct, IClosedIntervals<TPoint, TInterval>, IEmptyIntervals<TInterval>
         {
             if (!IntersectsWith<TPoint, TInterval>(left, right))
             {
-                result = default(TIntervals).Empty();
+                result = default(TMaybeIntervals).Empty();
                 return;
             }
             var leftStartToRightStart = left.Start.CompareTo(right.Start);
             var leftEndToRightEnd = left.End.CompareTo(right.End);
-            result = default(TIntervals).Interval(
+            result = default(TMaybeIntervals).Interval(
                 leftStartToRightStart > 0 ? left.Start : right.Start,
                 leftEndToRightEnd < 0 ? left.End : right.End);
         }
@@ -103,20 +104,10 @@ namespace Mors.Intervals.Operations
             IPoints points,
             out TIntervalUnion result)
             where TPoint : IComparable<TPoint>
-            where TInterval : IClosedInterval<TPoint>, IEmptyInterval
+            where TInterval : IClosedInterval<TPoint>
             where TIntervals : struct, IClosedIntervals<TPoint, TInterval>
             where TIntervalUnions : struct, IIntervalUnions<TInterval, TIntervalUnion>
         {
-            if (left.Empty)
-            {
-                result = default(TIntervalUnions).Empty();
-                return;
-            }
-            if (right.Empty)
-            {
-                result = default(TIntervalUnions).NonEmpty(left);
-                return;
-            }
             var leftStartToRightEnd = left.Start.CompareTo(right.End);
             if (leftStartToRightEnd > 0)
             {
@@ -219,25 +210,10 @@ namespace Mors.Intervals.Operations
             in TInterval right,
             out TIntervalUnion result)
             where TPoint : IComparable<TPoint>
-            where TInterval : IClosedInterval<TPoint>, IEmptyInterval
+            where TInterval : IClosedInterval<TPoint>
             where TIntervals : struct, IClosedIntervals<TPoint, TInterval>
             where TIntervalUnions : struct, IIntervalUnions<TInterval, TIntervalUnion>
         {
-            if (left.Empty && right.Empty)
-            {
-                result = default(TIntervalUnions).Empty();
-                return;
-            }
-            if (left.Empty)
-            {
-                result = default(TIntervalUnions).NonEmpty(right);
-                return;
-            }
-            if (right.Empty)
-            {
-                result = default(TIntervalUnions).NonEmpty(left);
-                return;
-            }
             if (left.Start.CompareTo(right.End) > 0)
             {
                 result = default(TIntervalUnions).NonEmpty(right, left);
